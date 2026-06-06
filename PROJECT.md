@@ -241,7 +241,7 @@ Ana Ekran (Şehir / Çiftçi)
 - [x] Gizlilik politikası (uygulama içi + `docs/privacy-policy.html`)
 - [x] Splash optimizasyonu (~9 MB → ~630 KB)
 - [x] Ayarlar ekranı EN/TR l10n
-- [x] CI workflow (`.github/workflows/ci.yml`)
+- [ ] CI workflow (GitHub token `workflow` izni gerekir; Pages push sonrası eklenebilir)
 - [ ] Release AAB build (`flutter build appbundle --release`)
 - [ ] iOS TestFlight (`pod install` + `flutter build ipa`)
 - [ ] Kullanıcı testi (gerçek çiftçi/yaşlı ile)

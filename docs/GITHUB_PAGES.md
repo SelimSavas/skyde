@@ -44,9 +44,7 @@ GITHUB_USER=KULLANICI_ADINIZ ./scripts/publish_github_pages.sh
 
 Push sırasında GitHub kullanıcı adı + **Personal Access Token** (şifre yerine) istenir.
 
-Token izinleri (ikisi de gerekli):
-- `repo`
-- `workflow` (`.github/workflows/ci.yml` için)
+Token izni: **`repo`** yeterli (CI workflow repoda yok; ileride `workflow` izniyle eklenebilir).
 
 GitHub → Settings → Developer settings → Personal access tokens
 

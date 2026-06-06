@@ -47,4 +47,5 @@ app.*.map.json
 /android/*.jks
 /android/upload-keystore.jks
 /android/keystore-credentials.local.txt
+/scripts/github_pages.local
 assets/images/splash_logo_original.png
