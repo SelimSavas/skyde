@@ -6,13 +6,16 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 GIT=/usr/bin/git
 
-# Yerel ayar: scripts/github_pages.local (örnek: github_pages.local.example)
+# Komut satırı öncelikli; yoksa scripts/github_pages.local
+CLI_USER="${GITHUB_USER:-}"
 LOCAL_CFG="$ROOT/scripts/github_pages.local"
 if [[ -f "$LOCAL_CFG" ]]; then
   # shellcheck disable=SC1090
   source "$LOCAL_CFG"
 fi
-
+if [[ -n "$CLI_USER" ]]; then
+  GITHUB_USER="$CLI_USER"
+fi
 GITHUB_USER="${GITHUB_USER:-}"
 REPO_NAME="${REPO_NAME:-skyde}"
 BRANCH="${BRANCH:-main}"
@@ -66,12 +69,21 @@ else
 fi
 
 echo "→ Push: $REMOTE ($BRANCH)"
-if ! $GIT push -u origin "$BRANCH" 2>&1; then
+if ! PUSH_OUT="$($GIT push -u origin "$BRANCH" 2>&1)"; then
+  echo "$PUSH_OUT"
   echo ""
-  echo "Push reddedildi. Olası nedenler:"
-  echo "  • GitHub şifresi yerine Personal Access Token kullanın"
-  echo "    Settings → Developer settings → Tokens → repo izni"
-  echo "  • Repo sahibi siz değilsiniz veya private"
+  if echo "$PUSH_OUT" | grep -q 'workflow scope'; then
+    echo "Token'da 'workflow' izni eksik (.github/workflows/ci.yml için)."
+    echo "  GitHub → Settings → Developer settings → Personal access tokens"
+    echo "  Token'ı düzenleyin veya yenisini oluşturun:"
+    echo "    ✓ repo"
+    echo "    ✓ workflow"
+    echo "  Sonra tekrar: ./scripts/publish_github_pages.sh"
+  else
+    echo "Push reddedildi. Olası nedenler:"
+    echo "  • Personal Access Token: repo (+ workflow) izni"
+    echo "  • Repo sahibi siz değilsiniz veya private"
+  fi
   exit 1
 fi
 

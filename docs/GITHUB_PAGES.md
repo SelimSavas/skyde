@@ -43,7 +43,12 @@ GITHUB_USER=KULLANICI_ADINIZ ./scripts/publish_github_pages.sh
 ```
 
 Push sırasında GitHub kullanıcı adı + **Personal Access Token** (şifre yerine) istenir.
-Token: GitHub → Settings → Developer settings → Personal access tokens → `repo` izni.
+
+Token izinleri (ikisi de gerekli):
+- `repo`
+- `workflow` (`.github/workflows/ci.yml` için)
+
+GitHub → Settings → Developer settings → Personal access tokens
 
 ### 3. Pages'i aç
 
