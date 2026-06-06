@@ -16,27 +16,35 @@ REPO_NAME="${REPO_NAME:-skyde}"
 REMOTE="https://github.com/${GITHUB_USER}/${REPO_NAME}.git"
 BRANCH="${BRANCH:-main}"
 
+GIT=/usr/bin/git
+
 if [[ ! -d .git ]]; then
-  git init -b "$BRANCH"
+  $GIT init
+  $GIT checkout -b "$BRANCH" 2>/dev/null || $GIT branch -M "$BRANCH"
 fi
 
-if ! git rev-parse HEAD &>/dev/null; then
-  git add .
-  git commit -m "$(cat <<'EOF'
-Initial commit: Skyde app + GitHub Pages privacy policy.
-
-EOF
-)"
+if ! $GIT rev-parse HEAD &>/dev/null; then
+  $GIT add .
+  $GIT commit -m "Initial commit: Skyde app + GitHub Pages privacy policy"
 fi
 
-if git remote get-url origin &>/dev/null; then
-  git remote set-url origin "$REMOTE"
+if $GIT remote get-url origin &>/dev/null; then
+  $GIT remote set-url origin "$REMOTE"
 else
-  git remote add origin "$REMOTE"
+  $GIT remote add origin "$REMOTE"
 fi
 
 echo "→ Push: $REMOTE ($BRANCH)"
-git push -u origin "$BRANCH"
+if ! $GIT push -u origin "$BRANCH"; then
+  echo ""
+  echo "Push başarısız. Önce GitHub'da boş repo oluşturun:"
+  echo "  https://github.com/new"
+  echo "  Repository name: $REPO_NAME"
+  echo "  Public, README eklemeyin → Create repository"
+  echo ""
+  echo "Sonra tekrar: ./scripts/publish_github_pages.sh"
+  exit 1
+fi
 
 PAGES_URL="https://${GITHUB_USER}.github.io/${REPO_NAME}/privacy-policy.html"
 echo ""
