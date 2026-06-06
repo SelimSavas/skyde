@@ -14,7 +14,7 @@ flutter build appbundle --release
 **Mevcut build (Haziran 2026):** `app-release.aab` (~41 MB) upload keystore ile imzalandı.
 
 - Play Console → **Gizlilik politikası URL**:
-  `https://16savasselim.github.io/skyde/privacy-policy.html`
+  `https://selimsavas.github.io/skyde/privacy-policy.html`
   (GitHub Pages — `scripts/publish_github_pages.sh`)
 - **Veri güvenliği** formu: konum, bildirim token, yerel tercihler.
 - **İçerik derecelendirmesi** anketini doldurun.

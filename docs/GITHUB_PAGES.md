@@ -3,16 +3,23 @@
 ## Hedef URL
 
 ```
-https://16savasselim.github.io/skyde/privacy-policy.html
+https://KULLANICI_ADINIZ.github.io/skyde/privacy-policy.html
 ```
 
-Ana sayfa (aynı içerik):
+`KULLANICI_ADINIZ` = GitHub profil URL'nizdeki isim (`https://github.com/burasi`).
 
-```
-https://16savasselim.github.io/skyde/
-```
+> **Hesap:** `SelimSavas` — Pages URL'leri küçük harfle yayınlanır (`selimsavas.github.io`).
 
 ## Adımlar
+
+### 0. Kullanıcı adınızı bulun
+
+GitHub'a giriş yapın → profil → adres çubuğu: `github.com/KULLANICI_ADINIZ`
+
+```bash
+cp scripts/github_pages.local.example scripts/github_pages.local
+# github_pages.local → GITHUB_USER=gerçek_adınız
+```
 
 ### 1. GitHub'da repo oluştur
 
@@ -29,10 +36,10 @@ cd /home/slm/yagmurvarmi
 ./scripts/publish_github_pages.sh
 ```
 
-Farklı kullanıcı/repo için:
+veya:
 
 ```bash
-GITHUB_USER=KULLANICI REPO_NAME=skyde ./scripts/publish_github_pages.sh
+GITHUB_USER=KULLANICI_ADINIZ ./scripts/publish_github_pages.sh
 ```
 
 Push sırasında GitHub kullanıcı adı + **Personal Access Token** (şifre yerine) istenir.
@@ -40,7 +47,7 @@ Token: GitHub → Settings → Developer settings → Personal access tokens →
 
 ### 3. Pages'i aç
 
-1. https://github.com/16savasselim/skyde/settings/pages
+1. https://github.com/SelimSavas/skyde/settings/pages
 2. **Source:** Deploy from a branch
 3. **Branch:** `main` → Folder: **`/docs`**
 4. **Save**
@@ -51,6 +58,6 @@ Token: GitHub → Settings → Developer settings → Personal access tokens →
 
 **Policy → Privacy policy** alanına yapıştır:
 
-`https://16savasselim.github.io/skyde/privacy-policy.html`
+`https://selimsavas.github.io/skyde/privacy-policy.html`
 
 `lib/core/constants/app_urls.dart` içindeki URL ile aynıdır.
