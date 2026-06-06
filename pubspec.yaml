@@ -1,0 +1,81 @@
+name: yagmurvarmi
+description: "Skyde — günlük plan ve hava durumu asistanı."
+publish_to: 'none'
+version: 0.2.0+2
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # Hava Durumu API
+  http: ^1.2.1
+
+  # Konum
+  geolocator: ^12.0.0
+  geocoding: ^3.0.0
+
+  # Harita (konum seçimi)
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.1
+
+  # Yerel Depolama
+  shared_preferences: ^2.2.3
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # Bildirimler
+  flutter_local_notifications: ^17.2.2
+
+  # Firebase Push Bildirimleri (FCM - ücretsiz)
+  firebase_core: ^2.32.0
+  firebase_messaging: ^14.9.4
+
+  # Arka Plan Hava Kontrolü (uygulama kapalıyken bildirim)
+  workmanager: ^0.5.2
+  timezone: ^0.9.0
+
+  # Sesli Okuma (Erişilebilirlik)
+  flutter_tts: ^3.8.5
+
+  # State Yönetimi
+  provider: ^6.1.2
+
+  # Utilities
+  intl: ^0.18.1
+  url_launcher: ^6.2.0
+  share_plus: ^10.0.0
+
+  # UI / Font
+  google_fonts: ^6.1.0
+  flutter_lucide: ^1.2.0
+  package_info_plus: ^8.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.9
+  flutter_launcher_icons: ^0.14.3
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/images/logo.png
+  # Açılış gradient / splash arka planı ile aynı ton
+  adaptive_icon_background: "#E8F4FA"
+  adaptive_icon_foreground: assets/images/logo.png
+  remove_alpha_ios: true
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    - assets/images/
+    - assets/icons/

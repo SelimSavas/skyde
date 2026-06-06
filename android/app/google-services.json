@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "781105967681",
+    "project_id": "yagmurvarmi",
+    "storage_bucket": "yagmurvarmi.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781105967681:android:5e540c6d1086e7aaf60cc0",
+        "android_client_info": {
+          "package_name": "com.yagmurvarmi.yagmurvarmi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz8TSc3X3ZnbaKc52wD_pRnWexOlFkUCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

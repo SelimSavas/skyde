@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Skyde</string>
+    <string name="shortcut_home_short">Hava Durumu</string>
+    <string name="shortcut_home_long">Skyde — Ana sayfa</string>
+    <string name="shortcut_location_short">Konumum</string>
+    <string name="shortcut_location_long">Konumum — Hava durumu</string>
+</resources>

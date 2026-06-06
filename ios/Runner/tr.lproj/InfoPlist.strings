@@ -1,0 +1,3 @@
+/* Turkish app name on home screen & system UI */
+"CFBundleDisplayName" = "Skyde";
+"CFBundleName" = "Skyde";

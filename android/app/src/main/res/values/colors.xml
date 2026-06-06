@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#E8F4FA</color>
+    <!-- NormalTheme yedek; tercihen @drawable/launch_background kullanılıyor -->
+    <!-- Siyah flaş yerine ana gradyan üst tonu (native ↔ Flutter arası) -->
+    <color name="splash_background">#FF1A1A2E</color>
+</resources>

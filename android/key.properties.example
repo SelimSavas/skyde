@@ -1,0 +1,5 @@
+# Play Store upload keystore — bu dosyayı key.properties olarak kopyalayın (repoya eklemeyin).
+storePassword=YOUR_STORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=upload
+storeFile=/absolute/path/to/upload-keystore.jks
