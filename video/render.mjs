@@ -150,6 +150,10 @@ async function main() {
   const probe = await chromium.launch();
   const info = await (await openPage(probe, url)).evaluate(() => window.__info());
   await probe.close();
+  if (info.voice === 'stale') {
+    throw new Error(`voice.js seslendirme metniyle ya da zamanlamasıyla uyuşmuyor. Önce: node video/narrate.mjs ${opts.chapter}`);
+  }
+  if (info.voice === 'none') console.warn('Uyarı: seslendirme yok (voice.js bulunamadı); video yalnızca efekt ve müzikle dökülecek.');
 
   const from = Number(opts.from ?? 0);
   const to = Number(opts.to ?? info.duration);

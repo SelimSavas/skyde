@@ -85,6 +85,9 @@
       comp.connect(ctx.destination);
       this.bus = ctx.createGain();
       this.bus.connect(comp);
+      // Efektler ve müzik "bed" kanalında toplanır; seslendirme sırasında bu kanal kısılır.
+      this.bed = ctx.createGain();
+      this.bed.connect(this.bus);
 
       const conv = ctx.createConvolver();
       conv.normalize = true;
@@ -92,7 +95,7 @@
       const wet = ctx.createGain();
       wet.gain.value = 0.55;
       this.verb = ctx.createGain();
-      this.verb.connect(conv).connect(wet).connect(this.bus);
+      this.verb.connect(conv).connect(wet).connect(this.bed);
     }
 
     // Kaynağı kazanç/pan/yankı gönderisiyle ana kanala bağlar.
@@ -107,7 +110,7 @@
         g.connect(p);
         last = p;
       }
-      last.connect(this.bus);
+      last.connect(this.bed);
       if (wet > 0) {
         const s = this.ctx.createGain();
         s.gain.value = wet;
@@ -476,9 +479,45 @@
     }
   }
 
-  async function render(score, duration, sampleRate = 48000) {
+  // Seslendirme sırasında bed kanalını kısar; yakın satırlar arasında kanalı geri açmaz.
+  function duck(param, lines, level = 0.3, attack = 0.25, release = 0.6) {
+    const spans = [];
+    for (const l of lines) {
+      const a = l.at - attack;
+      const b = l.at + l.dur;
+      if (spans.length && a - spans[spans.length - 1][1] < attack + release + 0.3) spans[spans.length - 1][1] = b;
+      else spans.push([a, b]);
+    }
+    param.setValueAtTime(1, 0);
+    for (const [a, b] of spans) {
+      param.setValueAtTime(1, Math.max(0, a));
+      param.linearRampToValueAtTime(level, Math.max(0, a) + attack);
+      param.setValueAtTime(level, b);
+      param.linearRampToValueAtTime(1, b + release);
+    }
+  }
+
+  function base64ToBytes(b64) {
+    const bin = atob(b64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return bytes;
+  }
+
+  // voice: { audio: base64 (mp3), lines: [{ at, dur }], gain } — narrate.mjs'in ürettiği seslendirme izi
+  async function render(score, duration, sampleRate = 48000, voice = null) {
     const ctx = new OfflineAudioContext(2, Math.ceil(duration * sampleRate), sampleRate);
     const mix = new Mixer(ctx);
+    if (voice) {
+      const speech = await ctx.decodeAudioData(base64ToBytes(voice.audio).buffer);
+      const src = ctx.createBufferSource();
+      src.buffer = speech;
+      const g = ctx.createGain();
+      g.gain.value = voice.gain ?? 1;
+      src.connect(g).connect(mix.bus);
+      src.start(0);
+      duck(mix.bed.gain, voice.lines);
+    }
     // Notadaki çağrılar önce yalnızca kaydedilir; düğümler zamanı gelince kurulur.
     // Binlerce efektin düğümü baştan bağlansaydı her işleme adımında hepsi dolaşılırdı.
     const calls = [];

@@ -191,16 +191,96 @@
   }
 
   /*
-   * Film: sahneleri zaman çizelgesine yerleştirir.
-   * Her sahne { start, end, title, draw(ctx, yerelZaman, t) } biçimindedir.
-   * Sahne geçişleri arka plana kararak yapılır (fade through dark).
+   * Zaman çizelgesi: sahneleri { id, base, holds } listesinden uç uca dizer.
+   * base, sahnenin koreografi süresidir. holds = [[an, süre], ...] koreografiyi o anda
+   * dondurur: görüntü o karede bekler, gerçek süre uzar (ör. seslendirme bitene kadar).
+   * Sahne çizimleri koreografi zamanını, ses notası ise at()/span() ile gerçek zamanı kullanır.
+   */
+  function timeline(defs) {
+    let cursor = 0;
+    const scenes = defs.map((d) => {
+      const holds = (d.holds ?? []).filter((h) => h[1] > 0).sort((a, b) => a[0] - b[0]);
+      const s = { ...d, holds, start: cursor, end: cursor + d.base + holds.reduce((n, h) => n + h[1], 0) };
+      cursor = s.end;
+      return s;
+    });
+    const byId = Object.fromEntries(scenes.map((s) => [s.id, s]));
+    const scene = (id) => {
+      if (!byId[id]) throw new Error(`Bilinmeyen sahne: ${id}`);
+      return byId[id];
+    };
+    // gerçek yerel zaman → koreografi zamanı
+    const warp = (s, r) => {
+      for (const [f, e] of s.holds) {
+        if (r < f) break;
+        if (r < f + e) return f;
+        r -= e;
+      }
+      return Math.min(r, s.base);
+    };
+    // koreografi zamanı → mutlak gerçek zaman (o kareye ilk varış)
+    const at = (id, x) => {
+      const s = scene(id);
+      let r = x;
+      for (const [f, e] of s.holds) if (f < x) r += e;
+      return s.start + r;
+    };
+    const span = (id, a, b) => at(id, b) - at(id, a);
+    return { scenes, duration: cursor, scene, warp, at, span };
+  }
+
+  /*
+   * Seslendirme: her satır kendi vuruşunun (beat) başından itibaren sırayla okunur.
+   * beats = { id: [sahne, başlangıç, bitiş] } koreografi zamanında; lines = [{ id, beat, text, say, caption, offset }].
+   * voice (narrate.mjs'in ürettiği voice.js) varsa gerçek süreler ve konumlar ondan gelir; yoksa tahmin edilir.
+   */
+  function narration({ timeline: tl, beats, lines: raw, voice, cps = 14, gap = 0.35 }) {
+    const lines = raw.map((l) => ({ ...l, say: l.say ?? l.text, caption: l.caption !== false }));
+    const beatSpan = (id) => {
+      if (!beats[id]) throw new Error(`Bilinmeyen vuruş: ${id}`);
+      const [scene, a, b] = beats[id];
+      return { start: tl.at(scene, a), end: tl.at(scene, b), sceneEnd: tl.scene(scene).end };
+    };
+    // Ölçülen sürelerle satırları yerleştirir; vuruşun bittiği an (deadline) ve sahne sonunu da verir.
+    const place = (durations) => {
+      let cursor = -Infinity;
+      return lines.map((l, i) => {
+        const b = beatSpan(l.beat);
+        const at = Math.max(cursor + gap, b.start + (l.offset > 0 ? l.offset : 0));
+        cursor = at + durations[i];
+        return { ...l, at, dur: durations[i], deadline: b.end, sceneEnd: b.sceneEnd };
+      });
+    };
+    // voice.js yalnızca aynı metinle ve aynı zaman çizelgesiyle üretildiyse kullanılır:
+    // beklemeler, vuruşlar ya da offset'ler değişince yeniden yerleştirme farklı çıkar.
+    const matches = voice && voice.lines.length === lines.length && voice.lines.every((v, i) => v.id === lines[i].id && v.say === lines[i].say);
+    const fresh = Boolean(matches) && place(voice.lines.map((v) => v.dur)).every((p, i) => Math.abs(p.at - voice.lines[i].at) < 0.005);
+    if (voice && !fresh) console.warn('voice.js seslendirme metniyle ya da zamanlamasıyla uyuşmuyor; narrate.mjs ile yeniden üretin.');
+    const placed = fresh
+      ? place(voice.lines.map((v) => v.dur))
+      : place(lines.map((l) => l.say.length / cps));
+    // Alt yazılar: konuşma süresince ve biraz sonrasına dek; bir sonrakiyle çakışmadan, sahne geçişine taşmadan
+    const shown = placed.filter((l) => l.caption);
+    const captionList = shown.map((l, i) => {
+      const next = shown[i + 1] ? shown[i + 1].at - 0.1 : Infinity;
+      return [l.at - 0.1, Math.min(l.at + Math.max(l.dur + 0.5, 1.4), next, l.sceneEnd - 0.05), l.text];
+    });
+    return { lines, beats, place, placed, captions: captionList, fresh, stale: Boolean(voice) && !fresh, voice: fresh ? voice : null };
+  }
+
+  /*
+   * Film: zaman çizelgesindeki sahneleri çizer. Her sahne { id, title, draw(ctx, koreografiZamanı, t) } biçimindedir.
+   * Sahne geçişleri arka plana kararak yapılır (fade through dark); overlay (alt yazılar) en üstte çizilir.
    */
   function film(def) {
     const fade = def.fade ?? 0.45;
+    const tl = def.timeline;
     return {
       ...def,
+      scenes: tl.scenes,
+      duration: tl.duration,
       sceneAt(t) {
-        return def.scenes.find((s) => t >= s.start && t < s.end) ?? def.scenes[def.scenes.length - 1];
+        return tl.scenes.find((s) => t >= s.start && t < s.end) ?? tl.scenes[tl.scenes.length - 1];
       },
       draw(ctx, t) {
         ctx.save();
@@ -208,10 +288,10 @@
         ctx.globalAlpha = 1;
         ctx.globalCompositeOperation = 'source-over';
         def.background(ctx, t);
-        for (const s of def.scenes) {
+        for (const s of tl.scenes) {
           if (t < s.start || t >= s.end) continue;
           ctx.save();
-          s.draw(ctx, t - s.start, t);
+          s.draw(ctx, tl.warp(s, t - s.start), t);
           ctx.restore();
           const a = vis(t, s.start, s.end, s.fadeIn ?? fade, s.fadeOut ?? fade);
           if (a < 1) {
@@ -221,6 +301,11 @@
             ctx.restore();
           }
         }
+        if (def.overlay) {
+          ctx.save();
+          def.overlay(ctx, t);
+          ctx.restore();
+        }
         ctx.restore();
       },
     };
@@ -228,6 +313,6 @@
 
   root.Engine = {
     W, H, clamp, lerp, ease, progress, vis, hash, noise, rgba, FONTS, font,
-    text, measure, runs, wrap, paragraph, captions, glow, roundRect, film,
+    text, measure, runs, wrap, paragraph, captions, glow, roundRect, timeline, narration, film,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

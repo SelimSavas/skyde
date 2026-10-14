@@ -18,14 +18,15 @@
   if (params.has('kayit')) {
     document.body.classList.add('recording');
     let wav = null;
-    window.__info = () => ({ title: film.title, duration: film.duration, width: Engine.W, height: Engine.H });
+    const voice = film.narration ? (film.narration.voice ? 'ok' : film.narration.stale ? 'stale' : 'none') : 'none';
+    window.__info = () => ({ title: film.title, duration: film.duration, width: Engine.W, height: Engine.H, voice });
     window.__frame = (t, type = 'image/png', quality = 0.95) => {
       film.draw(ctx, t);
       return canvas.toDataURL(type, quality);
     };
     // Sesi bir kez sentezler; kaç parça halinde okunacağını döndürür.
     window.__audio = async (chunk) => {
-      wav = Synth.toWav(await Synth.render(film.score, film.duration));
+      wav = Synth.toWav(await Synth.render(film.score, film.duration, 48000, film.voice));
       return Math.ceil(wav.length / chunk);
     };
     window.__audioChunk = (i, chunk) => {
@@ -51,7 +52,7 @@
   let startedAt = 0;
   let lastDrawn = -1;
 
-  const audioReady = Synth.render(film.score, film.duration).then(
+  const audioReady = Synth.render(film.score, film.duration, 48000, film.voice).then(
     (b) => {
       buffer = b;
       ui.status.hidden = true;

@@ -31,8 +31,82 @@
   const COOL = [111, 128, 168];
   const DIGI = [124, 200, 255];
 
-  // Sahnelerin başlangıç saniyeleri
-  const T = { open: 0, fires: 8, two: 30, why: 49, lamps: 66, glossary: 91, letters: 100, turkish: 117, hex: 141, numbers: 153, close: 177, end: 180 };
+  // Sahneler ve koreografi süreleri (saniye). Gerçek süreler seslendirme beklemeleriyle uzayabilir.
+  const SCENES = [
+    { id: 'open', base: 8, title: 'Açılış', draw: sceneOpen, fadeIn: 0.6 },
+    { id: 'fires', base: 22, title: 'Tepeden tepeye ateş', draw: sceneFires },
+    { id: 'two', base: 19, title: 'Var ve yok', draw: sceneTwo },
+    { id: 'why', base: 17, title: 'Neden sadece iki?', draw: sceneWhy },
+    { id: 'lamps', base: 25, title: 'Yan yana dizmenin bereketi', draw: sceneLamps },
+    { id: 'glossary', base: 9, title: 'Sözlük kenarı', draw: sceneGlossary },
+    { id: 'letters', base: 17, title: 'Harf nasıl sayı olur?', draw: sceneLetters },
+    { id: 'turkish', base: 24, title: 'Türkçenin kayıp harfleri', draw: sceneTurkish },
+    { id: 'hex', base: 12, title: 'Sayıları on altılık yazmak', draw: sceneHex },
+    { id: 'numbers', base: 24, title: 'Her şey sayıya dönüşebilir mi?', draw: sceneNumbers },
+    { id: 'close', base: 3, title: 'Kapanış', draw: sceneClose, fadeOut: 1.4 },
+  ];
+
+  // Seslendirme vuruşları: [sahne, başlangıç, bitiş, donma anı] (koreografi zamanı).
+  // Donma anı, anlatıcı için beklenecekse görüntünün bekleyeceği karedir: öğeler (ve sahne etiketi)
+  // tam görünürken, vuruş bitmeden önce; böylece bekleme vuruşun süresine sayılır.
+  const BEATS = {
+    'open.title': ['open', 3.3, 7.6, 7.0],
+    'fires.one': ['fires', 0.4, 4.7],
+    'fires.relay': ['fires', 4.9, 10.8],
+    'fires.race': ['fires', 11.0, 16.0],
+    'fires.question': ['fires', 16.6, 19.4],
+    'fires.answer': ['fires', 19.5, 22.0, 21.4],
+    'two.split': ['two', 0.3, 5.0, 4.8],
+    'two.weather': ['two', 5.1, 10.7],
+    'two.quote': ['two', 11.2, 15.0, 14.9],
+    'two.icons': ['two', 15.2, 19.0, 18.3],
+    'why.analog': ['why', 0.3, 6.0],
+    'why.digital': ['why', 6.2, 11.4],
+    'why.bit': ['why', 11.9, 17.0, 16.15],
+    'lamps.one': ['lamps', 0.3, 3.8, 3.45],
+    'lamps.two': ['lamps', 3.8, 7.6, 7.25],
+    'lamps.three_four': ['lamps', 7.6, 14.6, 14.05],
+    'lamps.table': ['lamps', 14.6, 19.9, 19.35],
+    'lamps.byte': ['lamps', 19.9, 25.0, 24.15],
+    'glossary.rows': ['glossary', 0.3, 4.7, 4.6],
+    'glossary.compare': ['glossary', 4.8, 9.0, 8.5],
+    'letters.question': ['letters', 0.2, 1.6, 1.55],
+    'letters.answer': ['letters', 1.6, 4.0, 3.5],
+    'letters.encoding': ['letters', 4.1, 8.0, 7.5],
+    'letters.merhaba': ['letters', 8.1, 13.7, 13.2],
+    'letters.fonts': ['letters', 13.8, 17.0, 16.15],
+    'turkish.grid': ['turkish', 0.2, 3.7, 3.65],
+    'turkish.letters': ['turkish', 3.8, 7.2, 6.8],
+    'turkish.mojibake': ['turkish', 7.3, 11.0, 10.98],
+    'turkish.agreement': ['turkish', 11.1, 14.8, 14.3],
+    'turkish.unicode': ['turkish', 14.9, 19.6, 19.1],
+    'turkish.master': ['turkish', 19.7, 24.0, 23.15],
+    'hex.blur': ['hex', 0.2, 2.8, 2.25],
+    'hex.split': ['hex', 2.8, 5.7, 5.2],
+    'hex.colors': ['hex', 5.8, 8.8, 8.75],
+    'hex.phone': ['hex', 8.8, 12.0, 11.15],
+    'numbers.photo': ['numbers', 0.2, 5.6, 5.1],
+    'numbers.sound': ['numbers', 5.7, 8.2],
+    'numbers.video': ['numbers', 8.2, 10.6],
+    'numbers.sensors': ['numbers', 10.7, 14.6, 14.1],
+    'numbers.statement': ['numbers', 14.7, 18.6, 17.75],
+    'numbers.watched': ['numbers', 18.7, 20.9, 20.4],
+    'numbers.power': ['numbers', 20.8, 24.0, 23.5],
+    'close.end': ['close', 0.3, 3.0, 2.0],
+  };
+
+  // narration.js: seslendirme metni ve gereken beklemeler; voice.js: narrate.mjs'in ürettiği ses
+  const SCRIPT = window.NARRATION ?? { holds: {}, lines: [] };
+  const sceneHolds = (id) => Object.entries(SCRIPT.holds)
+    .filter(([beat]) => BEATS[beat][0] === id)
+    .map(([beat, sec]) => {
+      const [, start, end, freeze] = BEATS[beat];
+      if (freeze == null) throw new Error(`${beat} vuruşunda görüntü bekletilemez`);
+      if (!(freeze > start && freeze < end)) throw new Error(`${beat}: donma anı vuruşun içinde olmalı`);
+      return [freeze, sec];
+    });
+  const TL = E.timeline(SCENES.map((s) => ({ ...s, holds: sceneHolds(s.id) })));
+  const VOICE = E.narration({ timeline: TL, beats: BEATS, lines: SCRIPT.lines, voice: window.VOICE });
 
   // ---------------------------------------------------------------------------
   // Ortak çizimler
@@ -581,12 +655,6 @@
       ctx.restore();
     }
 
-    captions(ctx, lt, [
-      [0.4, 4.7, 'Dağın tepesinde bir ateş yanıyor.'],
-      [4.9, 10.8, 'Karşı tepedeki nöbetçi ateşi görür görmez kendi ateşini yakar; ondan ötekisi, ondan berikisi.'],
-      [11.0, 16.0, 'Böylece bir haber, atlının günlerce süren yolculuğunu saatlere indirir.'],
-    ]);
-
     const dark = progress(lt, 16.0, 17.2);
     if (dark > 0) {
       ctx.fillStyle = `rgba(3,5,10,${0.5 * dark})`;
@@ -723,12 +791,6 @@
         text(ctx, label, x, 770, { size: 28, color: C.muted, alpha: a });
       });
     }
-
-    captions(ctx, lt, [
-      [0.3, 4.9, 'Ateşin rengi, boyu, dumanının biçimi önemli değildi. Göz yalnızca iki durumu ayırt ediyordu: var ve yok.'],
-      [5.1, 10.7, 'Yağmurda, siste, alacakaranlıkta “yarı yanan” bir ateşte yanılırsınız; ama yananla sönmüşü yorgun bir nöbetçi bile ayırır.'],
-      [15.1, 18.8, 'Telefonunuzun, televizyonunuzun, banka hesabınızın ve bu kitabın temeli bu tek cümledir.'],
-    ]);
   }
 
   // ---------------------------------------------------------------------------
@@ -889,12 +951,6 @@
         [b, { size: 44, weight: 700, color: C.off }],
       ], W / 2, 845, { alpha: vis(lt, 14.2, 17, 0.4, 0.4) * fa });
     }
-
-    captions(ctx, lt, [
-      [0.3, 6.0, 'Bir devreden geçen akımı ölçün: değer sürekli oynar. “Şu an tam 3,74 volt” demek zordur; bir saniye sonra yanlış olur.'],
-      [6.3, 11.2, 'Ama şunu sormak çok kolaydır: Akım var mı, yok mu?'],
-      [14.6, 16.8, 'Tek bir bit çok az şey anlatır: bir lamba düğmesi kadar.'],
-    ]);
   }
 
   // ---------------------------------------------------------------------------
@@ -1047,14 +1103,6 @@
         text(ctx, cur[0], W / 2, 672, { size: 120, family: 'display', weight: 800, color: C.cream, alpha: byteA });
       }
     }
-
-    captions(ctx, lt, [
-      [0.4, 3.6, 'Tek bir lamba: açık ya da kapalı. İki durum.'],
-      [3.9, 7.4, 'İki lamba: kapalı-kapalı, kapalı-açık, açık-kapalı, açık-açık. Dört durum.'],
-      [7.7, 14.3, 'Üç lamba sekiz, dört lamba on altı durum. Her yeni lamba olasılıkları ikiye katlar.'],
-      [14.8, 19.6, 'Bu tabloya bir dakika bakın: insan sezgisinin en çok yanıldığı yerlerden biri burası.'],
-      [20.3, 24.7, 'Sekiz lamba 256 durum anlatır: harflere, rakamlara, noktalama işaretlerine yeter. Bu öbeğin adı bayttır; bir bayt kabaca bir harftir.'],
-    ]);
   }
 
   // ---------------------------------------------------------------------------
@@ -1219,12 +1267,6 @@
       });
       text(ctx, '65', W / 2, 720, { size: 120, family: 'mono', weight: 700, color: C.digital, alpha: cD * progress(lt, 14.8, 15.3) });
     }
-
-    captions(ctx, lt, [
-      [4.1, 7.9, 'İnsanlar bir anlaşma yaptı: her harfe bir numara verelim, herkes aynı numarayı kullansın.'],
-      [8.2, 13.5, 'Bellekte “MERHABA” yazmaz; sayılar yazar. O sayılar da aslında elektriğin var-yok dizilişidir.'],
-      [13.9, 16.9, 'Harfin neye benzediğini yazı tipi çizer. Makine yalnızca onun kaç numara olduğunu bilir.'],
-    ]);
   }
 
   // ---------------------------------------------------------------------------
@@ -1404,14 +1446,6 @@
       });
       ctx.restore();
     }
-
-    captions(ctx, lt, [
-      [0.3, 3.6, 'Bu anlaşma kurulurken masadakiler İngilizce konuşuyordu: 26 harf için 128 yer ayrıldı. Sığdı, arttı bile.'],
-      [3.8, 7.1, 'Sonra dünyanın geri kalanı geldi. Türkçenin ç, ğ, ı, İ, ö, ş, ü harfleri o listede yoktu.'],
-      [7.4, 11.0, 'Herkes boş kalan yerlere kendi harflerini yerleştirdi; ama herkes farklı yere.'],
-      [11.2, 14.6, 'Kimse art niyetli değildi: iki taraf yalnızca farklı sözlüğe bakıyordu. Aynı sayıya iki farklı harf.'],
-      [14.9, 19.4, 'Çözüm, dünyanın bütün yazı dizgelerini tek bir dev listede toplamakla geldi: Unicode.'],
-    ]);
   }
 
   // ---------------------------------------------------------------------------
@@ -1520,13 +1554,6 @@
         }
       }
     }
-
-    captions(ctx, lt, [
-      [0.3, 2.6, 'Uzun bit dizilerini insan gözüyle okumak işkencedir.'],
-      [2.8, 5.5, 'Onaltılık düzen dört biti tek simgeyle yazar: 11010110 yerine kısaca D6.'],
-      [5.9, 8.7, 'Web sayfalarındaki renkler böyle yazılır: kırmızı sonuna kadar açık, yeşil ve mavi kapalı.'],
-      [8.9, 11.8, 'Yeni bir bilgi değil; aynı bilginin göze kolay gelen kılığı. Tıpkı bir telefon numarasını bölerek yazmak gibi.'],
-    ]);
   }
 
   // ---------------------------------------------------------------------------
@@ -1824,13 +1851,6 @@
       ctx.restore();
       text(ctx, 'Ve her güç gibi, kimin elinde olduğu sorusunu doğurur.', W / 2, 620, { size: 48, family: 'serif', italic: true, color: C.cream, alpha: fA * progress(lt, 21.5, 22.1) });
     }
-
-    captions(ctx, lt, [
-      [0.3, 5.4, 'Bir fotoğraf sık dokunmuş bir kumaş gibidir: minicik kareler, pikseller. Her pikselin üç sayısı vardır: kırmızı, yeşil, mavi.'],
-      [5.7, 8.2, 'Ses, havadaki basınç dalgasıdır: saniyede on binlerce kez ölçülür, her ölçüm bir sayıdır.'],
-      [8.3, 10.5, 'Video ise saniyede yirmi beş kez arka arkaya gösterilen fotoğraflardır; yanına sesin sayıları eklenir.'],
-      [10.7, 14.4, 'Sıcaklık, nem, mesafe, kalp atışı: hepsi bir sensörün ölçüp sayıya çevirdiği değerlerdir.'],
-    ]);
   }
 
   // ---------------------------------------------------------------------------
@@ -1867,6 +1887,9 @@
   // ---------------------------------------------------------------------------
 
   function score(m, hz) {
+    const { at, span } = TL;
+    // Sahneyi kapatan sürekli sesler: sahnenin gerçek sonundan `margin` önce biter (beklemeler dahil)
+    const untilEnd = (id, a, margin) => TL.scene(id).end - margin - at(id, a);
     // 0 · Açılış
     m.pad(0, 6.5, ['D2', 'A2', 'D3'], { gain: 0.32, attack: 3, release: 2.5, cutoff: 600 });
     BLINKS.forEach((b, i) => {
@@ -1880,187 +1903,178 @@
     m.bell(4.4, { freq: hz('F5'), gain: 0.08 });
 
     // 1 · Ateşler
-    m.wind(T.fires - 1, 23.5, { gain: 0.28 });
-    m.pad(T.fires, 20.5, ['D3', 'A3', 'E4', 'F4'], { gain: 0.32 });
+    m.wind(at('fires', -1), span('fires', -1, 22.5), { gain: 0.28 });
+    m.pad(at('fires', 0), span('fires', 0, 20.5), ['D3', 'A3', 'E4', 'F4'], { gain: 0.32 });
     IGNITE.forEach((d, i) => {
-      const t = T.fires + d;
+      const t = at('fires', d);
       const pan = lerp(-0.7, 0.7, i / 5);
       if (i > 0) m.whoosh(t - 0.55, { dur: 0.55, from: 900, to: 3200, gain: 0.07, panFrom: lerp(-0.7, 0.7, (i - 1) / 5), panTo: pan, q: 2 });
       m.fireIgnite(t, { gain: i === 0 ? 0.55 : 0.32, pan: i === 0 ? -0.2 : pan });
-      m.crackle(t, T.two - t, { gain: i === 0 ? 0.32 : 0.16, pan: i === 0 ? -0.2 : pan, density: 18, roar: i === 0 ? 0.6 : 0.3 });
+      m.crackle(t, at('two', 0) - t, { gain: i === 0 ? 0.32 : 0.16, pan: i === 0 ? -0.2 : pan, density: 18, roar: i === 0 ? 0.6 : 0.3 });
     });
-    ['D5', 'E5', 'F5', 'A5', 'C6', 'D6'].forEach((n, k) => m.blip(T.fires + 11.4 + k * 0.24, { freq: hz(n), dur: 0.1, type: 'triangle', gain: 0.08, pan: lerp(-0.6, 0.6, k / 5) }));
-    for (let s = 11.4; s < 16.1; s += 0.55) m.hoof(T.fires + s, { gain: 0.14, pan: -0.25 });
-    m.boom(T.fires + 16.6, { gain: 0.3, freq: 55 });
-    m.bell(T.fires + 19.5, { freq: hz('F5'), gain: 0.2, decay: 3 });
-    m.bell(T.fires + 19.5, { freq: hz('A5'), gain: 0.12, decay: 3 });
-    m.bell(T.fires + 19.52, { freq: hz('D6'), gain: 0.07 });
+    ['D5', 'E5', 'F5', 'A5', 'C6', 'D6'].forEach((n, k) => m.blip(at('fires', 11.4 + k * 0.24), { freq: hz(n), dur: 0.1, type: 'triangle', gain: 0.08, pan: lerp(-0.6, 0.6, k / 5) }));
+    for (let s = 11.4; s < 16.1; s += 0.55) m.hoof(at('fires', s), { gain: 0.14, pan: -0.25 });
+    m.boom(at('fires', 16.6), { gain: 0.3, freq: 55 });
+    m.bell(at('fires', 19.5), { freq: hz('F5'), gain: 0.2, decay: 3 });
+    m.bell(at('fires', 19.5), { freq: hz('A5'), gain: 0.12, decay: 3 });
+    m.bell(at('fires', 19.52), { freq: hz('D6'), gain: 0.07 });
 
     // 2 · İki durum
-    m.crackle(T.two, 11.2, { gain: 0.2, pan: -0.35, roar: 0.5 });
-    m.crackle(T.two + 5.4, 5.8, { gain: 0.12, pan: 0.35, density: 12, roar: 0.4 });
-    m.pad(T.two, 10.6, ['Bb2', 'F3', 'A3', 'D4'], { gain: 0.3 });
-    m.pad(T.two + 10.8, 7.2, ['F2', 'C3', 'A3', 'C4', 'E4'], { gain: 0.3, attack: 1.5 });
-    m.rain(T.two + 4.8, 6.8, { gain: 0.3 });
-    m.wind(T.two + 4.8, 6.8, { gain: 0.12 });
-    for (let s = 5.6; s < 10.6; s += 0.33) m.tick(T.two + s, { gain: 0.05, pan: 0.45 });
-    m.boom(T.two + 11.3, { gain: 0.3 });
-    m.bell(T.two + 11.3, { freq: hz('C5'), gain: 0.2, decay: 3.5 });
-    m.bell(T.two + 11.32, { freq: hz('G5'), gain: 0.1, decay: 3 });
-    m.whoosh(T.two + 12.2, { dur: 1.0, from: 2000, to: 6000, gain: 0.05 });
-    ['C5', 'E5', 'G5', 'C6'].forEach((n, i) => m.pop(T.two + 15.2 + i * 0.25, { freq: hz(n), gain: 0.12, pan: lerp(-0.4, 0.4, i / 3) }));
+    m.crackle(at('two', 0), span('two', 0, 11.2), { gain: 0.2, pan: -0.35, roar: 0.5 });
+    m.crackle(at('two', 5.4), span('two', 5.4, 11.2), { gain: 0.12, pan: 0.35, density: 12, roar: 0.4 });
+    m.pad(at('two', 0), span('two', 0, 10.6), ['Bb2', 'F3', 'A3', 'D4'], { gain: 0.3 });
+    m.pad(at('two', 10.8), untilEnd('two', 10.8, 1), ['F2', 'C3', 'A3', 'C4', 'E4'], { gain: 0.3, attack: 1.5 });
+    m.rain(at('two', 4.8), span('two', 4.8, 11.6), { gain: 0.3 });
+    m.wind(at('two', 4.8), span('two', 4.8, 11.6), { gain: 0.12 });
+    for (let s = 5.6; s < 10.6; s += 0.33) m.tick(at('two', s), { gain: 0.05, pan: 0.45 });
+    m.boom(at('two', 11.3), { gain: 0.3 });
+    m.bell(at('two', 11.3), { freq: hz('C5'), gain: 0.2, decay: 3.5 });
+    m.bell(at('two', 11.32), { freq: hz('G5'), gain: 0.1, decay: 3 });
+    m.whoosh(at('two', 12.2), { dur: 1.0, from: 2000, to: 6000, gain: 0.05 });
+    ['C5', 'E5', 'G5', 'C6'].forEach((n, i) => m.pop(at('two', 15.2 + i * 0.25), { freq: hz(n), gain: 0.12, pan: lerp(-0.4, 0.4, i / 3) }));
 
     // 3 · Neden iki?
-    m.hum(T.why, 6.4, { gain: 0.09 });
-    m.staticNoise(T.why, 6.4, { gain: 0.05 });
-    m.pad(T.why, 11, ['C3', 'G3', 'D4'], { gain: 0.24, cutoff: 700 });
-    m.pad(T.why + 11.6, 4.8, ['F3', 'A3', 'C4', 'E4'], { gain: 0.26 });
-    for (let s = 0.3; s < 6.0; s += 0.24) m.tick(T.why + s, { gain: 0.03, pan: 0.6 });
-    [1.4, 2.2, 3.0].forEach((s, i) => m.pop(T.why + s, { freq: 500 + i * 100, gain: 0.1, pan: (i - 1) * 0.4 }));
-    m.whoosh(T.why + 5.9, { dur: 0.5, from: 300, to: 4000, gain: 0.14 });
-    m.blip(T.why + 6.2, { freq: 220, dur: 0.3, slide: 4, type: 'sawtooth', gain: 0.08 });
+    m.hum(at('why', 0), span('why', 0, 6.4), { gain: 0.09 });
+    m.staticNoise(at('why', 0), span('why', 0, 6.4), { gain: 0.05 });
+    m.pad(at('why', 0), span('why', 0, 11), ['C3', 'G3', 'D4'], { gain: 0.24, cutoff: 700 });
+    m.pad(at('why', 11.6), untilEnd('why', 11.6, 0.6), ['F3', 'A3', 'C4', 'E4'], { gain: 0.26 });
+    for (let s = 0.3; s < 6.0; s += 0.24) m.tick(at('why', s), { gain: 0.03, pan: 0.6 });
+    [1.4, 2.2, 3.0].forEach((s, i) => m.pop(at('why', s), { freq: 500 + i * 100, gain: 0.1, pan: (i - 1) * 0.4 }));
+    m.whoosh(at('why', 5.9), { dur: 0.5, from: 300, to: 4000, gain: 0.14 });
+    m.blip(at('why', 6.2), { freq: 220, dur: 0.3, slide: 4, type: 'sawtooth', gain: 0.08 });
     for (let j = 0; j < 16; j++) {
       const k = FIRST_BIT + j;
-      m.blip(T.why + bitReadAt(k), { freq: bitAt(k) ? 880 : 440, dur: 0.07, type: 'square', gain: 0.06, pan: lerp(-0.6, 0.6, j / 15) });
+      m.blip(at('why', bitReadAt(k)), { freq: bitAt(k) ? 880 : 440, dur: 0.07, type: 'square', gain: 0.06, pan: lerp(-0.6, 0.6, j / 15) });
     }
-    m.click(T.why + 11.9, { gain: 0.15 });
-    m.bell(T.why + 11.9, { freq: hz('A5'), gain: 0.12 });
-    m.click(T.why + 12.2, { gain: 0.15 });
-    m.bell(T.why + 12.2, { freq: hz('A4'), gain: 0.12 });
-    m.boom(T.why + 12.9, { gain: 0.35 });
-    m.bell(T.why + 12.9, { freq: hz('F5'), gain: 0.16, decay: 3 });
-    for (let i = 0; i < 4; i++) m.tick(T.why + 14.2 + i * 0.7, { gain: 0.08, tone: 3000 });
+    m.click(at('why', 11.9), { gain: 0.15 });
+    m.bell(at('why', 11.9), { freq: hz('A5'), gain: 0.12 });
+    m.click(at('why', 12.2), { gain: 0.15 });
+    m.bell(at('why', 12.2), { freq: hz('A4'), gain: 0.12 });
+    m.boom(at('why', 12.9), { gain: 0.35 });
+    m.bell(at('why', 12.9), { freq: hz('F5'), gain: 0.16, decay: 3 });
+    for (let i = 0; i < 4; i++) m.tick(at('why', 14.2 + i * 0.7), { gain: 0.08, tone: 3000 });
 
     // 4 · Lambalar
-    m.pad(T.lamps, 14.2, ['F2', 'C3', 'A3', 'E4'], { gain: 0.26 });
-    m.pad(T.lamps + 14.6, 5, ['C3', 'G3', 'E4', 'B4'], { gain: 0.24 });
-    m.pad(T.lamps + 19.8, 4.6, ['D3', 'A3', 'F4', 'C5'], { gain: 0.26 });
+    m.pad(at('lamps', 0), span('lamps', 0, 14.2), ['F2', 'C3', 'A3', 'E4'], { gain: 0.26 });
+    m.pad(at('lamps', 14.6), span('lamps', 14.6, 19.6), ['C3', 'G3', 'E4', 'B4'], { gain: 0.24 });
+    m.pad(at('lamps', 19.8), untilEnd('lamps', 19.8, 0.6), ['D3', 'A3', 'F4', 'C5'], { gain: 0.26 });
     STAGES.forEach((st, si) => {
-      m.blip(T.lamps + st.at, { freq: 220 * 2 ** si, dur: 0.6, type: 'triangle', gain: 0.12, wet: 0.4 });
-      for (let c = 0; c < 2 ** st.n; c++) m.click(T.lamps + comboTime(st, c), { gain: 0.1, tone: 3000 + c * 80 });
+      m.blip(at('lamps', st.at), { freq: 220 * 2 ** si, dur: 0.6, type: 'triangle', gain: 0.12, wet: 0.4 });
+      for (let c = 0; c < 2 ** st.n; c++) m.click(at('lamps', comboTime(st, c)), { gain: 0.1, tone: 3000 + c * 80 });
     });
     ['C5', 'D5', 'E5', 'G5', 'A5', 'C6', 'D6'].forEach((n, i) => {
-      for (let k = 0; k < 3; k++) m.tick(T.lamps + rowTime(i) + k * 0.12, { gain: 0.05 });
-      m.bell(T.lamps + rowTime(i) + 0.4, { freq: hz(n), gain: 0.1, decay: 1.6 });
+      for (let k = 0; k < 3; k++) m.tick(at('lamps', rowTime(i) + k * 0.12), { gain: 0.05 });
+      m.bell(at('lamps', rowTime(i) + 0.4), { freq: hz(n), gain: 0.1, decay: 1.6 });
     });
-    m.boom(T.lamps + 20.2, { gain: 0.35 });
-    m.bell(T.lamps + 20.2, { freq: hz('D5'), gain: 0.15, decay: 3 });
+    m.boom(at('lamps', 20.2), { gain: 0.35 });
+    m.bell(at('lamps', 20.2), { freq: hz('D5'), gain: 0.15, decay: 3 });
     ['D5', 'F5', 'A5', 'C6', 'D6', 'A5', 'F5', 'E5', 'D5', 'A4'].forEach((n, i) => {
-      m.click(T.lamps + charTime(i), { gain: 0.1 });
-      m.blip(T.lamps + charTime(i), { freq: hz(n), dur: 0.15, type: 'triangle', gain: 0.06 });
+      m.click(at('lamps', charTime(i)), { gain: 0.1 });
+      m.blip(at('lamps', charTime(i)), { freq: hz(n), dur: 0.15, type: 'triangle', gain: 0.06 });
     });
 
     // 5 · Sözlük kenarı
-    m.pad(T.glossary, 8, ['Bb2', 'F3', 'D4'], { gain: 0.24 });
-    m.whoosh(T.glossary + 0.05, { dur: 0.6, from: 400, to: 1500, gain: 0.12, q: 0.6 });
-    UNITS.forEach((_, i) => m.typeKey(T.glossary + unitTime(i), { gain: 0.12 }));
-    m.pop(T.glossary + 4.85, { freq: 900, gain: 0.08 });
-    m.pop(T.glossary + 5.25, { freq: 300, gain: 0.16 });
+    m.pad(at('glossary', 0), untilEnd('glossary', 0, 1), ['Bb2', 'F3', 'D4'], { gain: 0.24 });
+    m.whoosh(at('glossary', 0.05), { dur: 0.6, from: 400, to: 1500, gain: 0.12, q: 0.6 });
+    UNITS.forEach((_, i) => m.typeKey(at('glossary', unitTime(i)), { gain: 0.12 }));
+    m.pop(at('glossary', 4.85), { freq: 900, gain: 0.08 });
+    m.pop(at('glossary', 5.25), { freq: 300, gain: 0.16 });
 
     // 6 · Harfler
-    m.pad(T.letters, 7.6, ['D3', 'F3', 'A3'], { gain: 0.24 });
-    m.pad(T.letters + 8, 5.4, ['G2', 'D3', 'Bb3', 'F4'], { gain: 0.24 });
-    m.pad(T.letters + 13.6, 2.6, ['A2', 'E3', 'A3', 'C4'], { gain: 0.24, attack: 1.2, release: 1.8 });
-    m.glitch(T.letters + 1.6, 0.6, { gain: 0.12 });
-    m.blip(T.letters + 2.0, { freq: 300, dur: 0.5, slide: 4, gain: 0.08, type: 'triangle' });
-    m.bell(T.letters + 2.4, { freq: hz('E5'), gain: 0.16, decay: 2.5 });
+    m.pad(at('letters', 0), span('letters', 0, 7.6), ['D3', 'F3', 'A3'], { gain: 0.24 });
+    m.pad(at('letters', 8), span('letters', 8, 13.4), ['G2', 'D3', 'Bb3', 'F4'], { gain: 0.24 });
+    m.pad(at('letters', 13.6), untilEnd('letters', 13.6, 0.8), ['A2', 'E3', 'A3', 'C4'], { gain: 0.24, attack: 1.2, release: 1.8 });
+    m.glitch(at('letters', 1.6), span('letters', 1.6, 2.2), { gain: 0.12 });
+    m.blip(at('letters', 2.0), { freq: 300, dur: 0.5, slide: 4, gain: 0.08, type: 'triangle' });
+    m.bell(at('letters', 2.4), { freq: hz('E5'), gain: 0.16, decay: 2.5 });
     ['A4', 'B4', 'C5', 'E5'].forEach((n, i) => {
-      m.click(T.letters + 4.4 + i * 0.3, { gain: 0.1 });
-      m.blip(T.letters + 4.4 + i * 0.3, { freq: hz(n), dur: 0.12, gain: 0.06 });
+      m.click(at('letters', 4.4 + i * 0.3), { gain: 0.1 });
+      m.blip(at('letters', 4.4 + i * 0.3), { freq: hz(n), dur: 0.12, gain: 0.06 });
     });
-    for (let i = 0; i < 7; i++) m.typeKey(T.letters + 8.3 + i * 0.2, { gain: 0.22, pan: (i - 3) * 0.12 });
-    m.bell(T.letters + 9.75, { freq: 2400, gain: 0.07, decay: 1.2, wet: 0.2 });
-    for (let i = 0; i < 7; i++) m.whoosh(T.letters + 9.9 + i * 0.12, { dur: 0.14, from: 2000, to: 5000, gain: 0.05, panFrom: (i - 3) * 0.12, panTo: (i - 3) * 0.12 });
+    for (let i = 0; i < 7; i++) m.typeKey(at('letters', 8.3 + i * 0.2), { gain: 0.22, pan: (i - 3) * 0.12 });
+    m.bell(at('letters', 9.75), { freq: 2400, gain: 0.07, decay: 1.2, wet: 0.2 });
+    for (let i = 0; i < 7; i++) m.whoosh(at('letters', 9.9 + i * 0.12), { dur: 0.14, from: 2000, to: 5000, gain: 0.05, panFrom: (i - 3) * 0.12, panTo: (i - 3) * 0.12 });
     CODES.forEach((code, i) => {
       const bits = code.toString(2).padStart(8, '0');
       for (let j = 0; j < 8; j++) {
-        m.blip(T.letters + 11.3 + i * 0.18 + j * 0.022, { freq: bits[j] === '1' ? 1320 : 660, dur: 0.03, type: 'square', gain: 0.025, pan: (i - 3) * 0.12, wet: 0.05 });
+        m.blip(at('letters', 11.3 + i * 0.18 + j * 0.022), { freq: bits[j] === '1' ? 1320 : 660, dur: 0.03, type: 'square', gain: 0.025, pan: (i - 3) * 0.12, wet: 0.05 });
       }
     });
-    ['C5', 'E5', 'G5'].forEach((n, i) => m.bell(T.letters + 13.9 + i * 0.25, { freq: hz(n), gain: 0.1, decay: 1.5 }));
-    m.bell(T.letters + 14.8, { freq: hz('C6'), gain: 0.1, decay: 2 });
+    ['C5', 'E5', 'G5'].forEach((n, i) => m.bell(at('letters', 13.9 + i * 0.25), { freq: hz(n), gain: 0.1, decay: 1.5 }));
+    m.bell(at('letters', 14.8), { freq: hz('C6'), gain: 0.1, decay: 2 });
 
     // 7 · Türkçe
-    m.pad(T.turkish, 7.2, ['C3', 'G3', 'E4'], { gain: 0.22 });
-    m.pad(T.turkish + 7.2, 7.6, ['Ab2', 'Eb3', 'C4'], { gain: 0.24, cutoff: 700 });
-    m.pad(T.turkish + 14.8, 4.8, ['F2', 'C3', 'A3', 'E4', 'G4'], { gain: 0.3, attack: 0.8, cutoff: 1300 });
-    m.pad(T.turkish + 19.6, 3.6, ['Bb2', 'F3', 'D4', 'A4'], { gain: 0.26 });
-    for (let c = 0; c < 128; c++) m.tick(T.turkish + 0.4 + c * 0.018, { gain: 0.025, pan: (c % 16) / 15 - 0.5 });
+    m.pad(at('turkish', 0), span('turkish', 0, 7.2), ['C3', 'G3', 'E4'], { gain: 0.22 });
+    m.pad(at('turkish', 7.2), span('turkish', 7.2, 14.8), ['Ab2', 'Eb3', 'C4'], { gain: 0.24, cutoff: 700 });
+    m.pad(at('turkish', 14.8), span('turkish', 14.8, 19.6), ['F2', 'C3', 'A3', 'E4', 'G4'], { gain: 0.3, attack: 0.8, cutoff: 1300 });
+    m.pad(at('turkish', 19.6), untilEnd('turkish', 19.6, 0.8), ['Bb2', 'F3', 'D4', 'A4'], { gain: 0.26 });
+    for (let c = 0; c < 128; c++) m.tick(at('turkish', 0.4 + c * 0.018), { gain: 0.025, pan: (c % 16) / 15 - 0.5 });
     TR.forEach((_, i) => {
-      m.boom(T.turkish + trHit(i), { gain: 0.1, freq: 120 });
-      m.click(T.turkish + trHit(i), { gain: 0.06, tone: 1500, pan: (i - 3) * 0.15 });
+      m.boom(at('turkish', trHit(i)), { gain: 0.1, freq: 120 });
+      m.click(at('turkish', trHit(i)), { gain: 0.06, tone: 1500, pan: (i - 3) * 0.15 });
     });
-    m.buzz(T.turkish + 5.0, { gain: 0.14 });
-    m.whoosh(T.turkish + 8.6, { dur: 1.3, from: 600, to: 2500, gain: 0.12, panFrom: -0.6, panTo: 0.6 });
-    '11110000'.split('').forEach((b, j) => m.blip(T.turkish + 8.65 + j * 0.15, { freq: b === '1' ? 1320 : 660, dur: 0.05, type: 'square', gain: 0.03, pan: lerp(-0.6, 0.6, j / 7) }));
-    m.glitch(T.turkish + 9.9, 1.0, { gain: 0.22 });
-    GLITCH_PULSES.forEach((p) => m.glitch(T.turkish + p, 0.15, { gain: 0.12 }));
-    m.riser(T.turkish + 13.9, 0.95, { gain: 0.12 });
-    m.boom(T.turkish + 14.9, { gain: 0.35 });
-    ['F5', 'A5', 'C6', 'E6'].forEach((n, i) => m.bell(T.turkish + 14.9 + i * 0.06, { freq: hz(n), gain: 0.1, decay: 3 }));
-    ['C5', 'D5', 'F5', 'G5', 'A5', 'C6', 'D6', 'F6', 'G6', 'A6'].forEach((n, i) => m.bell(T.turkish + 15.3 + i * 0.15, { freq: hz(n), gain: 0.04, decay: 1.2 }));
-    m.whoosh(T.turkish + 19.65, { dur: 0.6, from: 400, to: 1500, gain: 0.1, q: 0.6 });
-    m.bell(T.turkish + 20.0, { freq: hz('F4'), gain: 0.14, decay: 3.5 });
+    m.buzz(at('turkish', 5.0), { gain: 0.14 });
+    m.whoosh(at('turkish', 8.6), { dur: 1.3, from: 600, to: 2500, gain: 0.12, panFrom: -0.6, panTo: 0.6 });
+    '11110000'.split('').forEach((b, j) => m.blip(at('turkish', 8.65 + j * 0.15), { freq: b === '1' ? 1320 : 660, dur: 0.05, type: 'square', gain: 0.03, pan: lerp(-0.6, 0.6, j / 7) }));
+    m.glitch(at('turkish', 9.9), span('turkish', 9.9, 10.9), { gain: 0.22 });
+    GLITCH_PULSES.forEach((p) => m.glitch(at('turkish', p), 0.15, { gain: 0.12 }));
+    m.riser(at('turkish', 13.9), span('turkish', 13.9, 14.85), { gain: 0.12 });
+    m.boom(at('turkish', 14.9), { gain: 0.35 });
+    ['F5', 'A5', 'C6', 'E6'].forEach((n, i) => m.bell(at('turkish', 14.9 + i * 0.06), { freq: hz(n), gain: 0.1, decay: 3 }));
+    ['C5', 'D5', 'F5', 'G5', 'A5', 'C6', 'D6', 'F6', 'G6', 'A6'].forEach((n, i) => m.bell(at('turkish', 15.3 + i * 0.15), { freq: hz(n), gain: 0.04, decay: 1.2 }));
+    m.whoosh(at('turkish', 19.65), { dur: 0.6, from: 400, to: 1500, gain: 0.1, q: 0.6 });
+    m.bell(at('turkish', 20.0), { freq: hz('F4'), gain: 0.14, decay: 3.5 });
 
     // 8 · Onaltılık
-    m.pad(T.hex, 5.4, ['G2', 'D3', 'Bb3', 'F4'], { gain: 0.22 });
-    m.pad(T.hex + 5.8, 5.4, ['C3', 'G3', 'E4', 'A4'], { gain: 0.22 });
-    m.wobble(T.hex + 0.7, 1.5, { gain: 0.08 });
-    m.click(T.hex + 2.3, { gain: 0.14 });
-    m.whoosh(T.hex + 2.3, { dur: 0.5, from: 800, to: 3000, gain: 0.06 });
-    m.blip(T.hex + 3.1, { freq: hz('A5'), dur: 0.2, gain: 0.1, type: 'triangle' });
-    m.blip(T.hex + 3.25, { freq: hz('E5'), dur: 0.2, gain: 0.1, type: 'triangle' });
-    for (let i = 0; i < 16; i++) m.tick(T.hex + 3.3 + i * 0.03, { gain: 0.03 });
-    m.bell(T.hex + 4.95, { freq: hz('D6'), gain: 0.12, decay: 2 });
-    [500, 250, 900].forEach((f, i) => m.pop(T.hex + 5.9 + i * 0.3, { freq: f, gain: 0.16 }));
-    [0, 1, 2].forEach((i) => m.click(T.hex + 9.4 + i * 0.18, { gain: 0.1 }));
+    m.pad(at('hex', 0), span('hex', 0, 5.4), ['G2', 'D3', 'Bb3', 'F4'], { gain: 0.22 });
+    m.pad(at('hex', 5.8), untilEnd('hex', 5.8, 0.8), ['C3', 'G3', 'E4', 'A4'], { gain: 0.22 });
+    m.wobble(at('hex', 0.7), span('hex', 0.7, 2.2), { gain: 0.08 });
+    m.click(at('hex', 2.3), { gain: 0.14 });
+    m.whoosh(at('hex', 2.3), { dur: 0.5, from: 800, to: 3000, gain: 0.06 });
+    m.blip(at('hex', 3.1), { freq: hz('A5'), dur: 0.2, gain: 0.1, type: 'triangle' });
+    m.blip(at('hex', 3.25), { freq: hz('E5'), dur: 0.2, gain: 0.1, type: 'triangle' });
+    for (let i = 0; i < 16; i++) m.tick(at('hex', 3.3 + i * 0.03), { gain: 0.03 });
+    m.bell(at('hex', 4.95), { freq: hz('D6'), gain: 0.12, decay: 2 });
+    [500, 250, 900].forEach((f, i) => m.pop(at('hex', 5.9 + i * 0.3), { freq: f, gain: 0.16 }));
+    [0, 1, 2].forEach((i) => m.click(at('hex', 9.4 + i * 0.18), { gain: 0.1 }));
 
     // 9 · Sayılar
-    m.pad(T.numbers, 5.2, ['D3', 'A3', 'F4'], { gain: 0.22 });
-    m.pad(T.numbers + 5.6, 4.6, ['Bb2', 'F3', 'D4'], { gain: 0.22 });
-    m.pad(T.numbers + 10.6, 3.6, ['C3', 'G3', 'E4'], { gain: 0.22 });
-    m.pad(T.numbers + 14.6, 3.6, ['F2', 'C3', 'A3', 'F4'], { gain: 0.26 });
-    m.pad(T.numbers + 18.6, 4.4, ['D2', 'Ab2', 'D3'], { gain: 0.26, cutoff: 500, release: 1.5 });
-    m.riser(T.numbers + 1.2, 2.4, { gain: 0.1 });
-    for (let i = 0; i < 14; i++) m.blip(T.numbers + 3.7 + i * 0.04, { freq: 1200 + ((i * 7) % 5) * 220, dur: 0.03, type: 'square', gain: 0.025 });
-    m.blip(T.numbers + 5.8, { freq: 220, dur: 1.4, gain: 0.08, wet: 0.3 });
-    for (let k = 0; k < 38; k++) m.tick(T.numbers + 6.6 + (k / 38) * 0.8, { gain: 0.03, tone: 4000 });
-    m.projector(T.numbers + 8.2, 2.3, { gain: 0.05 });
-    SENSORS.forEach((_, i) => m.pop(T.numbers + 10.8 + i * 0.25, { freq: 400 + i * 120, gain: 0.12 }));
-    for (let b = 11.0; b < 14.5; b += BEAT) m.heartbeat(T.numbers + b, { gain: 0.35 });
-    m.bell(T.numbers + 14.7, { freq: hz('F5'), gain: 0.14, decay: 3 });
-    ['A5', 'C6', 'F6'].forEach((n, i) => m.blip(T.numbers + 15.9 + i * 0.5, { freq: hz(n), dur: 0.25, type: 'triangle', gain: 0.07, wet: 0.3 }));
-    m.boom(T.numbers + 18.7, { gain: 0.3, freq: 50 });
-    ['D4', 'F4', 'Ab4', 'B4'].forEach((n, i) => m.blip(T.numbers + 18.9 + i * 0.3, { freq: hz(n), dur: 0.3, type: 'triangle', gain: 0.06 }));
-    for (let b = 18.8; b < 23.6; b += 0.95) m.heartbeat(T.numbers + b, { gain: 0.3 });
-    m.boom(T.numbers + 20.8, { gain: 0.5, freq: 45 });
-    m.bell(T.numbers + 20.8, { freq: hz('D4'), gain: 0.16, decay: 4 });
+    m.pad(at('numbers', 0), span('numbers', 0, 5.2), ['D3', 'A3', 'F4'], { gain: 0.22 });
+    m.pad(at('numbers', 5.6), span('numbers', 5.6, 10.2), ['Bb2', 'F3', 'D4'], { gain: 0.22 });
+    m.pad(at('numbers', 10.6), span('numbers', 10.6, 14.2), ['C3', 'G3', 'E4'], { gain: 0.22 });
+    m.pad(at('numbers', 14.6), span('numbers', 14.6, 18.2), ['F2', 'C3', 'A3', 'F4'], { gain: 0.26 });
+    m.pad(at('numbers', 18.6), untilEnd('numbers', 18.6, 1), ['D2', 'Ab2', 'D3'], { gain: 0.26, cutoff: 500, release: 1.5 });
+    m.riser(at('numbers', 1.2), span('numbers', 1.2, 3.6), { gain: 0.1 });
+    for (let i = 0; i < 14; i++) m.blip(at('numbers', 3.7 + i * 0.04), { freq: 1200 + ((i * 7) % 5) * 220, dur: 0.03, type: 'square', gain: 0.025 });
+    m.blip(at('numbers', 5.8), { freq: 220, dur: 1.4, gain: 0.08, wet: 0.3 });
+    for (let k = 0; k < 38; k++) m.tick(at('numbers', 6.6 + (k / 38) * 0.8), { gain: 0.03, tone: 4000 });
+    m.projector(at('numbers', 8.2), span('numbers', 8.2, 10.5), { gain: 0.05 });
+    SENSORS.forEach((_, i) => m.pop(at('numbers', 10.8 + i * 0.25), { freq: 400 + i * 120, gain: 0.12 }));
+    for (let b = 11.0; b < 14.5; b += BEAT) m.heartbeat(at('numbers', b), { gain: 0.35 });
+    m.bell(at('numbers', 14.7), { freq: hz('F5'), gain: 0.14, decay: 3 });
+    ['A5', 'C6', 'F6'].forEach((n, i) => m.blip(at('numbers', 15.9 + i * 0.5), { freq: hz(n), dur: 0.25, type: 'triangle', gain: 0.07, wet: 0.3 }));
+    m.boom(at('numbers', 18.7), { gain: 0.3, freq: 50 });
+    ['D4', 'F4', 'Ab4', 'B4'].forEach((n, i) => m.blip(at('numbers', 18.9 + i * 0.3), { freq: hz(n), dur: 0.3, type: 'triangle', gain: 0.06 }));
+    // final kalp atışı ekrandaki bir öğeye bağlı değil: beklemeler boyunca da düzenli atsın
+    for (let t = at('numbers', 18.8); t < TL.scene('numbers').end - 0.4; t += 0.95) m.heartbeat(t, { gain: 0.3 });
+    m.boom(at('numbers', 20.8), { gain: 0.5, freq: 45 });
+    m.bell(at('numbers', 20.8), { freq: hz('D4'), gain: 0.16, decay: 4 });
 
     // 10 · Kapanış
-    m.wind(T.close - 0.5, 3.5, { gain: 0.2 });
-    m.crackle(T.close, 3, { gain: 0.2, roar: 0.5 });
-    m.pad(T.close, 1.2, ['D2', 'A2', 'D3', 'F#3', 'A3'], { gain: 0.3, attack: 0.8, release: 1.6 });
-    m.bell(T.close + 0.3, { freq: hz('D5'), gain: 0.16, decay: 2.5 });
-    m.bell(T.close + 0.32, { freq: hz('F#5'), gain: 0.08, decay: 2.5 });
+    m.wind(at('close', -0.5), span('close', -0.5, 3), { gain: 0.2 });
+    m.crackle(at('close', 0), span('close', 0, 3), { gain: 0.2, roar: 0.5 });
+    m.pad(at('close', 0), span('close', 0, 1.2), ['D2', 'A2', 'D3', 'F#3', 'A3'], { gain: 0.3, attack: 0.8, release: 1.6 });
+    m.bell(at('close', 0.3), { freq: hz('D5'), gain: 0.16, decay: 2.5 });
+    m.bell(at('close', 0.32), { freq: hz('F#5'), gain: 0.08, decay: 2.5 });
   }
 
   window.FILM = E.film({
     title: 'Var ve Yok — Birinci Kapı',
-    duration: T.end,
+    timeline: TL,
     background,
     score,
-    scenes: [
-      { start: T.open, end: T.fires, title: 'Açılış', draw: sceneOpen, fadeIn: 0.6 },
-      { start: T.fires, end: T.two, title: 'Tepeden tepeye ateş', draw: sceneFires },
-      { start: T.two, end: T.why, title: 'Var ve yok', draw: sceneTwo },
-      { start: T.why, end: T.lamps, title: 'Neden sadece iki?', draw: sceneWhy },
-      { start: T.lamps, end: T.glossary, title: 'Yan yana dizmenin bereketi', draw: sceneLamps },
-      { start: T.glossary, end: T.letters, title: 'Sözlük kenarı', draw: sceneGlossary },
-      { start: T.letters, end: T.turkish, title: 'Harf nasıl sayı olur?', draw: sceneLetters },
-      { start: T.turkish, end: T.hex, title: 'Türkçenin kayıp harfleri', draw: sceneTurkish },
-      { start: T.hex, end: T.numbers, title: 'Sayıları on altılık yazmak', draw: sceneHex },
-      { start: T.numbers, end: T.close, title: 'Her şey sayıya dönüşebilir mi?', draw: sceneNumbers },
-      { start: T.close, end: T.end, title: 'Kapanış', draw: sceneClose, fadeOut: 1.4 },
-    ],
+    narration: VOICE,
+    voice: VOICE.voice,
+    overlay: (ctx, t) => captions(ctx, t, VOICE.captions),
   });
 })();
