@@ -1,0 +1,145 @@
+:root {
+  --bg: #04060b;
+  --panel: #0c1220;
+  --ink: #efe8da;
+  --muted: #8f98ad;
+  --accent: #ffa547;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.4 "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.stage {
+  position: relative;
+  width: min(100%, calc((100vh - 96px) * 16 / 9));
+  aspect-ratio: 16 / 9;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background: #000;
+  cursor: pointer;
+}
+
+.big-play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 165, 71, 0.7);
+  background: rgba(4, 6, 11, 0.6);
+  color: var(--accent);
+  font-size: 36px;
+  cursor: pointer;
+}
+
+.big-play[hidden],
+.status[hidden] {
+  display: none;
+}
+
+.status {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(4, 6, 11, 0.75);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(100%, calc((100vh - 96px) * 16 / 9));
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.controls button {
+  min-width: 40px;
+  height: 36px;
+  border: 0;
+  border-radius: 8px;
+  background: #18213a;
+  color: var(--ink);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  background: #222d4d;
+}
+
+.controls input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent);
+}
+
+#time {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+#scene {
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 28ch;
+}
+
+@media (max-width: 640px) {
+  #scene {
+    display: none;
+  }
+}
+
+/* render.mjs kayıt kipi: yalnızca tuval, tam çözünürlükte */
+body.recording {
+  padding: 0;
+  display: block;
+}
+
+body.recording .stage {
+  width: 1920px;
+}
+
+body.recording .controls,
+body.recording .big-play,
+body.recording .status {
+  display: none;
+}
+
+body.recording canvas {
+  border-radius: 0;
+}
