@@ -292,12 +292,36 @@ def renkler():
         save(fig, 'renkler_cozum.png' if solved else 'renkler.png')
 
 
+def kesme_kartlari():
+    """Kitabın son sayfası: büyük, kesilebilir bit kartları (3 + 2 dizilim)."""
+    fig, ax = plt.subplots(figsize=(8.4, 10.4))
+    ax.set_xlim(0, 3)
+    ax.set_ylim(0, 3.72)
+    ax.set_aspect('equal')
+    ax.axis('off')
+    W, H = 0.9, 1.68
+    yer = {16: (0.05, 1.98), 8: (1.05, 1.98), 4: (2.05, 1.98), 2: (0.55, 0.12), 1: (1.55, 0.12)}
+    for v, (x0, y0) in yer.items():
+        ax.add_patch(Rectangle((x0, y0), W, H, fc='white', ec=GRAY, lw=1.4, ls=(0, (6, 4))))
+        ax.text(x0 + 0.03, y0 + H + 0.005, '\u2702', fontsize=15, color=GRAY, va='bottom')
+        cols = {16: 4, 8: 2, 4: 2, 2: 1, 1: 1}[v]
+        rows = math.ceil(v / cols)
+        sp = 0.19
+        cx, cy = x0 + W / 2, y0 + H * 0.6
+        for k in range(v):
+            r, c = divmod(k, cols)
+            ax.add_patch(Circle((cx + (c - (cols - 1) / 2) * sp, cy + ((rows - 1) / 2 - r) * sp), 0.068, fc=ORANGE, ec='none'))
+        ax.text(cx, y0 + 0.17, str(v), ha='center', va='center', fontsize=30, color=NAVY, fontweight='bold')
+    save(fig, 'kesme_kartlari.png')
+
+
 if __name__ == '__main__':
     haber_zinciri()
     volt()
     katlama()
     satranc()
     bit_kartlari()
+    kesme_kartlari()
     piksel()
     ses()
     renkler()
