@@ -69,6 +69,21 @@ virgüllerde kısa, noktalarda biraz daha uzun durmak eşzamanlamayı iyileştir
 `--rate 1.1` konuşmayı hızlandırır, `--gain 1.0` seslendirmeyi miks içinde kısar (varsayılan 1.25). Ardından
 `render.mjs` ile videoyu yeniden dökün.
 
+## Hazır videoya insan sesi eklemek
+
+Her satır ayrı bir kayıt dosyası olarak (`<id>.mp3`, id'ler `narration.js`'te ve
+`ch01-var-ve-yok/seslendirme-metni.txt`'de) bir klasöre konursa, görüntü yeniden dökülmeden eklenir:
+
+```bash
+node video/dub.mjs ch01-var-ve-yok --kayit video/seslendirme \
+  --video video/out/ch01-var-ve-yok.mp4,video/out/ch01-var-ve-yok-paylasim.mp4
+# → video/out/ch01-var-ve-yok-seslendirme.mp4 (görüntü akışı kopyalanır, yalnızca ses yeniden karışır)
+```
+
+Satırlar videodaki yerlerinde başlar; kayıttaki duraklar görüntünün bağlı olduğu öbeklere hizalanır.
+Sığmayan satırda önce duraklar kısalır, gerekirse satır hafifçe hızlanır. Kaydı olmayan ya da
+`--atla id1,id2` ile dışarıda bırakılan satırlarda TTS sesi kalır.
+
 ## Yapı
 
 - `shared/engine.js` — zaman çizelgesi, anlatıcıya göre tempo planı ve öbek zamanları (`cue`), yumuşatma eğrileri,
@@ -83,6 +98,7 @@ virgüllerde kısa, noktalarda biraz daha uzun durmak eşzamanlamayı iyileştir
   öğeler ve sesleri `cue(satır, öbek)` ile zamanlanır.
 - `ch01-var-ve-yok/narration.js` — seslendirme metni; `voice.js` — üretilen ses izi (elle düzenlenmez).
 - `narrate.mjs` — seslendirme izini üretir (MBROLA, Piper ya da insan kaydı).
+- `dub.mjs` — insan sesi kayıtlarını hazır videoya ekler (görüntüyü yeniden dökmeden).
 
 ## Yeni bölüm eklemek
 
