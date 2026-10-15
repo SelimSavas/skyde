@@ -10,7 +10,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | Birinci Kapı — Var ve Yok: İki Simgeli Bir Evren | 8:51 (Türkçe seslendirmeli) | `ch01-var-ve-yok/` |
 | Birinci Kapı, 2. Bölüm — Taşa Kazınan Mantık | 11:21 (insan sesiyle) | `ch02-tasa-kazinan-mantik/` |
 | Birinci Kapı, 3. Bölüm — Sayılardan Devreye: Elektriğin Hesap Yapması | 14:41 (insan sesi sonradan eklenecek) | `ch03-sayilardan-devreye/` |
-| Birinci Kapı, 4. Bölüm — Veri, Bilgi, Anlam: Üç Basamaklı Merdiven | 13:20 (insan sesi sonradan eklenecek) | `ch04-veri-bilgi-anlam/` |
+| Birinci Kapı, 4. Bölüm — Veri, Bilgi, Anlam: Üç Basamaklı Merdiven | 13:20 (insan sesiyle) | `ch04-veri-bilgi-anlam/` |
 
 ## İzlemek
 
