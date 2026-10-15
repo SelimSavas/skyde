@@ -8,6 +8,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | Bölüm | Süre | Klasör |
 |---|---|---|
 | Birinci Kapı — Var ve Yok: İki Simgeli Bir Evren | 8:51 (Türkçe seslendirmeli) | `ch01-var-ve-yok/` |
+| Birinci Kapı, 2. Bölüm — Taşa Kazınan Mantık | 11:21 (insan sesi sonradan eklenecek) | `ch02-tasa-kazinan-mantik/` |
 
 ## İzlemek
 
@@ -31,6 +32,8 @@ Yararlı seçenekler:
 - `--frames 12,45.5` yalnızca o saniyelerin PNG önizlemesini `video/out/preview/` altına yazar.
 - `--from 30 --to 60` yalnızca bir aralığı döker.
 - `--workers 4` paralel tarayıcı sayısı, `--fps 60`, `--crf 18` (kalite).
+- `--anlatimsiz` seslendirmeyi miksin dışında bırakır (yalnızca efekt ve müzik). İnsan sesi sonradan
+  `dub.mjs` ile eklenecekse video böyle dökülür; görüntü yine anlatıcının satırlarını bekler.
 
 ## Seslendirme
 
@@ -69,15 +72,22 @@ virgüllerde kısa, noktalarda biraz daha uzun durmak eşzamanlamayı iyileştir
 `--rate 1.1` konuşmayı hızlandırır, `--gain 1.0` seslendirmeyi miks içinde kısar (varsayılan 1.25). Ardından
 `render.mjs` ile videoyu yeniden dökün.
 
+`--pay 1.1` ölçülen süreleri %10 uzatır: TTS yalnızca zamanlama için kullanılıp insan sesi sonradan
+eklenecekse, insan okuyuşu genelde daha yavaş olduğundan görüntüye pay bırakır
+(`node video/narrate.mjs ch02-tasa-kazinan-mantik --pay 1.1`, ardından `render.mjs … --anlatimsiz`).
+
 ## Hazır videoya insan sesi eklemek
 
 Her satır ayrı bir kayıt dosyası olarak (`<id>.mp3`, id'ler `narration.js`'te ve
-`ch01-var-ve-yok/seslendirme-metni.txt`'de) bir klasöre konursa, görüntü yeniden dökülmeden eklenir:
+`<bölüm>/seslendirme-metni.txt`'de) bir klasöre konursa, görüntü yeniden dökülmeden eklenir:
 
 ```bash
 node video/dub.mjs ch01-var-ve-yok --kayit video/seslendirme \
   --video video/out/ch01-var-ve-yok.mp4,video/out/ch01-var-ve-yok-paylasim.mp4
 # → video/out/ch01-var-ve-yok-seslendirme.mp4 (görüntü akışı kopyalanır, yalnızca ses yeniden karışır)
+
+node video/dub.mjs ch02-tasa-kazinan-mantik --kayit video/seslendirme-ch02
+# → video/out/ch02-tasa-kazinan-mantik-seslendirme.mp4
 ```
 
 Satırlar videodaki yerlerinde başlar; kayıttaki duraklar görüntünün bağlı olduğu öbeklere hizalanır.
@@ -97,6 +107,8 @@ Sığmayan satırda önce duraklar kısalır, gerekirse satır hafifçe hızlan�
   bekleme eklenince görüntü, efektler ve müzik birlikte kayar. Anlatıcının söylediği anda beliren
   öğeler ve sesleri `cue(satır, öbek)` ile zamanlanır.
 - `ch01-var-ve-yok/narration.js` — seslendirme metni; `voice.js` — üretilen ses izi (elle düzenlenmez).
+- `ch02-tasa-kazinan-mantik/` — ikinci bölüm (VE, VEYA, DEĞİL; Boole, doğruluk tabloları, toplayıcı,
+  transistör, çip); aynı yapı. `voice.js` burada yalnızca zamanlama içindir; ses `dub.mjs` ile eklenir.
 - `narrate.mjs` — seslendirme izini üretir (MBROLA, Piper ya da insan kaydı).
 - `dub.mjs` — insan sesi kayıtlarını hazır videoya ekler (görüntüyü yeniden dökmeden).
 

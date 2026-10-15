@@ -13,6 +13,8 @@
  *   --crf 18          x264 kalite (düşük = daha iyi)
  *   --from 0 --to 180 yalnızca bir aralığı dök
  *   --out yol.mp4     çıktı dosyası
+ *   --anlatimsiz      seslendirmeyi miksin dışında bırak (yalnızca efekt ve müzik; insan sesi sonradan
+ *                     dub.mjs ile eklenecekse)
  */
 import { spawn, execSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -39,7 +41,8 @@ function parseArgs(argv) {
   const rest = [];
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a.startsWith('--')) opts[a.slice(2)] = argv[++i];
+    if (a === '--anlatimsiz') opts.anlatimsiz = true;
+    else if (a.startsWith('--')) opts[a.slice(2)] = argv[++i];
     else rest.push(a);
   }
   opts.chapter = rest[0];
@@ -127,7 +130,7 @@ async function main() {
   }
   const page = path.join(here, opts.chapter, 'index.html');
   if (!fs.existsSync(page)) throw new Error(`Bulunamadı: ${page}`);
-  const url = `${pathToFileURL(page).href}?kayit`;
+  const url = `${pathToFileURL(page).href}?kayit${opts.anlatimsiz ? '&anlatimsiz' : ''}`;
   const outDir = path.join(here, 'out');
   fs.mkdirSync(outDir, { recursive: true });
   const { chromium } = loadPlaywright();
@@ -153,7 +156,8 @@ async function main() {
   if (info.voice === 'stale') {
     throw new Error(`voice.js seslendirme metniyle ya da zamanlamasıyla uyuşmuyor. Önce: node video/narrate.mjs ${opts.chapter}`);
   }
-  if (info.voice === 'none') console.warn('Uyarı: seslendirme yok (voice.js bulunamadı); video yalnızca efekt ve müzikle dökülecek.');
+  if (opts.anlatimsiz) console.log('Seslendirme miksin dışında: yalnızca efekt ve müzik.');
+  else if (info.voice === 'none') console.warn('Uyarı: seslendirme yok (voice.js bulunamadı); video yalnızca efekt ve müzikle dökülecek.');
 
   const from = Number(opts.from ?? 0);
   const to = Number(opts.to ?? info.duration);

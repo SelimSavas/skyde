@@ -26,7 +26,8 @@
     };
     // Sesi bir kez sentezler; kaç parça halinde okunacağını döndürür.
     window.__audio = async (chunk) => {
-      wav = Synth.toWav(await Synth.render(film.score, film.duration, 48000, film.voice));
+      // ?anlatimsiz: seslendirme sonradan (dub.mjs) eklenecek; miks yalnızca efekt ve müzik
+      wav = Synth.toWav(await Synth.render(film.score, film.duration, 48000, params.has('anlatimsiz') ? null : film.voice));
       return Math.ceil(wav.length / chunk);
     };
     window.__audioChunk = (i, chunk) => {

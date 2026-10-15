@@ -19,6 +19,8 @@
  * Seçenekler:
  *   --rate 1.0     konuşma hızı çarpanı (MBROLA ve Piper)
  *   --gain 1.25    seslendirmenin miksteki seviyesi
+ *   --pay 1.0      zamanlama payı: her satıra TTS süresinin bu katı kadar yer ayrılır. İnsan sesi sonradan
+ *                  dub.mjs ile eklenecekse (TTS yalnızca yer tutucuysa) 1.1 gibi bir pay bırakın.
  */
 import { spawnSync, execSync } from 'node:child_process';
 import crypto from 'node:crypto';
@@ -42,21 +44,21 @@ function loadPlaywright() {
 }
 
 function parseArgs(argv) {
-  const opts = { engine: 'mbrola:tr1', rate: 1, gain: 1.25 };
+  const opts = { engine: 'mbrola:tr1', rate: 1, gain: 1.25, pay: 1 };
   const rest = [];
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a.startsWith('--')) {
       const eq = a.indexOf('=');
       const key = a.slice(2, eq < 0 ? undefined : eq);
-      if (!['engine', 'rate', 'gain'].includes(key)) throw new Error(`Bilinmeyen seçenek: ${a}`);
+      if (!['engine', 'rate', 'gain', 'pay'].includes(key)) throw new Error(`Bilinmeyen seçenek: ${a}`);
       opts[key] = eq < 0 ? argv[++i] : a.slice(eq + 1);
     } else {
       rest.push(a);
     }
   }
   opts.chapter = rest[0];
-  for (const k of ['rate', 'gain']) {
+  for (const k of ['rate', 'gain', 'pay']) {
     opts[k] = Number(opts[k]);
     if (!(opts[k] > 0 && Number.isFinite(opts[k]))) throw new Error(`--${k} pozitif bir sayı olmalı`);
   }
@@ -224,7 +226,7 @@ async function main() {
       });
       const clip = trim(decode(file), file);
       const pause = new Float32Array(Math.round(RATE * (PAUSES[ph.slice(-1)] ?? 0.3)));
-      marks.push(+(n / RATE).toFixed(3));
+      marks.push(+((n / RATE) * opts.pay).toFixed(3));
       parts.push(clip, pause);
       n += clip.length + pause.length;
     }
@@ -242,7 +244,7 @@ async function main() {
   const clips = synthesized.map((x) => x.clip);
   // voice.js'e yazılan süreler planda da aynen kullanılsın: film planı voice.js'ten yeniden kurduğunda
   // aynı sonuca varır (yuvarlama farkları satırlar boyunca birikip "eski ses" hatasına yol açmasın)
-  const durs = clips.map((c) => +(c.length / RATE).toFixed(3));
+  const durs = clips.map((c) => +((c.length / RATE) * opts.pay).toFixed(3));
 
   // Tempo planı: görüntü her vuruşta anlatıcıyı bekler
   const plan = await page.evaluate((d) => {
