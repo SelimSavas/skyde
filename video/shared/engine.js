@@ -148,32 +148,6 @@
     return { lines, top, lineHeight: lh };
   }
 
-  // Alt yazılar: [[başlangıç, bitiş, metin], ...]
-  function captions(ctx, t, list, o = {}) {
-    for (const [a, b, str] of list) {
-      const al = vis(t, a, b, 0.35, 0.35);
-      if (al <= 0) continue;
-      // okunurluk için alttan hafif karartma
-      ctx.save();
-      ctx.globalAlpha *= al;
-      const g = ctx.createLinearGradient(0, H - 260, 0, H);
-      g.addColorStop(0, 'rgba(3,5,10,0)');
-      g.addColorStop(1, 'rgba(3,5,10,0.72)');
-      ctx.fillStyle = g;
-      ctx.fillRect(0, H - 260, W, 260);
-      ctx.restore();
-      const rise = (1 - ease.out(clamp((t - a) / 0.5))) * 14;
-      paragraph(ctx, str, W / 2, (o.y ?? 990) + rise, o.width ?? 1500, {
-        size: o.size ?? 40,
-        family: 'serif',
-        color: o.color ?? '#efe8da',
-        alpha: al,
-        lineHeight: 54,
-        valign: 'bottom',
-      });
-    }
-  }
-
   // Işıma: renkten saydama radyal geçiş
   function glow(ctx, x, y, r, color, alpha = 1) {
     if (alpha <= 0.002 || r <= 0) return;
@@ -191,16 +165,37 @@
   }
 
   /*
-   * Zaman çizelgesi: sahneleri { id, base, holds } listesinden uç uca dizer.
-   * base, sahnenin koreografi süresidir. holds = [[an, süre], ...] koreografiyi o anda
-   * dondurur: görüntü o karede bekler, gerçek süre uzar (ör. seslendirme bitene kadar).
-   * Sahne çizimleri koreografi zamanını, ses notası ise at()/span() ile gerçek zamanı kullanır.
+   * Zaman çizelgesi. Her sahne { id, base, stretch, holds } ile tanımlanır:
+   *   base     koreografi süresi; sahne çizimi hep bu zamanı görür
+   *   stretch  [[a, b, k], ...]  koreografinin [a, b] aralığı k kat yavaş oynar
+   *   holds    [[f, e], ...]     koreografi f anında e saniye durur
+   * at(sahne, x) koreografi anını mutlak gerçek zamana çevirir (o kareye ilk varış); ses notası bunu kullanır.
    */
+  function pieces({ base, stretch = [], holds = [] }) {
+    const segs = stretch.filter(([a, b, k]) => b > a && k > 0).sort((x, y) => x[0] - y[0]);
+    for (let i = 1; i < segs.length; i++) {
+      if (segs[i][0] < segs[i - 1][1] - 1e-9) throw new Error('Yavaşlatma aralıkları çakışıyor');
+    }
+    const hs = holds.filter((h) => h[1] > 0).map(([f, e]) => ({ c: clamp(f, 0, base), e }));
+    const cuts = [...new Set([0, base, ...segs.flatMap(([a, b]) => [clamp(a, 0, base), clamp(b, 0, base)]), ...hs.map((h) => h.c)])].sort((x, y) => x - y);
+    const factor = (c) => (segs.find(([a, b]) => c >= a && c < b) ?? [0, 0, 1])[2];
+    const out = [];
+    cuts.forEach((c, i) => {
+      const e = hs.filter((h) => h.c === c).reduce((n, h) => n + h.e, 0);
+      if (e > 0) out.push({ type: 'hold', c, len: e });
+      if (i < cuts.length - 1) {
+        const k = factor((c + cuts[i + 1]) / 2);
+        out.push({ type: 'run', c0: c, c1: cuts[i + 1], k, len: (cuts[i + 1] - c) * k });
+      }
+    });
+    return out;
+  }
+
   function timeline(defs) {
     let cursor = 0;
     const scenes = defs.map((d) => {
-      const holds = (d.holds ?? []).filter((h) => h[1] > 0).sort((a, b) => a[0] - b[0]);
-      const s = { ...d, holds, start: cursor, end: cursor + d.base + holds.reduce((n, h) => n + h[1], 0) };
+      const ps = pieces(d);
+      const s = { ...d, pieces: ps, start: cursor, end: cursor + ps.reduce((n, p) => n + p.len, 0) };
       cursor = s.end;
       return s;
     });
@@ -211,66 +206,147 @@
     };
     // gerçek yerel zaman → koreografi zamanı
     const warp = (s, r) => {
-      for (const [f, e] of s.holds) {
-        if (r < f) break;
-        if (r < f + e) return f;
-        r -= e;
+      for (const p of s.pieces) {
+        if (r < p.len) return p.type === 'hold' ? p.c : p.c0 + r / p.k;
+        r -= p.len;
       }
-      return Math.min(r, s.base);
+      return s.base;
     };
-    // koreografi zamanı → mutlak gerçek zaman (o kareye ilk varış)
-    const at = (id, x) => {
+    // koreografi anı → mutlak gerçek zaman. inclusive: o andaki bekleme de sayılır (vuruş sonu için)
+    const at = (id, x, inclusive = false) => {
       const s = scene(id);
-      let r = x;
-      for (const [f, e] of s.holds) if (f < x) r += e;
+      if (x < 0) return s.start + x;
+      let r = 0;
+      for (const p of s.pieces) {
+        if (p.type === 'hold') {
+          if (p.c < x || (inclusive && p.c === x)) r += p.len;
+          else if (p.c > x) break;
+        } else {
+          if (p.c0 >= x) {
+            if (!inclusive || p.c0 > x) break;
+            continue;
+          }
+          r += (Math.min(x, p.c1) - p.c0) * p.k;
+        }
+      }
+      if (x > s.base) r += x - s.base;
       return s.start + r;
     };
     const span = (id, a, b) => at(id, b) - at(id, a);
     return { scenes, duration: cursor, scene, warp, at, span };
   }
 
+  // Seslendirme öbekleri: TTS her cümleyi noktalama işaretlerinden böler, araya bu durakları (sn) koyar.
+  // narrate.mjs de aynı bölmeyi kullanır; böylece görüntü, cümlenin içindeki bir sözcüğe (cue) bağlanabilir.
+  const PAUSES = { ',': 0.35, ';': 0.45, ':': 0.45, '—': 0.4, '.': 0.6, '!': 0.6, '?': 0.65, '…': 0.65 };
+  const pauseAfter = (ph) => PAUSES[ph.slice(-1)] ?? 0.3;
+  function phrases(str) {
+    return (str.match(/[^,;:.!?…—]+(?:[,;:.!?…—]+|$)/g) ?? []).map((p) => p.trim()).filter((p) => /[\p{L}\p{N}]/u.test(p));
+  }
+
   /*
-   * Seslendirme: her satır kendi vuruşunun (beat) başından itibaren sırayla okunur.
-   * beats = { id: [sahne, başlangıç, bitiş] } koreografi zamanında; lines = [{ id, beat, text, say, caption, offset }].
-   * voice (narrate.mjs'in ürettiği voice.js) varsa gerçek süreler ve konumlar ondan gelir; yoksa tahmin edilir.
+   * Seslendirme planı: anlatıcı tempoyu belirler.
+   * beats = { id: [sahne, başlangıç, bitiş, donma] } koreografi zamanında, oynatma sırasıyla.
+   * Her satır kendi vuruşunun başından itibaren sırayla okunur. Bir vuruş, satırları ve ardından
+   * kısa bir nefes payı bitmeden bitmez: donma anı olan vuruşta görüntü o karede bekler, olmayanda
+   * animasyon yavaşlar. pauses[vuruş], anlatıcı sustuktan sonra o vuruşta eklenen durak (sn).
+   * build(holds, slow) bu kararlarla zaman çizelgesini kurar.
+   * voice (narrate.mjs'in ürettiği voice.js) ölçülmüş süreleri verir; yoksa süreler tahmin edilir.
+   * cue(satır, k) o satırın k. öbeğinin başladığı mutlak gerçek zamandır.
    */
-  function narration({ timeline: tl, beats, lines: raw, voice, cps = 14, gap = 0.35 }) {
-    const lines = raw.map((l) => ({ ...l, say: l.say ?? l.text, caption: l.caption !== false }));
-    const beatSpan = (id) => {
-      if (!beats[id]) throw new Error(`Bilinmeyen vuruş: ${id}`);
-      const [scene, a, b] = beats[id];
-      return { start: tl.at(scene, a), end: tl.at(scene, b), sceneEnd: tl.scene(scene).end };
+  function narration({ build, beats, lines: raw, voice, pauses = {}, cps = 12, gap = 0.45, breath = 0.9 }) {
+    const lines = raw.map((l) => ({ ...l, say: l.say ?? l.text })).map((l) => ({ ...l, phrases: phrases(l.say) }));
+    const order = Object.keys(beats);
+    const ids = new Set();
+    for (const l of lines) {
+      if (!beats[l.beat]) throw new Error(`Bilinmeyen vuruş: ${l.beat}`);
+      if (ids.has(l.id)) throw new Error(`Aynı satır kimliği iki kez: ${l.id}`);
+      ids.add(l.id);
+    }
+    lines.forEach((l, i) => {
+      if (i && order.indexOf(l.beat) < order.indexOf(lines[i - 1].beat)) throw new Error(`${l.id} satırı vuruş sırasının dışında`);
+    });
+    // Ses yokken öbek süreleri harf sayısından tahmin edilir
+    const estimate = (l) => {
+      const marks = [];
+      let t = 0;
+      l.phrases.forEach((ph, k) => {
+        marks.push(t);
+        t += ph.length / cps + (k < l.phrases.length - 1 ? pauseAfter(ph) : 0);
+      });
+      return { dur: t, marks };
     };
-    // Ölçülen sürelerle satırları yerleştirir; vuruşun bittiği an (deadline) ve sahne sonunu da verir.
-    const place = (durations) => {
+    const spanOf = (tl, id) => {
+      const [scene, a, b] = beats[id];
+      return { start: tl.at(scene, a), end: tl.at(scene, b, true) };
+    };
+    const placeAll = (tl, durations) => {
       let cursor = -Infinity;
       return lines.map((l, i) => {
-        const b = beatSpan(l.beat);
-        const at = Math.max(cursor + gap, b.start + (l.offset > 0 ? l.offset : 0));
+        const at = Math.max(cursor + gap, spanOf(tl, l.beat).start + (l.offset > 0 ? l.offset : 0));
         cursor = at + durations[i];
-        return { ...l, at, dur: durations[i], deadline: b.end, sceneEnd: b.sceneEnd };
+        return { ...l, at, dur: durations[i] };
       });
     };
-    // voice.js yalnızca aynı metinle ve aynı zaman çizelgesiyle üretildiyse kullanılır:
-    // beklemeler, vuruşlar ya da offset'ler değişince yeniden yerleştirme farklı çıkar.
+    const plan = (durations) => {
+      const holds = {};
+      const slow = {};
+      // satırı olmayan vuruşta ek durak doğrudan donma anında beklemedir
+      for (const id of order) if (pauses[id] > 0 && !lines.some((l) => l.beat === id)) holds[id] = pauses[id];
+      let tl = build(holds, slow);
+      for (const id of order) {
+        const mine = lines.map((l, i) => (l.beat === id ? i : -1)).filter((i) => i >= 0);
+        if (!mine.length) continue;
+        const placed = placeAll(tl, durations);
+        const need = Math.max(...mine.map((i) => placed[i].at + placed[i].dur)) + breath + (pauses[id] ?? 0);
+        const b = spanOf(tl, id);
+        if (need <= b.end + 1e-6) continue;
+        if (beats[id][3] != null) {
+          holds[id] = (holds[id] ?? 0) + (need - b.end);
+        } else {
+          const len = b.end - b.start;
+          slow[id] = (slow[id] ?? 1) * ((len + need - b.end) / len);
+        }
+        tl = build(holds, slow);
+      }
+      return { timeline: tl, holds, slow, placed: placeAll(tl, durations) };
+    };
+    // voice.js yalnızca aynı metinle ve aynı planla üretildiyse kullanılır
     const matches = voice && voice.lines.length === lines.length && voice.lines.every((v, i) => v.id === lines[i].id && v.say === lines[i].say);
-    const fresh = Boolean(matches) && place(voice.lines.map((v) => v.dur)).every((p, i) => Math.abs(p.at - voice.lines[i].at) < 0.005);
+    let result = matches ? plan(voice.lines.map((v) => v.dur)) : null;
+    const fresh = Boolean(result) && result.placed.every((p, i) => Math.abs(p.at - voice.lines[i].at) < 0.005);
     if (voice && !fresh) console.warn('voice.js seslendirme metniyle ya da zamanlamasıyla uyuşmuyor; narrate.mjs ile yeniden üretin.');
-    const placed = fresh
-      ? place(voice.lines.map((v) => v.dur))
-      : place(lines.map((l) => l.say.length / cps));
-    // Alt yazılar: konuşma süresince ve biraz sonrasına dek; bir sonrakiyle çakışmadan, sahne geçişine taşmadan
-    const shown = placed.filter((l) => l.caption);
-    const captionList = shown.map((l, i) => {
-      const next = shown[i + 1] ? shown[i + 1].at - 0.1 : Infinity;
-      return [l.at - 0.1, Math.min(l.at + Math.max(l.dur + 0.5, 1.4), next, l.sceneEnd - 0.05), l.text];
+    if (!fresh) result = plan(lines.map((l) => estimate(l).dur));
+
+    // Öbek başları: ölçülmüşse voice.js'ten, değilse tahminin satır süresine ölçeklenmiş hâli
+    const byId = {};
+    result.placed.forEach((p, i) => {
+      const v = fresh ? voice.lines[i].marks : null;
+      const est = estimate(p);
+      const marks = v && v.length === p.phrases.length ? v : est.marks.map((m) => (m * p.dur) / (est.dur || 1));
+      byId[p.id] = { ...p, marks };
     });
-    return { lines, beats, place, placed, captions: captionList, fresh, stale: Boolean(voice) && !fresh, voice: fresh ? voice : null };
+    const warned = new Set();
+    const cue = (id, k = 0) => {
+      const l = byId[id];
+      if (!l) throw new Error(`Bilinmeyen seslendirme satırı: ${id}`);
+      if (k < 0 || k >= l.marks.length) {
+        if (!warned.has(`${id}/${k}`)) console.warn(`${id} satırında ${k}. öbek yok (${l.marks.length} öbek)`);
+        warned.add(`${id}/${k}`);
+        k = clamp(k, 0, l.marks.length - 1);
+      }
+      return l.at + l.marks[k];
+    };
+    const end = (id) => {
+      if (!byId[id]) throw new Error(`Bilinmeyen seslendirme satırı: ${id}`);
+      return byId[id].at + byId[id].dur;
+    };
+    return { lines, beats, plan, ...result, fresh, stale: Boolean(voice) && !fresh, voice: fresh ? voice : null, cue, end };
   }
 
   /*
    * Film: zaman çizelgesindeki sahneleri çizer. Her sahne { id, title, draw(ctx, koreografiZamanı, t) } biçimindedir.
-   * Sahne geçişleri arka plana kararak yapılır (fade through dark); overlay (alt yazılar) en üstte çizilir.
+   * Sahne geçişleri arka plana kararak yapılır (fade through dark).
    */
   function film(def) {
     const fade = def.fade ?? 0.45;
@@ -301,11 +377,6 @@
             ctx.restore();
           }
         }
-        if (def.overlay) {
-          ctx.save();
-          def.overlay(ctx, t);
-          ctx.restore();
-        }
         ctx.restore();
       },
     };
@@ -313,6 +384,6 @@
 
   root.Engine = {
     W, H, clamp, lerp, ease, progress, vis, hash, noise, rgba, FONTS, font,
-    text, measure, runs, wrap, paragraph, captions, glow, roundRect, timeline, narration, film,
+    text, measure, runs, wrap, paragraph, glow, roundRect, timeline, PAUSES, phrases, narration, film,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

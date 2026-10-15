@@ -1,20 +1,24 @@
 #!/usr/bin/env node
 /*
  * Seslendirme izini üretir: <bölüm>/narration.js'teki satırları bir TTS motoruyla okutur,
- * sürelerini ölçüp satırları vuruşlarına yerleştirir ve <bölüm>/voice.js dosyasını yazar.
- * Oynatıcı ve render.mjs sesi bu dosyadan alır; alt yazılar da aynı zamanlamayı izler.
+ * sürelerini ölçer ve filmin anlatıcıya göre tempo planını kurar (görüntü, bir vuruşun
+ * konuşması bitmeden ilerlemez), sonra <bölüm>/voice.js dosyasını yazar.
+ * Oynatıcı ve render.mjs sesi ve zamanlamayı bu dosyadan alır.
  *
  *   node video/narrate.mjs ch01-var-ve-yok
- *       → varsayılan motor: espeak-ng + MBROLA tr2 (çevrimdışı, apt ile kurulur)
+ *       → varsayılan motor: espeak-ng + MBROLA tr1 erkek sesi (çevrimdışı, apt ile kurulur)
  *   node video/narrate.mjs ch01-var-ve-yok --engine piper:/yol/tr_TR-fahrettin-medium.onnx
  *       → Piper nöral sesi (pip install piper-tts; model Hugging Face'ten indirilir)
  *   node video/narrate.mjs ch01-var-ve-yok --engine files:/yol/kayitlar
- *       → insan kaydı: her satır için <id>.wav (ya da .mp3/.m4a/.ogg/.flac)
+ *       → hazır kayıt: her satır için <id>.wav (ya da .mp3/.m4a/.ogg/.flac)
+ *
+ * TTS motorlarında her cümle virgül ve noktalardan öbeklere bölünüp ayrı okutulur, aralarına
+ * sakin bir anlatıcının durakları konur (virgül ~0,35 sn, nokta ~0,6 sn; bkz. Engine.PAUSES).
+ * Her öbeğin satır içindeki başlangıcı da kaydedilir: film, görüntüyü o sözcüğe bağlayabilir.
  *
  * Seçenekler:
- *   --rate 1.0          konuşma hızı çarpanı (MBROLA ve Piper)
- *   --gain 1.25         seslendirmenin miksteki seviyesi
- *   --allow-overflow    vuruşuna sığmayan satır olsa da dosyayı yaz
+ *   --rate 1.0     konuşma hızı çarpanı (MBROLA ve Piper)
+ *   --gain 1.25    seslendirmenin miksteki seviyesi
  */
 import { spawnSync, execSync } from 'node:child_process';
 import crypto from 'node:crypto';
@@ -26,10 +30,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const RATE = 24000; // seslendirme izinin örnekleme hızı
-const TOLERANCE = 0.25; // bir satırın vuruşunu aşabileceği süre (sn)
-// Vuruşunu biraz aşmak serbest; sahne geçişine (kararmaya) taşmak değil.
-const overflows = (p) => p.at + p.dur > Math.min(p.deadline + TOLERANCE, p.sceneEnd - 0.4);
-const CACHE_REV = 2; // sentez kuralları değişince önbelleği geçersiz kılmak için artırın
+const CACHE_REV = 3; // sentez kuralları değişince önbelleği geçersiz kılmak için artırın
 
 function loadPlaywright() {
   const require = createRequire(import.meta.url);
@@ -41,13 +42,11 @@ function loadPlaywright() {
 }
 
 function parseArgs(argv) {
-  const opts = { engine: 'mbrola:tr2', rate: 1, gain: 1.25 };
+  const opts = { engine: 'mbrola:tr1', rate: 1, gain: 1.25 };
   const rest = [];
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a === '--allow-overflow') {
-      opts.allowOverflow = true;
-    } else if (a.startsWith('--')) {
+    if (a.startsWith('--')) {
       const eq = a.indexOf('=');
       const key = a.slice(2, eq < 0 ? undefined : eq);
       if (!['engine', 'rate', 'gain'].includes(key)) throw new Error(`Bilinmeyen seçenek: ${a}`);
@@ -83,7 +82,7 @@ const engines = {
     return {
       key: `mbrola-${voice}`,
       synth(text, rate, out) {
-        const pho = run('espeak-ng', ['-v', `mb-${voice}`, '-s', String(Math.round(150 * rate)), '-q', '--pho', text], { stdout: 'pipe' }).stdout.toString();
+        const pho = run('espeak-ng', ['-v', `mb-${voice}`, '-s', String(Math.round(155 * rate)), '-q', '--pho', text], { stdout: 'pipe' }).stdout.toString();
         const fixed = pho.split('\n').map((l) => l.replace(/^&(\s)/, 'e$1').replace(/^([^\s;]+)\/(\s)/, '$1$2')).join('\n');
         const r = run('mbrola', ['-e', db, '-', out], { input: fixed });
         return r.stderr.toString().split('\n').filter((l) => /unknown/.test(l));
@@ -104,7 +103,6 @@ const engines = {
   files(dir) {
     return {
       key: null,
-      fixedRate: true,
       synth(text, rate, out, line) {
         const src = ['wav', 'mp3', 'm4a', 'ogg', 'flac'].map((e) => path.join(dir, `${line.id}.${e}`)).find((f) => fs.existsSync(f));
         if (!src) throw new Error(`Kayıt yok: ${path.join(dir, `${line.id}.wav`)}`);
@@ -123,14 +121,17 @@ function makeEngine(spec) {
   return { name: spec, ...engines[name](arg) };
 }
 
-// 24 kHz mono float'a çevirir, sessiz uçları kırpar, seviyeyi eşitler.
-function loadClip(file) {
+// 24 kHz mono float'a çevirir
+function decode(file) {
   const raw = run('ffmpeg', [
     '-loglevel', 'error', '-i', file,
     '-af', 'highpass=f=70', '-ar', String(RATE), '-ac', '1', '-f', 'f32le', '-',
   ], { stdout: 'pipe' }).stdout;
-  const all = new Float32Array(raw.buffer, raw.byteOffset, raw.length / 4);
-  // Kırpma eşiği kaydın kendi tepesine göre (−40 dB): sessiz bir insan kaydı da doğru kırpılır
+  return new Float32Array(raw.buffer, raw.byteOffset, raw.length / 4);
+}
+
+// Sessiz uçları kırpar; eşik kaydın kendi tepesine göre (−40 dB), böylece kısık bir kayıt da doğru kırpılır
+function trim(all, file) {
   let top = 0;
   for (let i = 0; i < all.length; i++) top = Math.max(top, Math.abs(all[i]));
   const thr = top * 0.01;
@@ -139,8 +140,12 @@ function loadClip(file) {
   while (a < b && Math.abs(all[a]) <= thr) a++;
   while (b > a && Math.abs(all[b - 1]) <= thr) b--;
   const x = all.slice(Math.max(0, a - RATE * 0.015), Math.min(all.length, b + RATE * 0.04));
-  if (x.length < RATE * 0.2) throw new Error(`${file}: kırpıldıktan sonra ses neredeyse yok (${(x.length / RATE).toFixed(2)} sn). Kayıt boş ya da bozuk mu?`);
-  // ses içeren 20 ms pencerelerin RMS'i −20 dBFS'e, tepe −1 dBFS'i aşmayacak biçimde
+  if (x.length < RATE * 0.15) throw new Error(`${file}: kırpıldıktan sonra ses neredeyse yok (${(x.length / RATE).toFixed(2)} sn). Kayıt boş ya da bozuk mu?`);
+  return x;
+}
+
+// Ses içeren 20 ms pencerelerin RMS'i −20 dBFS'e, tepe −1 dBFS'i aşmayacak biçimde
+function normalize(x) {
   let sum = 0;
   let n = 0;
   let peak = 0;
@@ -165,7 +170,7 @@ function loadClip(file) {
 async function main() {
   const opts = parseArgs(process.argv.slice(2));
   if (!opts.chapter) {
-    console.error('Kullanım: node video/narrate.mjs <bölüm-klasörü> [--engine mbrola:tr2|piper:<model>|files:<klasör>] [--rate 1.0]');
+    console.error('Kullanım: node video/narrate.mjs <bölüm-klasörü> [--engine mbrola:tr1|piper:<model>|files:<klasör>] [--rate 1.0]');
     process.exit(1);
   }
   const dir = path.join(here, opts.chapter);
@@ -181,64 +186,76 @@ async function main() {
   page.on('console', (m) => { if (m.type() === 'warning' || m.type() === 'error') console.error('Sayfa:', m.text()); });
   await page.goto(`${pathToFileURL(path.join(dir, 'index.html')).href}?kayit`);
   await page.waitForFunction(() => window.FILM && window.FILM.narration);
-  const { lines, duration } = await page.evaluate(() => ({
-    lines: window.FILM.narration.lines.map(({ id, beat, say }) => ({ id, beat, say })),
-    duration: window.FILM.duration,
+  const { lines, PAUSES } = await page.evaluate(() => ({
+    lines: window.FILM.narration.lines.map(({ id, beat, say, phrases }) => ({ id, beat, say, phrases })),
+    PAUSES: window.Engine.PAUSES,
   }));
   if (!lines.length) throw new Error('narration.js içinde satır yok.');
 
-  const rates = lines.map(() => opts.rate);
-  const clips = [];
-  const synth = (i) => {
-    const l = lines[i];
-    const key = crypto.createHash('sha1').update(`${CACHE_REV}|${engine.name}|${rates[i]}|${l.say}`).digest('hex').slice(0, 16);
-    const file = path.join(cache, engine.key ? `${key}.wav` : `${l.id}.wav`);
-    if (!engine.key || !fs.existsSync(file)) {
-      // Önce geçici dosyaya: yarıda kesilen bir sentez önbellekte bozuk klip bırakmasın
+  // Önce geçici dosyaya yaz: yarıda kesilen bir sentez önbellekte bozuk klip bırakmasın
+  const cached = (key, make) => {
+    const file = path.join(cache, `${key}.wav`);
+    if (!fs.existsSync(file)) {
       const tmp = `${file}.${process.pid}.tmp.wav`;
       try {
-        const warnings = engine.synth(l.say, rates[i], tmp, l);
-        if (warnings.length) console.warn(`  ! ${l.id}: ${[...new Set(warnings)].join('; ')}`);
+        make(tmp);
         fs.renameSync(tmp, file);
       } finally {
         fs.rmSync(tmp, { force: true });
       }
     }
-    clips[i] = loadClip(file);
+    return file;
+  };
+  const hash = (str) => crypto.createHash('sha1').update(`${CACHE_REV}|${engine.name}|${opts.rate}|${str}`).digest('hex').slice(0, 16);
+  // → { clip, marks }: satırın sesi ve her öbeğin satır içindeki başlangıcı (sn)
+  const synthLine = (l) => {
+    if (!engine.key) {
+      const file = path.join(cache, `${l.id}.wav`);
+      engine.synth(l.say, opts.rate, file, l);
+      return { clip: normalize(trim(decode(file), file)), marks: null }; // kayıtta öbek sınırları bilinmez; film tahmin eder
+    }
+    const parts = [];
+    const marks = [];
+    let n = 0;
+    for (const ph of l.phrases) {
+      const file = cached(hash(ph), (tmp) => {
+        const warnings = engine.synth(ph, opts.rate, tmp, l);
+        if (warnings.length) console.warn(`  ! ${l.id}: ${[...new Set(warnings)].join('; ')}`);
+      });
+      const clip = trim(decode(file), file);
+      const pause = new Float32Array(Math.round(RATE * (PAUSES[ph.slice(-1)] ?? 0.3)));
+      marks.push(+(n / RATE).toFixed(3));
+      parts.push(clip, pause);
+      n += clip.length + pause.length;
+    }
+    parts.pop();
+    const out = new Float32Array(parts.reduce((s, p) => s + p.length, 0));
+    let o = 0;
+    for (const p of parts) {
+      out.set(p, o);
+      o += p.length;
+    }
+    return { clip: normalize(out), marks };
   };
   console.log(`${lines.length} satır, motor: ${engine.name}`);
-  lines.forEach((_, i) => synth(i));
+  const synthesized = lines.map(synthLine);
+  const clips = synthesized.map((x) => x.clip);
 
-  // Yerleştir; sığmayan satırları (motor izin veriyorsa) biraz hızlandırarak yeniden okut
-  let placed;
-  for (let round = 0; ; round++) {
-    placed = await page.evaluate((d) => window.FILM.narration.place(d), clips.map((c) => c.length / RATE));
-    const late = placed.map((p, i) => [p, i]).filter(([p]) => overflows(p));
-    if (!late.length || engine.fixedRate || round >= 3) break;
-    for (const [, i] of late) {
-      if (rates[i] >= opts.rate * 1.2) continue;
-      rates[i] = Math.min(opts.rate * 1.2, rates[i] * 1.07);
-      synth(i);
-    }
-  }
+  // Tempo planı: görüntü her vuruşta anlatıcıyı bekler
+  const plan = await page.evaluate((d) => {
+    const p = window.FILM.narration.plan(d);
+    return { placed: p.placed.map(({ id, beat, say, at, dur }) => ({ id, beat, say, at, dur })), holds: p.holds, slow: p.slow, duration: p.timeline.duration };
+  }, clips.map((c) => c.length / RATE));
   await browser.close();
+  const { placed, duration } = plan;
 
-  let overflow = 0;
-  console.log('\n  satır                     vuruş               başla    süre   pay');
-  placed.forEach((p, i) => {
-    // pay: satırın bitebileceği son ana (vuruş sonu + tolerans, en geç sahne kararmadan önce) kalan süre
-    const slack = Math.min(p.deadline + TOLERANCE, p.sceneEnd - 0.4) - (p.at + p.dur);
-    const bad = overflows(p);
-    if (bad) overflow++;
-    const speed = rates[i] !== opts.rate ? ` hız×${(rates[i] / opts.rate).toFixed(2)}` : '';
-    console.log(`  ${bad ? '✗' : ' '} ${p.id.padEnd(24)} ${p.beat.padEnd(19)} ${p.at.toFixed(2).padStart(6)}  ${p.dur.toFixed(2).padStart(5)}  ${slack.toFixed(2).padStart(5)}${speed}`);
-  });
-  const last = placed[placed.length - 1];
-  console.log(`\n  toplam konuşma ${placed.reduce((s, p) => s + p.dur, 0).toFixed(1)} sn, film ${duration.toFixed(1)} sn`);
-  if (last.at + last.dur > duration) throw new Error('Son satır film bitmeden tamamlanmıyor.');
-  if (overflow && !opts.allowOverflow) {
-    throw new Error(`${overflow} satır vuruşuna sığmıyor. narration.js'te metni kısaltın ya da o vuruşa bekleme (holds) ekleyin; yine de yazmak için --allow-overflow.`);
-  }
+  console.log('\n  satır                     vuruş                 başla    süre');
+  placed.forEach((p) => console.log(`    ${p.id.padEnd(24)} ${p.beat.padEnd(21)} ${p.at.toFixed(2).padStart(6)}  ${p.dur.toFixed(2).padStart(5)}`));
+  const holds = Object.entries(plan.holds).filter(([, v]) => v > 0.05).map(([k, v]) => `${k} +${v.toFixed(1)}`);
+  const slow = Object.entries(plan.slow).map(([k, v]) => `${k} ×${v.toFixed(2)}`);
+  if (holds.length) console.log(`\n  bekleme: ${holds.join(', ')}`);
+  if (slow.length) console.log(`  yavaşlatma: ${slow.join(', ')}`);
+  console.log(`\n  toplam konuşma ${placed.reduce((s, p) => s + p.dur, 0).toFixed(1)} sn, film ${duration.toFixed(1)} sn (${Math.floor(duration / 60)}:${String(Math.round(duration % 60)).padStart(2, '0')})`);
 
   // Tek iz: her satır kendi anına
   const track = new Float32Array(Math.ceil(duration * RATE));
@@ -257,7 +274,7 @@ async function main() {
   const voice = {
     engine: engine.name,
     gain: opts.gain,
-    lines: placed.map((p) => ({ id: p.id, say: p.say, at: +p.at.toFixed(3), dur: +p.dur.toFixed(3) })),
+    lines: placed.map((p, i) => ({ id: p.id, say: p.say, at: +p.at.toFixed(3), dur: +p.dur.toFixed(3), ...(synthesized[i].marks ? { marks: synthesized[i].marks } : {}) })),
     audio: mp3.toString('base64'),
   };
   const out = path.join(dir, 'voice.js');
