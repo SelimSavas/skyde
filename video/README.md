@@ -10,6 +10,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | Birinci Kapı — Var ve Yok: İki Simgeli Bir Evren | 8:51 (Türkçe seslendirmeli) | `ch01-var-ve-yok/` |
 | Birinci Kapı, 2. Bölüm — Taşa Kazınan Mantık | 11:21 (insan sesiyle) | `ch02-tasa-kazinan-mantik/` |
 | Birinci Kapı, 3. Bölüm — Sayılardan Devreye: Elektriğin Hesap Yapması | 14:41 (insan sesi sonradan eklenecek) | `ch03-sayilardan-devreye/` |
+| Birinci Kapı, 4. Bölüm — Veri, Bilgi, Anlam: Üç Basamaklı Merdiven | 13:17 (insan sesi sonradan eklenecek) | `ch04-veri-bilgi-anlam/` |
 
 ## İzlemek
 
@@ -112,6 +113,8 @@ Sığmayan satırda önce duraklar kısalır, gerekirse satır hafifçe hızlan�
   transistör, çip); aynı yapı. `voice.js` burada yalnızca zamanlama içindir; ses `dub.mjs` ile eklenir.
 - `ch03-sayilardan-devreye/` — üçüncü bölüm (ikilik sayma, yarım ve tam toplayıcı, elde zinciri, ikiye tümleyen,
   kaydırarak çarpma, bölme ve karekök, saat darbesi, geri beslemeli bellek hücresi); aynı yapı.
+- `ch04-veri-bilgi-anlam/` — dördüncü bölüm (aynı sayının üç dünyası, veri–bilgi–anlam merdiveni, bağlam,
+  makinenin ve insanın payı, veriyi kimin konuşturduğu, veri türleri ve baştaki sıfır, düzenli ve düzensiz veri); aynı yapı.
 - `narrate.mjs` — seslendirme izini üretir (MBROLA, Piper ya da insan kaydı).
 - `dub.mjs` — insan sesi kayıtlarını hazır videoya ekler (görüntüyü yeniden dökmeden).
 
