@@ -57,7 +57,7 @@
     { id: 'ask', base: 12, title: 'Aynı soru, iki veri', draw: sceneAsk },
     { id: 'iceberg', base: 18, title: 'Buzdağı', draw: sceneIceberg },
     { id: 'sum', base: 14, title: 'Özet', draw: sceneSum },
-    { id: 'close', base: 5, title: 'Kapanış', draw: sceneClose, fadeOut: 1.4 },
+    { id: 'close', base: 8, title: 'Kapanış', draw: sceneClose, fadeOut: 1.4 },
   ];
 
   // Seslendirme vuruşları: [sahne, başlangıç, bitiş, donma anı] (koreografi zamanı).
@@ -119,7 +119,7 @@
     'messy.iceberg': ['iceberg', 0.3, 9.0, 8.3],
     'messy.ai': ['iceberg', 9.1, 18.0, 17.3],
     'sum.ladder': ['sum', 0.3, 14.0, 13.3],
-    'close.end': ['close', 0.3, 5.0, 4.2],
+    'close.end': ['close', 0.3, 8.0, 7.2],
   };
 
   // Kalabalık animasyonları yavaşlatma (vuruş → kat)
@@ -211,7 +211,7 @@
   }
 
   function kicker(ctx, str, lt, d) {
-    const a = vis(lt, 0.2, d - 0.3, 0.6, 0.5);
+    const a = vis(lt, 0.2, d - 0.05, 0.6, 0.45);
     if (a <= 0) return;
     text(ctx, str, 120, 96, { size: 24, weight: 600, spacing: 8, color: C.muted, align: 'left', alpha: a });
     ctx.save();
@@ -618,7 +618,13 @@
       ctx.fillRect(x, y, sw, h);
       ctx.fillStyle = g;
       ctx.fillRect(x, y, sw, h);
-      // üst yüz
+      // üst yüz (sağdaki daha yüksek basamağın arkasında kalan kısmı kırpılır)
+      ctx.save();
+      if (i < 2) {
+        ctx.beginPath();
+        ctx.rect(x - 4, y - d - 4, sw + 4, h + d + 8);
+        ctx.clip();
+      }
       ctx.beginPath();
       ctx.moveTo(x, y);
       ctx.lineTo(x + sw, y);
@@ -648,6 +654,7 @@
       ctx.lineTo(x + sw, y);
       ctx.stroke();
       ctx.restore();
+      ctx.restore();
       const la = alpha * labels[i] * clamp(rise[i] * 2 - 1);
       if (la > 0 && h > 70) {
         text(ctx, names[i], x + sw / 2, y + 46, { size: o.labelSize ?? 36, family: 'display', weight: 900, spacing: 6, color: st.col, alpha: la });
@@ -660,7 +667,8 @@
   // Sağ üstte küçük merdiven: hangi basamakta olduğumuzu gösterir
   function miniLadder(ctx, active, alpha) {
     if (alpha <= 0.002) return;
-    const x0 = W - 330;
+    const label = active >= 0 ? `${active + 1} · ${STEP[active].name}` : '';
+    const x0 = W - 120 - 136 - measure(ctx, label, { size: 24, weight: 800, spacing: 4 });
     const yb = 128;
     for (let i = 0; i < 3; i++) {
       const on = i === active;
@@ -1463,7 +1471,7 @@
   }
 
   function sceneOpen(ctx, lt, t) {
-    drawDrift(ctx, t, progress(lt, 0, 1.2) * (1 - 0.75 * progress(lt, 3.0, 4.0)));
+    drawDrift(ctx, t, progress(lt, 0, 1.2) * (1 - 0.92 * progress(lt, 3.0, 4.0)));
     const k = (i) => progress(lt, 0.4 + i * 0.5, 1.3 + i * 0.5, ease.out);
     const hi = [0, 1, 2].map((i) => after(t, 'open-title', 2 + i, 0.5) * (1 - 0.4 * progress(lt, 7.0, 7.6)));
     drawLadder(ctx, W / 2 - 540 - 22, 1000, { sw: 360, sh: 86, d: 40, rise: [k(0), k(1), k(2)], hi, labels: [0, 0, 0], alpha: 1 - 0.25 * progress(lt, 3.2, 4.0) });
@@ -1519,11 +1527,11 @@
         if (i < 3) {
           const aa = pa * after(t, 'recap-path', i + 1, 0.6);
           arrow(ctx, xs[i] + 95 * s, cy, xs[i + 1] - 95 * s, cy, C.fire, aa, 4, 16 * s);
-          text(ctx, `${i + 1}. BÖLÜM`, (xs[i] + xs[i + 1]) / 2, cy - 44 * s, { size: 20 * s, weight: 700, spacing: 3, color: C.muted, alpha: aa });
+          text(ctx, `${i + 1}. BÖLÜM`, (xs[i] + xs[i + 1]) / 2, cy - 44 * s, { size: 20 * s, weight: 700, spacing: 3, color: C.muted, alpha: aa * (1 - back) });
         }
       });
       // "fizik" ayracı
-      const fa = pa * after(t, 'recap-path', 0, 0.8) * (1 - back * 0.4);
+      const fa = pa * after(t, 'recap-path', 0, 0.8) * (1 - back);
       if (fa > 0) {
         ctx.save();
         ctx.globalAlpha *= fa;
@@ -1550,12 +1558,12 @@
         ctx.globalAlpha *= da * 0.6;
         ctx.strokeStyle = C.flame;
         ctx.lineWidth = 2;
-        line(ctx, W / 2, 720, x, 840);
+        line(ctx, W / 2, 720, x, 815);
         ctx.restore();
-        drawIcon(ctx, 'door', x, 900, 0.62, C.cream, da, 0);
-        text(ctx, String(g), x, 978, { size: 24, weight: 800, color: C.muted, alpha: da });
+        drawIcon(ctx, 'door', x, 870, 0.62, C.cream, da, 0);
+        text(ctx, String(g), x, 945, { size: 24, weight: 800, color: C.muted, alpha: da });
       }
-      text(ctx, 'bundan sonra anlatacağımız her şey', W / 2, 1030, { size: 30, family: 'serif', italic: true, color: C.muted, alpha: pa * after(t, 'recap-step', 3, 0.8) });
+      text(ctx, 'bundan sonra anlatacağımız her şey', W / 2, 992, { size: 30, family: 'serif', italic: true, color: '#c3c9d6', alpha: pa * after(t, 'recap-step', 3, 0.8) });
     }
     // asıl soru
     const qa = beatVis(lt, 'recap.question');
@@ -1671,8 +1679,8 @@
     ctx.fill();
     ctx.restore();
     // saat 03:00
-    panel(ctx, x - 120, y + 120, 110, 50, a, { fill: '#08101e', stroke: '#3a4664', r: 10 });
-    text(ctx, '03:00', x - 120, y + 122, { size: 28, family: 'mono', weight: 700, color: C.error, alpha: a * (0.6 + 0.4 * Math.abs(Math.sin(t * 2))) });
+    panel(ctx, x - 100, y + 122, 110, 50, a, { fill: '#08101e', stroke: '#3a4664', r: 10 });
+    text(ctx, '03:00', x - 100, y + 124, { size: 28, family: 'mono', weight: 700, color: C.error, alpha: a * (0.6 + 0.4 * Math.abs(Math.sin(t * 2))) });
   }
 
   function drawOven(ctx, x, y, a, t) {
@@ -1749,15 +1757,15 @@
         if (pa <= 0) return;
         const st = [FIRE, VIO, DIGI][i];
         panel(ctx, x, WORLD_Y, 500, 470, pa, { fill: '#0f1628', stroke: diff > 0 ? rgba(st, 0.4 + 0.5 * diff) : C.line, lw: 3, r: 22 });
-        if (i === 0) drawRoom(ctx, x - 20, WORLD_Y - 10, pa, t);
-        if (i === 1) drawBedChild(ctx, x, WORLD_Y - 10, pa, t);
-        if (i === 2) drawOven(ctx, x, WORLD_Y - 10, pa, t);
+        if (i === 0) drawRoom(ctx, x - 20, WORLD_Y + 10, pa, t);
+        if (i === 1) drawBedChild(ctx, x - 10, WORLD_Y + 28, pa, t);
+        if (i === 2) drawOven(ctx, x, WORLD_Y + 32, pa, t);
         // sayı kopyası üstten panele uçar
         const fly = after(t, lines[i], 0, 0.9, ease.inOut);
         const [bx, by] = travel([W / 2, 205], [x + 150, WORLD_Y - 190], fly, 40);
         readout(ctx, '38,5', bx, by, { size: lerp(64, 40, fly), alpha: pa, color: C.flame, glow: same > 0 ? FIRE : null });
         text(ctx, caps[i][0].toUpperCase(), x - 200, WORLD_Y - 192, { size: 24, weight: 800, spacing: 5, color: C.muted, align: 'left', alpha: pa });
-        text(ctx, caps[i][1], x, WORLD_Y + 200, { size: 34, family: 'serif', italic: true, color: caps[i][2], alpha: wa * after(t, lines[i], 1, 0.6) });
+        text(ctx, caps[i][1], x, WORLD_Y + 205, { size: 34, family: 'serif', italic: true, color: caps[i][2], alpha: wa * after(t, lines[i], 1, 0.6) });
         if (same > 0) {
           ctx.save();
           ctx.globalAlpha *= wa * same * 0.7;
@@ -1778,8 +1786,9 @@
     const ra = beatVis(lt, 'thermo.rule');
     if (ra > 0) {
       text(ctx, 'bilişimin en temel ama en çok atlanan ayrımı', W / 2, 250, { size: 44, family: 'serif', italic: true, color: C.cream, alpha: ra * after(t, 'thermo-rule', 1, 0.7) });
-      const rise = [after(t, 'thermo-rule', 2, 0.8), after(t, 'thermo-rule', 3, 0.8), progress(t, cue('thermo-rule', 3) + 0.6, cue('thermo-rule', 3) + 1.4, ease.out)];
-      const tops = drawLadder(ctx, W / 2 - 3 * 360 / 2 - 22, 900, { sw: 360, sh: 130, rise, hi: rise.map((r) => r * 0.6), alpha: ra });
+      const named = [after(t, 'thermo-rule', 2, 0.8), after(t, 'thermo-rule', 3, 0.8), progress(t, cue('thermo-rule', 3) + 0.6, cue('thermo-rule', 3) + 1.4, ease.out)];
+      const rise = [0, 1, 2].map((i) => progress(lt, 27.3 + i * 0.3, 28.3 + i * 0.3, ease.out));
+      const tops = drawLadder(ctx, W / 2 - 3 * 360 / 2 - 22, 900, { sw: 360, sh: 130, rise, hi: named.map((r) => r * 0.7), labels: named, alpha: ra * (0.55 + 0.45 * named[0]) });
       const na = ra * after(t, 'thermo-rule', 4, 0.6);
       for (let i = 0; i < 2; i++) {
         const x = tops[i].left + tops[i].w * 0.72;
@@ -1795,7 +1804,17 @@
   // ---------------------------------------------------------------------------
 
   const RAW = ['38,5', '0532…', '2026-08-15', 'kırmızı'];
-  const RAW_X = [300, 700, 1180, 1630];
+  // kartlar eşit aralıkla ve ortalı dizilir (genişlikleri yazıya göre)
+  const RAW_W = RAW.map((s) => s.length * 54 * 0.602 + 70);
+  const RAW_X = (() => {
+    const gap = 100;
+    let x = (W - RAW_W.reduce((n, w) => n + w, 0) - gap * (RAW.length - 1)) / 2;
+    return RAW_W.map((w) => {
+      const c = x + w / 2;
+      x += w + gap;
+      return c;
+    });
+  })();
 
   // Bloklardan kule (yanlış veri üzerine kurulanlar); fall 0 → 1 devrilme
   function drawTower(ctx, x, yb, labels, alpha, fall, t, appear) {
@@ -1830,7 +1849,7 @@
 
   function sceneData(ctx, lt, t) {
     kicker(ctx, 'BASAMAK BİR', lt, 40);
-    miniLadder(ctx, 0, vis(lt, 0.5, 39.6, 0.6, 0.5));
+    miniLadder(ctx, 0, vis(lt, 0.5, 39.95, 0.6, 0.45));
     // A · tanım
     const da = beatVis(lt, 'data.def');
     if (da > 0) {
@@ -1843,7 +1862,7 @@
       const sa = da * after(t, 'data-def', 3, 1.0);
       ['38,5', '07:45', '0532…', '12', '65', 'kırmızı', '180', '2026-08-15'].forEach((s, i) => {
         const x = 260 + i * 200 + ((t * 30) % 200) - 100;
-        text(ctx, s, x, 760, { size: 34, family: 'mono', weight: 600, color: C.digital, alpha: sa * 0.55 * clamp(Math.min((x - 120) / 160, (W - 120 - x) / 160)) });
+        text(ctx, s, x, 712, { size: 34, family: 'mono', weight: 600, color: C.digital, alpha: sa * 0.55 * clamp(Math.min((x - 120) / 160, (W - 120 - x) / 160)) });
       });
     }
     // B · örnekler
@@ -1870,7 +1889,7 @@
         drawIcon(ctx, ic, 330, y, 0.9, C.cream, a);
         const fk = after(t, 'data-source', 1 + i, 1.2, ease.inOut);
         arrow(ctx, 410, y, lerp(410, 600, fk), y, C.digital, a, 4, 14);
-        dataCard(ctx, out, 760, y, { size: 38, alpha: a * clamp(fk * 2 - 0.6) });
+        dataCard(ctx, out, 620 + (out.length * 38 * 0.602 + 70) / 2, y, { size: 38, alpha: a * clamp(fk * 2 - 0.6) });
       });
       // insan bir forma yazar
       const pa = sa * after(t, 'data-source', 4, 0.6);
@@ -1922,7 +1941,15 @@
       const la = ia * after(t, 'data-innocent', 3, 0.6);
       panel(ctx, 600, 700, 520, 190, la, { fill: '#121a2c', stroke: C.line, r: 20 });
       runs(ctx, [['iyi', { size: 50, weight: 800, color: C.ok, alpha: la }], ['   ya da   ', { size: 34, family: 'serif', italic: true, color: C.muted, alpha: la }], ['kötü', { size: 50, weight: 800, color: C.error, alpha: la }]], 600, 718);
-      cross(ctx, 600, 700, 2.6, C.error, la * 0.9, after(t, 'data-innocent', 3, 0.7, ease.inOut));
+      {
+        const wi = measure(ctx, 'iyi', { size: 50, weight: 800 });
+        const wy = measure(ctx, '   ya da   ', { size: 34, family: 'serif', italic: true });
+        const wk = measure(ctx, 'kötü', { size: 50, weight: 800 });
+        const x0 = 600 - (wi + wy + wk) / 2;
+        const sk = after(t, 'data-innocent', 3, 0.8, ease.inOut);
+        strike(ctx, x0 - 8, x0 + wi + 8, 700, C.error, la, clamp(sk * 2));
+        strike(ctx, x0 + wi + wy - 8, x0 + wi + wy + wk + 8, 700, C.error, la, clamp(sk * 2 - 1));
+      }
       text(ctx, 'veri bunlardan biri değildir', 600, 840, { size: 30, family: 'serif', italic: true, color: C.muted, alpha: la });
       const ra = ia * after(t, 'data-innocent', 4, 0.6);
       panel(ctx, 1320, 700, 560, 190, ra, { fill: '#121a2c', stroke: C.digital, r: 20 });
@@ -1951,8 +1978,8 @@
         text(ctx, 'tamamen sağlıklı', 780, 860, { size: 32, family: 'serif', italic: true, color: C.ok, alpha: ca });
       }
       const ra = ba * after(t, 'data-broken', 4, 0.6);
-      bubble(ctx, 560, 300, 230, 110, ra, { fill: '#2a1218', stroke: C.error, tail: [380, 380] });
-      text(ctx, '38,5!', 560, 302, { size: 54, family: 'mono', weight: 700, color: C.error, alpha: ra });
+      bubble(ctx, 560, 300, 230, 110, ra, { fill: C.error, tail: [335, 360] });
+      text(ctx, '38,5!', 560, 302, { size: 54, family: 'mono', weight: 700, color: '#ffffff', alpha: ra });
       // yanlış veri üzerine kurulanlar
       const wa = ba * after(t, 'data-broken', 5, 0.6);
       dataCard(ctx, '38,5 ✗', 1420, 900, { size: 44, alpha: wa, stroke: rgba([255, 84, 104], 0.9), color: C.error });
@@ -1979,16 +2006,16 @@
     ctx.strokeStyle = '#5a4a3a';
     ctx.stroke();
     ctx.strokeStyle = C.ink;
-    for (let k = 0; k < 12; k++) {
+    for (let k = 1; k < 12; k++) {
       const a = (k / 12) * Math.PI * 2;
       ctx.lineWidth = k % 3 === 0 ? 5 : 2.5;
       line(ctx, x + Math.sin(a) * r * 0.78, y - Math.cos(a) * r * 0.78, x + Math.sin(a) * r * 0.9, y - Math.cos(a) * r * 0.9);
     }
     ctx.lineCap = 'round';
     ctx.lineWidth = 9;
-    line(ctx, x, y, x, y - r * 0.45);
+    line(ctx, x, y, x, y - r * 0.32);
     ctx.lineWidth = 5;
-    line(ctx, x, y, x, y - r * 0.68);
+    line(ctx, x, y, x, y - r * 0.5);
     ctx.fillStyle = C.ember;
     dot(ctx, x, y, 8);
     ctx.restore();
@@ -2015,12 +2042,12 @@
     ctx.restore();
     for (const dx of [-30, 30]) {
       const f = 1 + 0.15 * Math.sin(t * 12 + dx);
-      glow(ctx, x + dx, y - 116, 40, FIRE, 0.5 * alpha);
+      glow(ctx, x + dx, y - 98, 40, FIRE, 0.5 * alpha);
       ctx.save();
       ctx.globalAlpha *= alpha;
       ctx.fillStyle = '#ffd27a';
       ctx.beginPath();
-      ctx.ellipse(x + dx, y - 116, 7, 14 * f, 0, 0, Math.PI * 2);
+      ctx.ellipse(x + dx, y - 98, 7, 14 * f, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
@@ -2055,7 +2082,7 @@
 
   function sceneInfo(ctx, lt, t) {
     kicker(ctx, 'BASAMAK İKİ', lt, 46);
-    miniLadder(ctx, 1, vis(lt, 0.5, 45.6, 0.6, 0.5));
+    miniLadder(ctx, 1, vis(lt, 0.5, 45.95, 0.6, 0.45));
     // A · tanım: veri bir çerçeveye oturur
     const da = beatVis(lt, 'info.def');
     if (da > 0) {
@@ -2071,22 +2098,22 @@
     // B · ön bilgi: bağlam ve 12
     const ca = beatVis(lt, 'info.context');
     if (ca > 0) {
-      pill(ctx, 'ÖN BİLGİ', 230, 200, { size: 22, color: C.flame, alpha: ca * after(t, 'info-context', 0, 0.5) });
+      pill(ctx, 'ÖN BİLGİ', 230, 188, { size: 22, color: C.flame, alpha: ca * after(t, 'info-context', 0, 0.5) });
       runs(ctx, [
         ['Bağlam: ', { size: 46, family: 'display', weight: 800, color: C.fire, alpha: ca * after(t, 'info-context', 0, 0.6) }],
         ['bir şeyin içinde durduğu çevre', { size: 46, family: 'serif', italic: true, color: C.cream, alpha: ca * after(t, 'info-context', 1, 0.6) }],
-      ], W / 2, 220);
+      ], W / 2, 205);
       const na = ca * after(t, 'info-context', 2, 0.6, ease.back);
       const pulse = after(t, 'info-context', 9, 0.8);
-      if (pulse > 0) glow(ctx, W / 2, 380, 200, FIRE, 0.25 * ca * pulse);
-      text(ctx, '12', W / 2, 380, { size: 150, family: 'mono', weight: 700, color: C.cream, alpha: na });
+      if (pulse > 0) glow(ctx, W / 2, 355, 200, FIRE, 0.25 * ca * pulse);
+      text(ctx, '12', W / 2, 355, { size: 150, family: 'mono', weight: 700, color: C.cream, alpha: na });
       const ctxLines = [[3, 4], [5, 6], [7, 8]];
       const caps = ['öğle vakti', 'bir yaş', 'bir oyuncu'];
       CTX_X.forEach((x, i) => {
         const [k0, k1] = ctxLines[i];
         const a = ca * after(t, 'info-context', k0, 0.6);
         if (a <= 0) return;
-        const y = 720;
+        const y = 680;
         const ring = after(t, 'info-context', 10, 0.8);
         panel(ctx, x, y, 400, 380, a, { fill: '#0f1628', stroke: ring > 0 ? rgba(FIRE, 0.3 + 0.6 * ring) : C.line, lw: 3, r: 22 });
         const fly = after(t, 'info-context', k0, 1.0, ease.inOut);
@@ -2096,30 +2123,21 @@
           target = [x, y - 112];
         } else if (i === 1) {
           drawCake(ctx, x, y + 30, a, t);
-          target = [x, y - 46];
+          target = [x, y - 30];
         } else {
           drawJersey(ctx, x, y + 10, a);
           target = [x, y + 10];
         }
-        const [px, py] = travel([W / 2, 380], target, fly, 60);
+        const [px, py] = travel([W / 2, 355], target, fly, 60);
         const size = i === 0 ? lerp(150, 44, fly) : i === 1 ? lerp(150, 70, fly) : lerp(150, 110, fly);
         const col = i === 0 ? C.ink : i === 1 ? '#ffd27a' : '#ffffff';
         text(ctx, '12', px, py, { size, family: i === 0 ? 'sans' : 'display', weight: 800, color: fly > 0.6 ? col : C.cream, alpha: a });
-        if (i === 1 && fly > 0.9) {
-          // mum gövdeleri rakamın altında
-          ctx.save();
-          ctx.globalAlpha *= a;
-          ctx.fillStyle = '#7cc8ff';
-          ctx.fillRect(x - 36, y - 20, 12, 8);
-          ctx.fillRect(x + 24, y - 20, 12, 8);
-          ctx.restore();
-        }
-        caption(ctx, caps[i], y + 240, ca * after(t, 'info-context', k1, 0.6), { size: 36, color: C.flame, x });
+        caption(ctx, caps[i], y + 235, ca * after(t, 'info-context', k1, 0.6), { size: 36, color: C.flame, x });
       });
       runs(ctx, [
         ['Sayı hiç değişmedi; ', { size: 40, family: 'serif', color: C.cream, alpha: ca * after(t, 'info-context', 9, 0.6) }],
         ['değişen, çevresiydi.', { size: 40, family: 'serif', italic: true, color: C.fire, alpha: ca * after(t, 'info-context', 10, 0.6) }],
-      ], W / 2, 1035);
+      ], W / 2, 1000);
     }
     // C · neyin, kimin, ne zaman
     const qa = spanVis(lt, 'info.questions', 'info.sentence');
@@ -2145,10 +2163,17 @@
           const hi = after(t, 'info-questions', k - 1, 0.4);
           pill(ctx, q, x, y, { size: 36, color: C.fire, fill: hi > 0 ? rgba(FIRE, 0.15 * hi) : 'rgba(18,26,44,0.95)', alpha: a });
           const aa = ma * after(t, 'info-questions', k, 0.6);
-          if (i === 0) drawIcon(ctx, 'thermo', x - 150, y + 100, 0.6, C.cream, aa);
-          if (i === 1) drawPerson(ctx, x - 130, y + 110, 0.9, C.cream, aa, { child: true, hair: true });
-          if (i === 2) drawSun(ctx, x - 160, y + 100, 18, aa, t);
-          text(ctx, ans, x - 100, y + 100, { size: 38, family: 'serif', italic: true, color: C.cream, align: 'left', alpha: aa });
+          // yanıtlar bağlantı çizgilerinin dış tarafında
+          if (i === 0) {
+            drawIcon(ctx, 'thermo', x - 275, y + 100, 0.6, C.cream, aa);
+            text(ctx, ans, x + 20, y + 100, { size: 38, family: 'serif', italic: true, color: C.cream, align: 'right', alpha: aa });
+          } else if (i === 1) {
+            drawPerson(ctx, x + 60, y + 110, 0.9, C.cream, aa, { child: true, hair: true });
+            text(ctx, ans, x + 100, y + 100, { size: 38, family: 'serif', italic: true, color: C.cream, align: 'left', alpha: aa });
+          } else {
+            drawSun(ctx, x - 20, y + 100, 18, aa, t);
+            text(ctx, ans, x + 30, y + 100, { size: 38, family: 'serif', italic: true, color: C.cream, align: 'left', alpha: aa });
+          }
         });
         caption(ctx, 'bilgi doğar', 860, ma * after(t, 'info-questions', 1, 0.6), { color: C.fire, size: 44 });
       }
@@ -2227,7 +2252,7 @@
 
   function sceneJudge(ctx, lt, t) {
     kicker(ctx, 'BASAMAK ÜÇ', lt, 30);
-    miniLadder(ctx, 2, vis(lt, 0.5, 29.6, 0.6, 0.5));
+    miniLadder(ctx, 2, vis(lt, 0.5, 29.95, 0.6, 0.45));
     // A · tanım: bilgi + deneyim + yargı = anlam
     const da = beatVis(lt, 'judge.def');
     if (da > 0) {
@@ -2267,7 +2292,9 @@
       ctx.setLineDash([12, 10]);
       line(ctx, box.x, py(38), box.x + box.w, py(38));
       ctx.restore();
-      text(ctx, 'eşik 38', box.x - 12, py(38), { size: 24, weight: 700, color: C.error, align: 'right', alpha: ca });
+      text(ctx, 'eşik 38', box.x + box.w + 14, py(38), { size: 24, weight: 700, color: C.error, align: 'left', alpha: ca });
+      [37, 38, 39].forEach((v) => text(ctx, String(v), box.x - 16, py(v), { size: 24, family: 'mono', color: C.muted, align: 'right', alpha: ca }));
+      text(ctx, '°C', box.x - 16, box.y - 24, { size: 22, color: C.muted, align: 'right', alpha: ca });
       DAYS.forEach((v, i) => {
         const x = box.x + 140 + i * 240;
         const a = ya * (i < 2 ? ca : progress(t, cue('judge-days', 0) + 0.9, cue('judge-days', 0) + 1.4, ease.out));
@@ -2294,8 +2321,8 @@
       ctx.save();
       ctx.globalAlpha *= ba * 0.6;
       ctx.fillStyle = '#1c1830';
-      dot(ctx, 1470, 560, 14);
-      dot(ctx, 1455, 600, 9);
+      dot(ctx, 1492, 548, 14);
+      dot(ctx, 1480, 588, 9);
       ctx.restore();
       // yargı cümlesi
       const sa = ya * after(t, 'judge-days', 5, 0.7);
@@ -2331,7 +2358,7 @@
         drawPerson(ctx, W / 2, 800, 2.4, C.cream, pa);
       }
       text(ctx, 'sorumluluk taşıyan bir insana aittir', W / 2, 980, { size: 44, family: 'serif', italic: true, color: C.cream, alpha: va * after(t, 'judge-verdict', 5, 0.6) });
-      pill(ctx, 'SORUMLULUK', W / 2, 655, { size: 26, color: C.violet, alpha: va * after(t, 'judge-verdict', 5, 0.5) });
+      pill(ctx, 'SORUMLULUK', W / 2, 628, { size: 26, color: C.violet, alpha: va * after(t, 'judge-verdict', 5, 0.5) });
     }
   }
 
@@ -2370,7 +2397,7 @@
     // basamakların örnekleri
     const dim = 1 - mach;
     dataCard(ctx, '38,5', tops[0].x, tops[0].y - 60, { size: 44, alpha: a * after(t, 'ladder-three', 1, 0.6) * dim });
-    dataCard(ctx, 'Ayşe’nin bu sabahki ateşi: 38,5', tops[1].x, tops[1].y - 60, { size: 24, family: 'sans', alpha: a * after(t, 'ladder-three', 3, 0.6) * dim, stroke: rgba(FIRE, 0.8) });
+    dataCard(ctx, 'Ayşe’nin bu sabahki ateşi: 38,5', tops[1].x - 10, tops[1].y - 60, { size: 21, family: 'sans', alpha: a * after(t, 'ladder-three', 3, 0.6) * dim, stroke: rgba(FIRE, 0.8) });
     dataCard(ctx, '“Doktora götürmeliyiz.”', tops[2].x, tops[2].y - 60, { size: 28, family: 'serif', alpha: a * after(t, 'ladder-three', 5, 0.6) * (1 - help), stroke: rgba(VIO, 0.9), color: '#d9ccff' });
     // makine ilk iki basamakta
     if (mach > 0) {
@@ -2394,7 +2421,6 @@
       const hy = tops[2].y - 50;
       if (help > 0) glow(ctx, hx, hy - 40, 180, VIO, 0.3 * a * help);
       drawPerson(ctx, hx, hy, 1.9, C.cream, a * help, { arm: after(t, 'ladder-help', 4, 0.6) });
-      text(ctx, 'aile', hx, hy + 80, { size: 26, color: C.muted, alpha: a * help });
       // sınır
       const ba = a * after(t, 'ladder-help', 1, 0.6);
       const bx = tops[2].left + 10;
@@ -2409,12 +2435,12 @@
       // akıllı termometre uyarısı
       const na = a * after(t, 'ladder-help', 3, 0.6) * (1 - after(t, 'ladder-gray', 0, 0.6));
       if (na > 0) {
-        bubble(ctx, 720, 230, 560, 110, na, { fill: '#f3ede1', tail: [tops[1].x - 60, tops[1].y - 140] });
-        warnSign(ctx, 490, 230, 1.1, na);
-        text(ctx, 'Ateş 3 gündür yüksek.', 750, 232, { size: 38, weight: 700, color: C.ink, alpha: na });
-        text(ctx, 'yardımcı', 560, 330, { size: 30, family: 'serif', italic: true, color: C.digital, alpha: na });
+        bubble(ctx, 660, 230, 520, 110, na, { fill: '#f3ede1', tail: [tops[1].x - 60, tops[1].y - 140] });
+        warnSign(ctx, 450, 230, 1.1, na);
+        text(ctx, 'Ateş 3 gündür yüksek.', 690, 232, { size: 36, weight: 700, color: C.ink, alpha: na });
+        text(ctx, 'yardımcı', tops[1].x - 110, tops[1].y - 70, { size: 32, family: 'serif', italic: true, color: C.digital, align: 'right', alpha: na });
       }
-      pill(ctx, 'KARAR: AİLENİN', hx, hy - 170, { size: 26, color: C.violet, alpha: a * after(t, 'ladder-help', 5, 0.6) });
+      pill(ctx, 'KARAR: AİLENİN', hx + 35, 158, { size: 26, color: C.violet, alpha: a * after(t, 'ladder-help', 5, 0.6) });
     }
     // gri bölge
     const ga = a * after(t, 'ladder-gray', 0, 1.2);
@@ -2424,14 +2450,15 @@
         const fy = tops[2].y - 160 + Math.cos(t * 0.3 + k * 1.7) * 40 + (k % 3) * 60;
         glow(ctx, fx, fy, 170, [150, 156, 170], 0.22 * ga);
       }
-      pill(ctx, 'GRİ BÖLGE', tops[2].left + 10, 310, { size: 30, color: '#c8ccd6', alpha: ga });
-      pill(ctx, 'yapay zekâ', tops[2].left + 10, 380, { size: 26, color: C.digital, alpha: a * after(t, 'ladder-gray', 1, 0.6) });
+      pill(ctx, 'GRİ BÖLGE', 1060, 352, { size: 30, color: '#c8ccd6', alpha: ga });
+      pill(ctx, 'yapay zekâ', 1060, 290, { size: 26, color: C.digital, alpha: a * after(t, 'ladder-gray', 1, 0.6) });
       text(ctx, 'makinenin yardımı nerede biter,', 640, 200, { size: 40, family: 'serif', italic: true, color: C.cream, alpha: a * after(t, 'ladder-gray', 2, 0.6) });
       text(ctx, 'insanın kararı nerede başlar?', 640, 260, { size: 40, family: 'serif', italic: true, color: C.violet, alpha: a * after(t, 'ladder-gray', 3, 0.6) });
       const da = a * after(t, 'ladder-gray', 4, 0.7);
-      drawIcon(ctx, 'door', 1760, 300, 1.1, C.flame, da, 0.15 + 0.1 * Math.sin(t));
-      text(ctx, '10. KAPI', 1760, 400, { size: 28, weight: 800, spacing: 4, color: C.flame, alpha: da });
-      text(ctx, 'uzun uzun döneceğiz', 1760, 440, { size: 24, family: 'serif', italic: true, color: C.muted, alpha: a * after(t, 'ladder-gray', 5, 0.6) });
+      drawIcon(ctx, 'door', 1790, 600, 1.1, C.flame, da, 0.15 + 0.1 * Math.sin(t));
+      text(ctx, '10. KAPI', 1790, 700, { size: 28, weight: 800, spacing: 4, color: C.flame, alpha: da });
+      text(ctx, 'uzun uzun', 1790, 742, { size: 28, family: 'serif', italic: true, color: '#c3c9d6', alpha: a * after(t, 'ladder-gray', 5, 0.6) });
+      text(ctx, 'döneceğiz', 1790, 776, { size: 28, family: 'serif', italic: true, color: '#c3c9d6', alpha: a * after(t, 'ladder-gray', 5, 0.6) });
     }
   }
 
@@ -2514,7 +2541,7 @@
       const mx = lerp(rx - 300, rx + 80, mg);
       magnifier(ctx, mx, 570, 90, ma);
       const ra = ma * clamp(mg * 2 - 0.6);
-      text(ctx, '← birinin yorumu', rx + 200, 640, { size: 34, family: 'serif', italic: true, weight: 700, color: C.ember, alpha: ra });
+      text(ctx, '← birinin yorumu', rx + 360, 572, { size: 34, family: 'serif', italic: true, weight: 700, color: C.flame, align: 'left', alpha: ra });
     }
     // dört gizli karar
     FOUR.forEach(([ic, lab, col], i) => {
@@ -2555,11 +2582,11 @@
       }
       // soru ve sayım
       const qa = sa * after(t, 'hidden-survey', 4, 0.6);
-      bubble(ctx, 840, 300, 560, 100, qa, { fill: '#f3ede1', tail: [800, 420] });
-      text(ctx, 'Kitap okumayı seviyor musun?', 840, 302, { size: 34, weight: 700, color: C.ink, alpha: qa });
+      bubble(ctx, 790, 300, 560, 100, qa, { fill: '#f3ede1', tail: [780, 420] });
+      text(ctx, 'Kitap okumayı seviyor musun?', 790, 302, { size: 34, weight: 700, color: C.ink, alpha: qa });
       const ta = sa * after(t, 'hidden-survey', 5, 0.6);
       const n = Math.round(9 * progress(t, cue('hidden-survey', 5), cue('hidden-survey', 5) + 1.4, ease.linear));
-      text(ctx, `evet: ${n}   hayır: ${n >= 9 ? 1 : 0}`, 840, 480, { size: 36, family: 'mono', weight: 700, color: C.ok, alpha: ta });
+      text(ctx, `evet: ${n}   hayır: ${n >= 9 ? 1 : 0}`, 790, 480, { size: 36, family: 'mono', weight: 700, color: C.ok, alpha: ta });
       // manşet
       const ha = sa * after(t, 'hidden-survey', 6, 0.7);
       if (ha > 0) {
@@ -2587,7 +2614,7 @@
           ctx.restore();
         }
         stamp(ctx, 'YANILTICI', 1640, 590, C.error, after(t, 'hidden-survey', 8, 0.6, ease.out), { alpha: sa, size: 36, rot: -0.18 });
-        text(ctx, 'yalnızca kütüphaneye gelenlere sorduk', 960, 1030, { size: 38, family: 'serif', italic: true, color: C.flame, alpha: wa });
+        text(ctx, 'yalnızca kütüphaneye gelenlere sorduk', 960, 1005, { size: 38, family: 'serif', italic: true, color: C.flame, alpha: wa });
       }
     }
     // ölçülmeyen şey yok sayılır
@@ -2646,7 +2673,7 @@
         const x1 = box.x + (d1 / 365) * box.w;
         hlBox(ctx, (x0 + x1) / 2, box.y + box.h / 2, x1 - x0 + 10, box.h + 20, col === C.fire ? FIRE : DIGI, sa);
         // yakın plan
-        const ib = { x: ix, y: 700, w: 560, h: 220 };
+        const ib = { x: ix, y: 680, w: 560, h: 200 };
         panel(ctx, ib.x + ib.w / 2, ib.y + ib.h / 2 - 10, ib.w + 60, ib.h + 120, sa, { fill: '#0f1628', stroke: col, r: 18 });
         const seg = TEMP.slice(d0, d1).map((v, i) => [i, v]);
         const lo = Math.min(...seg.map((p) => p[1])) - 1;
@@ -2657,15 +2684,15 @@
         ctx.strokeStyle = col;
         ctx.setLineDash([6, 8]);
         ctx.lineWidth = 2;
-        line(ctx, x0, box.y + box.h + 10, ib.x, ib.y - 60);
-        line(ctx, x1, box.y + box.h + 10, ib.x + ib.w, ib.y - 60);
+        line(ctx, x0, box.y + box.h + 50, ib.x, ib.y - 70);
+        line(ctx, x1, box.y + box.h + 50, ib.x + ib.w, ib.y - 70);
         ctx.restore();
         text(ctx, head, ib.x + ib.w / 2, ib.y - 30, { size: 40, family: 'display', weight: 900, color: col, alpha: wa * after(t, 'hidden-window', k + 1, 0.6) });
       });
       runs(ctx, [
         ['Veri aynı; ', { size: 44, family: 'serif', color: C.cream, alpha: wa * after(t, 'hidden-window', 7, 0.6) }],
         ['seçilen zaman aralığı farklı.', { size: 44, family: 'serif', italic: true, color: C.flame, alpha: wa * after(t, 'hidden-window', 8, 0.6) }],
-      ], W / 2, 1040);
+      ], W / 2, 1002);
     }
     const xa = beatVis(lt, 'hidden.axis');
     if (xa > 0) {
@@ -2704,14 +2731,13 @@
       }
       const ka = xa * after(t, 'hidden-axis', 8, 0.6);
       if (ka > 0) {
-        text(ctx, '2,5 kat!', 1750, 470, { size: 50, family: 'display', weight: 900, color: C.error, alpha: ka });
-        arrow(ctx, 1700, 500, 1600, 560, C.error, ka, 4, 16);
+        text(ctx, '2,5 kat!', 1760, 470, { size: 50, family: 'display', weight: 900, color: C.error, alpha: ka });
+        arrow(ctx, 1700, 500, 1545, 430, C.error, ka, 4, 16);
       }
       runs(ctx, [
         ['Fark aynı; ', { size: 44, family: 'serif', color: C.cream, alpha: xa * after(t, 'hidden-axis', 9, 0.6) }],
         ['çizim onu büyütür.', { size: 44, family: 'serif', italic: true, color: C.flame, alpha: xa * after(t, 'hidden-axis', 10, 0.6) }],
-      ], W / 2, 1035);
-      magnifier(ctx, 1122, 830, 64, xa * after(t, 'hidden-axis', 10, 0.6) * 0.85);
+      ], W / 2, 1005);
     }
   }
 
@@ -2786,13 +2812,13 @@
     const wa = beatVis(lt, 'types.why');
     if (wa > 0) {
       const ba = wa * after(t, 'types-why', 0, 0.6);
-      panel(ctx, 1240, 330, 420, 200, ba, { fill: '#0f1628', stroke: '#4a5878', r: 20 });
-      text(ctx, 'BELLEK', 1240, 255, { size: 22, weight: 800, spacing: 6, color: C.muted, alpha: ba });
+      panel(ctx, W / 2, 300, 420, 200, ba, { fill: '#0f1628', stroke: '#4a5878', r: 20 });
+      text(ctx, 'BELLEK', W / 2, 225, { size: 22, weight: 800, spacing: 6, color: C.muted, alpha: ba });
       const fly = after(t, 'types-why', 0, 1.2, ease.inOut);
-      const [cx, cy] = travel([520, 330], [1190, 345], fly, 60);
+      const [cx, cy] = travel([W / 2 - 620, 300], [W / 2 - 60, 312], fly, 60);
       dataCard(ctx, '5', cx, cy, { size: 64, alpha: ba });
-      pill(ctx, 'TÜR: ?', 1340, 345, { size: 28, color: C.fire, alpha: wa * after(t, 'types-why', 1, 0.6) });
-      text(ctx, 'ne tür bir şey verdiğimizi söylemeliyiz', 700, 450, { size: 34, family: 'serif', italic: true, color: C.cream, alpha: wa * after(t, 'types-why', 1, 0.6) });
+      pill(ctx, 'TÜR: ?', W / 2 + 90, 312, { size: 28, color: C.fire, alpha: wa * after(t, 'types-why', 1, 0.6) });
+      text(ctx, 'ne tür bir şey verdiğimizi söylemeliyiz', W / 2, 455, { size: 34, family: 'serif', italic: true, color: C.cream, alpha: wa * after(t, 'types-why', 1, 0.6) });
       const fa = wa * after(t, 'types-why', 3, 0.6, ease.back);
       const fb = wa * progress(t, cue('types-why', 3) + 0.8, cue('types-why', 3) + 1.4, ease.back);
       text(ctx, '5', 620, 690, { size: 230, family: 'mono', weight: 700, color: C.digital, alpha: clamp(fa) });
@@ -2820,13 +2846,13 @@
         text(ctx, lab, 330, y - 10, { size: 74, family: 'mono', weight: 700, color: r === 1 ? C.fire : C.digital, alpha: ra * (1 - unk) });
         text(ctx, kind, 330, y + 50, { size: 26, color: C.muted, alpha: ra * (1 - unk) });
         text(ctx, '?', 330, y, { size: 90, family: 'display', weight: 900, color: C.muted, alpha: ra * unk * (1 - typ) });
-        text(ctx, note, 1600, y, { size: 28, family: 'mono', weight: 700, color: C.muted, alpha: ba * after(t, id, k1, 0.6) * (1 - unk) });
+        text(ctx, note, 1515, y, { size: 28, family: 'mono', weight: 700, color: C.muted, align: 'left', alpha: ba * after(t, id, k1, 0.6) * (1 - unk) });
         if (r > 0) {
-          pill(ctx, r === 1 ? 'TÜR: metin' : 'TÜR: tam sayı', 1620, y, { size: 30, color: r === 1 ? C.fire : C.digital, alpha: ra * typ });
+          pill(ctx, r === 1 ? 'TÜR: metin' : 'TÜR: tam sayı', 1515, y, { size: 30, color: r === 1 ? C.fire : C.digital, align: 'left', alpha: ra * typ });
           if (typ > 0) text(ctx, r === 1 ? '“5”' : '53', 330, y, { size: 70, family: 'mono', weight: 700, color: r === 1 ? C.fire : C.digital, alpha: ra * typ });
         } else if (typ > 0) {
           text(ctx, '5', 330, y, { size: 70, family: 'mono', weight: 700, color: C.digital, alpha: ra * typ });
-          pill(ctx, 'TÜR: tam sayı', 1620, y, { size: 30, color: C.digital, alpha: ra * typ });
+          pill(ctx, 'TÜR: tam sayı', 1515, y, { size: 30, color: C.digital, align: 'left', alpha: ra * typ });
         }
       });
       // "5" yazısı ile 53 sayısı: aynı lambalar
@@ -2909,16 +2935,21 @@
       const x0 = TX;
       text(ctx, r.name, x0 + 24, cy - 14, { size: 38, weight: 800, color: r.col, align: 'left', alpha: ya * after(t, r.id, r.k.name, 0.5) });
       text(ctx, r.code, x0 + 24, cy + 30, { size: 22, family: 'mono', color: C.muted, align: 'left', alpha: ya * after(t, r.id, r.k.name, 0.8) });
-      text(ctx, r.holds, x0 + 340 + 165, r.id === 'types-bool' ? cy - 14 : cy, { size: 30, color: C.cream, alpha: ya * after(t, r.id, r.k.holds, 0.5) });
+      text(ctx, r.holds, x0 + 340 + 165, r.id === 'types-bool' ? cy - 18 : cy, { size: 30, color: C.cream, alpha: ya * after(t, r.id, r.k.holds, 0.5) });
       const ex = pickBy(t, r.id, r.k.ex, r.ex);
       if (ex) text(ctx, ex, x0 + 670 + 170, cy, { size: 36, family: 'mono', weight: 700, color: C.flame, alpha: ya * after(t, r.id, r.k.ex[0], 0.5) });
       const ops = pickBy(t, r.id, r.k.ops, r.ops);
       if (ops) text(ctx, ops, x0 + 1010 + 295, cy - 20, { size: 30, color: C.cream, alpha: ya * after(t, r.id, r.k.ops[0], 0.5) });
       text(ctx, r.demo, x0 + 1010 + 295, cy + 26, { size: 28, family: 'mono', weight: 700, color: r.col, alpha: ya * after(t, r.id, r.k.demo, 0.6) });
-      if (r.id === 'types-bool') pill(ctx, '2. BÖLÜM · Boole', x0 + 340 + 165, cy + 38, { size: 18, color: C.violet, alpha: ya * after(t, r.id, 3, 0.5) * beatVis(lt, r.beat, 0.4, 0.4) });
+      if (r.id === 'types-bool') pill(ctx, '2. BÖLÜM · Boole', x0 + 340 + 165, cy + 34, { size: 22, color: C.violet, alpha: ya * after(t, r.id, 3, 0.5) });
       if (r.id === 'types-bool') {
         const da = a * after(t, r.id, 6, 0.5);
-        if (da > 0) hlBox(ctx, x0 + 1010 + 295 + 160, cy + 26, 160, 50, VIO, da);
+        if (da > 0) {
+          const f = { size: 28, family: 'mono', weight: 700 };
+          const full = measure(ctx, r.demo, f);
+          const wd = measure(ctx, 'doğru', f);
+          hlBox(ctx, x0 + 1010 + 295 + full / 2 - wd / 2, cy + 26, wd + 20, 46, VIO, da);
+        }
       }
     });
   }
@@ -2928,8 +2959,8 @@
   // ---------------------------------------------------------------------------
 
   const PHONE = '0532 123 45 67';
-  const BOX_N = [620, 720];
-  const BOX_T = [1300, 720];
+  const BOX_N = [620, 630];
+  const BOX_T = [1300, 630];
 
   function storeBox(ctx, xy, label, col, alpha, content, o = {}) {
     panel(ctx, xy[0], xy[1], 540, 190, alpha, { fill: '#0f1628', stroke: col, lw: 3, r: 22 });
@@ -2967,13 +2998,13 @@
           text(ctx, '0', BOX_N[0] - 230, BOX_N[1] + drop * 340, { size: 60, family: 'mono', weight: 700, color: C.error, alpha: pa * (1 - drop) });
         }
       }
-      text(ctx, 'sıfır kayboldu!', BOX_N[0], BOX_N[1] + 140, { size: 34, family: 'serif', italic: true, color: C.error, alpha: pa * progress(t, cue('types-phone', 2) + 0.6, cue('types-phone', 2) + 1.2) });
+      text(ctx, 'sıfır kayboldu!', BOX_N[0], BOX_N[1] + 135, { size: 34, family: 'serif', italic: true, color: C.error, alpha: pa * progress(t, cue('types-phone', 2) + 0.6, cue('types-phone', 2) + 1.2) });
       runs(ctx, [
         ['07', { size: 84, family: 'mono', weight: 700, color: C.cream, alpha: pa * after(t, 'types-phone', 4, 0.6) }],
         ['  =  ', { size: 84, family: 'mono', weight: 700, color: C.muted, alpha: pa * after(t, 'types-phone', 5, 0.6) }],
         ['7', { size: 84, family: 'mono', weight: 700, color: C.cream, alpha: pa * after(t, 'types-phone', 5, 0.6) }],
-      ], 1300, 750);
-      text(ctx, 'sayılarda baştaki sıfırın anlamı yok', 1300, 860, { size: 32, family: 'serif', italic: true, color: C.muted, alpha: pa * after(t, 'types-phone', 3, 0.6) });
+      ], 1300, 660);
+      text(ctx, 'sayılarda baştaki sıfırın anlamı yok', 1300, 765, { size: 32, family: 'serif', italic: true, color: C.muted, alpha: pa * after(t, 'types-phone', 3, 0.6) });
     }
     // B · plaka kodu
     if (pl > 0) {
@@ -2993,9 +3024,9 @@
         numCol = turn > 0 ? C.error : C.flame;
       }
       const ba = pl * after(t, 'types-plate', 3, 0.6);
-      drawPlate(ctx, '6 ABC 123', 1300, 720, 0.8, ba, { color: C.error });
-      cross(ctx, 1560, 640, 1.2, C.error, ba, after(t, 'types-plate', 3, 0.8, ease.inOut));
-      text(ctx, 'Ankara’nın plaka kodu', 1300, 860, { size: 32, family: 'serif', italic: true, color: C.muted, alpha: ba });
+      drawPlate(ctx, '6 ABC 123', 1300, 630, 0.8, ba, { color: C.error });
+      cross(ctx, 1560, 550, 1.2, C.error, ba, after(t, 'types-plate', 3, 0.8, ease.inOut));
+      text(ctx, 'Ankara’nın plaka kodu', 1300, 765, { size: 32, family: 'serif', italic: true, color: C.muted, alpha: ba });
     }
     if (ru > 0 && !numContent) {
       numContent = '5321234567';
@@ -3008,27 +3039,29 @@
       storeBox(ctx, BOX_T, 'METİN OLARAK', C.fire, ta, PHONE, { size: 46 });
       tick(ctx, BOX_T[0] + 230, BOX_T[1] - 70, 1.0, C.ok, ta, after(t, 'types-rule', 1, 0.8, ease.inOut));
       const sa = ru * after(t, 'types-rule', 2, 0.6);
-      text(ctx, '0532… + 0505… = ?', W / 2, 330, { size: 70, family: 'mono', weight: 700, color: C.muted, alpha: sa });
-      strike(ctx, W / 2 - 360, W / 2 + 360, 334, C.error, sa, after(t, 'types-rule', 2, 1.0, ease.inOut));
+      const sumStr = '0532 123 45 67 + 0505 765 43 21 = ?';
+      const sw2 = measure(ctx, sumStr, { size: 52, family: 'mono', weight: 700 });
+      text(ctx, sumStr, W / 2, 330, { size: 52, family: 'mono', weight: 700, color: C.muted, alpha: sa });
+      strike(ctx, W / 2 - sw2 / 2 - 10, W / 2 + sw2 / 2 + 10, 334, C.error, sa, after(t, 'types-rule', 2, 1.0, ease.inOut));
       const ia = ru * after(t, 'types-rule', 3, 0.6);
-      drawIcon(ctx, 'pencil', 1660, 560, 0.7, C.cream, ia);
-      text(ctx, 'yazarız', 1660, 625, { size: 24, color: C.muted, alpha: ia });
-      drawIcon(ctx, 'phone', 1760, 560, 0.7, C.cream, ia);
-      text(ctx, 'ararız', 1760, 625, { size: 24, color: C.muted, alpha: ia });
+      drawIcon(ctx, 'pencil', 1660, 470, 0.7, C.cream, ia);
+      text(ctx, 'yazarız', 1660, 535, { size: 24, color: C.muted, alpha: ia });
+      drawIcon(ctx, 'phone', 1760, 470, 0.7, C.cream, ia);
+      text(ctx, 'ararız', 1760, 535, { size: 24, color: C.muted, alpha: ia });
       const ca = ru * after(t, 'types-rule', 4, 0.7);
       if (ca > 0) {
         ctx.save();
         ctx.globalAlpha *= ca;
         ctx.translate(0, (1 - ca) * 20);
-        paperCard(ctx, 330, 870, 1260, 150);
+        paperCard(ctx, 330, 790, 1260, 150);
         ctx.fillStyle = C.fire;
-        ctx.fillRect(330, 884, 8, 122);
+        ctx.fillRect(330, 804, 8, 122);
         ctx.restore();
         runs(ctx, [
           ['Üzerinde hesap yapmayacaksanız  ', { size: 42, family: 'serif', color: C.ink, alpha: ru * after(t, 'types-rule', 5, 0.6) }],
           ['→  METİN', { size: 46, family: 'display', weight: 900, color: C.ember, alpha: ru * after(t, 'types-rule', 7, 0.6) }],
-        ], W / 2, 958);
-        text(ctx, 'telefon · plaka kodu · posta kodu', W / 2, 1050, { size: 28, color: C.muted, alpha: ru * after(t, 'types-rule', 6, 0.6) });
+        ], W / 2, 878);
+        text(ctx, 'telefon · plaka kodu · posta kodu', W / 2, 985, { size: 32, color: '#c3c9d6', alpha: ru * after(t, 'types-rule', 6, 0.6) });
       }
     }
   }
@@ -3152,7 +3185,7 @@
       ctx.lineCap = 'round';
       const [ax, ay] = at(-300, -175);
       ctx.beginPath();
-      ctx.ellipse(ax + 70 * s, ay, 95 * s, 30 * s, rot, 0, Math.PI * 2);
+      ctx.ellipse(ax + 68 * s, ay, 74 * s, 28 * s, rot, 0, Math.PI * 2);
       ctx.stroke();
       const p0 = at(280, -170);
       const p1 = at(340, -80);
@@ -3189,8 +3222,29 @@
     drawNotebook(ctx, lerp(W / 2, 560, side), lerp(580, 560, side), lerp(1, 0.86, side), lerp(-0.025, -0.04, side), a * after(t, 'messy-notes', 0, 0.6), t, k);
     // adı ve karmaşık küme
     const na = a * after(t, 'messy-name', 0, 0.6);
-    pill(ctx, 'YAPILANDIRILMAMIŞ VERİ', 1470, 220, { size: 28, color: C.violet, alpha: na });
-    text(ctx, '= düzensiz veri', 1470, 285, { size: 36, family: 'serif', italic: true, color: C.cream, alpha: a * after(t, 'messy-name', 1, 0.6) });
+    pill(ctx, 'YAPILANDIRILMAMIŞ VERİ', 1470, 200, { size: 28, color: C.violet, alpha: na });
+    text(ctx, '= düzensiz veri', 1470, 254, { size: 36, family: 'serif', italic: true, color: C.cream, alpha: a * after(t, 'messy-name', 1, 0.6) });
+    // küme çizgisi kartların arkasında
+    const ba = a * after(t, 'messy-name', 5, 0.8);
+    if (ba > 0) {
+      ctx.save();
+      ctx.globalAlpha *= ba;
+      ctx.strokeStyle = rgba(VIO, 0.7);
+      ctx.lineWidth = 3;
+      ctx.setLineDash([12, 10]);
+      ctx.beginPath();
+      for (let k2 = 0; k2 <= 40; k2++) {
+        const ang = (k2 / 40) * Math.PI * 2;
+        const r = 345 + 20 * Math.sin(ang * 5 + t * 0.6);
+        const px = 1445 + Math.cos(ang) * r * 1.05;
+        const py = 570 + Math.sin(ang) * r * 0.8;
+        if (k2 === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.stroke();
+      ctx.restore();
+    }
     MEDIA.forEach(([ic, x, y, r, kk], i) => {
       const ma = a * after(t, 'messy-name', kk, 0.6, ease.back);
       if (ma <= 0) return;
@@ -3202,36 +3256,16 @@
       else drawIcon(ctx, ic, 0, 0, 0.9, C.cream, clamp(ma));
       ctx.restore();
     });
-    const ba = a * after(t, 'messy-name', 5, 0.8);
-    if (ba > 0) {
-      ctx.save();
-      ctx.globalAlpha *= ba;
-      ctx.strokeStyle = rgba(VIO, 0.7);
-      ctx.lineWidth = 3;
-      ctx.setLineDash([12, 10]);
-      ctx.beginPath();
-      for (let k2 = 0; k2 <= 40; k2++) {
-        const ang = (k2 / 40) * Math.PI * 2;
-        const r = 330 + 30 * Math.sin(ang * 5 + t * 0.6);
-        const px = 1450 + Math.cos(ang) * r * 1.0;
-        const py = 580 + Math.sin(ang) * r * 0.75;
-        if (k2 === 0) ctx.moveTo(px, py);
-        else ctx.lineTo(px, py);
-      }
-      ctx.closePath();
-      ctx.stroke();
-      ctx.restore();
-    }
     // fotoğraf da sayılardan oluşur, ama "kim" sütunu yok
     const pa = a * after(t, 'messy-name', 6, 0.6);
     if (pa > 0) {
       const grid = ['128  64 200  31', ' 90 210  17 155', '240  12  88 176'];
-      grid.forEach((g, i) => text(ctx, g, 1450, 900 + i * 34, { size: 26, family: 'mono', weight: 600, color: C.digital, alpha: pa }));
-      arrow(ctx, 1260, 760, 1300, 860, C.digital, pa, 3, 12);
+      grid.forEach((g, i) => text(ctx, g, 1450, 905 + i * 34, { size: 26, family: 'mono', weight: 600, color: C.digital, alpha: pa }));
+      arrow(ctx, 1505, 826, 1478, 880, C.digital, pa, 3, 12);
       const ka = a * after(t, 'messy-name', 7, 0.6);
-      pill(ctx, 'kim?', 1740, 930, { size: 30, color: C.error, alpha: ka });
-      cross(ctx, 1740, 990, 0.7, C.error, ka, after(t, 'messy-name', 8, 0.6, ease.inOut));
-      text(ctx, 'hiçbir sütun söylemez', 1000, 1030, { size: 32, family: 'serif', italic: true, color: C.muted, alpha: a * after(t, 'messy-name', 8, 0.6) });
+      pill(ctx, 'kim?', 1740, 915, { size: 30, color: C.error, alpha: ka });
+      cross(ctx, 1740, 968, 0.7, C.error, ka, after(t, 'messy-name', 8, 0.6, ease.inOut));
+      text(ctx, 'hiçbir sütun söylemez', 1560, 1015, { size: 32, family: 'serif', italic: true, color: '#c3c9d6', alpha: a * after(t, 'messy-name', 8, 0.6) });
     }
   }
 
@@ -3283,7 +3317,9 @@
         ctx.save();
         ctx.globalAlpha *= a * hl;
         ctx.fillStyle = 'rgba(255,215,90,0.55)';
-        ctx.fillRect(1030, 520, 250, 46);
+        const f2 = { size: 38, family: 'serif', italic: true };
+        const bx0 = 1040 + measure(ctx, 'son sınavda ', f2);
+        ctx.fillRect(bx0 - 8, 497, measure(ctx, '60 civarı', f2) + 16, 46);
         ctx.restore();
       }
       [['Ali matematikte biraz zorlanıyor,', 5], ['son sınavda 60 civarı almış', 6], ['galiba… ödevlerini de…', 6]].forEach(([s, kk], i) => {
@@ -3302,7 +3338,7 @@
   // 14 · Buzdağı ve yapay zekâ
   // ---------------------------------------------------------------------------
 
-  const BERG = [['photo', 640, 560, 'kedi · kanepe'], ['sound', 860, 640, '“merhaba”'], ['text', 1080, 560, 'konu: sınav'], ['video', 1300, 650, 'gol anı'], ['photo', 760, 800, 'deniz · tekne'], ['note', 1000, 780, 'Ali · mat · 60'], ['sound', 1220, 840, '“yarın ara”'], ['text', 1420, 520, 'şikâyet'], ['video', 560, 700, 'doğum günü']];
+  const BERG = [['photo', 700, 590, 'kedi · kanepe'], ['sound', 860, 640, '“merhaba”'], ['text', 1080, 560, 'konu: sınav'], ['video', 1300, 650, 'gol anı'], ['photo', 760, 800, 'deniz · tekne'], ['note', 1000, 780, 'Ali · mat · 60'], ['sound', 1220, 840, '“yarın ara”'], ['text', 1380, 900, 'şikâyet'], ['video', 560, 700, 'doğum günü']];
 
   function sceneIceberg(ctx, lt, t) {
     const a = spanVis(lt, 'messy.iceberg', 'messy.ai');
