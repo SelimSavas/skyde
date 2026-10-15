@@ -176,6 +176,7 @@
     for (let i = 1; i < segs.length; i++) {
       if (segs[i][0] < segs[i - 1][1] - 1e-9) throw new Error('Yavaşlatma aralıkları çakışıyor');
     }
+    for (const [f, e] of holds) if (!Number.isFinite(f) || !Number.isFinite(e)) throw new Error(`Geçersiz bekleme: [${f}, ${e}]`);
     const hs = holds.filter((h) => h[1] > 0).map(([f, e]) => ({ c: clamp(f, 0, base), e }));
     const cuts = [...new Set([0, base, ...segs.flatMap(([a, b]) => [clamp(a, 0, base), clamp(b, 0, base)]), ...hs.map((h) => h.c)])].sort((x, y) => x - y);
     const factor = (c) => (segs.find(([a, b]) => c >= a && c < b) ?? [0, 0, 1])[2];
@@ -292,7 +293,11 @@
       const holds = {};
       const slow = {};
       // satırı olmayan vuruşta ek durak doğrudan donma anında beklemedir
-      for (const id of order) if (pauses[id] > 0 && !lines.some((l) => l.beat === id)) holds[id] = pauses[id];
+      for (const id of order) {
+        if (!(pauses[id] > 0) || lines.some((l) => l.beat === id)) continue;
+        if (beats[id][3] == null) throw new Error(`${id}: satırı olmayan vuruşta durak için donma anı gerekir`);
+        holds[id] = pauses[id];
+      }
       let tl = build(holds, slow);
       for (const id of order) {
         const mine = lines.map((l, i) => (l.beat === id ? i : -1)).filter((i) => i >= 0);

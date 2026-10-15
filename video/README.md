@@ -3,7 +3,7 @@
 Kitap bölümlerini anlatan animasyon videoları. Her şey kodla üretilir:
 görüntü HTML Canvas ile çizilir, efektler ve müzik Web Audio ile sentezlenir, Türkçe
 seslendirme metinden TTS ile okutulur (hazır görüntü ya da ses dosyası kullanılmaz).
-Alt yazı yoktur; anlatıcı tempoyu belirler ve ekrandaki her öğe, anlatıcı ondan söz ettiği anda belirir.
+Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı onlardan söz ettiği anda belirir.
 
 | Bölüm | Süre | Klasör |
 |---|---|---|
@@ -11,8 +11,8 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve ekrandaki her öğe, anlatıcı
 
 ## İzlemek
 
-`ch01-var-ve-yok/index.html` dosyasını tarayıcıda açın. Ses birkaç saniyede
-sentezlenir, sonra ▶ ile oynatılır. Kısayollar: boşluk (oynat/duraklat),
+`ch01-var-ve-yok/index.html` dosyasını tarayıcıda açın. Ses açılışta sentezlenir (bu bölümde
+yarım dakika kadar sürebilir), sonra ▶ ile oynatılır. Kısayollar: boşluk (oynat/duraklat),
 ← / → (5 sn sar), `f` (tam ekran).
 
 ## MP4'e dökmek
@@ -89,4 +89,5 @@ virgüllerde kısa, noktalarda biraz daha uzun durmak eşzamanlamayı iyileştir
 `ch01-var-ve-yok/` klasörünü kopyalayın; `film.js` içinde sahneleri (`SCENES`), seslendirme
 vuruşlarını (`BEATS`) ve `score` işlevini, `narration.js` içinde metni yeniden yazın. Sonra
 `narrate.mjs` ile sesi, `render.mjs` ile videoyu üretin. `index.html` ve ortak dosyalar olduğu gibi
-kullanılabilir. `narration.js` değişip `narrate.mjs` yeniden çalıştırılmazsa `render.mjs` durur.
+kullanılabilir. `narration.js` ya da `film.js`'teki `BEATS`, `PACE`, `PAUSE` veya sahne süreleri değişince
+`narrate.mjs`'i yeniden çalıştırın; çalıştırılmazsa `render.mjs` durur.

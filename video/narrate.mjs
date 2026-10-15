@@ -240,12 +240,15 @@ async function main() {
   console.log(`${lines.length} satır, motor: ${engine.name}`);
   const synthesized = lines.map(synthLine);
   const clips = synthesized.map((x) => x.clip);
+  // voice.js'e yazılan süreler planda da aynen kullanılsın: film planı voice.js'ten yeniden kurduğunda
+  // aynı sonuca varır (yuvarlama farkları satırlar boyunca birikip "eski ses" hatasına yol açmasın)
+  const durs = clips.map((c) => +(c.length / RATE).toFixed(3));
 
   // Tempo planı: görüntü her vuruşta anlatıcıyı bekler
   const plan = await page.evaluate((d) => {
     const p = window.FILM.narration.plan(d);
     return { placed: p.placed.map(({ id, beat, say, at, dur }) => ({ id, beat, say, at, dur })), holds: p.holds, slow: p.slow, duration: p.timeline.duration };
-  }, clips.map((c) => c.length / RATE));
+  }, durs);
   await browser.close();
   const { placed, duration } = plan;
 
@@ -274,7 +277,7 @@ async function main() {
   const voice = {
     engine: engine.name,
     gain: opts.gain,
-    lines: placed.map((p, i) => ({ id: p.id, say: p.say, at: +p.at.toFixed(3), dur: +p.dur.toFixed(3), ...(synthesized[i].marks ? { marks: synthesized[i].marks } : {}) })),
+    lines: placed.map((p, i) => ({ id: p.id, say: p.say, at: +p.at.toFixed(4), dur: durs[i], ...(synthesized[i].marks ? { marks: synthesized[i].marks } : {}) })),
     audio: mp3.toString('base64'),
   };
   const out = path.join(dir, 'voice.js');

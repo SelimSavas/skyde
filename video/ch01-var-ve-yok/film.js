@@ -51,8 +51,8 @@
   // bitmeden önce. Donma anı olmayan vuruşta animasyon, konuşma sığana dek yavaşlar.
   const BEATS = {
     'open.title': ['open', 3.3, 7.6, 7.0],
-    'fires.one': ['fires', 0.4, 4.7, 3.2],
-    'fires.relay': ['fires', 4.9, 10.8],
+    'fires.one': ['fires', 0.4, 4.1, 3.3],
+    'fires.relay': ['fires', 4.1, 10.8],
     'fires.race': ['fires', 11.0, 16.0],
     'fires.question': ['fires', 16.6, 19.4],
     'fires.answer': ['fires', 19.5, 22.0, 21.4],
@@ -99,15 +99,23 @@
     'numbers.statement': ['numbers', 14.7, 18.6, 17.75],
     'numbers.watched': ['numbers', 18.7, 20.8, 20.4],
     'numbers.power': ['numbers', 20.8, 24.0, 23.5],
-    'close.end': ['close', 0.3, 3.0, 2.0],
+    'close.end': ['close', 0.3, 3.0, 2.2],
   };
 
   // Koreografiyle akan kalabalık animasyonları yavaşlatma (vuruş → kat)
   const PACE = { 'lamps.three': 1.4, 'lamps.four': 1.5, 'turkish.grid': 1.3 };
   // Anlatıcı sustuktan sonra görüntünün biraz daha durması: önemli bir sonucun yerine oturması için (sn)
+  // Her sahnenin son vuruşunda da kısa bir nefes: sahne geçişi son sözcüğün hemen ardından gelmesin.
   const PAUSE = {
+    'fires.one': 0.8,
     'fires.answer': 1.0,
     'two.quote': 1.0,
+    'two.icons': 0.6,
+    'why.bit': 0.6,
+    'lamps.letters': 0.6,
+    'glossary.compare': 0.6,
+    'letters.fonts': 0.6,
+    'hex.phone': 0.6,
     'why.digital': 1.2,
     'lamps.three': 0.6,
     'lamps.table': 0.8,
@@ -122,8 +130,11 @@
     'numbers.power': 1.0,
   };
 
+  // Anlatıcı sustuktan sonra, beklemenin ardından vuruşun kalanı (donma → bitiş) bu nefes payında oynar
+  const BREATH = 0.9;
   for (const [id, [scene, a, b, f]] of Object.entries(BEATS)) {
     if (f != null && !(f > a && f < b)) throw new Error(`${id}: donma anı vuruşun içinde olmalı`);
+    if (f != null && (b - f) * (PACE[id] ?? 1) > BREATH + 1e-9) throw new Error(`${id}: donma anından sonrası nefes payından (${BREATH} sn) uzun`);
     for (const [other, [s2, a2, b2]] of Object.entries(BEATS)) {
       if (other !== id && s2 === scene && a < b2 && a2 < b) throw new Error(`${id} ile ${other} örtüşüyor`);
     }
@@ -140,7 +151,7 @@
       holds: mine.filter(([id]) => holds[id] > 0).map(([id, [, , , f]]) => [f, holds[id]]),
     };
   }));
-  const VOICE = E.narration({ build, beats: BEATS, lines: SCRIPT.lines, voice: window.VOICE, pauses: PAUSE });
+  const VOICE = E.narration({ build, beats: BEATS, lines: SCRIPT.lines, voice: window.VOICE, pauses: PAUSE, breath: BREATH });
   const TL = VOICE.timeline;
   // Anlatıcıya bağlı zamanlar (mutlak gerçek saniye): satırın k. öbeği başlarken
   const cue = VOICE.cue;
@@ -564,6 +575,8 @@
     { x: 3380, h: 460 },
   ];
   const IGNITE = [1.6, 5.2, 6.7, 7.9, 8.9, 9.7];
+  // Yarışta ateş hattı, anlatıcı "haber" derken dolar
+  const raceFire = () => cue('fires-race', 0) + 0.2;
 
   const ridge = (x) => {
     let y = 130;
@@ -666,7 +679,7 @@
       ctx.strokeStyle = C.line;
       ctx.lineWidth = 4;
       line(ctx, x0, 804, x1, 804);
-      const pf = progress(lt, 11.4, 12.6);
+      const pf = progress(t, raceFire(), raceFire() + 1.4);
       ctx.strokeStyle = C.fire;
       ctx.lineWidth = 6;
       if (pf > 0) line(ctx, x0, 804, lerp(x0, x1, pf), 804);
@@ -676,7 +689,8 @@
         ctx.fillStyle = lit ? C.flame : C.dim;
         dot(ctx, lerp(x0, x1, j / 5), 804, 8);
       }
-      text(ctx, 'birkaç saat', 1460, 804, { size: 32, family: 'serif', italic: true, color: C.fire, align: 'left', alpha: progress(lt, 12.4, 12.9) });
+      const hours = VOICE.end('fires-race') - 1.1;
+      text(ctx, 'birkaç saat', 1460, 804, { size: 32, family: 'serif', italic: true, color: C.fire, align: 'left', alpha: progress(t, hours, hours + 0.5) });
 
       text(ctx, 'ATLI', 300, 880, { size: 26, weight: 700, spacing: 4, color: C.muted, align: 'left' });
       ctx.strokeStyle = C.line;
@@ -770,7 +784,7 @@
     const S = TWO_S;
     const multi = progress(lt, 5.2, 6.2);
     const fifty = after(t, 'two-levels', 0, 0.7, ease.inOut);
-    const weather = after(t, 'two-weather', 0, 1.4, ease.inOut) * clamp((11.2 + S - lt) / 1.4);
+    const weather = after(t, 'two-weather', 0, 1.4, ease.inOut) * clamp((11.2 + S - lt) / 1.0);
     const guess = after(t, 'two-weather', 2, 0.8, ease.inOut);
     const gy = (x) => 720 - 95 * Math.exp(-(((x - L) / 210) ** 2)) - 95 * Math.exp(-(((x - R) / 210) ** 2));
 
@@ -888,12 +902,12 @@
     const level = lerp(bitAt(k - 1), bitAt(k), ease.inOut(clamp(f / 0.14)));
     return 0.4 + level * 4.1 + 0.4 * (noise(tau * 30, 23) - 0.5);
   };
-  // Sinyal sahne saatiyle akar (beklemelerde de oynar); anlatıcı "akım var mı, yok mu?" deyince
+  // Sinyal sahne saatiyle akar (beklemelerde de oynar); anlatıcı "elektrik var mı, yok mu?" deyince
   // iki düzeyli sinyale geçer. İlk okunan bit: anlatıcı eşiğin üstünü anlatırken.
   const whyTimes = () => {
     const s0 = TL.scene('why').start;
     const m0 = cue('why-threshold', 1) - s0;
-    const first = Math.ceil((cue('why-threshold', 4) - s0) / BIT_P);
+    const first = Math.ceil((cue('why-threshold', 5) - s0) / BIT_P);
     return { m0, first };
   };
 
@@ -912,8 +926,8 @@
 
     if (panel > 0) {
       const th = after(t, 'why-threshold', 3, 0.7, ease.inOut);
-      const up = after(t, 'why-threshold', 4, 0.6);
-      const down = after(t, 'why-threshold', 5, 0.6);
+      const up = after(t, 'why-threshold', 5, 0.6);
+      const down = after(t, 'why-threshold', 6, 0.6);
       ctx.save();
       ctx.globalAlpha *= panel;
       roundRect(ctx, x0, y0, x1 - x0, y1 - y0, 16);
@@ -962,7 +976,7 @@
       text(ctx, '0 V', x0 - 16, vy(0), { size: 22, family: 'mono', color: C.dim, align: 'right' });
       text(ctx, 'volt', x0 - 16, vy(2.5), { size: 24, family: 'mono', weight: 700, color: C.cream, align: 'right', alpha: axis });
       text(ctx, 'zaman →', x1, y1 + 24, { size: 22, family: 'mono', color: C.muted, align: 'right', alpha: axis * (1 - th) });
-      text(ctx, 'eşik', x0 + 20, vy(2.5) - 22, { size: 26, family: 'mono', weight: 700, color: C.cream, align: 'left', alpha: th });
+      text(ctx, 'eşik', x0 + 20, vy(2.5) - 22, { size: 26, family: 'mono', weight: 700, color: C.cream, align: 'left', alpha: th * after(t, 'why-threshold', 4, 0.5) });
       runs(ctx, [
         ['VAR', { size: 30, family: 'mono', weight: 700, color: C.fire }],
         ['  →  1', { size: 30, family: 'mono', weight: 700, color: C.fire, alpha: after(t, 'why-code', 1, 0.4) }],
@@ -980,7 +994,7 @@
       const vc = t >= freeze ? (drift > 0 ? C.error : C.flame) : C.cream;
       text(ctx, `${shown.toFixed(2).replace('.', ',')} V`, x1, 128, { size: 60, family: 'mono', weight: 700, color: vc, align: 'right', alpha: va });
       const nowBit = bitAt(Math.floor(clk / BIT_P));
-      text(ctx, nowBit ? 'akım VAR' : 'akım YOK', x1, 128, { size: 52, family: 'mono', weight: 700, color: nowBit ? C.fire : C.off, align: 'right', alpha: up });
+      text(ctx, nowBit ? 'elektrik VAR' : 'elektrik YOK', x1, 128, { size: 52, family: 'mono', weight: 700, color: nowBit ? C.fire : C.off, align: 'right', alpha: up });
       ctx.restore();
 
       const chipsOut = 1 - progress(clk, m0 - 0.4, m0 + 0.2);
@@ -1023,7 +1037,7 @@
     }
 
     const cardsA = vis(lt, 11.9, 17, 0.5, 0.4);
-    [['Akım var', '1', C.fire, FIRE], ['Akım yok', '0', C.off, COOL]].forEach(([label, digit, col, rgb], i) => {
+    [['Elektrik var', '1', C.fire, FIRE], ['Elektrik yok', '0', C.off, COOL]].forEach(([label, digit, col, rgb], i) => {
       const a = cardsA * progress(lt, 11.9 + i * 0.3, 12.5 + i * 0.3, ease.out);
       if (a <= 0) return;
       const x = W / 2 + (i === 0 ? -300 : 300);
@@ -1037,8 +1051,8 @@
       ctx.lineWidth = 2;
       ctx.stroke();
       ctx.restore();
-      text(ctx, label, x - 200, y, { size: 46, weight: 600, color: C.cream, align: 'left', alpha: a });
-      text(ctx, '→', x + 70, y, { size: 46, color: C.muted, alpha: a });
+      text(ctx, label, x - 215, y, { size: 40, weight: 600, color: C.cream, align: 'left', alpha: a });
+      text(ctx, '→', x + 85, y, { size: 46, color: C.muted, alpha: a });
       text(ctx, digit, x + 165, y + 4, { size: 120, family: 'mono', weight: 700, color: col, alpha: a, glow: i === 0 ? 'rgba(255,140,40,0.6)' : undefined });
     });
     const bitA = cardsA * after(t, 'why-bit', 0, 0.6);
@@ -1077,7 +1091,7 @@
     return TL.at('lamps', st.at + 0.35 + c * LAYOUT[st.n].step);
   };
   // Durum sayısının söylendiği an (o ana kadar sayaçta "?")
-  const COUNT_CUE = { 1: ['lamps-one', 2], 2: ['lamps-two', 6], 3: ['lamps-three', 1], 4: ['lamps-four', 1] };
+  const COUNT_CUE = { 1: ['lamps-one', 3], 2: ['lamps-two', 6], 3: ['lamps-three', 1], 4: ['lamps-four', 1] };
   const comboCenter = (st, c) => {
     const L = LAYOUT[st.n];
     const rows = Math.ceil(2 ** st.n / L.cols);
@@ -1120,7 +1134,7 @@
 
       // Üç lambada katlamanın nedeni: yeni (en soldaki) lamba sönükken eski dört durum, yanarken aynısı
       if (st.n === 3) {
-        [['yeni lamba sönük: 4 durum', 2, COOL], ['yeni lamba yanık: 4 durum', 4, FIRE]].forEach(([str, k, rgb], col) => {
+        [['yeni lamba sönük: 4 durum', 2, COOL], ['yeni lamba yanıyor: 4 durum', 4, FIRE]].forEach(([str, k, rgb], col) => {
           const a = sa * after(t, 'lamps-three', k, 0.6);
           if (a <= 0) return;
           const top = comboCenter(st, col * 4);
@@ -1215,9 +1229,9 @@
       if (t >= cue('lamps-values', 7)) [val, mode] = [5, 'five'];
       if (t >= cue('lamps-range', 0)) [val, mode] = [0, 'zero'];
       if (t >= cue('lamps-range', 1)) [val, mode] = [255, 'full'];
-      if (t >= cue('lamps-range', 2)) mode = 'range';
+      if (t >= cue('lamps-range', 3)) mode = 'range';
       if (ci >= 0) [val, mode] = [CHARS[ci % CHARS.length][1], 'char'];
-      const modeAt = { none: 0, five: cue('lamps-values', 7), zero: cue('lamps-range', 0), full: cue('lamps-range', 1), range: cue('lamps-range', 2), char: cue('lamps-letters', 1) }[mode];
+      const modeAt = { none: 0, five: cue('lamps-values', 7), zero: cue('lamps-range', 0), full: cue('lamps-range', 1), range: cue('lamps-range', 3), char: cue('lamps-letters', 1) }[mode];
       const fresh = progress(t, modeAt, modeAt + 0.35, ease.out);
       const VALUES_K = [6, 5, 5, 5, 4, 3, 2, 1]; // her lambanın değeri lamps-values'ın hangi öbeğinde söyleniyor
       for (let j = 0; j < 8; j++) {
@@ -1250,7 +1264,10 @@
       if (mode === 'five') runs(ctx, [['4 + 1', mono(72, C.flame)], [' = ', mono(72, C.muted)], ['5', mono(72)]], W / 2, 690, { alpha: ra });
       if (mode === 'zero') runs(ctx, [['hepsi sönük', { size: 48, family: 'serif', italic: true, color: C.muted }], ['  =  ', mono(72, C.muted)], ['0', mono(72)]], W / 2, 690, { alpha: ra });
       if (mode === 'full') runs(ctx, [['128 + 64 + 32 + 16 + 8 + 4 + 2 + 1', mono(46, C.flame)], ['  =  ', mono(46, C.muted)], ['255', mono(72)]], W / 2, 690, { alpha: ra });
-      if (mode === 'range') runs(ctx, [['1 bayt', mono(72, C.fire)], ['  :  ', mono(72, C.muted)], ['0 … 255', mono(72)]], W / 2, 690, { alpha: ra });
+      if (mode === 'range') {
+        runs(ctx, [['1 bayt', mono(72, C.fire)], ['  :  ', mono(72, C.muted)], ['0 … 255', mono(72)]], W / 2, 690, { alpha: ra });
+        text(ctx, 'sıfırla birlikte 256 ayrı sayı', W / 2, 790, { size: 40, family: 'serif', italic: true, color: C.muted, alpha: byteA * after(t, 'lamps-range', 4, 0.6) });
+      }
       if (mode === 'char') {
         ctx.save();
         ctx.globalAlpha *= byteA * after(t, 'lamps-letters', 1, 0.4);
@@ -1317,7 +1334,7 @@
       ctx.globalAlpha *= cmp;
       ctx.fillStyle = C.ink;
       ctx.fillRect(-500, 325, 10, 10);
-      text(ctx, 'bu bölümün metni ≈ 30.000 harf ≈ 30 KB', -472, 330, { size: 28, color: C.inkSoft, align: 'left' });
+      text(ctx, '30.000 harflik bir metin ≈ 30 KB', -472, 330, { size: 28, color: C.inkSoft, align: 'left' });
       const big = 100 * after(t, 'glossary-compare', 2, 0.7);
       ctx.fillStyle = C.ember;
       ctx.fillRect(250, 380 - big, big, big);
@@ -1451,8 +1468,7 @@
 
   // Türkçe harfler ve Türkçe sözlükteki (ISO-8859-9) yerleri; aynı yerde Batı Avrupa sözlüğünün (ISO-8859-1) harfi
   const TR = [['ç', 231, 'ç'], ['ğ', 240, 'ð'], ['ı', 253, 'ý'], ['İ', 221, 'Ý'], ['ö', 246, 'ö'], ['ş', 254, 'þ'], ['ü', 252, 'ü']];
-  const TR_K = [0, 1, 2, 3, 4, 5, 5]; // her harfin turkish-letters satırında söylendiği öbek
-  const trAt = (i) => cue('turkish-letters', TR_K[i]) + (i === 6 ? 0.45 : 0);
+  const trAt = (i) => cue('turkish-letters', i); // her harf, turkish-letters satırında adı söylenirken
   const TR_S = 2.0; // turkish.half/place eklenince kayan koreografi (sözlükler, Unicode, usta sözü)
   const GLITCH_PULSES = [11.2 + TR_S, 12.5 + TR_S, 13.8 + TR_S];
   const SCRIPTS = ['çğıİöşü', '中文', 'Ελληνικά', 'Русский', 'العربية', 'हिन्दी', '☥', '😊', 'ñ ß é å', '日本語'];
@@ -1503,7 +1519,9 @@
       const gx2 = W / 2 + 30;
       const half = gA * after(t, 'turkish-half', 0, 0.8);
       text(ctx, 'İLK ANLAŞMA · 128 YER', gx + 400, gy - 40, { size: 24, weight: 700, spacing: 8, color: C.muted, alpha: gA });
-      text(ctx, '128 – 255 · BOŞ', gx2 + 400, gy - 40, { size: 24, weight: 700, spacing: 8, color: C.muted, alpha: half * after(t, 'turkish-half', 1, 0.6) });
+      const filled = after(t, 'turkish-place', 1, 0.6);
+      text(ctx, '128 – 255 · BOŞ', gx2 + 400, gy - 40, { size: 24, weight: 700, spacing: 8, color: C.muted, alpha: half * after(t, 'turkish-half', 1, 0.6) * (1 - filled) });
+      text(ctx, '128 – 255 · HER ÜLKEYE AYRI', gx2 + 400, gy - 40, { size: 24, weight: 700, spacing: 8, color: C.muted, alpha: half * filled });
       for (let r = 0; r < 8; r++) {
         text(ctx, String(r * 16), gx - 10, gy + r * cell + cell / 2, { size: 17, family: 'mono', color: C.dim, align: 'right', alpha: gA * progress(lt, 0.4 + r * 0.29, 0.7 + r * 0.29) });
         text(ctx, String(128 + r * 16), gx2 - 10, gy + r * cell + cell / 2, { size: 17, family: 'mono', color: C.dim, align: 'right', alpha: half });
@@ -1564,14 +1582,22 @@
         const cx = gx2 + (code % 16) * cell + cell / 2;
         const cy = gy + Math.floor((code - 128) / 16) * cell + cell / 2;
         const clash = other !== ch;
-        const off = clash ? 5 * ghost : 0;
-        x = lerp(x, cx - off, mv);
-        y = lerp(y, cy - off, mv);
+        x = lerp(x, cx, mv);
+        y = lerp(y, cy, mv);
         size = lerp(size, cell - 12, mv);
-        if (clash && ghost > 0) letterTile(ctx, other, cx + off, cy + off, cell - 12, C.error, ghost);
+        // Aynı yere başka ülkenin harfi: hücrenin hemen altında, ikisi de okunur
+        if (clash && ghost > 0) {
+          ctx.save();
+          ctx.globalAlpha *= ghost;
+          ctx.strokeStyle = C.error;
+          ctx.lineWidth = 2;
+          line(ctx, cx, cy + cell / 2 - 6, cx, cy + cell * 0.55);
+          ctx.restore();
+          letterTile(ctx, other, cx, cy + cell * 0.55 + (cell - 12) / 2 + 4 * ghost, cell - 12, C.error, ghost);
+        }
         letterTile(ctx, ch, x, y, size, C.fire, gA);
       });
-      text(ctx, 'ilk listede yok', W / 2, 860, { size: 40, family: 'serif', italic: true, color: C.error, alpha: gA * after(t, 'turkish-letters', 5, 0.5) * (1 - progress(t, place, place + 0.5)) });
+      text(ctx, 'ilk listede yok', W / 2, 860, { size: 40, family: 'serif', italic: true, color: C.error, alpha: gA * after(t, 'turkish-letters', 7, 0.5) * (1 - progress(t, place, place + 0.5)) });
       const legend = gA * after(t, 'turkish-place', 3, 0.5);
       if (legend > 0) {
         runs(ctx, [
@@ -1579,8 +1605,9 @@
           ['Türkiye’nin sözlüğü', { size: 30, family: 'serif', italic: true, color: C.cream }],
           ['        ■ ', { size: 30, color: C.error }],
           ['Batı Avrupa’nın sözlüğü', { size: 30, family: 'serif', italic: true, color: C.cream }],
-        ], gx2 + 400, 680, { alpha: legend });
-        text(ctx, 'aynı numara, başka harf', gx2 + 400, 740, { size: 34, family: 'serif', italic: true, color: C.muted, alpha: legend });
+        ], gx2 + 400, 720, { alpha: legend });
+        text(ctx, 'aynı numara, başka harf', gx2 + 400, 780, { size: 34, family: 'serif', italic: true, color: C.muted, alpha: legend });
+        text(ctx, '240: ğ / ð    253: ı / ý    221: İ / Ý    254: ş / þ', gx2 + 400, 840, { size: 28, family: 'mono', color: C.cream, alpha: legend });
       }
     }
 
@@ -1646,10 +1673,14 @@
       ctx.restore();
       text(ctx, 'UNICODE', cx, cy - 20, { size: 110, family: 'display', weight: 900, spacing: 6, color: C.cream, alpha: uC * after(t, 'turkish-unicode', 2, 0.6) });
       text(ctx, 'dünyanın bütün yazıları · tek liste', cx, cy + 60, { size: 30, color: C.muted, alpha: uC * after(t, 'turkish-unicode', 1, 0.6) });
+      const twoBytes = after(t, 'turkish-codepoint', 3, 0.6);
       runs(ctx, [
         ['ğ', { size: 44, family: 'mono', weight: 700, color: C.fire }],
-        ['  →  287', { size: 44, family: 'mono', weight: 700, color: C.digital }],
-        ['   her yerde aynı', { size: 30, family: 'serif', italic: true, color: C.muted }],
+        [' → 287', { size: 44, family: 'mono', weight: 700, color: C.digital }],
+        // "her yerde aynı", anlatıcı tek baytın yetmediğini söyleyince "> 255 · 2 bayt" olur
+        twoBytes < 0.5
+          ? ['   her yerde aynı', { size: 30, family: 'serif', italic: true, color: C.muted, alpha: 1 - twoBytes * 2 }]
+          : ['  > 255 · 2 bayt', { size: 28, family: 'mono', weight: 700, color: C.flame, alpha: twoBytes * 2 - 1 }],
       ], cx, cy + 132, { alpha: uC * after(t, 'turkish-codepoint', 2, 0.6) });
       SCRIPTS.forEach((str, i) => {
         const k = SCRIPT_CUE[i];
@@ -2090,7 +2121,7 @@
         ctx.fillStyle = C.flame;
         dot(ctx, x, y, played ? 8 : 5);
         ctx.restore();
-        text(ctx, String(Math.round(v * 100)), x, v >= 0 ? y - 24 : y + 24, { size: 16, family: 'mono', color: C.cream, alpha: wA * progress(t, valueAt(k), valueAt(k) + 0.15) });
+        text(ctx, String(Math.round(128 + v * 120)), x, v >= 0 ? y - 24 : y + 24, { size: 16, family: 'mono', color: C.cream, alpha: wA * progress(t, valueAt(k), valueAt(k) + 0.15) });
       }
       text(ctx, 'saniyede on binlerce ölçüm', x1, 160, { size: 28, family: 'mono', color: C.muted, align: 'right', alpha: wA * after(t, 'numbers-sound', 2, 0.5) });
 
@@ -2121,7 +2152,7 @@
           dot(ctx, bx, by, 12);
         }
         ctx.restore();
-        text(ctx, '25 kare / saniye', W - 140, 630, { size: 30, family: 'mono', weight: 700, color: C.cream, align: 'right', alpha: fA * after(t, 'numbers-video', 1, 0.5) });
+        text(ctx, '25 fotoğraf / saniye', W - 140, 630, { size: 30, family: 'mono', weight: 700, color: C.cream, align: 'right', alpha: fA * after(t, 'numbers-video', 1, 0.5) });
       }
     }
 
@@ -2147,7 +2178,7 @@
         text(ctx, value(t), x, y + 50, { size: 48, family: 'mono', weight: 700, color: C.cream, alpha: a });
         text(ctx, label, x, y + 118, { size: 30, color: C.muted, alpha: a });
       });
-      text(ctx, 'sensör: ölçer, sayıya çevirir', W / 2, 800, { size: 36, family: 'serif', italic: true, color: C.cream, alpha: sA * after(t, 'numbers-sensors', 4, 0.6) });
+      text(ctx, 'sensör: ölçer, sayıya çevirir', W / 2, 800, { size: 36, family: 'serif', italic: true, color: C.cream, alpha: sA * after(t, 'numbers-sensors', 5, 0.6) });
     }
 
     // Büyük cümle
@@ -2256,13 +2287,14 @@
     IGNITE.forEach((d, i) => {
       const t = at('fires', d);
       const pan = lerp(-0.7, 0.7, i / 5);
-      if (i > 0) m.whoosh(t - 0.55, { dur: 0.55, from: 900, to: 3200, gain: 0.07, panFrom: lerp(-0.7, 0.7, (i - 1) / 5), panTo: pan, q: 2 });
+      const s0 = at('fires', d - 0.6);
+      if (i > 0) m.whoosh(s0, { dur: t - s0, from: 900, to: 3200, gain: 0.07, panFrom: lerp(-0.7, 0.7, (i - 1) / 5), panTo: pan, q: 2 });
       m.fireIgnite(t, { gain: i === 0 ? 0.55 : 0.32, pan: i === 0 ? -0.2 : pan });
       m.crackle(t, at('two', 0) - t, { gain: i === 0 ? 0.32 : 0.16, pan: i === 0 ? -0.2 : pan, density: 18, roar: i === 0 ? 0.6 : 0.3 });
     });
     m.whoosh(cue('fires-meaning', 1) - 0.1, { dur: 0.6, from: 400, to: 1500, gain: 0.08, q: 0.6, panFrom: 0.2, panTo: 0.5 });
     m.bell(cue('fires-meaning', 1) + 0.1, { freq: hz('A4'), gain: 0.08, decay: 2.5, pan: 0.4 });
-    ['D5', 'E5', 'F5', 'A5', 'C6', 'D6'].forEach((n, k) => m.blip(at('fires', 11.4 + k * 0.24), { freq: hz(n), dur: 0.1, type: 'triangle', gain: 0.08, pan: lerp(-0.6, 0.6, k / 5) }));
+    ['D5', 'E5', 'F5', 'A5', 'C6', 'D6'].forEach((n, k) => m.blip(raceFire() + k * 0.28, { freq: hz(n), dur: 0.1, type: 'triangle', gain: 0.08, pan: lerp(-0.6, 0.6, k / 5) }));
     for (let s = 11.4; s < 16.1; s += 0.55) m.hoof(at('fires', s), { gain: 0.14, pan: -0.25 });
     m.boom(at('fires', 16.6), { gain: 0.3, freq: 55 });
     m.bell(at('fires', 19.5), { freq: hz('F5'), gain: 0.2, decay: 3 });
@@ -2283,7 +2315,7 @@
     const rain0 = cue('two-weather', 0) - 0.3;
     m.rain(rain0, dur(rain0, at('two', 11.6 + S2)), { gain: 0.3 });
     m.wind(rain0, dur(rain0, at('two', 11.6 + S2)), { gain: 0.12 });
-    for (let s = cue('two-weather', 2); s < at('two', 10.6 + S2); s += 0.6) m.tick(s, { gain: 0.05, pan: 0.45 });
+    for (let s = Math.ceil(cue('two-weather', 2) / 0.6) * 0.6; s < at('two', 10.6 + S2); s += 0.6) m.tick(s, { gain: 0.05, pan: 0.45 });
     m.blip(cue('two-weather', 4), { freq: 180, dur: 0.3, type: 'sawtooth', gain: 0.05, pan: 0.4 });
     m.bell(cue('two-weather', 7), { freq: hz('E5'), gain: 0.12, decay: 2, pan: -0.4 });
     m.boom(at('two', 11.3 + S2), { gain: 0.3 });
@@ -2306,8 +2338,8 @@
     m.whoosh(morph - 0.1, { dur: 0.6, from: 300, to: 4000, gain: 0.14 });
     m.blip(morph, { freq: 220, dur: 0.3, slide: 4, type: 'sawtooth', gain: 0.08 });
     m.whoosh(cue('why-threshold', 3), { dur: 0.8, from: 600, to: 2400, gain: 0.06, panFrom: -0.6, panTo: 0.6 });
-    m.click(cue('why-threshold', 4), { gain: 0.12 });
-    m.click(cue('why-threshold', 5), { gain: 0.12, tone: 2000 });
+    m.click(cue('why-threshold', 5), { gain: 0.12 });
+    m.click(cue('why-threshold', 6), { gain: 0.12, tone: 2000 });
     const { first } = whyTimes();
     for (let j = 0; j < 16; j++) {
       const k = first + j;
@@ -2347,7 +2379,7 @@
     m.click(cue('lamps-range', 0), { gain: 0.12, tone: 2000 });
     m.click(cue('lamps-range', 1), { gain: 0.14, tone: 3600 });
     m.bell(cue('lamps-range', 1) + 0.05, { freq: hz('D6'), gain: 0.08, decay: 1.5 });
-    m.bell(cue('lamps-range', 2), { freq: hz('A5'), gain: 0.1, decay: 2 });
+    m.bell(cue('lamps-range', 3), { freq: hz('A5'), gain: 0.1, decay: 2 });
     const letterNotes = ['D5', 'F5', 'A5', 'C6', 'D6', 'A5', 'F5'];
     for (let i = 0, s = cue('lamps-letters', 1); s < TL.scene('lamps').end - 0.6; i++, s += CHAR_P) {
       m.click(s, { gain: 0.1 });
@@ -2400,7 +2432,7 @@
       m.click(trAt(i) + 0.45, { gain: 0.06, tone: 1500, pan: (i - 3) * 0.15 });
       m.click(cue('turkish-place', 1) + i * 0.15 + 0.9, { gain: 0.07, tone: 2600, pan: 0.5 });
     });
-    m.buzz(cue('turkish-letters', 5) + 0.3, { gain: 0.12 });
+    m.buzz(cue('turkish-letters', 7) + 0.3, { gain: 0.12 });
     m.whoosh(cue('turkish-place', 1), { dur: 1.6, from: 500, to: 1800, gain: 0.07, panFrom: 0, panTo: 0.5 });
     m.glitch(cue('turkish-place', 3), 0.25, { gain: 0.1 });
     const go = cue('turkish-mojibake', 0);
@@ -2449,7 +2481,7 @@
     m.blip(cue('numbers-sound', 0), { freq: 220, dur: 1.8, gain: 0.08, wet: 0.3 });
     for (let x = 220; x < 1720; x += 40) m.tick(sampleAt((x - 200) / 1520), { gain: 0.03, tone: 4000, pan: lerp(-0.6, 0.6, (x - 200) / 1520) });
     m.blip(playAt(), { freq: 330, dur: 1.8, slide: 1.5, gain: 0.06, wet: 0.3 });
-    m.projector(at('numbers', 8.2), span('numbers', 8.2, 10.5), { gain: 0.05 });
+    m.projector(cue('numbers-video', 2), dur(cue('numbers-video', 2), at('numbers', 10.5)), { gain: 0.05 });
     SENSORS.forEach((_, i) => m.pop(cue('numbers-sensors', i), { freq: 400 + i * 120, gain: 0.12 }));
     for (let b = cue('numbers-sensors', 3); b < at('numbers', 14.5); b += BEAT) m.heartbeat(b, { gain: 0.35 });
     m.bell(at('numbers', 14.7), { freq: hz('F5'), gain: 0.14, decay: 3 });
