@@ -11,6 +11,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | Birinci Kapı, 2. Bölüm — Taşa Kazınan Mantık | 11:21 (insan sesiyle) | `ch02-tasa-kazinan-mantik/` |
 | Birinci Kapı, 3. Bölüm — Sayılardan Devreye: Elektriğin Hesap Yapması | 14:41 (insan sesi sonradan eklenecek) | `ch03-sayilardan-devreye/` |
 | Birinci Kapı, 4. Bölüm — Veri, Bilgi, Anlam: Üç Basamaklı Merdiven | 13:20 (insan sesiyle) | `ch04-veri-bilgi-anlam/` |
+| Kurs tanıtımı (Udemy) — Bilişim Teknolojileri Yetkinliği | ≈2:00 (insan sesi sonradan eklenecek) | `tanitim/` |
 
 ## İzlemek
 
@@ -117,6 +118,12 @@ Sığmayan satırda önce duraklar kısalır, gerekirse satır hafifçe hızlan�
   makinenin ve insanın payı, veriyi kimin konuşturduğu, veri türleri ve baştaki sıfır, düzenli ve düzensiz veri); aynı yapı.
 - `narrate.mjs` — seslendirme izini üretir (MBROLA, Piper ya da insan kaydı).
 - `dub.mjs` — insan sesi kayıtlarını hazır videoya ekler (görüntüyü yeniden dökmeden).
+- `tanitim/` — kursun Udemy tanıtım videosu (tepeden tepeye ateş, iki simge, on iki kapı, kurstan görüntüler,
+  ders kitabı, kimler için, açık olan kapı). Ekrandaki "kurstan bir an" bölümüne bölüm videolarından seçilen parçalar
+  `tanitim/montaj.mjs` ile bindirilir:
+  `node video/render.mjs tanitim --anlatimsiz` → `node video/tanitim/montaj.mjs` → `out/tanitim-montaj.mp4`;
+  kayıtlar gelince `node video/dub.mjs tanitim --kayit <klasör> --video video/out/tanitim-montaj.mp4`.
+- `udemy/` — Udemy açılış sayfası metinleri, kurs görseli ve görselin üreteci (`gorsel.html`).
 
 ## Yeni bölüm eklemek
 
