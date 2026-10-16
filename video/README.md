@@ -13,7 +13,8 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | Birinci Kapı, 3. Bölüm — Sayılardan Devreye: Elektriğin Hesap Yapması | 14:41 (insan sesiyle) | `ch03-sayilardan-devreye/` |
 | Birinci Kapı, 4. Bölüm — Veri, Bilgi, Anlam: Üç Basamaklı Merdiven | 13:20 (insan sesiyle) | `ch04-veri-bilgi-anlam/` |
 | Kurs tanıtımı (Udemy) — Bilişim Teknolojileri Yetkinliği | 1:54 (insan sesi sonradan eklenecek) | `tanitim/` |
-| Önsöz kısa videoları (YouTube Shorts, 1080×1920): mesaj, köprü, ekran | 0:21–0:24 (insan sesiyle) | `kisa-mesaj/`, `kisa-kopru/`, `kisa-ekran/` |
+| Önsöz kısa videoları (YouTube Shorts, 1080×1920): mesaj, köprü, ekran | 0:23–0:25 (insan sesiyle) | `kisa-mesaj/`, `kisa-kopru/`, `kisa-ekran/` |
+| Öğretici kısa video: A harfi aslında bir sayı (Birinci Kapı'dan) | ~0:30 (kayıt bekleniyor) | `kisa-harf/` |
 
 ## İzlemek
 

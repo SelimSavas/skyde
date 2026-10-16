@@ -51,3 +51,18 @@ YAYIN İPUÇLARI
 - Ana videonun sabitlenmiş yorumuna ve açıklamasına bu short'ları değil, sonraki bölümü bağla; short'lar ana videoya trafik taşır.
 - Seslendirme yapay zekâ sesi: yüklerken "Değiştirilmiş veya yapay içerik" sorusunda, gerçek bir kişiyi taklit etmediği ve animasyon olduğu için genellikle "Hayır" yeterlidir; kanal politikan açıklamayı gerektiriyorsa "Evet" seç.
 - İlk 1–2 saatte gelen yorumlara yanıt ver; short'un ikinci dalga gösterimini artırır.
+
+────────────────────────────────────────
+ÖĞRETİCİ SHORT · kisa-harf-seslendirme.mp4  (Birinci Kapı: Var ve Yok'tan)
+────────────────────────────────────────
+İlgili video: "Birinci Kapı: Var ve Yok" bölümünü seç (Önsöz'ü değil).
+
+Başlık:
+Bilgisayar A harfini nasıl saklar? #shorts
+
+Açıklama:
+Bilgisayarın içinde harf yoktur, sayı vardır. A harfi 65'tir; 65 de sekiz bitle saklanır: 64 + 1. Yazdığın her mesaj böyle bitlerden oluşur. Konunun devamı Birinci Kapı'da:
+▶ Var ve Yok: İki Simgeli Bir Evren: [BİRİNCİ KAPI BAĞLANTISI]
+
+YUP Stüdyo · Bilişim Teknolojileri Yetkinliği
+#bilgisayar #ikilisistem #bilişim

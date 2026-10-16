@@ -1,8 +1,8 @@
 /*
  * Önsöz kısa videoları (YouTube Shorts, 1080×1920 dikey) için ortak motor.
  *
- * Kısa videolar Önsöz filminin görüntülerini kullanır, ama video dosyasından kırpmaz: index.html Önsöz'ü
- * window.ONSOZ olarak yükler, her çekim Önsöz'ün bir anını istenen bölgesine yakınlaşarak dikey kadraja
+ * Kısa videolar bir kurs filminin (çoğunlukla Önsöz) görüntülerini kullanır, ama video dosyasından kırpmaz:
+ * index.html kaynak filmi window.KAYNAK (ya da window.ONSOZ) olarak yükler, her çekim Önsöz'ün bir anını istenen bölgesine yakınlaşarak dikey kadraja
  * yeniden çizer. Böylece yakın plan da vektör kadar keskin kalır.
  *
  * Kısa video = seslendirme satırları. Her satır bir sahnedir; sahnenin çekimleri satırın öbeklerine
@@ -11,7 +11,8 @@
  *          hareketi Önsöz'ün kendi animasyonu taşır; çekimler arasında yumuşak geçiş (XF) yapılır,
  *          sert kesme ve yakınlaşma yoktur (göz yormasın).
  *   rate   Önsöz zamanının akış hızı (1 = gerçek hız).
- * Son satır çağrıdır: videonun başka bölümlerinden iki sakin örnek ve bitiş kartı.
+ * Bir çekim kaynak film yerine kendi çizimini de taşıyabilir: { draw(ctx, t, { cue, end }) } (dikey için tasarlanmış sahne).
+ * Son satır çağrıdır: videonun başka bölümlerinden iki sakin örnek (teaser) ve bitiş kartı (card, finale).
  * Altyazı, söylenen öbeğe göre sözcük sözcük yanar; *yıldızlı* sözcükler turuncu vurgulanır.
  */
 (function (root) {
@@ -21,8 +22,8 @@
   const { clamp, ease, progress, vis, text, measure } = E;
   const SW = 1080;
   const SH = 1920;
-  const SRC = root.ONSOZ;
-  if (!SRC) throw new Error('Önsöz filmi (window.ONSOZ) yüklenmemiş');
+  const SRC = root.KAYNAK ?? root.ONSOZ;
+  if (!SRC) throw new Error('Kaynak film (window.KAYNAK ya da window.ONSOZ) yüklenmemiş');
   const scue = SRC.narration.cue;
 
   const C = {
@@ -98,7 +99,12 @@
   }
 
   function drawShot(ctx, shot, t) {
-    drawSource(ctx, shot.src0 + (t - shot.start) * (shot.rate ?? 1), shot.view, shot.crop);
+    if (shot.draw) {
+      background(ctx);
+      shot.draw(ctx, t, shot.api);
+    } else {
+      drawSource(ctx, shot.src0 + (t - shot.start) * (shot.rate ?? 1), shot.view, shot.crop);
+    }
   }
 
   // Yeni çekim, öncekinin üstüne XF saniyede belirir. Önsöz kendi opaklığını sıfırladığı için
@@ -142,19 +148,26 @@
         if (ends) em = false;
       });
     });
-    // her sözcüğün hangi öbekte ve öbeğin ne kadar içinde olduğu (sözcük sırasına göre)
-    const phrases = E.phrases(line.say).map((ph) => ph.split(/\s+/).filter(Boolean));
-    let i = 0;
-    phrases.forEach((ph, k) => {
-      const total = ph.reduce((n, w) => n + w.length + 1, 0);
+    // her sözcüğün hangi öbekte olduğu, gösterilen metnin noktalamasından (say ile aynı öbek sayısı beklenir)
+    let k = 0;
+    let group = [];
+    const close = () => {
+      const total = group.reduce((n, w) => n + w.str.length + 1, 0);
       let before = 0;
-      ph.forEach((w) => {
-        if (words[i]) Object.assign(words[i], { k, frac: before / total });
-        before += w.length + 1;
-        i++;
-      });
-    });
-    words.forEach((w) => { if (w.k == null) Object.assign(w, { k: phrases.length - 1, frac: 1 }); });
+      for (const w of group) {
+        Object.assign(w, { k, frac: before / total });
+        before += w.str.length + 1;
+      }
+      group = [];
+      k++;
+    };
+    for (const w of words) {
+      group.push(w);
+      if (/[,;:.!?…—]$/.test(w.str)) close();
+    }
+    if (group.length) close();
+    const n = E.phrases(line.say).length;
+    words.forEach((w) => { if (w.k >= n) Object.assign(w, { k: n - 1, frac: 1 }); });
     return words;
   }
 
@@ -246,20 +259,26 @@
     text(ctx, label, x + 28 + w1 + 28, y + 2, { ...f2, align: 'left', color: C.cream, alpha: a });
   }
 
-  function endCard(ctx, a) {
+  const CARD = {
+    kicker: 'TAMAMI KANALDA',
+    title: ['Dijital Dünyayı', 'Anlamak'],
+    sub: 'Bilişim Teknolojileri Yetkinliği · Giriş Bölümü',
+    button: '▶  Videonun tamamını izle',
+  };
+  function endCard(ctx, a, card = CARD) {
     if (a <= 0.002) return;
     ctx.fillStyle = `rgba(5,7,13,${0.55 * a})`;
     ctx.fillRect(0, 0, SW, SH);
     const rise = (1 - a) * 30;
-    text(ctx, 'TAMAMI KANALDA', SW / 2, 800 + rise, { size: 30, weight: 700, spacing: 10, color: C.fire, alpha: a });
-    text(ctx, 'Dijital Dünyayı', SW / 2, 915 + rise, { size: 104, family: 'display', weight: 700, color: C.cream, alpha: a, glow: 'rgba(0,0,0,0.8)', glowBlur: 26 });
-    text(ctx, 'Anlamak', SW / 2, 1035 + rise, { size: 104, family: 'display', weight: 700, color: C.cream, alpha: a, glow: 'rgba(0,0,0,0.8)', glowBlur: 26 });
+    text(ctx, card.kicker, SW / 2, 800 + rise, { size: 30, weight: 700, spacing: 10, color: C.fire, alpha: a });
+    text(ctx, card.title[0], SW / 2, 915 + rise, { size: 104, family: 'display', weight: 700, color: C.cream, alpha: a, glow: 'rgba(0,0,0,0.8)', glowBlur: 26 });
+    text(ctx, card.title[1], SW / 2, 1035 + rise, { size: 104, family: 'display', weight: 700, color: C.cream, alpha: a, glow: 'rgba(0,0,0,0.8)', glowBlur: 26 });
     ctx.save();
     ctx.globalAlpha *= a;
     ctx.fillStyle = C.fire;
     ctx.fillRect(SW / 2 - 60, 1112 + rise, 120 * a, 4);
     ctx.restore();
-    text(ctx, 'Bilişim Teknolojileri Yetkinliği · Giriş Bölümü', SW / 2, 1172 + rise, { size: 32, family: 'serif', italic: true, color: C.muted, alpha: a });
+    text(ctx, card.sub, SW / 2, 1172 + rise, { size: 32, family: 'serif', italic: true, color: C.muted, alpha: a });
     // Shorts'ta "ilgili video" bağlantısı başlığın hemen üstünde, sol altta görünür
     const pa = a;
     ctx.save();
@@ -268,7 +287,7 @@
     ctx.fillStyle = C.fire;
     ctx.fill();
     ctx.restore();
-    text(ctx, '▶  Videonun tamamını izle', SW / 2, 1301 + rise, { size: 34, weight: 700, color: C.ink, alpha: pa });
+    text(ctx, card.button, SW / 2, 1301 + rise, { size: 34, weight: 700, color: C.ink, alpha: pa });
   }
 
   function background(ctx) {
@@ -335,14 +354,15 @@
       let list;
       if (l.id === ctaId) {
         list = teasers.map((tz, i) => ({ ...tz, start: sc.start + i * TEASER_LEN }));
-        list.push({ ...FINALE, finale: true, start: sc.start + teasers.length * TEASER_LEN });
+        list.push({ ...(def.finale ?? FINALE), finale: true, start: sc.start + teasers.length * TEASER_LEN });
       } else {
         list = (def.shots[l.id] ?? []).map((s) => ({ ...s, start: s.k ? cue(l.id, s.k) - 0.12 : sc.start }));
       }
       if (!list.length) throw new Error(`${l.id}: çekim yok`);
       list.forEach((s, i) => {
         s.end = i + 1 < list.length ? list[i + 1].start : sc.end;
-        s.src0 = s.src(scue);
+        s.src0 = s.src ? s.src(scue) : 0;
+        s.api = { cue, end, start: s.start };
       });
       SHOTS[l.id] = list;
     }
@@ -360,7 +380,7 @@
       if (l.id === ctaId) {
         if (shot.label) chip(ctx, shot.label, vis(t, shot.start, shot.end, 0.4, 0.4));
         const fin = list[list.length - 1];
-        endCard(ctx, progress(t, fin.start, fin.start + 0.8, ease.inOut));
+        endCard(ctx, progress(t, fin.start, fin.start + 0.8, ease.inOut), { ...CARD, ...def.card });
       }
     }
 
@@ -375,7 +395,8 @@
       const all = Object.values(SHOTS).flat();
       for (const s of all) {
         if (s.start > 0.05) m.whoosh(s.start - 0.1, { dur: 1, from: 300, to: 900, gain: 0.018 });
-        if (s.label || s.finale) continue;
+        if (s.sound) s.sound(m, hz, s);
+        if (s.label || s.finale || s.draw) continue;
         const rate = s.rate ?? 1;
         const a = s.src0;
         const b = s.src0 + (s.end - s.start) * rate;
@@ -407,5 +428,5 @@
     });
   }
 
-  root.Kisa = { short, TEASERS, SW, SH };
+  root.Kisa = { short, TEASERS, SW, SH, C };
 })(window);
