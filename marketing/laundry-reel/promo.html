@@ -1,0 +1,490 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: Lexend; src: url(fonts/lexend.ttf); font-weight: 100 900; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #2D8FEA; font-family: Lexend, sans-serif; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+  background: linear-gradient(180deg, #2A8BEA 0%, #45A9F5 38%, #6FC2FB 72%, #A6DDFF 100%); }
+.abs { position: absolute; }
+#storm { position: absolute; inset: 0; background: linear-gradient(180deg, #3D5878 0%, #5F7D9F 50%, #8AA3BF 100%); opacity: 0; }
+#sunGlow { left: -260px; top: -300px; width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.75) 0%, rgba(255,255,255,.25) 35%, rgba(255,255,255,0) 70%); }
+#skyline { position: absolute; left: 0; bottom: 0; width: 1080px; height: 700px; }
+.cloud { position: absolute; filter: blur(10px); }
+.cloud i { position: absolute; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #fff 0%, rgba(255,255,255,.92) 45%, rgba(255,255,255,0) 72%); }
+#darkCloud { position: absolute; left: 0; top: 0; filter: blur(12px); }
+#darkCloud i { position: absolute; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #5d6f86 0%, rgba(80,98,122,.9) 45%, rgba(80,98,122,0) 72%); }
+.spark { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #fff; box-shadow: 0 0 14px 4px rgba(255,255,255,.7); }
+.drop { position: absolute; left: 0; top: 0; width: 4px; height: 60px; border-radius: 3px; background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.8)); }
+
+.cap { position: absolute; left: 60px; width: 960px; top: 250px; text-align: center; color: #fff;
+  font-weight: 600; font-size: 84px; line-height: 1.08; letter-spacing: -1.5px;
+  text-shadow: 0 6px 30px rgba(10,60,140,.35); }
+.cap .line { display: block; white-space: nowrap; }
+.cap .w { display: inline-block; margin: 0 10px; }
+.cap .hl { color: #FFE27A; }
+.cap .sub { display: block; font-size: 38px; font-weight: 400; letter-spacing: 0; margin-top: 22px; color: rgba(255,255,255,.92); }
+
+/* clothesline */
+#line { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.cloth { position: absolute; left: 0; top: 0; transform-origin: 50% 0; }
+
+/* phone */
+#phoneWrap { position: absolute; left: 245px; top: 600px; width: 590px; height: 1276px; transform-origin: 50% 0; }
+#phoneShadow { position: absolute; left: 270px; top: 1830px; width: 540px; height: 70px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(10,50,120,.35), rgba(10,50,120,0) 70%); filter: blur(8px); }
+#phone { position: absolute; inset: 0; border-radius: 74px; padding: 14px;
+  background: linear-gradient(135deg, #cfe2f7 0%, #7f9bc0 30%, #1d2737 32%, #121a26 100%);
+  box-shadow: 0 40px 90px rgba(10,50,120,.35), inset 0 0 0 3px rgba(255,255,255,.35); }
+#phone::before { content: ''; position: absolute; inset: 5px; border-radius: 69px; background: #0d131c; }
+#screenClip { position: relative; width: 562px; height: 1248px; border-radius: 60px; overflow: hidden; }
+#screen { position: absolute; left: 0; top: 0; width: 720px; height: 1600px; transform: scale(.78); transform-origin: 0 0; overflow: hidden; }
+#island { position: absolute; left: 50%; top: 22px; width: 180px; height: 52px; margin-left: -90px; border-radius: 30px; background: #05080d; z-index: 50; }
+.layer { position: absolute; inset: 0; }
+.glass { position: absolute; }
+.pill-txt { position: absolute; font-size: 31px; font-weight: 500; }
+.status { position: absolute; top: 34px; left: 64px; right: 56px; height: 40px; font-size: 30px; font-weight: 600; }
+.rain-drop { position: absolute; left: 0; top: 0; width: 3px; height: 46px; border-radius: 3px; background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.75)); }
+
+/* sheet + detail */
+#sheet { background: #F6F6FA; transform: translateY(1600px); }
+.sh-title { position: absolute; left: 40px; top: 120px; font-size: 50px; font-weight: 700; color: #111; letter-spacing: -.5px; }
+.sh-sub { position: absolute; left: 40px; top: 190px; width: 560px; font-size: 27px; color: #8a8a96; line-height: 1.35; }
+.sh-close { position: absolute; right: 32px; top: 128px; width: 66px; height: 66px; border-radius: 50%; background: #E6E6EE; display: flex; align-items: center; justify-content: center; }
+.sh-div { position: absolute; left: 0; right: 0; top: 290px; height: 2px; background: #E7E7EE; }
+.sec { position: absolute; left: 34px; font-size: 28px; font-weight: 500; color: #747480; display: flex; align-items: center; gap: 14px; }
+.row { position: absolute; left: 32px; right: 32px; height: 138px; border-radius: 32px; background: #fff; border: 2px solid #EEEEF3; }
+.row .ib { position: absolute; left: 32px; top: 28px; width: 80px; height: 80px; border-radius: 22px; background: #F1F1F5; display: flex; align-items: center; justify-content: center; }
+.row .lb { position: absolute; left: 138px; top: 46px; font-size: 32px; color: #1a1a22; }
+.row .cb { position: absolute; right: 34px; top: 47px; width: 44px; height: 44px; border-radius: 12px; border: 2.5px solid #D5D5DD; display: flex; align-items: center; justify-content: center; }
+#detail { background: #F6F6FA; transform: translateX(720px); }
+.card { position: absolute; left: 32px; right: 32px; background: #fff; border-radius: 34px; border: 2px solid #EEEEF3; }
+.dlabel { position: absolute; left: 40px; font-size: 28px; font-weight: 600; color: #747480; letter-spacing: .3px; }
+.tile { position: absolute; top: 0; width: 318px; height: 176px; background: #fff; border-radius: 32px; border: 2px solid #EEEEF3; }
+.tile .tl { position: absolute; left: 30px; top: 28px; font-size: 26px; color: #8a8a96; display: flex; align-items: center; gap: 10px; }
+.tile .tv { position: absolute; left: 30px; top: 70px; font-size: 68px; font-weight: 600; color: #111; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+.hr { position: absolute; top: 26px; width: 150px; text-align: center; }
+.hr .t { font-size: 24px; color: #8a8a96; }
+.hr .i { height: 64px; display: flex; align-items: center; justify-content: center; margin: 8px 0; }
+.hr .d { font-size: 30px; font-weight: 600; color: #222; }
+#saveBtn { position: absolute; left: 32px; right: 32px; height: 124px; border-radius: 62px; color: #fff; font-size: 36px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center; gap: 16px; box-shadow: 0 14px 30px rgba(37,99,235,.3); }
+
+#notif { position: absolute; left: 22px; top: 96px; width: 676px; border-radius: 40px; padding: 30px 32px 34px;
+  background: rgba(255,255,255,.9); backdrop-filter: blur(20px); box-shadow: 0 24px 60px rgba(0,30,80,.3); }
+#notif .hd { display: flex; align-items: center; gap: 16px; font-size: 24px; color: #6b6b78; font-weight: 500; letter-spacing: .5px; }
+#notif .hd img { width: 52px; height: 52px; border-radius: 13px; }
+#notif .hd .now { margin-left: auto; font-weight: 400; letter-spacing: 0; }
+#notif .tt { margin-top: 20px; font-size: 33px; font-weight: 600; color: #111; }
+#notif .bd { margin-top: 10px; font-size: 29px; line-height: 1.42; color: #2c2c36; }
+
+#tap { position: absolute; width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%;
+  background: rgba(255,255,255,.55); border: 4px solid rgba(255,255,255,.9); opacity: 0; z-index: 40; }
+#tap.dark { background: rgba(47,140,240,.25); border-color: rgba(47,140,240,.7); }
+
+#end { position: absolute; inset: 0; }
+#endGlow { position: absolute; left: 90px; top: 360px; width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,.2) 40%, rgba(255,255,255,0) 70%); }
+#endIcon { position: absolute; left: 380px; top: 560px; width: 320px; height: 320px; border-radius: 76px; overflow: hidden;
+  box-shadow: 0 30px 80px rgba(10,60,150,.4), 0 0 0 4px rgba(255,255,255,.5); }
+#endIcon img { width: 100%; height: 100%; }
+#endWord { position: absolute; left: 0; right: 0; top: 930px; text-align: center; color: #fff; font-size: 150px; font-weight: 600; letter-spacing: -3px;
+  text-shadow: 0 10px 40px rgba(10,60,140,.3); }
+#endTag { position: absolute; left: 0; right: 0; top: 1130px; text-align: center; color: #fff; font-size: 50px; font-weight: 400; }
+#endTag b { font-weight: 600; color: #FFE27A; }
+#endCta { position: absolute; left: 50%; top: 1270px; transform: translateX(-50%); padding: 30px 64px; border-radius: 999px; background: #fff;
+  color: #1E78E0; font-size: 42px; font-weight: 600; white-space: nowrap; box-shadow: 0 18px 50px rgba(10,60,150,.3); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="storm"></div>
+  <div id="sunGlow" class="abs"></div>
+  <svg id="skyline" viewBox="0 0 1080 700"></svg>
+  <div id="clouds"></div>
+  <div id="darkCloud"></div>
+  <div id="sparks"></div>
+  <div id="stageRain"></div>
+
+  <div id="laundry">
+    <svg id="line" viewBox="0 0 1080 1920"><path id="rope" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" opacity=".9"/></svg>
+  </div>
+
+  <div id="cap1" class="cap"></div>
+  <div id="cap2" class="cap"></div>
+  <div id="cap3" class="cap"></div>
+  <div id="cap4" class="cap"></div>
+
+  <div id="phoneShadow"></div>
+  <div id="phoneWrap">
+    <div id="phone">
+      <div id="screenClip">
+        <div id="island"></div>
+        <div id="screen">
+          <div id="homeSun" class="layer"></div>
+          <div id="homeRain" class="layer" style="opacity:0"></div>
+
+          <div id="sheet" class="layer">
+            <div class="sh-title">Plan your day</div>
+            <div class="sh-sub">Pick an activity — details open next. Up to 5 plans.</div>
+            <div class="sh-close" data-ic="x:32:#333"></div>
+            <div class="sh-div"></div>
+            <div class="sec" style="top:322px"><span data-ic="home:32:#747480"></span>Daily &amp; home</div>
+            <div class="row" id="rowL" style="top:376px"><div class="ib" data-ic="shirt:40:#6b6b78"></div><div class="lb">I'll hang laundry</div><div class="cb" id="cbL"></div></div>
+            <div class="row" style="top:532px"><div class="ib" data-ic="cart:40:#6b6b78"></div><div class="lb">I'll go shopping</div><div class="cb"></div></div>
+            <div class="row" style="top:688px"><div class="ib" data-ic="users:40:#6b6b78"></div><div class="lb">Guests are coming</div><div class="cb"></div></div>
+            <div class="sec" style="top:870px"><span data-ic="trees:32:#747480"></span>Outdoors &amp; activity</div>
+            <div class="row" style="top:924px"><div class="ib" data-ic="trees:40:#6b6b78"></div><div class="lb">I'm going out</div><div class="cb"></div></div>
+            <div class="row" style="top:1080px"><div class="ib" data-ic="feet:40:#6b6b78"></div><div class="lb">I'll walk / run</div><div class="cb"></div></div>
+            <div class="sec" style="top:1262px"><span data-ic="brief:32:#747480"></span>Work &amp; commute</div>
+            <div class="row" style="top:1316px"><div class="ib" data-ic="brief:40:#6b6b78"></div><div class="lb">Commuting to work</div><div class="cb"></div></div>
+            <div class="row" style="top:1472px"><div class="ib" data-ic="car:40:#6b6b78"></div><div class="lb">I'll be driving</div><div class="cb"></div></div>
+          </div>
+
+          <div id="detail" class="layer">
+            <div class="abs" style="left:32px;top:110px;width:72px;height:72px;border-radius:50%;background:#E6E6EE;display:flex;align-items:center;justify-content:center" data-ic="back:34:#333"></div>
+            <div class="abs" style="left:0;right:0;top:124px;text-align:center;font-size:34px;font-weight:600;color:#111">Hang laundry</div>
+            <div class="card" style="top:230px;height:170px">
+              <div class="abs" style="left:30px;top:33px;width:100px;height:100px;border-radius:28px;background:linear-gradient(135deg,#FFB84D,#F57C00);display:flex;align-items:center;justify-content:center" data-ic="shirt:52:#fff"></div>
+              <div class="abs" style="left:158px;top:38px;font-size:38px;font-weight:600;color:#111">I'll hang laundry</div>
+              <div class="abs" style="left:158px;top:92px;font-size:26px;color:#8a8a96">Today · Home</div>
+            </div>
+            <div class="dlabel" style="top:440px">OUT ON THE LINE</div>
+            <div class="abs" style="left:32px;top:490px;width:656px;height:176px">
+              <div class="tile" style="left:0"><div class="tl"><span data-ic="clock:26:#8a8a96"></span>From</div><div class="tv" id="tvStart">07:00</div></div>
+              <div class="tile" style="left:338px"><div class="tl"><span data-ic="clock:26:#8a8a96"></span>Until</div><div class="tv" id="tvEnd">08:00</div></div>
+            </div>
+            <div class="dlabel" style="top:706px">DRYING FORECAST</div>
+            <div class="card" id="hourly" style="top:756px;height:290px">
+              <div class="hr" style="left:9px"><div class="t">09:00</div><div class="i" data-ic="sun:56:#F59E0B"></div><div class="d">22°</div></div>
+              <div class="hr" style="left:163px"><div class="t">11:00</div><div class="i" data-ic="sun:56:#F59E0B"></div><div class="d">25°</div></div>
+              <div class="hr" style="left:317px"><div class="t">13:00</div><div class="i" data-ic="wind:56:#5BA3D9"></div><div class="d">24°</div></div>
+              <div class="hr" style="left:471px"><div class="t" style="color:#2563EB;font-weight:600">15:30</div><div class="i" data-ic="rainc:56:#2F8CF0"></div><div class="d" style="color:#2563EB">19°</div></div>
+              <div id="dryPill" class="abs" style="left:26px;right:26px;top:200px;height:66px;border-radius:33px;background:#E8F8EE;color:#15803D;font-size:26px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:12px">
+                <span data-ic="check:30:#16A34A:3"></span>Sunny &amp; breezy — dries by 14:00
+              </div>
+            </div>
+            <div class="card" style="top:1076px;height:128px">
+              <div class="abs" style="left:30px;top:30px;width:66px;height:66px;border-radius:20px;background:#EAF3FF;display:flex;align-items:center;justify-content:center" data-ic="bell:34:#2563EB"></div>
+              <div class="abs" style="left:120px;top:42px;font-size:30px;color:#1a1a22;font-weight:500">Alert me if rain is coming</div>
+              <div id="tgl" class="abs" style="right:30px;top:38px;width:92px;height:52px;border-radius:26px;background:#D9D9E2">
+                <div id="tglK" class="abs" style="left:5px;top:5px;width:42px;height:42px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2)"></div>
+              </div>
+            </div>
+            <div id="saveBtn" style="top:1244px"><span id="saveTxt">Save plan</span></div>
+          </div>
+
+          <div id="tap"></div>
+
+          <div id="notif">
+            <div class="hd"><img src="icon.png"><span>SKYDE</span><span class="now">now</span></div>
+            <div class="tt">🧺 Bring your laundry in</div>
+            <div class="bd">Rain starts around 15:30 — you have about 40 minutes.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="end">
+    <div id="endGlow"></div>
+    <div id="endIcon"><img src="icon.png"></div>
+    <div id="endWord">Skyde</div>
+    <div id="endTag">Dry laundry. <b>Zero guesswork.</b></div>
+    <div id="endCta">Download now</div>
+  </div>
+</div>
+
+<script src="icons.js"></script>
+<script>
+let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P01 = (t, a, b) => clamp((t - a) / (b - a));
+const eOut = x => 1 - Math.pow(1 - x, 3);
+const eIn = x => x * x * x;
+const eIO = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eBack = x => { const c1 = 1.5, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+const pad = n => String(n).padStart(2, '0');
+
+// ---------- home screens (sunny + rainy) ----------
+const THEMES = {
+  sun: { bg: 'linear-gradient(170deg,#FFAE1A 0%,#FFBB24 38%,#D9C23C 72%,#7CC36A 100%)', fg: '#2B2410', sub: '#3F7F2A',
+    glass: 'rgba(255,255,255,.24)', border: 'rgba(255,255,255,.45)', icon: 'sun', iconC: '#C2410C', calBox: '#F57C00', calC: '#2B2410',
+    accent: '#F57C00', clock: '08:45', title: 'Dry and sunny until 15:00. Great day for laundry.', subtxt: 'Breezy at 12 km/h — clothes will dry fast.',
+    sum: 'Between 18° and 26°. Showers likely after 15:30, so hang it early.' },
+  rain: { bg: 'linear-gradient(170deg,#5C7FA6 0%,#6E89B3 45%,#5A93BC 75%,#4AA7C9 100%)', fg: '#ffffff', sub: 'rgba(255,255,255,.8)',
+    glass: 'rgba(255,255,255,.18)', border: 'rgba(255,255,255,.38)', icon: 'rainc', iconC: '#E9F4FF', calBox: 'rgba(255,255,255,.35)', calC: '#0f2a4a',
+    accent: 'rgba(120,210,255,.95)', clock: '14:50', title: 'Rain from 15:30. Bring the laundry in before then.', subtxt: '19°C now, clouds building.',
+    sum: 'Between 18° and 26°. Showers likely after 15:30, so hang it early.' },
+};
+function homeHTML(th, rain) {
+  const g = (l, tp, w, h, r, extra = '') => `<div class="glass" style="left:${l}px;top:${tp}px;width:${w}px;height:${h}px;border-radius:${r};background:${th.glass};border:2px solid ${th.border};${extra}"></div>`;
+  const ic = (n, l, tp, s, c, w = 2) => `<div class="abs" style="left:${l}px;top:${tp}px">${svg(n, s, c, w)}</div>`;
+  const txt = (l, tp, s, wt = 500, extra = '') => `<div class="pill-txt" style="left:${l}px;top:${tp}px;color:${th.fg};font-weight:${wt};${extra}">${s}</div>`;
+  return `<div class="layer" style="background:${th.bg}"></div>
+  ${rain ? '<div class="layer" id="phoneRain"></div>' : ''}
+  <div class="status" style="color:${th.fg}"><span class="abs" style="left:0">${th.clock}</span>
+    <span class="abs" style="right:0;top:2px"><svg width="120" height="30" viewBox="0 0 120 30"><g fill="${th.fg}"><rect x="0" y="18" width="6" height="10" rx="1.5"/><rect x="9" y="13" width="6" height="15" rx="1.5"/><rect x="18" y="8" width="6" height="20" rx="1.5"/><rect x="27" y="3" width="6" height="25" rx="1.5"/></g><path d="M44 12a17 17 0 0 1 24 0M48 17a11 11 0 0 1 16 0M52.5 22a4.5 4.5 0 0 1 7 0" stroke="${th.fg}" stroke-width="3.2" fill="none" stroke-linecap="round"/><rect x="76" y="5" width="38" height="20" rx="6" fill="none" stroke="${th.fg}" stroke-opacity=".6" stroke-width="2.5"/><rect x="80" y="9" width="28" height="12" rx="3" fill="${th.fg}"/></svg></span></div>
+  ${g(40, 116, 288, 80, '40px')}${ic('pin', 70, 134, 44, th.fg)}${txt(128, 136, 'My location')}${ic('chev', 290, 146, 28, th.fg)}
+  ${g(408, 116, 80, 80, '50%')}${ic('bell', 428, 136, 40, th.fg)}${g(504, 116, 80, 80, '50%')}${ic('msg', 524, 136, 40, th.fg)}${g(600, 116, 80, 80, '50%')}${ic('gear', 620, 136, 40, th.fg)}
+  ${g(40, 216, 543, 80, '40px')}<div class="abs" style="left:52px;top:228px;width:172px;height:56px;border-radius:28px;background:rgba(255,255,255,.32);box-shadow:0 4px 14px rgba(0,40,120,.12)"></div>
+  ${txt(88, 236, 'Today', 600)}${txt(262, 236, 'Tomorrow', 400)}${txt(440, 236, 'Weekly', 400)}
+  ${g(600, 216, 80, 80, '26px')}${ic('vol', 620, 236, 40, th.fg)}
+  <div ${rain ? '' : 'id="planBar"'} class="glass" style="left:40px;top:316px;width:640px;height:80px;border-radius:40px;background:${th.glass};border:2px solid ${th.border}"></div>
+  <div class="abs" style="left:66px;top:326px;width:60px;height:60px;border-radius:16px;background:${th.calBox};display:flex;align-items:center;justify-content:center">${svg('cal', 36, th.calC)}</div>
+  ${txt(146, 336, 'Plan Today', 600, 'letter-spacing:.5px')}
+  <div class="abs" style="left:510px;top:326px;width:144px;height:60px;border-radius:30px;background:rgba(255,255,255,.18);border:2px solid ${th.border}"></div>
+  ${ic('list', 530, 340, 30, th.fg)}${txt(574, 336, 'List', 600, 'font-size:28px')}
+  ${g(182, 436, 356, 356, '72px')}
+  <div class="abs hero" style="left:270px;top:524px">${svg(th.icon, 180, th.iconC, 2.2)}</div>
+  ${g(40, 832, 640, 368, '56px')}
+  <div class="abs" style="left:296px;top:860px;width:128px;height:8px;border-radius:4px;background:${th.accent}"></div>
+  ${ic('share', 580, 910, 42, th.fg)}
+  <div class="abs" style="left:80px;top:900px;width:500px;text-align:center">
+    <div style="font-size:36px;font-weight:500;line-height:56px;color:${th.fg}">${th.title}</div>
+    <div style="margin-top:20px;font-size:29px;line-height:42px;color:${th.sub}">${th.subtxt}</div></div>
+  ${g(40, 1232, 640, 420, '56px')}
+  <div class="abs" style="left:88px;top:1302px;width:20px;height:20px;border-radius:50%;background:${th.accent}"></div>
+  <div class="abs" style="left:128px;top:1286px;font-size:36px;font-weight:500;color:${th.fg}">Today's summary</div>
+  ${ic('share', 580, 1290, 42, th.fg)}
+  <div class="abs" style="left:90px;top:1370px;width:540px;font-size:31px;line-height:50px;color:${th.fg}">${th.sum}</div>`;
+}
+$('homeSun').innerHTML = homeHTML(THEMES.sun, false);
+$('homeRain').innerHTML = homeHTML(THEMES.rain, true);
+document.querySelectorAll('[data-ic]').forEach(el => {
+  const [n, s, c, w] = el.dataset.ic.split(':');
+  el.insertAdjacentHTML('afterbegin', svg(n, +s, c, w ? +w : 2));
+});
+
+// ---------- skyline ----------
+(() => {
+  let h = '', x = -10;
+  while (x < 1090) {
+    const w = 70 + rnd() * 90, ht = 180 + rnd() * 330;
+    h += `<rect x="${x}" y="${700 - ht}" width="${w}" height="${ht}" rx="6" fill="#fff" fill-opacity="${.16 + rnd() * .1}"/>`;
+    for (let wy = 700 - ht + 30; wy < 680; wy += 44) for (let wx = x + 14; wx < x + w - 20; wx += 26)
+      if (rnd() > .55) h += `<rect x="${wx}" y="${wy}" width="10" height="16" rx="2" fill="#fff" fill-opacity=".22"/>`;
+    x += w + 8;
+  }
+  $('skyline').innerHTML = h;
+})();
+
+// ---------- clouds / sparks / rain ----------
+function makeCloud(parent, cls, o) {
+  const c = document.createElement('div'); if (cls) c.className = cls;
+  let h = '';
+  for (let i = 0; i < 7; i++) {
+    const w = 180 + rnd() * 220, x = i * 70 + rnd() * 40, y = 60 - Math.sin(i / 6 * Math.PI) * 90 + rnd() * 40;
+    h += `<i style="left:${x}px;top:${y}px;width:${w}px;height:${w * .8}px"></i>`;
+  }
+  c.innerHTML = h; c.style.opacity = o; parent.appendChild(c); return c;
+}
+const clouds = [
+  { x: -180, y: 1350, s: 1.25, sp: 9, o: .95 }, { x: 640, y: 1500, s: 1.4, sp: -7, o: .95 },
+  { x: 720, y: 520, s: .7, sp: -12, o: .55 }, { x: -120, y: 640, s: .6, sp: 14, o: .5 },
+  { x: 120, y: 1700, s: 1.6, sp: 6, o: 1 }, { x: 760, y: 120, s: .55, sp: -10, o: .45 },
+].map(d => ({ el: makeCloud($('clouds'), 'cloud', d.o), ...d }));
+const dark = makeCloud($('darkCloud'), '', 1);
+const sparks = Array.from({ length: 22 }, () => {
+  const s = document.createElement('div'); s.className = 'spark'; $('sparks').appendChild(s);
+  return { el: s, x: rnd() * 1080, y: rnd() * 1920, ph: rnd() * 6.28, sc: .4 + rnd() * .8, sp: .6 + rnd() * 1.2 };
+});
+const stageDrops = Array.from({ length: 60 }, () => {
+  const d = document.createElement('div'); d.className = 'drop'; $('stageRain').appendChild(d);
+  return { el: d, x: rnd() * 1300 - 100, ph: rnd(), sp: 1.1 + rnd() * .6 };
+});
+const phoneDrops = Array.from({ length: 46 }, () => {
+  const d = document.createElement('div'); d.className = 'rain-drop'; $('phoneRain').appendChild(d);
+  return { el: d, x: rnd() * 780 - 30, ph: rnd(), sp: 1.4 + rnd() * .8 };
+});
+
+// ---------- clothesline ----------
+const ropeY = x => 1030 + 110 * (1 - Math.pow((x - 540) / 600, 2));
+$('rope').setAttribute('d', `M -20 ${ropeY(-20)} Q 540 ${2 * ropeY(540) - (ropeY(-20) + ropeY(1100)) / 2} 1100 ${ropeY(1100)}`);
+const ropeLen = 1200; $('rope').style.strokeDasharray = ropeLen;
+const pin = (x, y) => `<rect x="${x - 7}" y="${y - 14}" width="14" height="30" rx="4" fill="#D69A5B"/><rect x="${x - 7}" y="${y - 14}" width="14" height="8" rx="3" fill="#B97A3D"/>`;
+const CLOTHES = [
+  { x: 180, w: 220, h: 230, svg: `<svg width="220" height="230" viewBox="0 0 220 230"><path d="M70 14 L22 36 L4 86 L44 100 L54 78 L54 222 L166 222 L166 78 L176 100 L216 86 L198 36 L150 14 Q110 48 70 14 Z" fill="#FF7A6B"/><path d="M70 14 Q110 48 150 14" fill="none" stroke="#E55B4C" stroke-width="6"/><rect x="54" y="150" width="112" height="14" fill="#fff" fill-opacity=".35"/>${pin(70, 16)}${pin(150, 16)}</svg>` },
+  { x: 420, w: 180, h: 280, svg: `<svg width="180" height="280" viewBox="0 0 180 280"><rect x="10" y="10" width="160" height="262" rx="14" fill="#FFD54A"/><rect x="10" y="10" width="160" height="36" rx="10" fill="#F5C232"/><rect x="10" y="212" width="160" height="12" fill="#fff" fill-opacity=".8"/><rect x="10" y="232" width="160" height="7" fill="#fff" fill-opacity=".8"/>${pin(40, 14)}${pin(140, 14)}</svg>` },
+  { x: 620, w: 160, h: 200, svg: `<svg width="160" height="200" viewBox="0 0 160 200"><path d="M14 10 H58 V120 Q58 158 28 166 H6 Q-8 160 4 142 Q12 132 14 124 Z" fill="#5B8DEF"/><rect x="14" y="10" width="44" height="16" fill="#3F6FD1"/><path d="M92 10 H136 V120 Q136 158 106 166 H84 Q70 160 82 142 Q90 132 92 124 Z" fill="#fff"/><rect x="92" y="10" width="44" height="16" fill="#DDE6F5"/>${pin(36, 14)}${pin(114, 14)}</svg>` },
+  { x: 850, w: 200, h: 260, svg: `<svg width="200" height="260" viewBox="0 0 200 260"><path d="M66 14 H134 L146 60 L196 248 H4 L54 60 Z" fill="#5ED3B5"/><path d="M54 60 H146" stroke="#3FB998" stroke-width="10"/><circle cx="70" cy="140" r="7" fill="#fff" fill-opacity=".6"/><circle cx="110" cy="180" r="7" fill="#fff" fill-opacity=".6"/><circle cx="130" cy="120" r="7" fill="#fff" fill-opacity=".6"/><circle cx="80" cy="210" r="7" fill="#fff" fill-opacity=".6"/>${pin(78, 16)}${pin(122, 16)}</svg>` },
+].map((c, i) => {
+  const el = document.createElement('div'); el.className = 'cloth'; el.innerHTML = c.svg; $('laundry').appendChild(el);
+  return { ...c, el, i };
+});
+
+// ---------- captions ----------
+function buildCap(id, lines, sub) {
+  const el = $(id), words = [];
+  lines.forEach(line => {
+    const ln = document.createElement('span'); ln.className = 'line';
+    line.split(' ').forEach(w => {
+      const s = document.createElement('span'); s.className = 'w';
+      if (w.startsWith('*')) { s.classList.add('hl'); w = w.slice(1); }
+      s.textContent = w; ln.appendChild(s); words.push(s);
+    });
+    el.appendChild(ln);
+  });
+  if (sub) { const s = document.createElement('span'); s.className = 'sub w'; s.textContent = sub; el.appendChild(s); words.push(s); }
+  return words;
+}
+const caps = [
+  { w: buildCap('cap1', ['Laundry’s out.', 'Will it *rain?'], 'And you’re out all day.'), tin: 0.15, tout: 3.25 },
+  { w: buildCap('cap2', ['Know before', 'you *hang it.'], 'One clear answer. No charts.'), tin: 3.7, tout: 8.0 },
+  { w: buildCap('cap3', ['Plan your', '*drying window.'], 'Skyde watches it for you.'), tin: 8.3, tout: 13.6 },
+  { w: buildCap('cap4', ['Bring it in', 'before it *rains.'], 'A heads-up, right on time.'), tin: 14.0, tout: 17.8 },
+];
+
+const taps = [
+  { t: 8.6, x: 330, y: 356, dark: false },
+  { t: 9.9, x: 400, y: 445, dark: true },
+  { t: 12.75, x: 614, y: 1140, dark: true },
+  { t: 13.25, x: 360, y: 1306, dark: true },
+];
+
+function render(t) {
+  // sky mood: storm in the hook, clears for Skyde, a little grey again at the alert
+  const storm = eIO(P01(t, 1.5, 2.6)) * (1 - eIO(P01(t, 3.3, 4.3))) * .62 + eIO(P01(t, 14.0, 14.8)) * (1 - eIO(P01(t, 17.9, 18.6))) * .32;
+  $('storm').style.opacity = storm;
+  $('sunGlow').style.opacity = 1 - storm * 1.2;
+  $('sunGlow').style.transform = `scale(${1 + Math.sin(t * .8) * .04})`;
+  clouds.forEach(c => { c.el.style.transform = `translate(${c.x + t * c.sp}px, ${c.y + Math.sin(t * .5 + c.x) * 6}px) scale(${c.s})`; });
+  const dk = eOut(P01(t, 1.3, 2.5)) * (1 - eIO(P01(t, 3.3, 4.2)));
+  dark.style.opacity = dk;
+  dark.style.transform = `translate(${lerp(1150, 420, dk)}px, 560px) scale(1.15)`;
+  sparks.forEach(s => {
+    const o = .25 + .75 * Math.max(0, Math.sin(t * s.sp * 2 + s.ph));
+    s.el.style.opacity = o * .8 * (1 - storm);
+    s.el.style.transform = `translate(${s.x}px, ${s.y - t * 12 * s.sc}px) scale(${s.sc * (.6 + o * .5)})`;
+  });
+  const sRain = P01(t, 2.1, 2.6) * (1 - P01(t, 3.3, 3.9));
+  stageDrops.forEach(d => {
+    const y = ((t * d.sp + d.ph) % 1) * 2100 - 120;
+    d.el.style.opacity = sRain * .7;
+    d.el.style.transform = `translate(${d.x - y * .18}px, ${y}px) rotate(10deg)`;
+  });
+
+  // clothesline
+  const lineIn = eOut(P01(t, 0.0, 0.7)), lineOut = eIn(P01(t, 3.1, 3.7));
+  $('rope').style.strokeDashoffset = ropeLen * (1 - lineIn);
+  $('laundry').style.transform = `translateY(${lineOut * 900}px)`;
+  $('laundry').style.opacity = 1 - lineOut;
+  const wind = eIO(P01(t, 1.4, 2.4));
+  CLOTHES.forEach(c => {
+    const k = P01(t, .3 + c.i * .16, .8 + c.i * .16);
+    const sway = Math.sin(t * (2.2 + wind * 3.5) + c.i * 1.3) * (3 + wind * 11);
+    const skew = Math.sin(t * (5 + wind * 6) + c.i) * wind * 6;
+    c.el.style.opacity = k > 0 ? 1 : 0;
+    c.el.style.transform = `translate(${c.x - c.w / 2}px, ${ropeY(c.x) - 14 - (1 - eBack(k)) * 700}px) rotate(${sway}deg) skewX(${skew}deg)`;
+  });
+
+  caps.forEach(c => {
+    const out = eIn(P01(t, c.tout, c.tout + .35));
+    c.w.forEach((w, i) => {
+      const a = c.tin + i * .09, k = eOut(P01(t, a, a + .5));
+      w.style.opacity = k * (1 - out);
+      w.style.transform = `translateY(${(1 - k) * 50 - out * 40}px) scale(${.92 + .08 * k})`;
+      w.style.filter = `blur(${(1 - k) * 10 + out * 8}px)`;
+    });
+  });
+
+  // phone
+  const enter = P01(t, 3.45, 4.45), ek = eBack(enter);
+  const exit = eIO(P01(t, 17.9, 18.6));
+  const zoom = eIO(P01(t, 15.0, 15.8)) * (1 - exit);
+  const vib = (t > 14.42 && t < 14.95) ? Math.sin((t - 14.42) * 90) * 1.6 * (1 - P01(t, 14.42, 14.95)) : 0;
+  const ty = lerp(1500, 0, ek) + Math.sin(t * 1.3) * 8 - exit * 80 + zoom * 10;
+  const ry = Math.sin(t * .9) * 5 * (1 - zoom), rx = 4 * (1 - zoom);
+  const sc = lerp(1, 1.34, zoom) * lerp(1, .78, exit);
+  const pw = $('phoneWrap');
+  pw.style.opacity = (enter > 0 ? 1 : 0) * (1 - exit);
+  pw.style.filter = `blur(${exit * 14}px)`;
+  pw.style.transform = `perspective(2600px) translateY(${ty}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${lerp(10, 0, eOut(enter)) + vib}deg) scale(${sc})`;
+  $('phoneShadow').style.opacity = eOut(enter) * (1 - exit) * (1 - zoom);
+  document.querySelectorAll('#homeSun .hero').forEach(h => h.style.transform = `rotate(${t * 12}deg)`);
+
+  // plan flow
+  const pressBar = Math.max(0, 1 - Math.abs((t - 8.6) / .15));
+  $('planBar').style.background = `rgba(255,255,255,${.24 + .25 * pressBar})`;
+  const sheetIn = eOut(P01(t, 8.85, 9.4)), back = eIO(P01(t, 13.65, 14.15));
+  $('sheet').style.transform = `translateY(${(1 - sheetIn) * 1600 + back * 1600}px)`;
+  const checked = t >= 10.0;
+  const cb = $('cbL');
+  cb.style.background = checked ? '#2F8CF0' : 'transparent';
+  cb.style.borderColor = checked ? '#2F8CF0' : '#D5D5DD';
+  cb.innerHTML = checked ? svg('check', 30, '#fff', 3.2) : '';
+  cb.style.transform = `scale(${checked ? eBack(P01(t, 10.0, 10.25)) : 1})`;
+  $('rowL').style.borderColor = checked ? '#9CCBFA' : '#EEEEF3';
+  $('rowL').style.background = checked ? '#F2F8FF' : '#fff';
+  $('rowL').style.transform = `scale(${1 - .02 * Math.max(0, 1 - Math.abs((t - 9.9) / .15))})`;
+  const detIn = eOut(P01(t, 10.45, 11.0));
+  $('detail').style.transform = `translateX(${(1 - detIn) * 720}px) translateY(${back * 1600}px)`;
+  const st = eIO(P01(t, 11.05, 11.5)), en = eIO(P01(t, 11.4, 12.1));
+  $('tvStart').textContent = `${pad(Math.round(lerp(7, 9, st)))}:00`;
+  $('tvEnd').textContent = `${pad(Math.round(lerp(8, 15, en)))}:00`;
+  document.querySelectorAll('#hourly .hr').forEach((h, i) => {
+    const k = eOut(P01(t, 11.8 + i * .12, 12.2 + i * .12));
+    h.style.opacity = k; h.style.transform = `translateY(${(1 - k) * 20}px)`;
+  });
+  const dp = P01(t, 12.35, 12.7);
+  $('dryPill').style.opacity = eOut(dp);
+  $('dryPill').style.transform = `scale(${dp > 0 ? eBack(dp) : .8})`;
+  const tg = eOut(P01(t, 12.8, 13.0));
+  $('tgl').style.background = tg > .5 ? '#2F8CF0' : '#D9D9E2';
+  $('tglK').style.left = `${lerp(5, 45, tg)}px`;
+  const saved = t >= 13.35;
+  const bp = Math.max(0, 1 - Math.abs((t - 13.25) / .15));
+  $('saveBtn').style.transform = `scale(${1 - .04 * bp})`;
+  $('saveBtn').style.background = saved ? 'linear-gradient(135deg,#34D399,#16A34A)' : 'linear-gradient(135deg,#3A9BF5,#2563EB)';
+  $('saveTxt').innerHTML = saved ? `<span style="display:flex;align-items:center;gap:14px">${svg('check', 40, '#fff', 3)}Plan saved · 09:00–15:00</span>` : 'Save plan';
+
+  const tapEl = $('tap'); let shown = false;
+  for (const tp of taps) {
+    const d = t - tp.t;
+    if (d > -.25 && d < .55) {
+      shown = true; tapEl.className = tp.dark ? 'dark' : '';
+      tapEl.style.left = tp.x + 'px'; tapEl.style.top = tp.y + 'px';
+      if (d < 0) { const k = eOut(P01(d, -.25, 0)); tapEl.style.opacity = k * .9; tapEl.style.transform = `scale(${lerp(1.3, .8, k)})`; }
+      else { const k = eOut(P01(d, 0, .55)); tapEl.style.opacity = .9 * (1 - k); tapEl.style.transform = `scale(${lerp(.8, 1.8, k)})`; }
+    }
+  }
+  if (!shown) tapEl.style.opacity = 0;
+
+  // alert
+  const rain = eIO(P01(t, 13.9, 14.6));
+  $('homeRain').style.opacity = rain;
+  phoneDrops.forEach(d => {
+    const y = ((t * d.sp + d.ph) % 1) * 1800 - 100;
+    d.el.style.opacity = .8;
+    d.el.style.transform = `translate(${d.x - y * .2}px, ${y}px) rotate(12deg)`;
+  });
+  const nIn = P01(t, 14.4, 14.95), nOut = eIO(P01(t, 17.9, 18.35));
+  const n = $('notif');
+  n.style.opacity = (nIn > 0 ? 1 : 0) * (1 - nOut);
+  n.style.transform = `translateY(${lerp(-320, 0, eBack(nIn))}px)`;
+  n.style.boxShadow = `0 24px 60px rgba(0,30,80,.3), 0 0 0 ${t > 15.9 ? 4 * eOut(P01(t, 15.9, 16.3)) * (1 - P01(t, 17.0, 17.4)) : 0}px rgba(255,226,122,.9)`;
+
+  // end card
+  const e1 = P01(t, 18.3, 19.0), e2 = P01(t, 18.6, 19.2), e3 = P01(t, 19.2, 19.8), e4 = P01(t, 19.9, 20.5);
+  $('endGlow').style.opacity = eOut(e1) * (.85 + .15 * Math.sin(t * 2));
+  $('endGlow').style.transform = `scale(${lerp(.6, 1, eOut(e1))})`;
+  const ic = $('endIcon');
+  ic.style.opacity = Math.min(1, e1 * 3);
+  ic.style.transform = `translateY(${Math.sin(t * 1.6) * 6 * e1}px) scale(${e1 > 0 ? eBack(e1) : 0}) rotate(${lerp(-12, 0, eOut(e1))}deg)`;
+  $('endWord').style.opacity = eOut(e2); $('endWord').style.transform = `translateY(${(1 - eOut(e2)) * 60}px)`;
+  $('endWord').style.filter = `blur(${(1 - e2) * 10}px)`;
+  $('endTag').style.opacity = eOut(e3); $('endTag').style.transform = `translateY(${(1 - eOut(e3)) * 40}px)`;
+  const pulse = 1 + .035 * Math.max(0, Math.sin((t - 20.6) * 5)) * (t > 20.6 ? 1 : 0);
+  $('endCta').style.opacity = eOut(e4);
+  $('endCta').style.transform = `translateX(-50%) translateY(${(1 - eOut(e4)) * 40}px) scale(${(e4 > 0 ? eBack(e4) : 0) * pulse})`;
+}
+window.render = render;
+render(parseFloat(new URLSearchParams(location.search).get('t') || '0'));
+</script>
+</body>
+</html>
