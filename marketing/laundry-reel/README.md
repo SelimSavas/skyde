@@ -2,10 +2,10 @@
 
 "Should I hang the laundry?" — same style as `../promo-reel`.
 
-- `skyde_laundry_reel.mp4` — 1080×1920, 30 fps, 22 s, music bed + animation SFX (no voiceover yet).
+- `skyde_laundry_reel.mp4` — 1080×1920, 30 fps, 22 s, voiceover + music bed + animation SFX, −14 LUFS.
 - `voiceover.txt` — timed English voiceover script + caption.
 - `promo.html` + `icons.js` — the animation; `render(t)` draws the frame for time `t`.
-- `audio.py` — soundtrack; voiceover lines are picked up from `vo/vo1.mp3 … vo5.mp3` when present.
+- `audio.py` — soundtrack; mixes the recorded voiceover (`vo/vo1–5.mp3`) with ducked music and SFX.
 
 ```bash
 NODE_PATH=/path/to/node_modules node render.js video silent.mp4

@@ -237,10 +237,10 @@ def sfx():
         land = 0.3 + i * 0.16 + 0.33
         place(s, thump(0.18, 150 + i * 20), land, db(-14))
         place(s, click(0.03), land + 0.02, db(-18))
-    place(s, sweep_noise(2.2, 180, 700) * np.sin(np.pi * tt(2.2) / 2.2) ** 1.5, 1.3, db(-14))
+    place(s, sweep_noise(2.2, 180, 700) * np.sin(np.pi * tt(2.2) / 2.2) ** 1.5, 1.3, db(-18))
     for k, t0 in enumerate([1.85, 2.08, 2.3, 2.5, 2.72, 2.9]):
         place(s, flap(), t0, db(-20 - (k % 2) * 3))
-    place(s, rumble(2.6), 1.8, db(-12))
+    place(s, rumble(2.6), 1.8, db(-18))
     r = rain(2.2)
     r *= np.minimum(1, tt(2.2) / 0.4) * np.clip((2.2 - tt(2.2)) / 0.6, 0, 1)
     place(s, r, 2.0, db(-24))
@@ -293,7 +293,7 @@ def load_vo(path):
     return np.frombuffer(raw, np.float32).astype(np.float64)
 
 
-VO = [('vo/vo1.mp3', 0.3), ('vo/vo2.mp3', 3.75), ('vo/vo3.mp3', 8.4), ('vo/vo4.mp3', 14.1), ('vo/vo5.mp3', 18.5)]
+VO = [('vo/vo1.mp3', 0.2), ('vo/vo2.mp3', 3.75), ('vo/vo3.mp3', 8.4), ('vo/vo4.mp3', 14.1), ('vo/vo5.mp3', 18.35)]
 
 
 def main(out_path):

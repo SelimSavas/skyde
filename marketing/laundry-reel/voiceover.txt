@@ -1,11 +1,11 @@
 SKYDE — "Laundry" Instagram Reel / Shorts voiceover (English, 22 s)
 Calm, warm, a little playful. Record each line as a separate file (vo1.mp3 … vo5.mp3).
 
-[00.3 – 03.2]  vo1  Laundry's out… and you're out all day.
-[03.7 – 08.0]  vo2  Skyde tells you, in one line, if it's a good drying day.
-[08.4 – 13.6]  vo3  Plan it — and Skyde watches your drying window for you.
-[14.1 – 17.8]  vo4  Rain on the way? You'll know in time to bring it in.
-[18.5 – 21.5]  vo5  Skyde. Dry laundry, zero guesswork.
+[00.2 – 03.4]  vo1  Laundry's out… and you're out all day.
+[03.8 – 07.8]  vo2  Skyde tells you, in one line, if it's a good drying day.
+[08.4 – 11.9]  vo3  Plan it — and Skyde watches your drying window for you.
+[14.1 – 16.9]  vo4  Rain on the way? You'll know in time to bring it in.
+[18.4 – 21.8]  vo5  Skyde. Dry laundry, zero guesswork.
 
 --- Plain script (for recording) ---
 Laundry's out… and you're out all day.
