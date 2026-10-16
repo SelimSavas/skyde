@@ -1,0 +1,532 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: Lexend; src: url(fonts/lexend.ttf); font-weight: 100 900; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #2D8FEA; font-family: Lexend, sans-serif; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+  background: linear-gradient(180deg, #2A8BEA 0%, #45A9F5 38%, #6FC2FB 72%, #A6DDFF 100%); }
+.abs { position: absolute; }
+#sunGlow { left: -260px; top: -300px; width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.75) 0%, rgba(255,255,255,.25) 35%, rgba(255,255,255,0) 70%); }
+.cloud { position: absolute; filter: blur(10px); }
+.cloud i { position: absolute; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #fff 0%, rgba(255,255,255,.92) 45%, rgba(255,255,255,0) 72%); }
+.spark { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #fff; box-shadow: 0 0 14px 4px rgba(255,255,255,.7); }
+
+/* captions */
+.cap { position: absolute; left: 60px; width: 960px; top: 250px; text-align: center; color: #fff;
+  font-weight: 600; font-size: 84px; line-height: 1.08; letter-spacing: -1.5px;
+  text-shadow: 0 6px 30px rgba(10,60,140,.35); }
+.cap .line { display: block; white-space: nowrap; }
+.cap .w { display: inline-block; margin: 0 10px; will-change: transform, opacity, filter; }
+.cap .hl { color: #FFE27A; }
+.cap .sub { display: block; font-size: 38px; font-weight: 400; letter-spacing: 0; margin-top: 22px; color: rgba(255,255,255,.92); }
+
+/* data chips */
+.chip { position: absolute; padding: 22px 34px; border-radius: 999px; white-space: nowrap;
+  background: rgba(40,135,235,.42); border: 2px solid rgba(255,255,255,.6); text-shadow: 0 2px 10px rgba(0,50,130,.25);
+  backdrop-filter: blur(14px); color: #fff; font-size: 38px; font-weight: 300;
+  box-shadow: 0 12px 40px rgba(20,80,160,.18); }
+.chip b { font-weight: 600; margin-left: 10px; }
+
+/* phone */
+#phoneWrap { position: absolute; left: 245px; top: 600px; width: 590px; height: 1276px; transform-origin: 50% 0; }
+#phoneShadow { position: absolute; left: 270px; top: 1830px; width: 540px; height: 70px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(10,50,120,.35), rgba(10,50,120,0) 70%); filter: blur(8px); }
+#phone { position: absolute; inset: 0; border-radius: 74px; padding: 14px;
+  background: linear-gradient(135deg, #cfe2f7 0%, #7f9bc0 30%, #1d2737 32%, #121a26 100%);
+  box-shadow: 0 40px 90px rgba(10,50,120,.35), inset 0 0 0 3px rgba(255,255,255,.35); }
+#phone::before { content: ''; position: absolute; inset: 5px; border-radius: 69px; background: #0d131c; }
+#screenClip { position: relative; width: 562px; height: 1248px; border-radius: 60px; overflow: hidden; }
+#screen { position: absolute; left: 0; top: 0; width: 720px; height: 1600px; transform: scale(.78); transform-origin: 0 0; overflow: hidden; }
+#island { position: absolute; left: 50%; top: 22px; width: 180px; height: 52px; margin-left: -90px; border-radius: 30px; background: #05080d; z-index: 50; }
+
+/* app home */
+.layer { position: absolute; inset: 0; }
+#homeBg { background: linear-gradient(170deg, #3FB0F7 0%, #5AA9F8 42%, #4DB8F2 70%, #25CFEF 100%); }
+#rainBg { background: linear-gradient(170deg, #5C7FA6 0%, #6E89B3 45%, #5A93BC 75%, #4AA7C9 100%); opacity: 0; }
+.glass { position: absolute; background: rgba(255,255,255,.2); border: 2px solid rgba(255,255,255,.38); }
+.ui { color: #fff; }
+.status { position: absolute; top: 34px; left: 64px; right: 56px; height: 40px; color: #fff; font-size: 30px; font-weight: 600; }
+.pill-txt { position: absolute; font-size: 31px; font-weight: 500; color: #fff; }
+.rain-drop { position: absolute; width: 3px; height: 46px; border-radius: 3px; background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.75)); transform: rotate(12deg); }
+
+/* sheet */
+#sheet { background: #F6F6FA; transform: translateY(1600px); }
+.sh-title { position: absolute; left: 40px; top: 120px; font-size: 50px; font-weight: 700; color: #111; letter-spacing: -.5px; }
+.sh-sub { position: absolute; left: 40px; top: 190px; width: 560px; font-size: 27px; color: #8a8a96; line-height: 1.35; }
+.sh-close { position: absolute; right: 32px; top: 128px; width: 66px; height: 66px; border-radius: 50%; background: #E6E6EE; display: flex; align-items: center; justify-content: center; }
+.sh-div { position: absolute; left: 0; right: 0; top: 290px; height: 2px; background: #E7E7EE; }
+.sec { position: absolute; left: 34px; font-size: 28px; font-weight: 500; color: #747480; display: flex; align-items: center; gap: 14px; }
+.row { position: absolute; left: 32px; right: 32px; height: 138px; border-radius: 32px; background: #fff; border: 2px solid #EEEEF3; }
+.row .ib { position: absolute; left: 32px; top: 28px; width: 80px; height: 80px; border-radius: 22px; background: #F1F1F5; display: flex; align-items: center; justify-content: center; }
+.row .lb { position: absolute; left: 138px; top: 46px; font-size: 32px; color: #1a1a22; }
+.row .cb { position: absolute; right: 34px; top: 47px; width: 44px; height: 44px; border-radius: 12px; border: 2.5px solid #D5D5DD; display: flex; align-items: center; justify-content: center; }
+
+/* detail */
+#detail { background: #F6F6FA; transform: translateX(720px); }
+.card { position: absolute; left: 32px; right: 32px; background: #fff; border-radius: 34px; border: 2px solid #EEEEF3; }
+.dlabel { position: absolute; left: 40px; font-size: 28px; font-weight: 600; color: #747480; letter-spacing: .3px; }
+.tile { position: absolute; top: 0; width: 318px; height: 176px; background: #fff; border-radius: 32px; border: 2px solid #EEEEF3; }
+.tile .tl { position: absolute; left: 30px; top: 28px; font-size: 26px; color: #8a8a96; display: flex; align-items: center; gap: 10px; }
+.tile .tv { position: absolute; left: 30px; top: 70px; font-size: 68px; font-weight: 600; color: #111; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+.hr { position: absolute; top: 26px; width: 150px; text-align: center; }
+.hr .t { font-size: 24px; color: #8a8a96; }
+.hr .i { height: 64px; display: flex; align-items: center; justify-content: center; margin: 8px 0; }
+.hr .d { font-size: 30px; font-weight: 600; color: #222; }
+#saveBtn { position: absolute; left: 32px; right: 32px; height: 124px; border-radius: 62px; color: #fff; font-size: 36px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center; gap: 16px; box-shadow: 0 14px 30px rgba(37,99,235,.3); }
+
+/* notification */
+#notif { position: absolute; left: 22px; top: 96px; width: 676px; border-radius: 40px; padding: 30px 32px 34px;
+  background: rgba(255,255,255,.88); backdrop-filter: blur(20px); box-shadow: 0 24px 60px rgba(0,30,80,.3); }
+#notif .hd { display: flex; align-items: center; gap: 16px; font-size: 24px; color: #6b6b78; font-weight: 500; letter-spacing: .5px; }
+#notif .hd img { width: 52px; height: 52px; border-radius: 13px; }
+#notif .hd .now { margin-left: auto; font-weight: 400; letter-spacing: 0; }
+#notif .tt { margin-top: 20px; font-size: 33px; font-weight: 600; color: #111; }
+#notif .bd { margin-top: 10px; font-size: 29px; line-height: 1.42; color: #2c2c36; }
+
+#tap { position: absolute; width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%;
+  background: rgba(255,255,255,.55); border: 4px solid rgba(255,255,255,.9); box-shadow: 0 0 0 2px rgba(0,0,0,.08); opacity: 0; z-index: 40; }
+#tap.dark { background: rgba(47,140,240,.25); border-color: rgba(47,140,240,.7); }
+
+/* end card */
+#end { position: absolute; inset: 0; }
+#endGlow { position: absolute; left: 90px; top: 360px; width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,.2) 40%, rgba(255,255,255,0) 70%); }
+#endIcon { position: absolute; left: 380px; top: 560px; width: 320px; height: 320px; border-radius: 76px; overflow: hidden;
+  box-shadow: 0 30px 80px rgba(10,60,150,.4), 0 0 0 4px rgba(255,255,255,.5); }
+#endIcon img { width: 100%; height: 100%; }
+#endWord { position: absolute; left: 0; right: 0; top: 930px; text-align: center; color: #fff; font-size: 150px; font-weight: 600; letter-spacing: -3px;
+  text-shadow: 0 10px 40px rgba(10,60,140,.3); }
+#endTag { position: absolute; left: 0; right: 0; top: 1130px; text-align: center; color: #fff; font-size: 50px; font-weight: 400; }
+#endTag b { font-weight: 600; color: #FFE27A; }
+#endCta { position: absolute; left: 50%; top: 1270px; transform: translateX(-50%); padding: 30px 64px; border-radius: 999px; background: #fff;
+  color: #1E78E0; font-size: 42px; font-weight: 600; white-space: nowrap; box-shadow: 0 18px 50px rgba(10,60,150,.3); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="sunGlow" class="abs"></div>
+  <div id="clouds"></div>
+  <div id="sparks"></div>
+
+  <div id="chips"></div>
+
+  <div id="cap1" class="cap"></div>
+  <div id="cap2" class="cap"></div>
+  <div id="cap3" class="cap"></div>
+  <div id="cap4" class="cap"></div>
+
+  <div id="phoneShadow"></div>
+  <div id="phoneWrap">
+    <div id="phone">
+      <div id="screenClip">
+        <div id="island"></div>
+        <div id="screen">
+          <!-- HOME -->
+          <div id="home" class="layer">
+            <div id="homeBg" class="layer"></div>
+            <div id="rainBg" class="layer"></div>
+            <div id="rain" class="layer"></div>
+            <div class="status"><span id="clockA" class="abs" style="left:0">9:41</span><span id="clockB" class="abs" style="left:0;opacity:0">17:30</span>
+              <span class="abs" style="right:0;top:2px" id="sbIcons"></span></div>
+
+            <div class="glass" style="left:40px;top:116px;width:288px;height:80px;border-radius:40px"></div>
+            <div class="abs" style="left:70px;top:134px" data-ic="pin:44:#fff"></div>
+            <div class="pill-txt" style="left:128px;top:136px">My location</div>
+            <div class="abs" style="left:290px;top:146px" data-ic="chev:28:#fff"></div>
+            <div class="glass" style="left:408px;top:116px;width:80px;height:80px;border-radius:50%"></div>
+            <div class="abs" style="left:428px;top:136px" data-ic="bell:40:#fff"></div>
+            <div class="glass" style="left:504px;top:116px;width:80px;height:80px;border-radius:50%"></div>
+            <div class="abs" style="left:524px;top:136px" data-ic="msg:40:#fff"></div>
+            <div class="glass" style="left:600px;top:116px;width:80px;height:80px;border-radius:50%"></div>
+            <div class="abs" style="left:620px;top:136px" data-ic="gear:40:#fff"></div>
+
+            <div class="glass" style="left:40px;top:216px;width:543px;height:80px;border-radius:40px"></div>
+            <div class="abs" style="left:52px;top:228px;width:172px;height:56px;border-radius:28px;background:rgba(255,255,255,.3);box-shadow:0 4px 14px rgba(0,40,120,.12)"></div>
+            <div class="pill-txt" style="left:88px;top:236px;font-weight:600">Today</div>
+            <div class="pill-txt" style="left:262px;top:236px;font-weight:400">Tomorrow</div>
+            <div class="pill-txt" style="left:440px;top:236px;font-weight:400">Weekly</div>
+            <div class="glass" style="left:600px;top:216px;width:80px;height:80px;border-radius:26px"></div>
+            <div class="abs" style="left:620px;top:236px" data-ic="vol:40:#fff"></div>
+
+            <div id="planBar" class="glass" style="left:40px;top:316px;width:640px;height:80px;border-radius:40px"></div>
+            <div class="abs" style="left:66px;top:326px;width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center" data-ic="cal:36:#0f2a4a"></div>
+            <div class="pill-txt" style="left:146px;top:336px;font-weight:600;letter-spacing:.5px">Plan Today</div>
+            <div class="abs" style="left:510px;top:326px;width:144px;height:60px;border-radius:30px;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.35)"></div>
+            <div class="abs" style="left:530px;top:340px" data-ic="list:30:#fff"></div>
+            <div class="pill-txt" style="left:574px;top:336px;font-size:28px;font-weight:600">List</div>
+
+            <div class="glass" style="left:182px;top:436px;width:356px;height:356px;border-radius:72px;background:rgba(255,255,255,.22)"></div>
+            <div id="icMoon" class="abs" style="left:270px;top:524px" data-ic="moon:180:#E9F4FF:2.2"></div>
+            <div id="icRain" class="abs" style="left:270px;top:524px;opacity:0" data-ic="rainc:180:#E9F4FF:2.2"></div>
+
+            <div class="glass" style="left:40px;top:832px;width:640px;height:368px;border-radius:56px;background:rgba(255,255,255,.18)"></div>
+            <div class="abs" style="left:296px;top:860px;width:128px;height:8px;border-radius:4px;background:rgba(80,200,250,.9)"></div>
+            <div class="abs" style="left:580px;top:910px" data-ic="share:42:#fff"></div>
+            <div id="msgA" class="abs" style="left:90px;top:900px;width:480px;text-align:center">
+              <div style="font-size:36px;font-weight:500;line-height:56px;color:#fff">Partly cloudy tonight. No rain expected.</div>
+              <div style="margin-top:22px;font-size:29px;line-height:42px;color:rgba(255,255,255,.72)">17°C now. A calm, clear night.</div>
+            </div>
+            <div id="msgB" class="abs" style="left:90px;top:900px;width:480px;text-align:center;opacity:0">
+              <div style="font-size:36px;font-weight:500;line-height:56px;color:#fff">Light rain this evening, from 18:40.</div>
+              <div style="margin-top:22px;font-size:29px;line-height:42px;color:rgba(255,255,255,.78)">18°C now. Take a light jacket.</div>
+            </div>
+
+            <div class="glass" style="left:40px;top:1232px;width:640px;height:420px;border-radius:56px;background:rgba(255,255,255,.18)"></div>
+            <div class="abs" style="left:88px;top:1302px;width:20px;height:20px;border-radius:50%;background:rgba(120,210,255,.95)"></div>
+            <div class="abs" style="left:128px;top:1286px;font-size:36px;font-weight:500;color:#fff">Today's summary</div>
+            <div class="abs" style="left:580px;top:1290px" data-ic="share:42:#fff"></div>
+            <div class="abs" style="left:90px;top:1370px;width:540px;font-size:31px;line-height:50px;color:#fff">Between 16° and 30° today. Dry for now — a light shower may pass in the evening.</div>
+          </div>
+
+          <!-- PLAN SHEET -->
+          <div id="sheet" class="layer">
+            <div class="sh-title">Plan your day</div>
+            <div class="sh-sub">Pick an activity — details open next. Up to 5 plans.</div>
+            <div class="sh-close" data-ic="x:32:#333"></div>
+            <div class="sh-div"></div>
+            <div class="sec" style="top:322px"><span data-ic="trees:32:#747480"></span>Outdoors &amp; activity</div>
+            <div class="row" style="top:376px"><div class="ib" data-ic="trees:40:#6b6b78"></div><div class="lb">I'm going out</div><div class="cb"></div></div>
+            <div class="row" style="top:532px"><div class="ib" data-ic="act:40:#6b6b78"></div><div class="lb">I'll work out</div><div class="cb"></div></div>
+            <div class="row" id="rowWalk" style="top:688px"><div class="ib" id="walkIb" data-ic="feet:40:#6b6b78"></div><div class="lb">I'll walk / run</div><div class="cb" id="walkCb"></div></div>
+            <div class="sec" style="top:870px"><span data-ic="brief:32:#747480"></span>Work &amp; commute</div>
+            <div class="row" style="top:924px"><div class="ib" data-ic="car:40:#6b6b78"></div><div class="lb">I'll be driving</div><div class="cb"></div></div>
+            <div class="row" style="top:1080px"><div class="ib" data-ic="pres:40:#6b6b78"></div><div class="lb">I have a meeting</div><div class="cb"></div></div>
+            <div class="row" style="top:1236px"><div class="ib" data-ic="brief:40:#6b6b78"></div><div class="lb">Commuting to work</div><div class="cb"></div></div>
+            <div class="sec" style="top:1418px"><span data-ic="home:32:#747480"></span>Daily &amp; family</div>
+            <div class="row" style="top:1472px"><div class="ib" data-ic="cart:40:#6b6b78"></div><div class="lb">I'll go shopping</div><div class="cb"></div></div>
+          </div>
+
+          <!-- PLAN DETAIL -->
+          <div id="detail" class="layer">
+            <div class="abs" style="left:32px;top:110px;width:72px;height:72px;border-radius:50%;background:#E6E6EE;display:flex;align-items:center;justify-content:center" data-ic="back:34:#333"></div>
+            <div class="abs" style="left:0;right:0;top:124px;text-align:center;font-size:34px;font-weight:600;color:#111">Walk / run</div>
+
+            <div class="card" style="top:230px;height:170px">
+              <div class="abs" style="left:30px;top:33px;width:100px;height:100px;border-radius:28px;background:linear-gradient(135deg,#4FB3F6,#2563EB);display:flex;align-items:center;justify-content:center" data-ic="feet:52:#fff"></div>
+              <div class="abs" style="left:158px;top:38px;font-size:38px;font-weight:600;color:#111">I'll walk / run</div>
+              <div class="abs" style="left:158px;top:92px;font-size:26px;color:#8a8a96">Today · My location</div>
+            </div>
+
+            <div class="dlabel" style="top:440px">WHEN?</div>
+            <div class="abs" style="left:32px;top:490px;width:656px;height:176px">
+              <div class="tile" style="left:0"><div class="tl"><span data-ic="clock:26:#8a8a96"></span>Start</div><div class="tv" id="tvStart">08:00</div></div>
+              <div class="tile" style="left:338px"><div class="tl"><span data-ic="clock:26:#8a8a96"></span>End</div><div class="tv" id="tvEnd">09:00</div></div>
+            </div>
+
+            <div class="dlabel" style="top:706px">WEATHER IN YOUR WINDOW</div>
+            <div class="card" id="hourly" style="top:756px;height:210px">
+              <div class="hr" style="left:9px"><div class="t">18:00</div><div class="i" data-ic="sun:56:#F59E0B"></div><div class="d">21°</div></div>
+              <div class="hr" style="left:163px"><div class="t">18:30</div><div class="i" data-ic="cloud:56:#8aa0b8"></div><div class="d">20°</div></div>
+              <div class="hr" style="left:317px"><div class="t" style="color:#2563EB;font-weight:600">18:40</div><div class="i" data-ic="rainc:56:#2F8CF0"></div><div class="d" style="color:#2563EB">18°</div></div>
+              <div class="hr" style="left:471px"><div class="t">19:30</div><div class="i" data-ic="rainc:56:#2F8CF0"></div><div class="d">17°</div></div>
+            </div>
+
+            <div class="card" style="top:996px;height:128px">
+              <div class="abs" style="left:30px;top:30px;width:66px;height:66px;border-radius:20px;background:#EAF3FF;display:flex;align-items:center;justify-content:center" data-ic="bell:34:#2563EB"></div>
+              <div class="abs" style="left:120px;top:42px;font-size:30px;color:#1a1a22;font-weight:500">Alert me for this hour</div>
+              <div id="tgl" class="abs" style="right:30px;top:38px;width:92px;height:52px;border-radius:26px;background:#D9D9E2">
+                <div id="tglK" class="abs" style="left:5px;top:5px;width:42px;height:42px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2)"></div>
+              </div>
+            </div>
+
+            <div id="saveBtn" style="top:1168px;background:linear-gradient(135deg,#3A9BF5,#2563EB)">
+              <span id="saveTxt">Save plan</span>
+            </div>
+          </div>
+
+          <div id="tap"></div>
+
+          <!-- NOTIFICATION -->
+          <div id="notif">
+            <div class="hd"><img src="icon.png"><span>SKYDE</span><span class="now">now</span></div>
+            <div class="tt">🏃 Your 18:00 run</div>
+            <div class="bd">Light rain starts around 18:40. Head out a little earlier or take a light jacket.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- END CARD -->
+  <div id="end">
+    <div id="endGlow"></div>
+    <div id="endIcon"><img src="icon.png"></div>
+    <div id="endWord">Skyde</div>
+    <div id="endTag">Plan the <b>moment</b>, not the forecast.</div>
+    <div id="endCta">Download now</div>
+  </div>
+</div>
+
+<script>
+// ---------- icons (Lucide paths) ----------
+const P = {
+  pin: '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
+  chev: '<path d="m6 9 6 6 6-6"/>',
+  back: '<path d="m15 18-6-6 6-6"/>',
+  bell: '<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>',
+  msg: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+  gear: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+  vol: '<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/>',
+  cal: '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>',
+  list: '<path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/>',
+  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+  cloud: '<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>',
+  rainc: '<path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M16 14v6"/><path d="M8 14v6"/><path d="M12 16v6"/>',
+  share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  trees: '<path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z"/><path d="M7 16v6"/><path d="M13 19v3"/><path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5"/>',
+  act: '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>',
+  feet: '<path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"/><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"/><path d="M16 17h4"/><path d="M4 13h4"/>',
+  car: '<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>',
+  pres: '<path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/>',
+  brief: '<path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/>',
+  home: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  cart: '<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+  wind: '<path d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path d="M9.8 4.4A2 2 0 1 1 11 8H2"/>',
+  drop: '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>',
+  gauge: '<path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>',
+  therm: '<path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>',
+  eye: '<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/>',
+};
+const svg = (n, s, c, w = 2) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" style="display:block">${P[n]}</svg>`;
+document.querySelectorAll('[data-ic]').forEach(el => {
+  const [n, s, c, w] = el.dataset.ic.split(':');
+  el.insertAdjacentHTML('afterbegin', svg(n, +s, c, w ? +w : 2));
+});
+document.getElementById('sbIcons').innerHTML =
+  '<svg width="120" height="30" viewBox="0 0 120 30"><g fill="#fff"><rect x="0" y="18" width="6" height="10" rx="1.5"/><rect x="9" y="13" width="6" height="15" rx="1.5"/><rect x="18" y="8" width="6" height="20" rx="1.5"/><rect x="27" y="3" width="6" height="25" rx="1.5"/></g>' +
+  '<path d="M44 12a17 17 0 0 1 24 0M48 17a11 11 0 0 1 16 0M52.5 22a4.5 4.5 0 0 1 7 0" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round"/>' +
+  '<rect x="76" y="5" width="38" height="20" rx="6" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2.5"/><rect x="80" y="9" width="28" height="12" rx="3" fill="#fff"/><rect x="116" y="11" width="3" height="8" rx="1.5" fill="rgba(255,255,255,.6)"/></svg>';
+
+// ---------- deterministic random ----------
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+// ---------- clouds ----------
+const cloudsEl = document.getElementById('clouds');
+const cloudDefs = [
+  { x: -180, y: 1350, s: 1.25, sp: 9, o: .95 }, { x: 640, y: 1500, s: 1.4, sp: -7, o: .95 },
+  { x: 720, y: 520, s: .7, sp: -12, o: .55 }, { x: -120, y: 640, s: .6, sp: 14, o: .5 },
+  { x: 120, y: 1700, s: 1.6, sp: 6, o: 1 }, { x: 760, y: 120, s: .55, sp: -10, o: .45 },
+];
+const clouds = cloudDefs.map(d => {
+  const c = document.createElement('div'); c.className = 'cloud';
+  let h = '';
+  for (let i = 0; i < 7; i++) {
+    const w = 180 + rnd() * 220; const x = i * 70 + rnd() * 40; const y = 60 - Math.sin(i / 6 * Math.PI) * 90 + rnd() * 40;
+    h += `<i style="left:${x}px;top:${y}px;width:${w}px;height:${w * .8}px"></i>`;
+  }
+  c.innerHTML = h; c.style.opacity = d.o; cloudsEl.appendChild(c); return { el: c, ...d };
+});
+
+// ---------- sparkles ----------
+const sparksEl = document.getElementById('sparks');
+const sparks = Array.from({ length: 22 }, () => {
+  const s = document.createElement('div'); s.className = 'spark';
+  const d = { el: s, x: rnd() * 1080, y: rnd() * 1920, ph: rnd() * 6.28, sc: .4 + rnd() * .8, sp: .6 + rnd() * 1.2 };
+  sparksEl.appendChild(s); return d;
+});
+
+// ---------- rain drops (inside phone) ----------
+const rainEl = document.getElementById('rain');
+const drops = Array.from({ length: 46 }, () => {
+  const d = document.createElement('div'); d.className = 'rain-drop'; rainEl.appendChild(d);
+  return { el: d, x: rnd() * 780 - 30, ph: rnd(), sp: 1.4 + rnd() * .8 };
+});
+
+// ---------- data chips ----------
+const chipDefs = [
+  ['Humidity', '78%', 280, 640, -4], ['Wind', '42 km/h', 790, 600, 3], ['Pressure', '1013 hPa', 560, 800, -2],
+  ['Dew point', '14°', 250, 970, 3], ['UV index', '7', 830, 950, -3], ['Precip.', '38%', 530, 1140, 2],
+  ['Feels like', '27°', 800, 1320, 4], ['Visibility', '9 km', 300, 1330, -3],
+];
+const chipsEl = document.getElementById('chips');
+const chips = chipDefs.map(([l, v, x, y, r], i) => {
+  const c = document.createElement('div'); c.className = 'chip'; c.innerHTML = `${l}<b>${v}</b>`;
+  chipsEl.appendChild(c);
+  return { el: c, x, y, r, i, w: 0, h: 0 };
+});
+
+// ---------- captions ----------
+function buildCap(id, lines, sub) {
+  const el = document.getElementById(id); const words = [];
+  lines.forEach(line => {
+    const ln = document.createElement('span'); ln.className = 'line';
+    line.split(' ').forEach(w => {
+      const s = document.createElement('span'); s.className = 'w';
+      if (w.startsWith('*')) { s.classList.add('hl'); w = w.slice(1); }
+      s.textContent = w; ln.appendChild(s); words.push(s);
+    });
+    el.appendChild(ln);
+  });
+  if (sub) { const s = document.createElement('span'); s.className = 'sub w'; s.textContent = sub; el.appendChild(s); words.push(s); }
+  return words;
+}
+const caps = [
+  { w: buildCap('cap1', ['Weather apps', 'give you *numbers.'], null), tin: 0.15, tout: 2.85 },
+  { w: buildCap('cap2', ['Skyde gives you', '*answers.'], 'In plain, simple words.'), tin: 3.45, tout: 7.15 },
+  { w: buildCap('cap3', ['Plan the', '*exact hour.'], 'Pick what you’ll do — and when.'), tin: 7.55, tout: 12.75 },
+  { w: buildCap('cap4', ['Get alerted', 'before it *rains.'], 'Skyde watches your hour for you.'), tin: 13.15, tout: 16.75 },
+];
+
+// ---------- helpers ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P01 = (t, a, b) => clamp((t - a) / (b - a));
+const eOut = x => 1 - Math.pow(1 - x, 3);
+const eIn = x => x * x * x;
+const eIO = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eBack = x => { const c1 = 1.5, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2, '0');
+
+const taps = [
+  { t: 8.0, x: 330, y: 356, dark: false },
+  { t: 9.4, x: 400, y: 757, dark: true },
+  { t: 11.95, x: 614, y: 1060, dark: true },
+  { t: 12.45, x: 360, y: 1230, dark: true },
+];
+
+function render(t) {
+  // background life
+  $('sunGlow').style.transform = `scale(${1 + Math.sin(t * .8) * .04})`;
+  clouds.forEach(c => { c.el.style.transform = `translate(${c.x + t * c.sp}px, ${c.y + Math.sin(t * .5 + c.x) * 6}px) scale(${c.s})`; });
+  sparks.forEach(s => {
+    const o = .25 + .75 * Math.max(0, Math.sin(t * s.sp * 2 + s.ph));
+    s.el.style.opacity = o * .8;
+    s.el.style.transform = `translate(${s.x}px, ${s.y - t * 12 * s.sc}px) scale(${s.sc * (.6 + o * .5)})`;
+  });
+
+  // captions
+  caps.forEach(c => {
+    const out = eIn(P01(t, c.tout, c.tout + .35));
+    c.w.forEach((w, i) => {
+      const a = c.tin + i * .09; const k = eOut(P01(t, a, a + .5));
+      w.style.opacity = k * (1 - out);
+      w.style.transform = `translateY(${(1 - k) * 50 - out * 40}px) scale(${.92 + .08 * k})`;
+      w.style.filter = `blur(${(1 - k) * 10 + out * 8}px)`;
+    });
+  });
+
+  // chips (scene 1)
+  chips.forEach(c => {
+    const a = .35 + c.i * .14; const k = P01(t, a, a + .45); const kin = eBack(k);
+    const pull = eIO(P01(t, 2.55 + c.i * .03, 3.3 + c.i * .03));
+    const fx = Math.sin(t * 1.4 + c.i) * 10, fy = Math.cos(t * 1.1 + c.i * 2) * 12;
+    const x = lerp(c.x, 540, pull) + fx * (1 - pull), y = lerp(c.y, 1250, pull) + fy * (1 - pull);
+    const sc = (k > 0 ? kin : 0) * lerp(1, .15, pull);
+    c.el.style.opacity = Math.min(1, k * 2) * (1 - P01(t, 2.9, 3.35));
+    c.el.style.filter = `blur(${pull * 10}px)`;
+    c.el.style.transform = `translate(-50%,-50%) translate(${x}px, ${y}px) rotate(${c.r * (1 - pull)}deg) scale(${sc})`;
+    c.el.style.left = '0px'; c.el.style.top = '0px';
+  });
+
+  // phone
+  const enter = P01(t, 3.15, 4.15), ek = eBack(enter);
+  const exit = eIO(P01(t, 16.85, 17.55));
+  const zoom = eIO(P01(t, 14.2, 15.0)) * (1 - exit);
+  const vib = (t > 13.62 && t < 14.15) ? Math.sin((t - 13.62) * 90) * 1.6 * (1 - P01(t, 13.62, 14.15)) : 0;
+  const ty = lerp(1500, 0, ek) + Math.sin(t * 1.3) * 8 - exit * 80 + zoom * 10;
+  const ry = Math.sin(t * .9) * 5 * (1 - zoom), rx = 4 * (1 - zoom);
+  const sc = lerp(1, 1.34, zoom) * lerp(1, .78, exit);
+  const pw = $('phoneWrap');
+  pw.style.opacity = (enter > 0 ? 1 : 0) * (1 - exit);
+  pw.style.filter = `blur(${exit * 14}px)`;
+  pw.style.transform = `perspective(2600px) translateY(${ty}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${lerp(10, 0, eOut(enter)) + vib}deg) scale(${sc})`;
+  $('phoneShadow').style.opacity = eOut(enter) * (1 - exit) * (1 - zoom);
+
+  // scene 3: tap plan bar -> sheet -> select -> detail
+  const pressBar = 1 - Math.abs(clamp((t - 8.0) / .15, -1, 1));
+  $('planBar').style.background = `rgba(255,255,255,${.2 + .25 * Math.max(0, pressBar)})`;
+  const sheetIn = eOut(P01(t, 8.25, 8.8)), back = eIO(P01(t, 12.85, 13.35));
+  $('sheet').style.transform = `translateY(${(1 - sheetIn) * 1600 + back * 1600}px)`;
+  const checked = t >= 9.5;
+  const walkCb = $('walkCb');
+  walkCb.style.background = checked ? '#2F8CF0' : 'transparent';
+  walkCb.style.borderColor = checked ? '#2F8CF0' : '#D5D5DD';
+  walkCb.innerHTML = checked ? svg('check', 30, '#fff', 3.2) : '';
+  walkCb.style.transform = `scale(${checked ? eBack(P01(t, 9.5, 9.75)) : 1})`;
+  $('rowWalk').style.borderColor = checked ? '#9CCBFA' : '#EEEEF3';
+  $('rowWalk').style.background = checked ? '#F2F8FF' : '#fff';
+  $('rowWalk').style.transform = `scale(${1 - .02 * Math.max(0, 1 - Math.abs((t - 9.4) / .15))})`;
+  const detIn = eOut(P01(t, 9.95, 10.5));
+  $('detail').style.transform = `translateX(${(1 - detIn) * 720}px) translateY(${back * 1600}px)`;
+  // times roll
+  const st = eIO(P01(t, 10.55, 11.25)), en = eIO(P01(t, 10.9, 11.6));
+  $('tvStart').textContent = `${pad(Math.round(lerp(8, 18, st)))}:00`;
+  const endMin = Math.round(lerp(9 * 60, 19 * 60 + 30, en) / 30) * 30;
+  $('tvEnd').textContent = `${pad(Math.floor(endMin / 60))}:${pad(endMin % 60)}`;
+  const hrs = document.querySelectorAll('#hourly .hr');
+  hrs.forEach((h, i) => {
+    const k = eOut(P01(t, 11.3 + i * .1, 11.7 + i * .1));
+    h.style.opacity = k; h.style.transform = `translateY(${(1 - k) * 20}px)`;
+  });
+  const tg = eOut(P01(t, 12.0, 12.2));
+  $('tgl').style.background = tg > .5 ? '#2F8CF0' : '#D9D9E2';
+  $('tglK').style.left = `${lerp(5, 45, tg)}px`;
+  const saved = t >= 12.55;
+  const btnPress = Math.max(0, 1 - Math.abs((t - 12.45) / .15));
+  $('saveBtn').style.transform = `scale(${1 - .04 * btnPress})`;
+  $('saveBtn').style.background = saved ? 'linear-gradient(135deg,#34D399,#16A34A)' : 'linear-gradient(135deg,#3A9BF5,#2563EB)';
+  $('saveTxt').innerHTML = saved ? `<span style="display:flex;align-items:center;gap:14px">${svg('check', 40, '#fff', 3)}Plan saved · 18:00</span>` : 'Save plan';
+
+  // taps
+  const tapEl = $('tap'); let shown = false;
+  for (const tp of taps) {
+    const d = t - tp.t;
+    if (d > -.25 && d < .55) {
+      shown = true;
+      tapEl.className = tp.dark ? 'dark' : '';
+      tapEl.style.left = tp.x + 'px'; tapEl.style.top = tp.y + 'px';
+      if (d < 0) { const k = eOut(P01(d, -.25, 0)); tapEl.style.opacity = k * .9; tapEl.style.transform = `scale(${lerp(1.3, .8, k)})`; }
+      else { const k = eOut(P01(d, 0, .55)); tapEl.style.opacity = .9 * (1 - k); tapEl.style.transform = `scale(${lerp(.8, 1.8, k)})`; }
+    }
+  }
+  if (!shown) tapEl.style.opacity = 0;
+
+  // scene 4: later that day, rain, notification
+  const later = P01(t, 13.0, 13.3);
+  $('clockA').style.opacity = 1 - later; $('clockB').style.opacity = later;
+  const rain = eIO(P01(t, 13.1, 13.9));
+  $('rainBg').style.opacity = rain;
+  $('icMoon').style.opacity = 1 - rain; $('icRain').style.opacity = rain;
+  $('icRain').style.transform = `translateY(${Math.sin(t * 2) * 6}px)`;
+  $('msgA').style.opacity = 1 - rain; $('msgB').style.opacity = rain;
+  drops.forEach(d => {
+    const y = ((t * d.sp + d.ph) % 1) * 1800 - 100;
+    d.el.style.opacity = rain * .8;
+    d.el.style.transform = `translate(${d.x - y * .2}px, ${y}px) rotate(12deg)`;
+  });
+  const nIn = P01(t, 13.6, 14.15), nOut = eIO(P01(t, 16.85, 17.3));
+  const nk = eBack(nIn);
+  const n = $('notif');
+  n.style.opacity = (nIn > 0 ? 1 : 0) * (1 - nOut);
+  n.style.transform = `translateY(${lerp(-320, 0, nk)}px) scale(${1 + .02 * Math.max(0, Math.sin((t - 15.2) * 4)) * (t > 15.2 && t < 16 ? 1 : 0)})`;
+  n.style.boxShadow = `0 24px 60px rgba(0,30,80,.3), 0 0 0 ${t > 15.1 ? 4 * eOut(P01(t, 15.1, 15.5)) * (1 - P01(t, 16.2, 16.6)) : 0}px rgba(255,226,122,.9)`;
+
+  // end card
+  const e1 = P01(t, 17.25, 17.95), e2 = P01(t, 17.55, 18.15), e3 = P01(t, 17.85, 18.45), e4 = P01(t, 18.25, 18.85);
+  $('endGlow').style.opacity = eOut(e1) * (.85 + .15 * Math.sin(t * 2));
+  $('endGlow').style.transform = `scale(${lerp(.6, 1, eOut(e1))})`;
+  const ic = $('endIcon');
+  ic.style.opacity = Math.min(1, e1 * 3);
+  ic.style.transform = `translateY(${Math.sin(t * 1.6) * 6 * e1}px) scale(${e1 > 0 ? eBack(e1) : 0}) rotate(${lerp(-12, 0, eOut(e1))}deg)`;
+  $('endWord').style.opacity = eOut(e2); $('endWord').style.transform = `translateY(${(1 - eOut(e2)) * 60}px)`;
+  $('endWord').style.filter = `blur(${(1 - e2) * 10}px)`;
+  $('endTag').style.opacity = eOut(e3); $('endTag').style.transform = `translateY(${(1 - eOut(e3)) * 40}px)`;
+  const pulse = 1 + .035 * Math.max(0, Math.sin((t - 18.9) * 5)) * (t > 18.9 ? 1 : 0);
+  $('endCta').style.opacity = eOut(e4);
+  $('endCta').style.transform = `translateX(-50%) translateY(${(1 - eOut(e4)) * 40}px) scale(${(e4 > 0 ? eBack(e4) : 0) * pulse})`;
+}
+window.render = render;
+render(parseFloat(new URLSearchParams(location.search).get('t') || '0'));
+</script>
+</body>
+</html>
