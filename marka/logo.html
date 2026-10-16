@@ -1,0 +1,54 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>html,body{margin:0;background:transparent}svg{display:block}</style>
+<body>
+<script>
+// YUP Stüdyo logosu: yükselen güneşin içinde "oynat" işareti, kolları yukarı oklara dönüşen figür.
+// #dikey (işaret üstte), #yatay (işaret solda), #simge (yalnızca işaret, yuvarlak profil görseli için)
+const v = (location.hash || '#dikey').slice(1);
+const OR1 = '#FFB020', OR2 = '#F26B1D', NAVY = '#1E3A8A', NAVY2 = '#2F5BD3';
+function mark(x, y, s) {
+  // 0..1000 koordinatında işaret; (x,y) sol üst, s ölçek
+  const rays = [];
+  for (let i = 0; i < 9; i++) {
+    const a = Math.PI * (0.06 + 0.88 * i / 8);
+    const r0 = 228, r1 = i % 2 ? 268 : 292;
+    rays.push(`<line x1="${500 - Math.cos(a) * r0}" y1="${640 - Math.sin(a) * r0}" x2="${500 - Math.cos(a) * r1}" y2="${640 - Math.sin(a) * r1}" stroke="url(#sun)" stroke-width="22" stroke-linecap="round"/>`);
+  }
+  return `<g transform="translate(${x},${y}) scale(${s})">
+    <defs>
+      <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${OR1}"/><stop offset="1" stop-color="${OR2}"/></linearGradient>
+      <linearGradient id="armL" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="${OR2}"/><stop offset="1" stop-color="${OR1}"/></linearGradient>
+      <linearGradient id="armR" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="${NAVY}"/><stop offset="1" stop-color="${NAVY2}"/></linearGradient>
+      <clipPath id="half"><rect x="0" y="0" width="1000" height="640"/></clipPath>
+    </defs>
+    ${rays.join('')}
+    <circle cx="500" cy="640" r="200" fill="url(#sun)" clip-path="url(#half)"/>
+    <path d="M300 640 Q500 610 700 640" fill="none" stroke="${OR2}" stroke-width="0"/>
+    <rect x="250" y="652" width="500" height="18" rx="9" fill="${OR2}"/>
+    <!-- figür: gövde güneşten yükselir, kollar omuzlardan oklara dönüşür -->
+    <path d="M452 452 Q500 440 548 452 L528 560 L472 560 Z" fill="url(#armL)"/>
+    <path d="M468 462 L338 268" stroke="url(#armL)" stroke-width="54" stroke-linecap="round" fill="none"/>
+    <path d="M532 462 L662 268" stroke="url(#armR)" stroke-width="54" stroke-linecap="round" fill="none"/>
+    <path d="M294 206 L398 236 L330 322 Z" fill="${OR1}" stroke="${OR1}" stroke-width="12" stroke-linejoin="round"/>
+    <path d="M706 206 L602 236 L670 322 Z" fill="${NAVY2}" stroke="${NAVY2}" stroke-width="12" stroke-linejoin="round"/>
+    <circle cx="500" cy="378" r="50" fill="${NAVY}"/>
+    <!-- oynat -->
+    <path d="M468 548 L468 620 L532 584 Z" fill="#fff" stroke="#fff" stroke-width="12" stroke-linejoin="round"/>
+  </g>`;
+}
+const T = (x, y, a, txt, size, w, fill, ls = 0) => `<text x="${x}" y="${y}" text-anchor="${a}" font-family="Inter Display" font-weight="${w}" font-size="${size}" letter-spacing="${ls}" fill="${fill}">${txt}</text>`;
+let W, H, body;
+if (v === 'dikey') {
+  W = 1000; H = 1000;
+  body = mark(150, -10, 0.7) + T(500, 720, 'middle', 'YUP', 210, 900, NAVY, 6) + T(513, 818, 'middle', 'STÜDYO', 76, 700, OR2, 26) + T(500, 890, 'middle', 'Yükselen Ufuklar Platformu', 36, 500, '#475569', 1);
+} else if (v === 'yatay') {
+  W = 1800; H = 600;
+  body = mark(-40, -60, 0.68) + T(640, 330, 'start', 'YUP', 230, 900, NAVY, 6) + T(652, 440, 'start', 'STÜDYO', 84, 700, OR2, 30) + T(652, 512, 'start', 'Yükselen Ufuklar Platformu', 40, 500, '#475569', 1);
+} else {
+  W = 1000; H = 1000;
+  body = `<circle cx="500" cy="500" r="500" fill="#FFF7EC"/>` + mark(-50, -20, 1.1);
+}
+document.body.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="${innerWidth}" height="${innerHeight}" viewBox="0 0 ${W} ${H}">${body}</svg>`;
+document.fonts.ready.then(() => { window.__done = true; });
+</script>
