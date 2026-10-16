@@ -50,7 +50,7 @@
   // ---------------------------------------------------------------------------
   // Önsöz'ü dikey kadraja çizmek
   // ---------------------------------------------------------------------------
-  const DY = 1010; // kadraj merkezinin dikey konumu (üstte altyazıya yer kalsın)
+  let DY = 1010; // kadraj merkezinin dikey konumu (üstte altyazıya yer kalsın); kısa video def.dy ile değiştirebilir
   const nativeSetTransform = CanvasRenderingContext2D.prototype.setTransform;
 
   // crop: Önsöz karesinin yalnızca [üst, alt] dikey aralığı çizilir (ör. bölüm başlığını dışarıda bırakmak için)
@@ -321,6 +321,7 @@
   const SOUND_KEYS = new Set(['click', 'tick', 'blip', 'bell', 'boom', 'whoosh', 'pop', 'typeKey', 'glitch', 'buzz', 'staticNoise', 'heartbeat']);
 
   function short(def) {
+    DY = def.dy ?? 1010;
     const SCRIPT = root.NARRATION ?? { lines: [] };
     const lines = SCRIPT.lines;
     const ctaId = lines[lines.length - 1].id;
@@ -374,6 +375,8 @@
       drawFootage(ctx, ALL, t);
       shade(ctx);
       seriesTag(ctx);
+      // kısa videoya özgü sabit katman (ör. durak göstergesi)
+      if (def.overlay) def.overlay(ctx, t, { cue, end, line: l, scene: TL.scene(l.id) });
       const sc = TL.scene(l.id);
       const first = l === lines[0];
       caption(ctx, l, t, { cue, end, big: first, alpha: first ? 1 : progress(t, sc.start, sc.start + 0.3, ease.inOut) });
