@@ -7,6 +7,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 
 | Bölüm | Süre | Klasör |
 |---|---|---|
+| Önsöz — Gece Yarısı Dokunulan Cam (kursa hoş geldiniz) | 11:20 (insan sesi sonradan eklenecek) | `onsoz/` |
 | Birinci Kapı — Var ve Yok: İki Simgeli Bir Evren | 9:19 (insan sesiyle) | `ch01-var-ve-yok/` |
 | Birinci Kapı, 2. Bölüm — Taşa Kazınan Mantık | 11:21 (insan sesiyle) | `ch02-tasa-kazinan-mantik/` |
 | Birinci Kapı, 3. Bölüm — Sayılardan Devreye: Elektriğin Hesap Yapması | 14:41 (insan sesiyle) | `ch03-sayilardan-devreye/` |
@@ -118,6 +119,10 @@ Sığmayan satırda önce duraklar kısalır, gerekirse satır hafifçe hızlan�
   makinenin ve insanın payı, veriyi kimin konuşturduğu, veri türleri ve baştaki sıfır, düzenli ve düzensiz veri); aynı yapı.
 - `narrate.mjs` — seslendirme izini üretir (MBROLA, Piper ya da insan kaydı).
 - `dub.mjs` — insan sesi kayıtlarını hazır videoya ekler (görüntüyü yeniden dökmeden).
+- `onsoz/` — önsöz: kursa hoş geldiniz videosu (Elif'in gece yarısı mesajı ve görünmez yolculuğu, Malabadi Köprüsü,
+  görünmez köprü, teknoloji kurulan bir şeydir, bütüncül bakış, bu yolculuk kimin için, çırak–kalfa–usta,
+  kendi taşını yontmak). Kitabın önsözünden genel izleyici için uyarlandı; vuruş uzunlukları satırların
+  tahmini okuma süresinden hesaplanır. Seslendirme: `onsoz/seslendirme-metni.txt`.
 - `tanitim/` — kursun Udemy tanıtım videosu (tepeden tepeye ateş, iki simge, on iki kapı, kurstan görüntüler,
   ders kitabı, kimler için, açık olan kapı). Ekrandaki "kurstan bir an" bölümüne bölüm videolarından seçilen parçalar
   `tanitim/montaj.mjs` ile bindirilir:
