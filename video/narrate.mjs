@@ -101,10 +101,17 @@ const engines = {
       },
     };
   },
-  // İnsan kaydı: hız ayarlanamaz, sığmayan satır raporlanır
+  // İnsan kaydı: hız ayarlanamaz, sığmayan satır raporlanır. Klasörde marks.json ({ satır: [öbek başları, sn] })
+  // varsa öbeklerin kayıttaki gerçek yerleri kullanılır; yoksa film harf sayısından tahmin eder.
   files(dir) {
+    const marksFile = path.join(dir, 'marks.json');
+    const known = fs.existsSync(marksFile) ? JSON.parse(fs.readFileSync(marksFile, 'utf8')) : {};
     return {
       key: null,
+      marks: (line) => {
+        const m = known[line.id];
+        return Array.isArray(m) && m.length === line.phrases.length && m.every((x) => Number.isFinite(x)) ? m : null;
+      },
       synth(text, rate, out, line) {
         const src = ['wav', 'mp3', 'm4a', 'ogg', 'flac'].map((e) => path.join(dir, `${line.id}.${e}`)).find((f) => fs.existsSync(f));
         if (!src) throw new Error(`Kayıt yok: ${path.join(dir, `${line.id}.wav`)}`);
@@ -214,7 +221,9 @@ async function main() {
     if (!engine.key) {
       const file = path.join(cache, `${l.id}.wav`);
       engine.synth(l.say, opts.rate, file, l);
-      return { clip: normalize(trim(decode(file), file)), marks: null }; // kayıtta öbek sınırları bilinmez; film tahmin eder
+      // öbek sınırları marks.json'da yoksa film tahmin eder
+      const marks = engine.marks?.(l);
+      return { clip: normalize(trim(decode(file), file)), marks: marks ? marks.map((m) => +(m * opts.pay).toFixed(3)) : null };
     }
     const parts = [];
     const marks = [];

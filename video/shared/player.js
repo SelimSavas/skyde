@@ -10,8 +10,15 @@
 
   const film = window.FILM;
   const canvas = document.getElementById('film');
-  canvas.width = Engine.W;
-  canvas.height = Engine.H;
+  // Film kendi boyutunu verebilir (ör. dikey kısa video 1080×1920); vermezse 1920×1080
+  const W = film.width ?? Engine.W;
+  const H = film.height ?? Engine.H;
+  canvas.width = W;
+  canvas.height = H;
+  if (W !== Engine.W || H !== Engine.H) {
+    canvas.parentElement.style.aspectRatio = `${W} / ${H}`;
+    canvas.parentElement.style.width = `min(100%, calc((100vh - 96px) * ${W} / ${H}))`;
+  }
   const ctx = canvas.getContext('2d');
   const params = new URLSearchParams(location.search);
 
@@ -19,7 +26,7 @@
     document.body.classList.add('recording');
     let wav = null;
     const voice = film.narration ? (film.narration.voice ? 'ok' : film.narration.stale ? 'stale' : 'none') : 'none';
-    window.__info = () => ({ title: film.title, duration: film.duration, width: Engine.W, height: Engine.H, voice });
+    window.__info = () => ({ title: film.title, duration: film.duration, width: W, height: H, voice });
     window.__frame = (t, type = 'image/png', quality = 0.95) => {
       film.draw(ctx, t);
       return canvas.toDataURL(type, quality);

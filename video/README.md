@@ -13,6 +13,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | Birinci Kapı, 3. Bölüm — Sayılardan Devreye: Elektriğin Hesap Yapması | 14:41 (insan sesiyle) | `ch03-sayilardan-devreye/` |
 | Birinci Kapı, 4. Bölüm — Veri, Bilgi, Anlam: Üç Basamaklı Merdiven | 13:20 (insan sesiyle) | `ch04-veri-bilgi-anlam/` |
 | Kurs tanıtımı (Udemy) — Bilişim Teknolojileri Yetkinliği | 1:54 (insan sesi sonradan eklenecek) | `tanitim/` |
+| Önsöz kısa videoları (YouTube Shorts, 1080×1920): mesaj, köprü, ekran | 0:21–0:24 (insan sesiyle) | `kisa-mesaj/`, `kisa-kopru/`, `kisa-ekran/` |
 
 ## İzlemek
 
@@ -129,6 +130,13 @@ Sığmayan satırda önce duraklar kısalır, gerekirse satır hafifçe hızlan�
   `node video/render.mjs tanitim --anlatimsiz` → `node video/tanitim/montaj.mjs` → `out/tanitim-montaj.mp4`;
   kayıtlar gelince `node video/dub.mjs tanitim --kayit <klasör> --video video/out/tanitim-montaj.mp4`.
 - `udemy/` — Udemy açılış sayfası metinleri, kurs görseli ve görselin üreteci (`gorsel.html`).
+- `kisa/` ve `kisa-*/` — Önsöz'den dikey kısa videolar (YouTube Shorts). Görüntüler video dosyasından kırpılmaz:
+  `kisa/kisa.js` Önsöz filmini yükleyip seçilen anları dikey kadraja yakınlaşarak yeniden çizer (vektör kadar keskin).
+  Her kısa videonun `film.js`'i yalnızca çekim listesidir (Önsöz anı, kadraj, öbek). Sonda videonun başka
+  bölümlerinden hızlı örnekler ve bitiş kartı vardır. Seslendirme: `kisa/seslendirme-metni.txt`,
+  kayıtlar `seslendirme/Kisa/` (öbek başları `marks.json`'da), YouTube bilgileri `kisa/youtube.txt`.
+  `node video/narrate.mjs kisa-mesaj --engine files:video/seslendirme/Kisa` →
+  `node video/render.mjs kisa-mesaj --anlatimsiz` → `node video/dub.mjs kisa-mesaj --kayit video/seslendirme/Kisa`.
 
 ## Yeni bölüm eklemek
 
