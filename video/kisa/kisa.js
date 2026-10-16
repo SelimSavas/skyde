@@ -6,18 +6,19 @@
  * yeniden çizer. Böylece yakın plan da vektör kadar keskin kalır.
  *
  * Kısa video = seslendirme satırları. Her satır bir sahnedir; sahnenin çekimleri satırın öbeklerine
- * (cue) bağlanır: { k: öbek, src: (cue) => Önsöz anı, view: [[x, y, genişlik], [x, y, genişlik]], rate }.
- *   view   Önsöz'ün 1920×1080 koordinatlarında kadraj merkezi ve görünen genişlik; çekim boyunca
- *          ilk değerden ikinciye kayar (yavaş yakınlaşma / kaydırma).
+ * (cue) bağlanır: { k: öbek, src: (cue) => Önsöz anı, view: [x, y, genişlik], rate, crop }.
+ *   view   Önsöz'ün 1920×1080 koordinatlarında kadraj merkezi ve görünen genişlik. Kadraj sabittir:
+ *          hareketi Önsöz'ün kendi animasyonu taşır; çekimler arasında yumuşak geçiş (XF) yapılır,
+ *          sert kesme ve yakınlaşma yoktur (göz yormasın).
  *   rate   Önsöz zamanının akış hızı (1 = gerçek hız).
- * Son satır çağrıdır: videonun başka bölümlerinden hızlı örnekler (teaser) ve bitiş kartı.
+ * Son satır çağrıdır: videonun başka bölümlerinden iki sakin örnek ve bitiş kartı.
  * Altyazı, söylenen öbeğe göre sözcük sözcük yanar; *yıldızlı* sözcükler turuncu vurgulanır.
  */
 (function (root) {
   'use strict';
 
   const E = root.Engine;
-  const { clamp, lerp, ease, progress, vis, text, measure } = E;
+  const { clamp, ease, progress, vis, text, measure } = E;
   const SW = 1080;
   const SH = 1920;
   const SRC = root.ONSOZ;
@@ -33,16 +34,17 @@
 
   // Videonun öbür bölümlerinden hızlı örnekler (çağrı satırında)
   const TEASERS = {
-    mesaj: { label: 'Gece yarısı gönderilen mesaj', src: () => scue('night-send', 0) + 0.9, view: [[1185, 520, 640], [1185, 520, 600]] },
-    isik: { label: 'Işık olup denizleri aşan ileti', src: () => scue('jr-fiber', 1), view: [[800, 640, 900], [1050, 640, 900]], crop: [150, 1080] },
-    kopru: { label: 'Malabadi Köprüsü', src: () => scue('br-forces', 1) + 1.2, view: [[960, 560, 1100], [960, 540, 1000]] },
-    dunya: { label: 'İnsanlığın görünmez köprüsü', src: () => scue('inv-life', 3), view: [[960, 600, 1150], [960, 600, 1050]] },
-    ekran: { label: 'Ekranın arkası', src: () => scue('who-side', 1) + 1.6, view: [[1000, 640, 900], [1000, 640, 820]], crop: [260, 1080] },
-    ahilik: { label: 'Çırak, kalfa, usta', src: () => scue('cr-ahi', 0) + 1.2, view: [[960, 330, 760], [960, 330, 680]] },
+    mesaj: { label: 'Gece yarısı gönderilen mesaj', src: () => scue('night-send', 0) + 1.2, view: [1080, 430, 820] },
+    isik: { label: 'Işık olup denizleri aşan ileti', src: () => scue('jr-fiber', 1), view: [925, 640, 1000], crop: [150, 1080] },
+    kopru: { label: 'Malabadi Köprüsü', src: () => scue('br-forces', 1) + 1.2, view: [930, 500, 1000] },
+    dunya: { label: 'İnsanlığın görünmez köprüsü', src: () => scue('inv-life', 3), view: [960, 600, 1100] },
+    ekran: { label: 'Ekranın arkası', src: () => scue('who-side', 1) + 1.6, view: [975, 640, 960], crop: [260, 1080] },
+    ahilik: { label: 'Çırak, kalfa, usta', src: () => scue('cr-ahi', 0) + 1.2, view: [960, 330, 720] },
   };
   // Bitiş kartının arkasındaki görüntü: iki telefonu birleştiren görünmez köprü
-  const FINALE = { src: () => scue('st-bridge', 1) + 0.6, view: [[960, 520, 1400], [960, 520, 1250]] };
-  const TEASER_LEN = 0.55;
+  const FINALE = { src: () => scue('st-bridge', 1) + 0.6, view: [960, 520, 1300] };
+  const TEASER_LEN = 1.7; // her örnek ekranda bu kadar kalır
+  const XF = 0.5; // çekimler arası yumuşak geçiş (sn)
 
   // ---------------------------------------------------------------------------
   // Önsöz'ü dikey kadraja çizmek
@@ -95,22 +97,29 @@
     }
   }
 
-  const mixView = (v, p) => [lerp(v[0][0], v[1][0], p), lerp(v[0][1], v[1][1], p), lerp(v[0][2], v[1][2], p)];
-
-  // Kesmede kısa bir "vuruş": görüntü %6 yakından başlayıp yerine oturur
   function drawShot(ctx, shot, t) {
-    const len = Math.max(0.01, shot.end - shot.start);
-    const p = ease.inOut(clamp((t - shot.start) / len));
-    const v = mixView(shot.view, p);
-    const punch = 1 + 0.06 * (1 - ease.out(clamp((t - shot.start) / 0.35)));
-    v[2] /= punch;
-    drawSource(ctx, shot.src0 + (t - shot.start) * (shot.rate ?? 1), v, shot.crop);
-    // kesme anında hafif bir parlama
-    const flash = 1 - clamp((t - shot.start) / 0.12);
-    if (flash > 0 && shot.start > 0.01) {
-      ctx.fillStyle = `rgba(243,237,225,${0.07 * flash})`;
-      ctx.fillRect(0, 0, SW, SH);
-    }
+    drawSource(ctx, shot.src0 + (t - shot.start) * (shot.rate ?? 1), shot.view, shot.crop);
+  }
+
+  // Yeni çekim, öncekinin üstüne XF saniyede belirir. Önsöz kendi opaklığını sıfırladığı için
+  // gelen çekim önce ayrı bir tuvale çizilip saydamlıkla bindirilir.
+  let layer = null;
+  function drawFootage(ctx, list, t) {
+    let i = list.length - 1;
+    while (i > 0 && t < list[i].start) i--;
+    const cur = list[i];
+    const p = i > 0 ? ease.inOut(clamp((t - cur.start) / XF)) : 1;
+    if (p >= 1) return drawShot(ctx, cur, t);
+    drawShot(ctx, list[i - 1], t);
+    layer ??= Object.assign(document.createElement('canvas'), { width: SW, height: SH });
+    const lc = layer.getContext('2d');
+    lc.setTransform(1, 0, 0, 1, 0, 0);
+    background(lc);
+    drawShot(lc, cur, t);
+    ctx.save();
+    ctx.globalAlpha = p;
+    ctx.drawImage(layer, 0, 0);
+    ctx.restore();
   }
 
   // ---------------------------------------------------------------------------
@@ -193,8 +202,8 @@
         const a = cue(line.id, w.k);
         const b = w.k + 1 < nPh ? cue(line.id, w.k + 1) : end(line.id);
         const at = a + w.frac * (b - a) * 0.9 - 0.05;
-        const p = big ? 1 : ease.out(clamp((t - at) / 0.16));
-        const lift = big ? 0 : (1 - p) * 10;
+        const p = big ? 1 : ease.out(clamp((t - at) / 0.25));
+        const lift = big ? 0 : (1 - p) * 4;
         text(ctx, w.str, x0 + w.x, y + lift, {
           ...capFont(L.size),
           align: 'left',
@@ -306,7 +315,7 @@
       l.offset = l.offset ?? (l === lines[0] ? 0.08 : 0.12);
       // sahne en az bu kadar sürer; anlatıcı daha uzun konuşursa narration planı sahneyi uzatır
       let base = l.offset + 1 + (def.extra?.[l.id] ?? 0) + BREATH;
-      if (l.id === ctaId) base = teasers.length * TEASER_LEN + 2.6;
+      if (l.id === ctaId) base = teasers.length * TEASER_LEN + 2.8;
       BEATS[l.id] = [l.id, 0, base, base - 0.25];
       return { id: l.id, title: l.say, base, fadeIn: 0, fadeOut: 0, draw: (ctx, lt, t) => drawLine(l, ctx, t) };
     });
@@ -337,20 +346,21 @@
       });
       SHOTS[l.id] = list;
     }
+    const ALL = lines.flatMap((l) => SHOTS[l.id]);
 
     function drawLine(l, ctx, t) {
       const list = SHOTS[l.id];
       const shot = [...list].reverse().find((s) => t >= s.start) ?? list[0];
-      drawShot(ctx, shot, t);
+      drawFootage(ctx, ALL, t);
       shade(ctx);
       seriesTag(ctx);
       const sc = TL.scene(l.id);
       const first = l === lines[0];
-      caption(ctx, l, t, { cue, end, big: first, alpha: first ? 1 : progress(t, sc.start, sc.start + 0.12, ease.out) });
+      caption(ctx, l, t, { cue, end, big: first, alpha: first ? 1 : progress(t, sc.start, sc.start + 0.3, ease.inOut) });
       if (l.id === ctaId) {
-        if (shot.label) chip(ctx, shot.label, vis(t, shot.start, shot.end, 0.08, 0.08));
+        if (shot.label) chip(ctx, shot.label, vis(t, shot.start, shot.end, 0.4, 0.4));
         const fin = list[list.length - 1];
-        endCard(ctx, progress(t, fin.start, fin.start + 0.45, ease.out));
+        endCard(ctx, progress(t, fin.start, fin.start + 0.8, ease.inOut));
       }
     }
 
@@ -361,11 +371,10 @@
     function score(m, hz) {
       const dur = TL.duration;
       m.pad(0, dur, def.pad ?? ['D2', 'A2', 'D3', 'F#3'], { gain: 0.2, attack: 0.25, release: 1.2, cutoff: 900 });
-      m.boom(0.02, { gain: 0.42 });
-      m.whoosh(0, { dur: 0.6, from: 2600, to: 300, gain: 0.06 });
+      m.boom(0.02, { gain: 0.3 });
       const all = Object.values(SHOTS).flat();
       for (const s of all) {
-        if (s.start > 0.05) m.whoosh(s.start - 0.18, { dur: 0.36, from: 500, to: 2800, gain: s.label ? 0.03 : 0.05 });
+        if (s.start > 0.05) m.whoosh(s.start - 0.1, { dur: 1, from: 300, to: 900, gain: 0.018 });
         if (s.label || s.finale) continue;
         const rate = s.rate ?? 1;
         const a = s.src0;
@@ -377,12 +386,10 @@
           m[key](s.start + (ts - a) / rate, o, ...args.slice(2));
         }
       }
-      // çağrı: örnekler arasında tıkırtılar, bitiş kartında çan
+      // bitiş kartında çan
       const cta = SHOTS[ctaId];
-      cta.filter((s) => s.label).forEach((s, i) => m.tick(s.start, { gain: 0.06, tone: 3000 + i * 300 }));
       const fin = cta[cta.length - 1];
-      m.riser(fin.start - 1.2, 1.2, { gain: 0.05 });
-      m.boom(fin.start, { gain: 0.3 });
+      m.boom(fin.start, { gain: 0.2 });
       ['D5', 'A5', 'D6'].forEach((n, i) => m.bell(fin.start + 0.05 + i * 0.16, { freq: hz(n), gain: 0.08, decay: 2.6, pan: -0.3 + i * 0.3 }));
     }
 
