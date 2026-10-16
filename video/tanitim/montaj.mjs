@@ -45,7 +45,8 @@ clips.forEach((c, i) => {
   if (!fs.existsSync(src)) throw new Error(`Kaynak yok: ${src}`);
   const dur = c.end - c.start;
   const take = Math.min(dur, c.max);
-  inputs.push('-ss', c.from.toFixed(3), '-t', take.toFixed(3), '-i', src);
+  const from = c.until != null ? Math.max(c.from, c.until - take) : c.from;
+  inputs.push('-ss', from.toFixed(3), '-t', take.toFixed(3), '-i', src);
   const fades = [];
   if (i === 0) fades.push('fade=t=in:st=0:d=0.3:alpha=1');
   // son parça, sahne kararırken (film.js'te sahne geçişi 0,45 sn) onunla birlikte söner
@@ -54,7 +55,7 @@ clips.forEach((c, i) => {
   chains.push(`[${i + 1}:v]${['setpts=PTS-STARTPTS', ...pad, `scale=${S.w}:${S.h}:flags=lanczos`, 'format=yuva420p', ...fades, `setpts=PTS+${c.start.toFixed(3)}/TB`].join(',')}[c${i}]`);
   chains.push(`${last}[c${i}]overlay=${S.x}:${S.y}:eof_action=pass:enable='between(t,${c.start.toFixed(3)},${c.end.toFixed(3)})'[v${i}]`);
   last = `[v${i}]`;
-  console.log(`${c.id.padEnd(8)} ${c.src} ${c.from}+${take.toFixed(2)} sn → ${c.start.toFixed(2)}–${c.end.toFixed(2)}${pad.length ? ' (son kare dondurulur)' : ''}`);
+  console.log(`${c.id.padEnd(8)} ${c.src} ${from.toFixed(2)}+${take.toFixed(2)} sn → ${c.start.toFixed(2)}–${c.end.toFixed(2)}${pad.length ? ' (son kare dondurulur)' : ''}`);
 });
 
 const r = spawnSync('ffmpeg', ['-y', '-loglevel', 'error', ...inputs, '-filter_complex', chains.join(';'), '-map', last, '-map', '0:a?', '-c:v', 'libx264', '-preset', 'medium', '-crf', crf, '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart', output], { stdio: ['ignore', 'inherit', 'inherit'] });

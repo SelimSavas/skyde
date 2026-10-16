@@ -34,30 +34,30 @@
   const mixc = (a, b, p) => a.map((x, i) => Math.round(lerp(x, b[i], p)));
 
   const SCENES = [
-    { id: 'fires', base: 14.6, title: 'Tepeden tepeye ateş', draw: sceneFires, fadeIn: 0.8 },
+    { id: 'fires', base: 14.1, title: 'Tepeden tepeye ateş', draw: sceneFires, fadeIn: 0.8 },
     { id: 'question', base: 10, title: 'İki simgeden her şey', draw: sceneQuestion },
     { id: 'title', base: 8, title: 'Kursun adı', draw: sceneTitle },
-    { id: 'gates', base: 21, title: 'On iki kapı', draw: sceneGates },
-    { id: 'screen', base: 18, title: 'Kurstan görüntüler', draw: sceneScreen },
+    { id: 'screen', base: 16, title: 'Kurstan görüntüler', draw: sceneScreen },
+    { id: 'gates', base: 18, title: 'On iki kapı', draw: sceneGates },
+    { id: 'now', base: 10, title: 'Açık olan kapı', draw: sceneNow },
     { id: 'book', base: 9, title: 'Ders kitabı', draw: sceneBook },
     { id: 'who', base: 11, title: 'Kimler için', draw: sceneWho },
-    { id: 'now', base: 10, title: 'Açık olan kapı', draw: sceneNow },
     { id: 'close', base: 9, title: 'Kapanış', draw: sceneClose, fadeOut: 1.4 },
   ];
 
   // Seslendirme vuruşları: [sahne, başlangıç, bitiş, donma anı] (koreografi zamanı).
   const BEATS = {
-    'fires.chain': ['fires', 0.3, 6.6, 5.9],
-    'fires.bit': ['fires', 6.7, 14.6, 13.9],
+    'fires.chain': ['fires', 0.3, 6.1, 5.4],
+    'fires.bit': ['fires', 6.2, 14.1, 13.4],
     'question.ask': ['question', 0.3, 10.0, 9.3],
     'title.say': ['title', 0.3, 8.0, 7.3],
-    'gates.intro': ['gates', 0.3, 4.0, 3.3],
-    'gates.list': ['gates', 4.1, 21.0, 20.3],
     'screen.style': ['screen', 0.3, 8.0, 7.3],
-    'screen.example': ['screen', 8.1, 18.0, 17.3],
+    'screen.example': ['screen', 8.1, 16.0, 15.3],
+    'gates.intro': ['gates', 0.3, 4.0, 3.3],
+    'gates.list': ['gates', 4.1, 18.0, 17.3],
+    'now.say': ['now', 0.3, 10.0, 9.3],
     'book.say': ['book', 0.3, 9.0, 8.3],
     'who.say': ['who', 0.3, 11.0, 10.3],
-    'now.say': ['now', 0.3, 10.0, 9.3],
     'close.say': ['close', 0.3, 9.0, 8.3],
   };
   const PACE = {};
@@ -66,6 +66,7 @@
     'question.ask': 0.4,
     'title.say': 0.5,
     'gates.list': 0.5,
+    'screen.style': 0.6,
     'screen.example': 0.2,
     'who.say': 0.3,
     'now.say': 0.4,
@@ -225,6 +226,7 @@
     for (let i = 0; i < 170; i++) {
       const x = hash(i, seed) * W;
       const y = hash(i, seed + 1) * maxY;
+      if (y < 150 && x < 640) continue; // sol üstteki başlığın arkası boş kalsın
       const tw = 0.35 + 0.65 * noise(t * (0.6 + hash(i, seed + 3)) + i * 3.3, 5);
       ctx.fillStyle = rgba([235, 238, 255], alpha * tw * (0.35 + 0.65 * hash(i, seed + 5)));
       dot(ctx, x, y, 0.6 + hash(i, seed + 2) * 1.6);
@@ -272,8 +274,8 @@
   // ---- Kapı simgeleri (yaklaşık 100×100 kutu, merkez 0,0) ----------------------
 
   const GATES = [
-    { name: 'Dünyayı Sayıya Çevirmek', topic: 'elektriğin sayıya dönüşmesi', icon: 'bit' },
-    { name: 'Makinenin Bedeni', topic: 'bilgisayarın donanımı', icon: 'chip' },
+    { name: 'Dünyayı Sayıya Çevirmek', topic: 'bitler, mantık, veri', icon: 'bit' },
+    { name: 'Makinenin Bedeni', topic: 'işlemci ve donanım', icon: 'chip' },
     { name: 'Düşünceyi Adımlara Bölmek', topic: 'algoritmalar', icon: 'flow' },
     { name: 'Yapıyı Kurmak', topic: 'yazılımın yapısı', icon: 'blocks' },
     { name: 'Hatırlamanın Mimarisi', topic: 'veri tabanları', icon: 'db' },
@@ -282,8 +284,8 @@
     { name: 'İnsanla Buluşan Yüz', topic: 'web ve mobil', icon: 'window' },
     { name: 'Bedene Kavuşan Yazılım', topic: 'robotlar ve sensörler', icon: 'robot' },
     { name: 'Öğrenen Makineler', topic: 'yapay zekâ', icon: 'neural' },
-    { name: 'Atölyenin Kültürü', topic: 'atölye kültürü', icon: 'anvil' },
-    { name: 'Mimar Olmak', topic: 'meslek seçimi', icon: 'compass' },
+    { name: 'Atölyenin Kültürü', topic: 'çıraktan ustaya', icon: 'anvil' },
+    { name: 'Mimar Olmak', topic: 'meslekler ve gelecek', icon: 'compass' },
   ];
   const gateColor = (i) => mixc(FIRE, DIGI, i / 11);
 
@@ -483,7 +485,7 @@
     { x: 860, h: 450 },
     { x: 1200, h: 390 },
     { x: 1520, h: 430 },
-    { x: 1830, h: 370 },
+    { x: 1805, h: 370 },
   ];
   const ridge = (x) => {
     let y = 160;
@@ -499,10 +501,10 @@
     const fx = PEAKS[ZOOM_PEAK].x;
     const fy = ridge(fx) - 14;
     const s = 2.1;
-    return { x: fx + (W / 2 - 600) / s, y: fy - (720 - H / 2) / s, s };
+    return { x: fx + (W / 2 - 640) / s, y: fy - (720 - H / 2) / s, s };
   };
   // Ateşlerin yanma anı (gerçek zaman)
-  const ignite = (i) => (i === 0 ? TL.at('fires', 0.9) : cue('fire-chain', 1) + 0.15 + (i - 1) * 0.55);
+  const ignite = (i) => (i === 0 ? TL.at('fires', 0.9) : cue('fire-chain', 1) + 0.15 + (i - 1) * 0.45);
 
   // Yakın plandaki ateşin yanıp sönmesi: "ya yanar ya da yanmaz"
   function toggleK(t) {
@@ -518,7 +520,7 @@
   }
 
   function sceneFires(ctx, lt, t) {
-    const zp = progress(lt, 6.7, 8.4);
+    const zp = progress(lt, 6.2, 7.9);
     const wide = { x: W / 2, y: H / 2, s: 1 };
     const zc = zoomCam();
     const cam = { x: lerp(wide.x, zc.x, zp), y: lerp(wide.y, zc.y, zp), s: Math.exp(lerp(0, Math.log(zc.s), zp)) };
@@ -540,14 +542,14 @@
     ctx.translate(-cam.x, -cam.y);
     fillRidge(ctx, ridge, '#05080f', -40, W + 900);
     for (let i = 1; i < PEAKS.length; i++) {
-      const p = progress(t, ignite(i) - 0.55, ignite(i));
-      const a = vis(t, ignite(i) - 0.55, ignite(i) + 0.15, 0.1, 0.15);
+      const p = progress(t, ignite(i) - 0.45, ignite(i));
+      const a = vis(t, ignite(i) - 0.45, ignite(i) + 0.15, 0.1, 0.15);
       sparkArc(ctx, PEAKS[i - 1].x, ridge(PEAKS[i - 1].x) - 90, PEAKS[i].x, ridge(PEAKS[i].x) - 40, p, a);
     }
     PEAKS.forEach((p, i) => {
       const gy = ridge(p.x);
       let k = progress(t, ignite(i), ignite(i) + 0.7, ease.out);
-      if (i === ZOOM_PEAK && lt > 6.7) k = Math.min(k, toggleK(t));
+      if (i === ZOOM_PEAK && lt > 6.2) k = Math.min(k, toggleK(t));
       drawFire(ctx, p.x, gy - 14, 1, t, k, i + 1);
       drawPyre(ctx, p.x, gy - 4, 1);
       drawWatchman(ctx, p.x + 62, ridge(p.x + 62) + 2, 1);
@@ -559,8 +561,8 @@
     if (lab > 0) {
       const k = toggleK(t);
       const on = k > 0.55;
-      text(ctx, on ? '1' : '0', 840, 560, { size: 150, family: 'mono', weight: 700, color: on ? C.fire : C.off, alpha: lab, glow: on ? 'rgba(255,140,40,0.6)' : null, glowBlur: 30 });
-      text(ctx, on ? 'VAR' : 'YOK', 840, 670, { size: 40, weight: 800, spacing: 10, color: on ? C.fire : C.off, alpha: lab });
+      text(ctx, on ? '1' : '0', 940, 560, { size: 150, family: 'mono', weight: 700, color: on ? C.fire : C.off, alpha: lab, glow: on ? 'rgba(255,140,40,0.6)' : null, glowBlur: 30 });
+      text(ctx, on ? 'VAR' : 'YOK', 940, 670, { size: 40, weight: 800, spacing: 10, color: on ? C.fire : C.off, alpha: lab });
     }
 
     // Cebimizdeki telefon aynı iki simgeyle konuşur
@@ -597,7 +599,7 @@
       if (flow > 0) {
         for (let j = 0; j < 14; j++) {
           const u = ((t * 0.55 + j / 14) % 1);
-          const x0 = 690;
+          const x0 = 730;
           const y0 = 470;
           const x1 = px - 150;
           const y1 = py - 40;
@@ -630,7 +632,8 @@
 
   function drawLetter(ctx, x, y, a) {
     text(ctx, 'A', x, y - 14, { size: 110, family: 'serif', weight: 700, color: C.cream, alpha: a });
-    runs(ctx, [['0', { size: 22, family: 'mono', weight: 700, color: C.off }], ['1', { size: 22, family: 'mono', weight: 700, color: C.fire }], ['00000', { size: 22, family: 'mono', weight: 700, color: C.off }], ['1', { size: 22, family: 'mono', weight: 700, color: C.fire }]], x, y + 62, { alpha: a });
+    const b = (s, c) => [s, { size: 28, family: 'mono', weight: 700, color: c }];
+    runs(ctx, [b('0', C.off), b('1', C.fire), b('00000', C.off), b('1', C.fire)], x, y + 66, { alpha: a });
   }
 
   function drawPhoto(ctx, x, y, a) {
@@ -821,7 +824,7 @@
 
   function sceneGates(ctx, lt, t) {
     gatesBackdrop(ctx, t);
-    kicker(ctx, 'ON İKİ KAPI', vis(lt, 0.3, 21, 0.6, 0.4));
+    kicker(ctx, 'ON İKİ KAPI', vis(lt, 0.3, 18, 0.6, 0.4));
     for (let i = 0; i < 12; i++) {
       const x = GX(i);
       const gy = gRidge(x);
@@ -872,7 +875,7 @@
     }
     // alt yazı kartları: o an yanan iki kapı
     for (let k = 0; k < 6; k++) {
-      const a = k < 5 ? vis(t, cue('gates-list', k), cue('gates-list', k + 1), 0.35, 0.25) : vis(t, cue('gates-list', 5), TL.at('gates', 20.6), 0.35, 0.4);
+      const a = k < 5 ? vis(t, cue('gates-list', k), cue('gates-list', k + 1), 0.35, 0.25) : vis(t, cue('gates-list', 5), TL.at('gates', 17.6), 0.35, 0.4);
       if (a <= 0) continue;
       [0, 1].forEach((j) => {
         const i = k * 2 + j;
@@ -903,11 +906,12 @@
   // Bölüm videolarından seçilen anlar: kaynak (video/out/<src>-seslendirme.mp4), kaynakta başlangıç (sn),
   // en fazla süre (aralık daha uzunsa son kare dondurulur), etiket
   const CLIPS = {
-    ladder: { src: 'ch04-veri-bilgi-anlam', from: 289.5, max: 6, label: '4. bölüm · Veri, Bilgi, Anlam' },
-    adder: { src: 'ch03-sayilardan-devreye', from: 165, max: 10, label: '3. bölüm · Sayılardan Devreye' },
-    letters: { src: 'ch01-var-ve-yok', from: 280, max: 5.8, label: '1. bölüm · Var ve Yok' },
-    chain: { src: 'ch03-sayilardan-devreye', from: 211.5, max: 9, label: '3. bölüm · Sayılardan Devreye' },
-    thermo: { src: 'ch04-veri-bilgi-anlam', from: 65.5, max: 6.4, label: '4. bölüm · Veri, Bilgi, Anlam' },
+    ladder: { src: 'ch04-veri-bilgi-anlam', from: 289.5, max: 6, label: 'Birinci Kapı · 4. bölüm · Veri, Bilgi, Anlam' },
+    count: { src: 'ch03-sayilardan-devreye', from: 33.8, max: 7.5, label: 'Birinci Kapı · 3. bölüm · Önce: saymak' },
+    letters: { src: 'ch01-var-ve-yok', from: 280, max: 5.8, label: 'Birinci Kapı · 1. bölüm · Var ve Yok' },
+    // until: parça bu anda biter (sonuç "= 144" son karede görünsün diye başlangıç süreye göre geriye kayar)
+    chain: { src: 'ch03-sayilardan-devreye', from: 213.2, until: 219.2, max: 6, label: 'Birinci Kapı · 3. bölüm · Sayılardan Devreye' },
+    thermo: { src: 'ch04-veri-bilgi-anlam', from: 65.5, max: 6.4, label: 'Birinci Kapı · 4. bölüm · Veri, Bilgi, Anlam' },
   };
   // Ekrandaki parçaların filmdeki aralıkları (gerçek zaman)
   const montage = () => {
@@ -915,16 +919,16 @@
     const off = sceneEnd('screen'); // son parça sahnenin kararmasıyla birlikte söner (montaj.mjs)
     return [
       ['ladder', on, cue('style', 2)],
-      ['adder', cue('style', 2), cue('example', 0)],
+      ['count', cue('style', 2), cue('style', 3)],
+      ['chain', cue('style', 3), cue('example', 0)],
       ['letters', cue('example', 0), cue('example', 1)],
-      ['chain', cue('example', 1), cue('example', 2)],
-      ['thermo', cue('example', 2), off],
+      ['thermo', cue('example', 1), off],
     ].map(([id, start, end]) => ({ id, ...CLIPS[id], start, end }));
   };
   const MONTAGE = montage();
 
   function sceneScreen(ctx, lt, t) {
-    kicker(ctx, 'KURSTAN BİR AN', vis(lt, 0.3, 18, 0.6, 0.4));
+    kicker(ctx, 'KURSTAN BİR AN', vis(lt, 0.3, 16, 0.6, 0.4));
     const f = progress(lt, 0.1, 0.9, ease.out);
     const S = SCREEN;
     ctx.save();
@@ -934,7 +938,9 @@
     ctx.translate(-W / 2, -(S.y + S.h / 2));
     glow(ctx, W / 2, S.y + S.h / 2, 900, DIGI, 0.07);
     // ayak
-    ctx.fillStyle = '#121a2e';
+    ctx.fillStyle = '#1a2338';
+    ctx.strokeStyle = '#2a3450';
+    ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(W / 2 - 60, S.y + S.h + 22);
     ctx.lineTo(W / 2 + 60, S.y + S.h + 22);
@@ -942,8 +948,10 @@
     ctx.lineTo(W / 2 - 90, S.y + S.h + 76);
     ctx.closePath();
     ctx.fill();
+    ctx.stroke();
     roundRect(ctx, W / 2 - 170, S.y + S.h + 72, 340, 14, 7);
     ctx.fill();
+    ctx.stroke();
     // çerçeve
     roundRect(ctx, S.x - 22, S.y - 22, S.w + 44, S.h + 44, 26);
     ctx.fillStyle = '#0e1424';
@@ -961,16 +969,16 @@
       ['önce ön öğrenme', 'style', 2, 'style', 4],
       ['sonra asıl konu', 'style', 3, 'style', 4],
       ['harf → sayı', 'example', 0, 'example', 9],
-      ['kapılar → toplama', 'example', 1, 'example', 9],
-      ['bir sayı → üç anlam', 'example', 2, 'example', 9],
+      ['bir sayı → üç anlam', 'example', 1, 'example', 9],
     ];
     const group = (id) => chips.filter((c) => c[1] === id);
     ['style', 'example'].forEach((gid) => {
       const items = group(gid);
       const widths = items.map(([s]) => measure(ctx, s, { size: 30, weight: 600 }) + 60);
-      const total = widths.reduce((a, b) => a + b, 0) + 24 * (items.length - 1);
-      let x = W / 2 - total / 2;
       const gEnd = gid === 'style' ? cue('example', 0) - 0.1 : sceneEnd('screen');
+      const grow = items.map(([, id, k]) => after(t, id, k, 0.4, ease.inOut));
+      const total = widths.reduce((n, w, j) => n + (w + (j ? 24 : 0)) * grow[j], 0);
+      let x = W / 2 - total / 2;
       items.forEach(([s, id, k], j) => {
         const a = after(t, id, k, 0.4) * vis(t, cue(id, 0) - 1, gEnd, 0, 0.3);
         if (a > 0) {
@@ -986,14 +994,14 @@
           ctx.restore();
           text(ctx, s, x + widths[j] / 2, 922, { size: 30, weight: 600, color: active ? C.cream : C.muted, alpha: a });
         }
-        x += widths[j] + 24;
+        x += (widths[j] + 24) * grow[j];
       });
     });
 
     // Ekran başlığı: o an gösterilen bölüm
     for (const m of MONTAGE) {
       const a = vis(t, m.start, m.end, 0.25, 0.25);
-      if (a > 0) text(ctx, m.label.toUpperCase(), S.x + S.w, S.y - 52, { size: 20, weight: 600, spacing: 5, color: C.muted, align: 'right', alpha: a * f });
+      if (a > 0) text(ctx, m.label.toLocaleUpperCase('tr-TR'), S.x + S.w + 22, S.y - 56, { size: 26, weight: 600, spacing: 4, color: C.cream, align: 'right', alpha: a * f });
     }
   }
 
@@ -1030,7 +1038,7 @@
 
   function sceneBook(ctx, lt, t) {
     glow(ctx, 520, 160, 900, [255, 190, 120], 0.08);
-    kicker(ctx, 'DERS KİTABI VE ETKİNLİKLER', vis(lt, 0.3, 9, 0.6, 0.4));
+    kicker(ctx, 'İLK BÖLÜMÜN DERS KİTABI VE ETKİNLİKLERİ', vis(lt, 0.3, 9, 0.6, 0.4));
     const open = progress(lt, 0.2, 1.3, ease.out);
     const bx = 380;
     const by = 210;
@@ -1135,7 +1143,7 @@
     const pen = vis(t, cue('book', 1) + 0.05, sceneEnd('book') - 0.2, 0.25, 0.3);
     if (pen > 0) {
       const k = clamp(Math.floor((t - cue('book', 1) - 0.2) / 0.45), 0, 3);
-      const target = k < 3 ? [rx + 60, by + 140 + k * 52] : [rx + 60, by + 518];
+      const target = k < 3 ? [rx + 60, by + 140 + k * 52] : [rx + 72, by + 494];
       ctx.save();
       ctx.globalAlpha *= pen;
       ctx.translate(target[0] + 6, target[1] - 8);
@@ -1164,7 +1172,7 @@
     [16, 8, 4, 2, 1].forEach((n, k) => {
       const a = progress(t, cue('book', 0) + 0.8 + k * 0.18, cue('book', 0) + 1.3 + k * 0.18, ease.out);
       if (a <= 0) return;
-      bitCard(ctx, 1290 + k * 112 + (1 - a) * 160, 900 - Math.abs(k - 2) * 8, n, (k - 2) * 0.06, a);
+      bitCard(ctx, 1160 + k * 150 + (1 - a) * 160, 900 - Math.abs(k - 2) * 8, n, (k - 2) * 0.06, a);
     });
   }
 
@@ -1233,16 +1241,16 @@
       ctx.lineWidth = 6;
       ctx.lineCap = 'round';
       ctx.beginPath();
-      ctx.moveTo(-246, 0);
-      ctx.lineTo(-232, 14);
-      ctx.lineTo(-206, -14);
+      ctx.moveTo(-262, 0);
+      ctx.lineTo(-248, 14);
+      ctx.lineTo(-222, -14);
       ctx.stroke();
       ctx.restore();
-      text(ctx, 'ÖN BİLGİ GEREKMEZ', W / 2 + 30, 202, { size: 36, weight: 800, spacing: 6, color: C.cream, alpha: badge });
+      text(ctx, 'ÖN BİLGİ GEREKMEZ', W / 2 + 34, 202, { size: 36, weight: 800, spacing: 6, color: C.cream, alpha: badge });
     }
     const people = [
       { x: 690, k: 1, label: 'öğrenci', opt: { pack: true, tall: 0.92 }, s: 1.35 },
-      { x: 1240, k: 2, label: 'meraklı bir yetişkin', opt: { tall: 1.05 }, s: 1.4 },
+      { x: 1240, k: 2, label: 'meraklı yetişkin', opt: { tall: 1.05 }, s: 1.4 },
       { x: 470, k: 3, label: 'öğretmen', opt: { book: true }, s: 1.25, d: 0 },
       { x: 1460, k: 3, label: 'veli', opt: { tall: 1.02 }, s: 1.3, d: 0.3 },
     ];
@@ -1254,7 +1262,7 @@
       glow(ctx, p.x, gy - 120, 160, FIRE, 0.12);
       person(ctx, p.x, gy + (1 - a) * 10, p.s, p.opt);
       ctx.restore();
-      text(ctx, p.label, p.x, gy - 250 * p.s / 1.3, { size: 34, family: 'serif', italic: true, color: p.k === 3 ? C.muted : C.cream, alpha: a });
+      text(ctx, p.label, p.x, gy - 250 * p.s / 1.3, { size: 34, family: 'serif', italic: true, color: C.cream, alpha: a });
     });
   }
 
@@ -1262,7 +1270,7 @@
   // 8 · Açık olan kapı
   // ---------------------------------------------------------------------------
 
-  const CHAPTERS = ['Var ve Yok: İki Simgeli Bir Evren', 'Taşa Kazınan Mantık', 'Sayılardan Devreye', 'Veri, Bilgi, Anlam'];
+  const CHAPTERS = ['Var ve Yok', 'Taşa Kazınan Mantık', 'Sayılardan Devreye', 'Veri, Bilgi, Anlam'];
 
   function sceneNow(ctx, lt, t) {
     gatesBackdrop(ctx, t);
@@ -1270,16 +1278,19 @@
     for (let i = 0; i < 12; i++) {
       const x = GX(i);
       const gy = gRidge(x);
+      const cool = progress(lt, 0.6, 1.6);
       if (i === 0) {
-        drawFire(ctx, x, gy - 6, 0.62, t, progress(lt, 0.2, 0.9, ease.out), 31);
-        drawPyre(ctx, x, gy - 2, 0.62);
+        const s = lerp(0.42, 0.62, progress(lt, 0.6, 1.6));
+        drawFire(ctx, x, gy - 6, s, t, 1, 31);
+        drawPyre(ctx, x, gy - 2, s);
       } else {
         // "birer birer açılacak": közler soldan sağa kıpırdar
         const wave = progress(t, cue('now', 3) + (i - 1) * 0.12, cue('now', 3) + (i - 1) * 0.12 + 0.4);
-        const ember = 0.25 + 0.45 * wave * (0.6 + 0.4 * Math.sin(t * 3 + i));
-        drawPyre(ctx, x, gy - 2, 0.42, after(t, 'now', 2, 0.6) * ember);
+        const ember = 0.3 + 0.45 * wave * (0.6 + 0.4 * Math.sin(t * 3 + i));
+        drawFire(ctx, x, gy - 6, 0.42, t, 1 - cool, 20 + i, false);
+        drawPyre(ctx, x, gy - 2, 0.42, cool * ember);
       }
-      text(ctx, String(i + 1), x, gy + 56, { size: 26, family: 'mono', weight: 700, color: i === 0 ? C.fire : C.dim, alpha: 1 });
+      text(ctx, String(i + 1), x, gy + 56, { size: 26, family: 'mono', weight: 700, color: i === 0 ? C.fire : C.off, alpha: 1 });
     }
     // Birinci Kapı kartı
     const card = after(t, 'now', 0, 0.6);
@@ -1314,7 +1325,8 @@
       });
     }
     const soon = after(t, 'now', 2, 0.6);
-    text(ctx, 'diğer on bir kapı birer birer açılacak', 1300, 560, { size: 36, family: 'serif', italic: true, color: C.muted, alpha: soon });
+    text(ctx, 'diğer on bir kapı birer birer açılacak', 1037, 624, { size: 36, family: 'serif', italic: true, color: C.muted, alpha: soon });
+    text(ctx, 'açıldıkça sizin de olacak', 1037, 672, { size: 32, family: 'serif', italic: true, color: C.cream, alpha: after(t, 'now', 4, 0.6) });
   }
 
   // ---------------------------------------------------------------------------
@@ -1344,8 +1356,8 @@
     const a1 = after(t, 'close', 1, 0.9);
     text(ctx, 'BİLİŞİM TEKNOLOJİLERİ', W / 2, 250 + (1 - a1) * 20, { size: 96, family: 'display', weight: 900, spacing: 4, color: C.cream, alpha: a1 });
     text(ctx, 'Yetkinliği', W / 2, 370 + (1 - a1) * 16, { size: 110, family: 'serif', italic: true, color: C.fire, alpha: a1, glow: 'rgba(255,140,40,0.45)', glowBlur: 30 });
-    const a2 = progress(t, cue('close', 1) + 1.4, cue('close', 1) + 2.2, ease.out);
-    text(ctx, 'Hoş geldiniz.', W / 2, 470, { size: 44, family: 'serif', italic: true, color: C.cream, alpha: a2 });
+    const a2 = progress(t, cue('close', 1) + 0.9, cue('close', 1) + 1.7, ease.out);
+    text(ctx, 'Birinci Kapı sizi bekliyor.', W / 2, 470, { size: 44, family: 'serif', italic: true, color: C.cream, alpha: a2 });
   }
 
   // ---------------------------------------------------------------------------
@@ -1362,14 +1374,14 @@
 
     // 1 · Ateşler
     m.pad(0, untilEnd('fires', 0, 0.3), ['D2', 'A2', 'D3', 'F3'], { gain: 0.26, attack: 3, release: 2.5, cutoff: 650 });
-    m.wind(0.2, span('fires', 0, 6.6), { gain: 0.05 });
+    m.wind(0.2, span('fires', 0, 6.1), { gain: 0.05 });
     PEAKS.forEach((p, i) => {
       const pan = (p.x - W / 2) / W;
       m.fireIgnite(ignite(i), { gain: i === 0 ? 0.5 : 0.26, pan });
       m.crackle(ignite(i), sceneEnd('fires') - ignite(i) - 0.3, { gain: i === ZOOM_PEAK ? 0.22 : 0.08, pan, density: 14, roar: 0.4 });
-      if (i > 0) m.whoosh(ignite(i) - 0.55, { dur: 0.6, from: 600, to: 2400, gain: 0.03, panFrom: pan - 0.15, panTo: pan });
+      if (i > 0) m.whoosh(ignite(i) - 0.45, { dur: 0.5, from: 600, to: 2400, gain: 0.03, panFrom: pan - 0.15, panTo: pan });
     });
-    m.whoosh(at('fires', 6.7), { dur: 1.6, from: 300, to: 1200, gain: 0.05 });
+    m.whoosh(at('fires', 6.2), { dur: 1.6, from: 300, to: 1200, gain: 0.05 });
     [0, 0.5, 0.95, 1.4, 1.85, 2.3, 2.75].forEach((d, i) => m.click(c('fire-bit', 0) + 0.35 + d, { gain: 0.1, tone: i % 2 ? 900 : 1500 }));
     ding(c('fire-bit', 1) + 0.9, 'D5', 0.1, 0, 3);
     m.whoosh(c('fire-bit', 2), { dur: 0.7, from: 2000, to: 600, gain: 0.05, panFrom: 0.8, panTo: 0.4 });
@@ -1403,21 +1415,21 @@
       m.fireIgnite(gateOn(i), { gain: 0.1, pan });
       ding(gateOn(i) + 0.05, scale[i], 0.07, pan, 2.2);
     }
-    m.crackle(gateOn(0), at('gates', 20.6) - gateOn(0), { gain: 0.06, density: 18, roar: 0.3 });
+    m.crackle(gateOn(0), at('gates', 17.6) - gateOn(0), { gain: 0.06, density: 18, roar: 0.3 });
     // hafif nabız: yolculuk duygusu
-    for (let tm = c('gates-list', 0); tm < at('gates', 20.4); tm += 0.5) m.tick(tm, { gain: 0.02, tone: 1800 });
+    for (let tm = c('gates-list', 0); tm < at('gates', 17.4); tm += 0.5) m.tick(tm, { gain: 0.02, tone: 1800 });
 
     // 5 · Kurstan görüntüler
     scenePad('screen', ['G2', 'D3', 'B3', 'F#4'], { gain: 0.22 });
     m.whoosh(at('screen', 0.1), { dur: 0.8, from: 400, to: 1600, gain: 0.04 });
-    m.hum(at('screen', 0.5), span('screen', 0.5, 17.6), { gain: 0.02 });
+    m.hum(at('screen', 0.5), span('screen', 0.5, 15.6), { gain: 0.02 });
     MONTAGE.forEach((cl, i) => {
       m.click(cl.start, { gain: 0.06, tone: 2200 });
       if (i) m.whoosh(cl.start - 0.1, { dur: 0.3, from: 1800, to: 900, gain: 0.025 });
     });
     [1, 2, 3].forEach((k, i) => pop(c('style', k), ['B4', 'D5', 'F#5'][i], -0.3 + i * 0.3, 0.06));
-    [0, 1, 2].forEach((k, i) => pop(c('example', k), ['G4', 'B4', 'D5'][i], -0.3 + i * 0.3, 0.06));
-    ding(c('example', 3) + 0.2, 'G5', 0.08, 0, 3);
+    [0, 1].forEach((k, i) => pop(c('example', k), ['G4', 'D5'][i], -0.2 + i * 0.4, 0.06));
+    ding(c('example', 2) + 0.2, 'G5', 0.08, 0, 3);
 
     // 6 · Kitap
     scenePad('book', ['C3', 'G3', 'E4', 'B4'], { gain: 0.2 });

@@ -13,33 +13,33 @@
 window.NARRATION = {
   lines: [
     // 1 · Tepeden tepeye ateş
-    { id: 'fire-chain', beat: 'fires.chain', offset: 0.6, say: 'Bir zamanlar haber, tepeden tepeye yakılan ateşlerle taşınırdı.' },
-    { id: 'fire-bit', beat: 'fires.bit', say: 'Ateş ya yanar ya da yanmaz: var ya da yok. Bugün cebinizdeki telefon da, aynı iki simgeyle konuşuyor.' },
+    { id: 'fire-chain', beat: 'fires.chain', offset: 0.3, say: 'Bir zamanlar önemli bir haber, tepeden tepeye yakılan ateşlerle taşınırdı.' },
+    { id: 'fire-bit', beat: 'fires.bit', say: 'Ateş ya yanar ya yanmaz: var ya da yok. Bugün cebinizdeki telefon da, aynı iki simgeyle konuşuyor.' },
 
     // 2 · İki simgeden her şey
-    { id: 'question', beat: 'question.ask', say: 'Peki yalnızca iki simgeden; harfler, fotoğraflar, oyunlar, hatta yapay zekâ nasıl doğuyor?' },
+    { id: 'question', beat: 'question.ask', say: 'Peki, harfler, fotoğraflar, oyunlar, hatta yapay zekâ, yalnızca iki simgeden nasıl doğuyor?' },
 
     // 3 · Kursun adı
     { id: 'title', beat: 'title.say', offset: 0.4, say: 'Bilişim Teknolojileri Yetkinliği, bu sorunun peşine düşen bir yolculuk.' },
 
-    // 4 · On iki kapı
-    { id: 'gates', beat: 'gates.intro', say: 'Yolculuk, on iki kapıdan geçiyor:' },
-    { id: 'gates-list', beat: 'gates.list', say: 'elektriğin sayıya dönüşmesinden makinenin bedenine; algoritmalardan yazılımın yapısına; veri tabanlarından internete; siber güvenlikten web ve mobile; robotlardan yapay zekâya; atölye kültüründen meslek seçimine kadar.' },
+    // 4 · Nasıl anlatılıyor (kurstan görüntüler)
+    { id: 'style', beat: 'screen.style', say: 'Konular, adım adım animasyonlarla anlatılıyor. Gerektiğinde önce kısa bir ön öğrenme, sonra asıl konu.' },
+    { id: 'example', beat: 'screen.example', say: 'Bir harfin sayıya dönüşmesini, aynı sayının üç ayrı anlam taşımasını; hepsini gözünüzün önünde kuruyoruz.' },
 
-    // 5 · Nasıl anlatılıyor
-    { id: 'style', beat: 'screen.style', say: 'Her konu, adım adım ilerleyen animasyonlarla anlatılıyor. Gerektiğinde önce bir ön öğrenme yapıyor, sonra asıl konuya geçiyoruz.' },
-    { id: 'example', beat: 'screen.example', say: 'Bir harfin nasıl sayıya dönüştüğünü, kapıların nasıl toplama yaptığını, aynı sayının nasıl üç ayrı anlama geldiğini; hepsini gözünüzün önünde kuruyoruz.' },
+    // 5 · On iki kapı
+    { id: 'gates', beat: 'gates.intro', say: 'Bu yolculuk on iki kapıdan geçecek:' },
+    { id: 'gates-list', beat: 'gates.list', say: 'bitten işlemciye; algoritmadan yazılıma; veri tabanından internete; siber güvenlikten web ve mobile; robotlardan yapay zekâya; atölyeden mesleğe kadar.' },
 
-    // 6 · Ders kitabı
-    { id: 'book', beat: 'book.say', say: 'Videolara eşlik eden ders kitabı ve etkinliklerle, öğrendiklerinizi kalem elde pekiştiriyorsunuz.' },
+    // 6 · Şimdi açık olan
+    { id: 'now', beat: 'now.say', say: 'Şimdilik birinci kapı açık, dört bölümüyle. Diğer kapılar da, birer birer açılacak; açıldıkça sizin de olacak.' },
 
-    // 7 · Kimler için
-    { id: 'who', beat: 'who.say', say: 'Ön bilgi gerekmiyor. Bilişim Teknolojileri alanını seçmeyi düşünen bir öğrenci de, teknolojinin perde arkasını merak eden bir yetişkin de, buradan başlayabilir.' },
+    // 7 · Ders kitabı
+    { id: 'book', beat: 'book.say', say: 'İlk bölümün ders kitabı ve etkinlikleri de hazır: öğrendiklerinizi kalem elde pekiştiriyorsunuz.' },
 
-    // 8 · Şimdi açık olan
-    { id: 'now', beat: 'now.say', say: 'Birinci kapı, dört bölümüyle açık. Diğer kapılar, birer birer açılacak.' },
+    // 8 · Kimler için
+    { id: 'who', beat: 'who.say', say: 'Ön bilgi gerekmez. Bilişim alanını düşünen öğrenciler, perde arkasını merak eden yetişkinler, öğretmenler ve veliler; herkes buradan başlayabilir.' },
 
     // 9 · Kapanış
-    { id: 'close', beat: 'close.say', say: 'İlk ateşi birlikte yakalım. Bilişim Teknolojileri Yetkinliği’ne hoş geldiniz.' },
+    { id: 'close', beat: 'close.say', say: 'İlk ateşi birlikte yakalım. Birinci Kapı sizi bekliyor.' },
   ],
 };
