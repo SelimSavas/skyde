@@ -3,7 +3,7 @@ const { chromium } = require('playwright');
 const { spawn } = require('child_process');
 const path = require('path');
 
-const FPS = 30, DUR = 20;
+const FPS = 30, DUR = 22;
 (async () => {
   const [mode, arg] = process.argv.slice(2);
   const browser = await chromium.launch();

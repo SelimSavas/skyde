@@ -1,11 +1,11 @@
-SKYDE — Instagram Reel / Shorts voiceover (English, 20 s)
+SKYDE — Instagram Reel / Shorts voiceover (English, 22 s)
 Calm, warm, confident tone. ~130 words per minute.
 
-[00.0 – 03.2]  Weather apps give you numbers.
-[03.5 – 07.2]  Skyde gives you answers — in plain, simple words.
-[07.6 – 12.8]  Just pick your plan, and the exact time you'll be out.
-[13.2 – 16.8]  Skyde watches that hour, and alerts you before the weather turns.
-[17.3 – 20.0]  Skyde. Plan the moment, not the forecast.
+[00.4 – 02.2]  Weather apps give you numbers.
+[03.4 – 07.6]  Skyde gives you answers — in plain, simple words.
+[07.8 – 11.0]  Just pick your plan, and the exact time you'll be out.
+[13.2 – 17.1]  Skyde watches that hour, and alerts you before the weather turns.
+[17.6 – 21.1]  Skyde. Plan the moment, not the forecast.
 
 --- Plain script (for recording) ---
 Weather apps give you numbers.
