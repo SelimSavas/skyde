@@ -912,7 +912,7 @@
   // Ekrandaki parçaların filmdeki aralıkları (gerçek zaman)
   const montage = () => {
     const on = TL.at('screen', 1.0);
-    const off = sceneEnd('screen') - 0.55;
+    const off = sceneEnd('screen'); // son parça sahnenin kararmasıyla birlikte söner (montaj.mjs)
     return [
       ['ladder', on, cue('style', 2)],
       ['adder', cue('style', 2), cue('example', 0)],

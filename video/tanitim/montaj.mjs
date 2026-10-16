@@ -48,7 +48,8 @@ clips.forEach((c, i) => {
   inputs.push('-ss', c.from.toFixed(3), '-t', take.toFixed(3), '-i', src);
   const fades = [];
   if (i === 0) fades.push('fade=t=in:st=0:d=0.3:alpha=1');
-  if (i === clips.length - 1) fades.push(`fade=t=out:st=${(dur - 0.3).toFixed(3)}:d=0.3:alpha=1`);
+  // son parça, sahne kararırken (film.js'te sahne geçişi 0,45 sn) onunla birlikte söner
+  if (i === clips.length - 1) fades.push(`fade=t=out:st=${(dur - 0.45).toFixed(3)}:d=0.45:alpha=1`);
   const pad = dur > take + 0.01 ? [`tpad=stop_mode=clone:stop_duration=${(dur - take + 0.1).toFixed(3)}`] : [];
   chains.push(`[${i + 1}:v]${['setpts=PTS-STARTPTS', ...pad, `scale=${S.w}:${S.h}:flags=lanczos`, 'format=yuva420p', ...fades, `setpts=PTS+${c.start.toFixed(3)}/TB`].join(',')}[c${i}]`);
   chains.push(`${last}[c${i}]overlay=${S.x}:${S.y}:eof_action=pass:enable='between(t,${c.start.toFixed(3)},${c.end.toFixed(3)})'[v${i}]`);
