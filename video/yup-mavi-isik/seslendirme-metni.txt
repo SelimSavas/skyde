@@ -1,48 +1,68 @@
-YUP Akademi — Gecenin Mavi Işığı: seslendirme metni
-(Sakin, merak uyandıran, samimi bir anlatıcı. Satır başındaki kimlikler yalnızca dosya adı içindir, okunmaz.)
+YUP Akademi — Gecenin Mavi Işığı: seslendirme metni (tamamı, 65 satır)
+(Sakin, merak uyandıran, samimi bir anlatıcı. * işaretli satırlar yeni; kimlikler okunmaz.)
 
-[h-night]  Gece saat bir buçuk. Yarın erken kalkman gerekiyor; ama elinde telefon, sadece beş dakika daha diyorsun.
-[h-off]  Sonunda ekranı kapatıyorsun. Oda karanlık, gözlerin kapalı.
-[h-awake]  Ama uyku gelmiyor. Çünkü beyninin derinlerinde bir saat, hâlâ gündüz olduğunu düşünüyor.
-[h-promise]  Bu videoda, o saati neyin ve nasıl kandırdığını, adım adım göreceğiz.
-[c-earth]  Dünya yirmi dört saatte bir döner; gece ile gündüz birbirini kovalar.
-[c-body]  Vücudumuz da bu ritme uyar: vücut ısısı, hormonlar, uyanıklık, hatta acıkma saatimiz.
-[c-name]  Bu ritme sirkadiyen ritim denir; Latincede, yaklaşık bir gün demektir.
-[c-period]  İlginç olan şu: iç saatimiz tam yirmi dört saat değil. Kontrollü deneylerde, ortalama yirmi dört saat on bir dakika ölçülmüş.
-[c-reset]  Yani saatimiz her gün biraz kayar. Onu her sabah yeniden ayarlayan şey ise ışıktır.
-[s-where]  Bu saatin merkezi, beynin derinlerinde, hipotalamusta durur: suprakiyazmatik çekirdek, kısaca SCN.
-[s-size]  Görme sinirlerinin çaprazlaştığı noktanın hemen üstünde, iki küçük hücre kümesi; toplamı yaklaşık yirmi bin nöron.
-[s-conductor]  SCN bir orkestra şefi gibidir. Vücuttaki bütün saatlere, aynı tempoda çalmalarını söyler.
-[m-call]  Hava kararınca şef, beynin derinlerindeki küçük bir bezi göreve çağırır: epifiz bezi.
-[m-path]  Bu çağrı dolambaçlı bir yoldan gider: omurilikten aşağı iner, boyundaki bir sinir düğümünden geçer ve epifize geri döner.
-[m-curve]  Epifiz kana melatonin salar. Gündüz kanda neredeyse hiç melatonin yoktur; akşam yükselir, gece doruğa çıkar, sabaha doğru yeniden düşer.
-[m-signal]  Melatonin bir uyku hapı değildir. Vücuda yalnızca şunu söyler: dışarıda gece var.
-[m-effect]  Vücut ısısı biraz düşer, beden dinlenmeye hazırlanır; uykunun kapısı aralanır.
-[e-how]  Peki şef, dışarıda gece olduğunu nereden biliyor? Gözlerimizden.
-[e-rods]  Gözün arkasındaki retinada, görmemizi sağlayan çubuk ve koni hücreleri vardır. Şekilleri ve renkleri onlar yakalar.
-[e-discovery]  Ama iki bin iki yılında, bilim insanları retinada üçüncü bir ışık algılayıcı buldu: ışığa kendiliğinden duyarlı ganglion hücreleri.
-[e-measure]  Bu hücreler şekil görmez. İçlerindeki melanopsin pigmentiyle yalnızca şunu ölçerler: ortam ne kadar aydınlık?
-[e-blue]  En hassas oldukları renk de mavidir; dalga boyu dört yüz seksen nanometre civarındaki ışık.
-[e-wire]  Ve ölçtüklerini, özel bir sinir yoluyla doğrudan SCN’ye bildirirler.
-[e-blind]  Bu yol görmeden o kadar ayrıdır ki, ışığı bilinçli olarak göremeyen bazı görme engelli insanlarda bile, parlak ışık melatonini hâlâ bastırabilir.
-[x-back]  Şimdi gece yarısına dönelim. Telefon ekranları ve beyaz LED lambalar, mavi bakımından zengin bir ışık yayar.
-[x-report]  Gözündeki dedektif bu ışığı ölçer ve SCN’ye haber verir: hâlâ gündüz.
-[x-stop]  Şef de epifize, melatonini durdurmasını söyler.
-[x-study]  Bunun etkisi ölçülebilir. İki bin yirmi beşte yayımlanan küçük bir deneyde, on iki kişi akşam üç saat boyunca mavi ya da kırmızı LED ışığında oturdu.
-[x-result]  İkinci saatin sonunda, mavi ışıktakilerin melatonin düzeyi, kırmızı ışıktakilerin üçte birinden azdı.
-[x-tablet]  İki bin on beşte yayımlanan bir başka deneyde, yatmadan önce dört saat tablette okuyanlar, basılı kitap okuyanlara göre daha geç uykuya daldı. İç saatleri ileri kaydı; sabah da daha az dinç uyandılar.
-[x-dim]  Üstelik bunun için güçlü bir ışık gerekmiyor. İki bin on dokuz tarihli bir çalışmada, melatonini yarıya indirmeye otuz lüksten az ışık yetti; bu, gece kullandığımız sıradan bir oda ışığından daha loş.
-[x-vary]  İnsanlar arasındaki fark da büyüktü: en hassas kişi, en dayanıklı kişiden elli kat daha az ışıkla etkilendi.
-[n-honest]  Yine de dürüst olalım: geceleri uyuyamamamızın tek sebebi ışık değil.
-[n-content]  Kaydırdığımız içerik de beyni uyanık tutar: bir bildirim, bir tartışma, bir sonraki video.
-[n-filter]  Gece modu gibi filtreler de tek başına mucize değil. Yüz altmış yedi gençle yapılan bir deneyde, gece modunu açmak uykuyu ölçülebilir biçimde iyileştirmedi.
-[n-amount]  Öte yandan ekranın gözü uyaran ışığı gerçekten azaltıldığında, uykuya dalmak kolaylaşıyor. Yani asıl önemli olan renk tonu değil, gözüne ulaşan ışığın miktarı.
-[r-rules]  Peki ne yapabiliriz? Işık bilimcilerinin iki bin yirmi iki tarihli ortak önerileri, üç basit kurala çıkıyor.
-[r-day]  Bir: gündüz bol ışık. Sabah dışarıda geçirilen kısa bir zaman bile, iç saati doğru yöne ayarlar.
-[r-evening]  İki: yatmadan önceki üç saatte, ışığı azalt. Tavan lambası yerine loş ve sıcak renkli lambalar; ekranın parlaklığını en aza indir.
-[r-night]  Üç: uyurken karanlık. Yatak odan ne kadar karanlıksa, iç saatin o kadar rahat.
-[r-phone]  Ve en etkilisi hâlâ en basiti: yatmadan bir saat önce, telefonu odanın dışında bırakmak.
-[z-fire]  Milyonlarca yıl boyunca gecenin tek ışığı ay ve ateşti. Biyolojimiz hâlâ o dünyaya göre ayarlı.
-[z-remember]  Ekranları atmamıza gerek yok. Sadece, beynimize saatin kaç olduğunu söyleyenin ışık olduğunu hatırlamamız yeterli.
-[z-tonight]  Bu gece ekranı biraz erken bırak; yarın sabah da biraz güneş al. İç saatin sana teşekkür edecek.
-[z-end]  YUP Akademi’de görüşmek üzere.
+  [h-night]  Gece saat bir buçuk. Yarın erken kalkman gerekiyor; ama elinde telefon, sadece beş dakika daha diyorsun.
+  [h-off]  Sonunda ekranı kapatıyorsun. Oda karanlık, gözlerin kapalı.
+  [h-awake]  Ama uyku gelmiyor. Çünkü beyninin derinlerinde bir saat, hâlâ gündüz olduğunu düşünüyor.
+* [h-know]  Belki sen de tanıyorsun: pazar gecesi bir türlü gelmeyen uyku, sabah beş kez ertelenen alarm, öğleden sonra çöken enerji.
+* [h-plan]  Bu videoda o saatin nasıl çalıştığını, ışığın onu nasıl kandırdığını ve en önemlisi, bu akşamdan itibaren neyi farklı yapabileceğini göreceğiz.
+  [c-earth]  Dünya yirmi dört saatte bir döner; gece ile gündüz birbirini kovalar.
+  [c-body]  Vücudumuz da bu ritme uyar: vücut ısısı, hormonlar, uyanıklık, hatta acıkma saatimiz.
+  [c-name]  Bu ritme sirkadiyen ritim denir; Latincede, yaklaşık bir gün demektir.
+  [c-period]  İlginç olan şu: iç saatimiz tam yirmi dört saat değil. Kontrollü deneylerde, ortalama yirmi dört saat on bir dakika ölçülmüş.
+  [c-reset]  Yani saatimiz her gün biraz kayar. Onu her sabah yeniden ayarlayan şey ise ışıktır.
+* [c-jetlag]  Bu kaymayı hepimiz yaşarız. Hafta sonu geç yatıp öğlene kadar uyuduğunda, sabah ışığını kaçırırsın ve iç saatin ileri kayar. Pazartesi sabahı alarm çaldığında vücudun, sanki başka bir saat diliminden yeni dönmüş gibidir. Buna sosyal jet lag denir.
+  [s-where]  Bu saatin merkezi, beynin derinlerinde, hipotalamusta durur: suprakiyazmatik çekirdek, kısaca SCN.
+  [s-size]  Görme sinirlerinin çaprazlaştığı noktanın hemen üstünde, iki küçük hücre kümesi; toplamı yaklaşık yirmi bin nöron.
+  [s-conductor]  SCN bir orkestra şefi gibidir. Vücuttaki bütün saatlere, aynı tempoda çalmalarını söyler.
+  [m-call]  Hava kararınca şef, beynin derinlerindeki küçük bir bezi göreve çağırır: epifiz bezi.
+  [m-curve]  Epifiz kana melatonin salar. Gündüz kanda neredeyse hiç melatonin yoktur; akşam yükselir, gece doruğa çıkar, sabaha doğru yeniden düşer.
+  [m-signal]  Melatonin bir uyku hapı değildir. Vücuda yalnızca şunu söyler: dışarıda gece var.
+  [m-effect]  Vücut ısısı biraz düşer, beden dinlenmeye hazırlanır; uykunun kapısı aralanır.
+  [e-how]  Peki şef, dışarıda gece olduğunu nereden biliyor? Gözlerimizden.
+  [e-rods]  Gözün arkasındaki retinada, görmemizi sağlayan çubuk ve koni hücreleri vardır. Şekilleri ve renkleri onlar yakalar.
+  [e-discovery]  Ama iki bin iki yılında, bilim insanları retinada üçüncü bir ışık algılayıcı buldu: ışığa kendiliğinden duyarlı ganglion hücreleri.
+  [e-measure]  Bu hücreler şekil görmez. İçlerindeki melanopsin pigmentiyle yalnızca şunu ölçerler: ortam ne kadar aydınlık?
+  [e-blue]  En hassas oldukları renk de mavidir; dalga boyu dört yüz seksen nanometre civarındaki ışık.
+  [e-wire]  Ve ölçtüklerini, özel bir sinir yoluyla doğrudan SCN’ye bildirirler.
+  [e-blind]  Bu yol görmeden o kadar ayrıdır ki, ışığı bilinçli olarak göremeyen bazı görme engelli insanlarda bile, parlak ışık melatonini hâlâ bastırabilir.
+* [e-every]  Bu dedektif hiç mesai bitirmez: gece banyoda yaktığın parlak tavan lambasını da, yatakta yüzüne tuttuğun ekranı da not eder.
+* [d-meter]  Peki gün içinde gözümüze gerçekte ne kadar ışık giriyor? Işığı ölçen bir aletle, sıradan bir günü takip edelim. Işığın birimi lükstür.
+* [d-out]  Bulutlu bir günde bile dışarıda ışık birkaç bin lükse çıkar; güneşli bir öğlede ise on binleri aşar.
+* [d-in]  Evin ya da ofisin içi ise çoğu zaman birkaç yüz lükstür; pencereden uzaklaştıkça daha da azalır. Yani gününü içeride geçiren birinin beyni için gündüz, olması gerekenden çok daha loştur.
+* [d-evening]  Akşam ise tam tersi olur: tavan lambaları ve ekranlar, iç saate hâlâ gündüz sinyali verir. Kısacası, gündüzlerimiz fazla karanlık, gecelerimiz fazla aydınlık.
+* [d-camp]  Bunu en güzel bir kamp deneyi gösterdi. Bir hafta boyunca elektrik ışığı olmadan, yalnızca güneş ve kamp ateşiyle yaşayan gönüllülerin iç saati, yaklaşık iki saat erkene kaydı.
+* [d-sunset]  Melatoninleri gün batımıyla birlikte yükselmeye başladı; sabah da biyolojik gecenin ortasında değil, sonunda uyandılar.
+* [d-weekend]  Üstelik bir hafta sonu kampı bile, bu saati bir buçuk saate yakın erkene çekmeye yetti.
+  [x-back]  Şimdi gece yarısına dönelim. Telefon ekranları ve beyaz LED lambalar, mavi bakımından zengin bir ışık yayar.
+  [x-report]  Gözündeki dedektif bu ışığı ölçer ve SCN’ye haber verir: hâlâ gündüz.
+  [x-stop]  Şef de epifize, melatonini durdurmasını söyler.
+  [x-study]  Bunun etkisi ölçülebilir. İki bin yirmi beşte yayımlanan küçük bir deneyde, on iki kişi akşam üç saat boyunca mavi ya da kırmızı LED ışığında oturdu.
+  [x-result]  İkinci saatin sonunda, mavi ışıktakilerin melatonin düzeyi, kırmızı ışıktakilerin üçte birinden azdı.
+  [x-tablet]  İki bin on beşte yayımlanan bir başka deneyde, yatmadan önce dört saat tablette okuyanlar, basılı kitap okuyanlara göre daha geç uykuya daldı. İç saatleri ileri kaydı; sabah da daha az dinç uyandılar.
+  [x-dim]  Üstelik bunun için güçlü bir ışık gerekmiyor. İki bin on dokuz tarihli bir çalışmada, melatonini yarıya indirmeye otuz lüksten az ışık yetti; bu, gece kullandığımız sıradan bir oda ışığından daha loş.
+  [x-vary]  İnsanlar arasındaki fark da büyüktü: en hassas kişi, en dayanıklı kişiden elli kat daha az ışıkla etkilendi.
+* [x-friend]  Yani arkadaşın gece telefona bakıp rahatça uyuyabiliyorsa, bu senin için de aynı olacak demek değil.
+  [n-honest]  Yine de dürüst olalım: geceleri uyuyamamamızın tek sebebi ışık değil.
+  [n-content]  Kaydırdığımız içerik de beyni uyanık tutar: bir bildirim, bir tartışma, bir sonraki video.
+  [n-filter]  Gece modu gibi filtreler de tek başına mucize değil. Yüz altmış yedi gençle yapılan bir deneyde, gece modunu açmak uykuyu ölçülebilir biçimde iyileştirmedi.
+  [n-amount]  Öte yandan ekranın gözü uyaran ışığı gerçekten azaltıldığında, uykuya dalmak kolaylaşıyor. Yani asıl önemli olan renk tonu değil, gözüne ulaşan ışığın miktarı.
+  [r-rules]  Peki ne yapabiliriz? Işık bilimcilerinin iki bin yirmi iki tarihli ortak önerileri, üç basit kurala çıkıyor.
+  [r-day]  Bir: gündüz bol ışık. Sabah dışarıda geçirilen kısa bir zaman bile, iç saati doğru yöne ayarlar.
+* [p-morning]  Pratikte bu şu demek: uyanınca perdeyi sonuna kadar aç. Kahvaltını pencerenin önünde yap; mümkünse işe ya da okula giderken bir durak önce in ve yürü.
+* [p-desk]  Gün içinde masanı pencereye yaklaştır; öğle arasında birkaç dakikalığına da olsa dışarı çık. Bulutlu bir gün bile, evin içinden kat kat aydınlıktır.
+  [r-evening]  İki: yatmadan önceki üç saatte, ışığı azalt. Tavan lambası yerine loş ve sıcak renkli lambalar; ekranın parlaklığını en aza indir.
+* [p-lamp]  Bunun en kolay yolu, akşam yemeğinden sonra tavan lambasını kapatıp küçük, sarı ışıklı bir lamba yakmak. Ampul alırken kutusundaki kelvin değerine bak: iki bin yedi yüz gibi düşük bir sayı, sıcak ve sarı bir ışık demektir.
+* [p-distance]  Telefonu kullanman gerekiyorsa, ekranı yüzüne yaklaştırma. Ekranı iki kat uzağa tuttuğunda, gözüne ulaşan ışık kabaca dörtte birine iner.
+  [r-night]  Üç: uyurken karanlık. Yatak odan ne kadar karanlıksa, iç saatin o kadar rahat.
+* [p-sleeplight]  Bu yalnızca uyku için değil. Bir deneyde, tavan lambası açıkken tek bir gece uyuyan sağlıklı gençlerin, uyku boyunca kalp atışı hızlandı; ertesi sabah da kan şekerini düzenleyen insüline verdikleri yanıt zayıfladı.
+* [p-dark]  Karartma perde ya da bir uyku bandı; şarj aletlerinin küçük ışıklarına bir parça bant. Gece kalkarsan da tavan lambasını değil, yere yakın, kısık ve sarı bir gece lambasını yak.
+  [r-phone]  Ve en etkilisi hâlâ en basiti: yatmadan bir saat önce, telefonu odanın dışında bırakmak.
+* [p-alarm]  Alarm için basit bir masa saati yeter. Yatakta ekran kaydırmak yerine kitap oku, müzik dinle ya da yarının listesini bir kâğıda yaz.
+* [p-weekend]  Hafta sonları da kalkış saatini çok kaydırma; farkı bir saat civarında tutmak, pazartesi sabahlarını kolaylaştırır.
+* [p-days]  İç saat bir gecede değil, her gün biraz kayar. Bu yüzden bu alışkanlıkları en az bir hafta dene; sonucu tek gecede değil, günler içinde görürsün.
+* [p-doctor]  Ama haftalardır uyuyamıyorsan ya da gün boyu sürekli yorgunsan, bu ipuçlarıyla yetinme; bir hekime danış.
+  [z-fire]  Milyonlarca yıl boyunca gecenin tek ışığı ay ve ateşti. Biyolojimiz hâlâ o dünyaya göre ayarlı.
+  [z-remember]  Ekranları atmamıza gerek yok. Sadece, beynimize saatin kaç olduğunu söyleyenin ışık olduğunu hatırlamamız yeterli.
+  [z-tonight]  Bu gece ekranı biraz erken bırak; yarın sabah da biraz güneş al. İç saatin sana teşekkür edecek.
+  [z-end]  YUP Akademi’de görüşmek üzere.

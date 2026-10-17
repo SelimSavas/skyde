@@ -15,9 +15,18 @@ Senaryodaki her bilgi aşağıdaki kaynaklara dayanır. Video açıklamasına da
 | Gece modu (Night Shift) 167 genç yetişkinde uykuyu iyileştirmedi | Duraccio, Zaugg, Blackburn & Jensen (2021), *Sleep Health*, doi:10.1016/j.sleh.2021.03.005 — BYU çalışması |
 | Ekranın melanopik ışığını düşürmek uykuya dalmayı hızlandırır, melatonin baskısını azaltır (72 kişi) | Schöllhorn ve ark. (2023), *Communications Biology* 6:228 |
 | Gündüz bol ışık (≥ 250 lüks mEDI), yatmadan önceki 3 saatte ≤ 10 lüks, uykuda ≤ 1 lüks | Brown ve ark. (2022), *PLOS Biology* 20(3):e3001571 — uzman uzlaşı önerileri |
+| Sosyal jet lag: hafta sonu ile hafta içi uyku saatleri arasındaki fark, iç saati "başka bir saat dilimine" kaydırır | Wittmann, Dinich, Merrow & Roenneberg (2006), *Chronobiology International* 23:497 — "Social jetlag: misalignment of biological and social time" |
+| Dışarıda bulutlu günde birkaç bin lüks, güneşli öğlede on binlerce lüks; ev ve ofis içi çoğunlukla birkaç yüz lüks, pencereden uzaklaştıkça daha az | Tipik aydınlık düzeyleri (ofis çalışma alanı ≈ 300–500 lx, bulutlu gün ≈ 1.000–10.000 lx, güneşli gün ≈ 10.000–100.000 lx); aydınlatma tasarım kaynakları ve Brown ve ark. (2022) |
+| 1 hafta yalnızca doğal ışıkla kamp: iç saat ≈ 2 saat erkene kaydı, melatonin gün batımıyla başladı, uyanıştan önce bitti (8 kişi) | Wright ve ark. (2013), *Current Biology* 23(16):1554 — "Entrainment of the human circadian clock to the natural light-dark cycle" |
+| Hafta sonu kampı (2 gün) melatonin başlangıcını ≈ 1,4 saat erkene çekti; bir haftalık etkinin ≈ %69'u (9 kişi) | Stothard ve ark. (2017), *Current Biology* 27(4):508 — "Circadian entrainment to the natural light-dark cycle across seasons and the weekend" |
+| Tek gece 100 lüks tavan ışığında uyku: gece kalp atışı ↑, kalp atışı değişkenliği ↓, ertesi sabah insülin direnci ↑ (20 sağlıklı genç yetişkin) | Mason ve ark. (2022), *PNAS* 119(12):e2113290119 — "Light exposure during sleep impairs cardiometabolic function" |
+| Işık kaynağından iki kat uzaklaşınca göze ulaşan ışık kabaca dörtte birine iner | Ters kare yasası (küçük kaynaklar için yaklaşık) |
+| 2700 K gibi düşük renk sıcaklığı sıcak/sarı ışık demektir; sıcak ışığın melanopik etkisi aynı parlaklıktaki soğuk beyaz ışıktan düşüktür | Renk sıcaklığı tanımı; melanopik oran için Brown ve ark. (2022) ve CIE S 026 |
 | İçerik ve etkileşim de uyanıklığı artırır; ekran öncesi uykuda tek etken ışık değildir | Hale & Guan (2015) ve gençler için ekran-uyku önerileri derlemesi (PMC5839336); 2024 yetişkin kohortu (*Sleep Medicine*) |
 
 Notlar
 - Örnek taslaktaki "2 saatte 8,3 – 16,6 pg/mL" bilgisi, makalede 3. saate aittir; 2. saatte değerler 7,5 – 26,0 pg/mL'dir.
 - Görme engellilerdeki etki herkeste görülmez; 1995 çalışmasında 11 kişiden 3'ünde görülmüştür.
-- "Yatmadan bir saat önce telefonu bırak" önerisi uyku uzmanlarının genel tavsiyesidir; tek bir çalışmanın bulgusu değildir.
+- "Yatmadan bir saat önce telefonu bırak", "alarm için masa saati", "hafta sonu farkı ≈ 1 saat", "en az bir hafta dene" ve gece lambası önerileri uyku uzmanlarının genel tavsiyeleridir; tek bir çalışmanın bulgusu değildir.
+- Kamp grafiğindeki saatler şemadır; çalışmalardaki ortalama kaymayı (≈ 2 saat, ≈ 1,4 saat) gösterir.
+- "Doğada / Bugün" karşılaştırmasındaki lüks değerleri tipik ölçümlerdir, tek bir çalışmanın verisi değildir.
