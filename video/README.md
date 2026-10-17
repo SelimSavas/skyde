@@ -89,7 +89,7 @@ Her satır ayrı bir kayıt dosyası olarak (`<id>.mp3`, id'ler `narration.js`'t
 `<bölüm>/seslendirme-metni.txt`'de) bir klasöre konursa, görüntü yeniden dökülmeden eklenir:
 
 ```bash
-node video/dub.mjs ch01-var-ve-yok --kayit video/seslendirme \
+node video/dub.mjs ch01-var-ve-yok --kayit video/seslendirme/Bölüm1.1 \
   --video video/out/ch01-var-ve-yok.mp4,video/out/ch01-var-ve-yok-paylasim.mp4
 # → video/out/ch01-var-ve-yok-seslendirme.mp4 (görüntü akışı kopyalanır, yalnızca ses yeniden karışır)
 
