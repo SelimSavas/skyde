@@ -192,17 +192,16 @@
     }
   }
 
+  // Sade sesler: elektrik uğultusu ve cızırtı efekti yok (konuşmanın üstünde parazit gibi duyuluyordu)
   function graphSound(m, hz, s) {
     const { cue: c } = s.api;
-    if (s.lineId === 'e-volt') m.hum(c('e-volt', 0), 3, { gain: 0.04 });
-    if (s.lineId === 'e-wobble') m.staticNoise(c('e-wobble', 1), 1.6, { gain: 0.03 });
-    if (s.lineId === 'e-ten') m.buzz(c('e-ten', 1) + 0.35, { gain: 0.08, dur: 0.3 });
+    if (s.lineId === 'e-ten') m.pop(c('e-ten', 1) + 0.35, { freq: hz('D5'), gain: 0.05 });
     if (s.lineId === 'e-two') {
-      m.bell(c('e-two', 1), { freq: hz('E5'), gain: 0.07, decay: 2 });
-      m.pop(c('e-two', 2), { freq: hz('B5'), gain: 0.07 });
-      m.pop(c('e-two', 3), { freq: hz('E4'), gain: 0.07 });
+      m.bell(c('e-two', 1), { freq: hz('E5'), gain: 0.05, decay: 2 });
+      m.pop(c('e-two', 2), { freq: hz('B5'), gain: 0.05 });
+      m.pop(c('e-two', 3), { freq: hz('E4'), gain: 0.05 });
     }
-    if (s.lineId === 'e-safe') m.bell(c('e-safe', 1), { freq: hz('G#5'), gain: 0.08, decay: 2.4 });
+    if (s.lineId === 'e-safe') m.bell(c('e-safe', 1), { freq: hz('G#5'), gain: 0.05, decay: 2.4 });
   }
 
   function finaleScene(ctx, t, { start }) {
@@ -216,6 +215,9 @@
   window.FILM = Kisa.short({
     title: 'Kısa · Bilgisayar neden sadece 0 ve 1 ile sayar?',
     pad: ['D2', 'A2', 'F#3', 'C#4'],
+    padGain: 0.08,
+    padCutoff: 520,
+    whoosh: false,
     teaser: [],
     pause: { 'e-hook': 0.3, 'e-ten': 0.3, 'e-safe': 0.4 },
     shots: {

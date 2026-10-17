@@ -393,11 +393,11 @@
 
     function score(m, hz) {
       const dur = TL.duration;
-      m.pad(0, dur, def.pad ?? ['D2', 'A2', 'D3', 'F#3'], { gain: 0.2, attack: 0.25, release: 1.2, cutoff: 900 });
+      m.pad(0, dur, def.pad ?? ['D2', 'A2', 'D3', 'F#3'], { gain: def.padGain ?? 0.2, attack: 0.25, release: 1.2, cutoff: def.padCutoff ?? 900 });
       m.boom(0.02, { gain: 0.3 });
       const all = Object.values(SHOTS).flat();
       for (const s of all) {
-        if (s.start > 0.05) m.whoosh(s.start - 0.1, { dur: 1, from: 300, to: 900, gain: 0.018 });
+        if (s.start > 0.05 && def.whoosh !== false) m.whoosh(s.start - 0.1, { dur: 1, from: 300, to: 900, gain: 0.018 });
         if (s.sound) s.sound(m, hz, s);
         if (s.label || s.finale || s.draw) continue;
         const rate = s.rate ?? 1;
