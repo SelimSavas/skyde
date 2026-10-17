@@ -17,665 +17,665 @@ Sonunda ekranı kapatıyorsun.
 Oda karanlık, gözlerin kapalı.
 
 5
-00:00:17,940 --> 00:00:21,920
+00:00:17,940 --> 00:00:21,940
 Ama uyku gelmiyor. Çünkü
 beyninin derinlerinde bir saat,
 
 6
-00:00:21,960 --> 00:00:24,100
+00:00:21,980 --> 00:00:24,200
 hâlâ gündüz olduğunu düşünüyor.
 
 7
-00:00:25,560 --> 00:00:29,960
+00:00:25,560 --> 00:00:29,540
 Belki sen de tanıyorsun: pazar
 gecesi bir türlü gelmeyen uyku,
 
 8
-00:00:30,000 --> 00:00:34,440
+00:00:29,580 --> 00:00:33,560
 sabah beş kez ertelenen alarm,
 öğleden sonra çöken enerji.
 
 9
-00:00:37,140 --> 00:00:43,420
+00:00:36,180 --> 00:00:41,500
 Bu videoda o saatin nasıl çalıştığını,
 ışığın onu nasıl kandırdığını ve en önemlisi,
 
 10
-00:00:43,460 --> 00:00:47,200
+00:00:41,540 --> 00:00:44,880
 bu akşamdan itibaren neyi
 farklı yapabileceğini göreceğiz.
 
 11
-00:00:52,000 --> 00:00:57,200
+00:00:49,520 --> 00:00:54,420
 Dünya yirmi dört saatte bir döner;
 gece ile gündüz birbirini kovalar.
 
 12
-00:00:57,940 --> 00:01:01,820
+00:00:55,480 --> 00:00:59,340
 Vücudumuz da bu ritme uyar:
 vücut ısısı, hormonlar,
 
 13
-00:01:01,860 --> 00:01:04,200
+00:00:59,380 --> 00:01:01,920
 uyanıklık, hatta acıkma saatimiz.
 
 14
-00:01:05,020 --> 00:01:09,960
+00:01:02,580 --> 00:01:07,700
 Bu ritme sirkadiyen ritim denir;
 Latincede, yaklaşık bir gün demektir.
 
 15
-00:01:10,820 --> 00:01:14,720
+00:01:08,360 --> 00:01:12,200
 İlginç olan şu: iç saatimiz
 tam yirmi dört saat değil.
 
 16
-00:01:14,880 --> 00:01:19,480
+00:01:12,420 --> 00:01:17,140
 Kontrollü deneylerde, ortalama yirmi
 dört saat on bir dakika ölçülmüş.
 
 17
-00:01:21,200 --> 00:01:23,540
+00:01:18,740 --> 00:01:21,160
 Yani saatimiz her gün biraz kayar.
 
 18
-00:01:23,680 --> 00:01:27,140
+00:01:21,220 --> 00:01:24,600
 Onu her sabah yeniden
 ayarlayan şey ise ışıktır.
 
 19
-00:01:29,100 --> 00:01:31,580
+00:01:26,640 --> 00:01:28,580
 Bu kaymayı hepimiz yaşarız.
 
 20
-00:01:31,620 --> 00:01:37,700
+00:01:28,620 --> 00:01:33,720
 Hafta sonu geç yatıp öğlene kadar uyuduğunda,
 sabah ışığını kaçırırsın ve iç saatin
 
 21
-00:01:37,740 --> 00:01:42,160
+00:01:33,760 --> 00:01:37,400
 ileri kayar. Pazartesi sabahı
 alarm çaldığında vücudun,
 
 22
-00:01:42,200 --> 00:01:45,360
+00:01:37,540 --> 00:01:40,360
 sanki başka bir saat
 diliminden yeni dönmüş gibidir.
 
 23
-00:01:45,400 --> 00:01:48,280
+00:01:40,400 --> 00:01:42,600
 Buna sosyal jet lag denir.
 
 24
-00:01:51,960 --> 00:01:56,120
+00:01:46,340 --> 00:01:50,880
 Bu saatin merkezi, beynin
 derinlerinde, hipotalamusta durur:
 
 25
-00:01:56,620 --> 00:02:00,280
+00:01:51,000 --> 00:01:54,540
 suprakiyazmatik çekirdek, kısaca SCN.
 
 26
-00:02:00,800 --> 00:02:04,220
+00:01:55,180 --> 00:01:58,600
 Görme sinirlerinin çaprazlaştığı
 noktanın hemen üstünde,
 
 27
-00:02:04,260 --> 00:02:08,200
+00:01:58,640 --> 00:02:02,220
 iki küçük hücre kümesi; toplamı
 yaklaşık yirmi bin nöron.
 
 28
-00:02:09,540 --> 00:02:11,820
+00:02:03,900 --> 00:02:06,180
 SCN bir orkestra şefi gibidir.
 
 29
-00:02:11,860 --> 00:02:16,200
+00:02:06,220 --> 00:02:10,120
 Vücuttaki bütün saatlere, aynı
 tempoda çalmalarını söyler.
 
 30
-00:02:19,040 --> 00:02:23,680
+00:02:13,400 --> 00:02:18,000
 Hava kararınca şef, beynin derinlerindeki
 küçük bir bezi göreve çağırır:
 
 31
-00:02:23,720 --> 00:02:26,440
+00:02:18,100 --> 00:02:19,200
 epifiz bezi.
 
 32
-00:02:27,040 --> 00:02:29,020
+00:02:21,400 --> 00:02:23,400
 Epifiz kana melatonin salar.
 
 33
-00:02:29,060 --> 00:02:33,280
+00:02:23,440 --> 00:02:27,640
 Gündüz kanda neredeyse hiç
 melatonin yoktur; akşam yükselir,
 
 34
-00:02:33,320 --> 00:02:36,460
+00:02:27,680 --> 00:02:30,620
 gece doruğa çıkar, sabaha
 doğru yeniden düşer.
 
 35
-00:02:38,240 --> 00:02:40,220
+00:02:32,600 --> 00:02:34,600
 Melatonin bir uyku hapı değildir.
 
 36
-00:02:40,260 --> 00:02:43,720
+00:02:34,640 --> 00:02:38,020
 Vücuda yalnızca şunu
 söyler: dışarıda gece var.
 
 37
-00:02:45,020 --> 00:02:48,580
+00:02:39,400 --> 00:02:42,940
 Vücut ısısı biraz düşer,
 beden dinlenmeye hazırlanır;
 
 38
-00:02:48,620 --> 00:02:50,200
+00:02:42,980 --> 00:02:44,580
 uykunun kapısı aralanır.
 
 39
-00:02:53,480 --> 00:02:56,540
+00:02:47,860 --> 00:02:50,900
 Peki şef, dışarıda gece
 olduğunu nereden biliyor?
 
 40
-00:02:56,580 --> 00:02:57,700
+00:02:50,940 --> 00:02:52,860
 Gözlerimizden.
 
 41
-00:02:58,580 --> 00:03:03,500
+00:02:52,940 --> 00:02:57,960
 Gözün arkasındaki retinada, görmemizi
 sağlayan çubuk ve koni hücreleri vardır.
 
 42
-00:03:03,620 --> 00:03:06,160
+00:02:58,000 --> 00:03:00,520
 Şekilleri ve renkleri onlar yakalar.
 
 43
-00:03:07,220 --> 00:03:12,120
+00:03:01,620 --> 00:03:06,480
 Ama iki bin iki yılında, bilim insanları
 retinada üçüncü bir ışık algılayıcı buldu:
 
 44
-00:03:12,160 --> 00:03:15,520
+00:03:06,520 --> 00:03:09,700
 ışığa kendiliğinden
 duyarlı ganglion hücreleri.
 
 45
-00:03:16,200 --> 00:03:21,920
+00:03:10,580 --> 00:03:16,200
 Bu hücreler şekil görmez. İçlerindeki
 melanopsin pigmentiyle yalnızca şunu ölçerler:
 
 46
-00:03:22,060 --> 00:03:23,720
+00:03:16,460 --> 00:03:18,200
 ortam ne kadar aydınlık?
 
 47
-00:03:24,400 --> 00:03:28,820
+00:03:18,800 --> 00:03:23,200
 En hassas oldukları renk de mavidir;
 dalga boyu dört yüz seksen nanometre
 
 48
-00:03:28,860 --> 00:03:30,060
+00:03:23,240 --> 00:03:24,240
 civarındaki ışık.
 
 49
-00:03:31,620 --> 00:03:36,600
+00:03:26,000 --> 00:03:31,180
 Ve ölçtüklerini, özel bir sinir
 yoluyla doğrudan SCN’ye bildirirler.
 
 50
-00:03:37,940 --> 00:03:42,640
+00:03:32,320 --> 00:03:37,020
 Bu yol görmeden o kadar ayrıdır ki, ışığı
 bilinçli olarak göremeyen bazı görme
 
 51
-00:03:42,680 --> 00:03:47,200
+00:03:37,060 --> 00:03:41,580
 engelli insanlarda bile, parlak
 ışık melatonini hâlâ bastırabilir.
 
 52
-00:03:49,220 --> 00:03:55,200
+00:03:43,540 --> 00:03:48,760
 Bu dedektif hiç mesai bitirmez: gece
 banyoda yaktığın parlak tavan lambasını da,
 
 53
-00:03:55,320 --> 00:03:58,740
+00:03:48,820 --> 00:03:51,760
 yatakta yüzüne tuttuğun
 ekranı da not eder.
 
 54
-00:04:03,000 --> 00:04:06,200
+00:03:55,860 --> 00:03:58,820
 Peki gün içinde gözümüze
 gerçekte ne kadar ışık giriyor?
 
 55
-00:04:06,440 --> 00:04:10,800
+00:03:58,860 --> 00:04:02,680
 Işığı ölçen bir aletle,
 sıradan bir günü takip edelim.
 
 56
-00:04:10,840 --> 00:04:12,200
+00:04:02,720 --> 00:04:04,360
 Işığın birimi lükstür.
 
 57
-00:04:14,440 --> 00:04:18,200
+00:04:06,040 --> 00:04:09,720
 Bulutlu bir günde bile dışarıda
 ışık birkaç bin lükse çıkar;
 
 58
-00:04:18,580 --> 00:04:22,180
+00:04:09,900 --> 00:04:12,680
 güneşli bir öğlede ise on binleri aşar.
 
 59
-00:04:23,640 --> 00:04:27,680
+00:04:14,500 --> 00:04:18,080
 Evin ya da ofisin içi ise
 çoğu zaman birkaç yüz lükstür;
 
 60
-00:04:27,820 --> 00:04:30,840
+00:04:18,200 --> 00:04:20,800
 pencereden uzaklaştıkça daha da azalır.
 
 61
-00:04:31,080 --> 00:04:34,740
+00:04:21,060 --> 00:04:24,200
 Yani gününü içeride geçiren
 birinin beyni için gündüz,
 
 62
-00:04:35,000 --> 00:04:37,560
+00:04:24,540 --> 00:04:26,640
 olması gerekenden çok daha loştur.
 
 63
-00:04:38,800 --> 00:04:42,960
+00:04:27,960 --> 00:04:31,600
 Akşam ise tam tersi olur:
 tavan lambaları ve ekranlar,
 
 64
-00:04:43,080 --> 00:04:45,900
+00:04:31,640 --> 00:04:33,920
 iç saate hâlâ gündüz sinyali verir.
 
 65
-00:04:45,940 --> 00:04:51,760
+00:04:33,960 --> 00:04:38,760
 Kısacası, gündüzlerimiz fazla
 karanlık, gecelerimiz fazla aydınlık.
 
 66
-00:04:56,000 --> 00:04:58,880
+00:04:43,080 --> 00:04:45,520
 Bunu en güzel bir kamp deneyi gösterdi.
 
 67
-00:04:58,920 --> 00:05:04,820
+00:04:45,580 --> 00:04:50,480
 Bir hafta boyunca elektrik ışığı olmadan,
 yalnızca güneş ve kamp ateşiyle yaşayan
 
 68
-00:05:04,860 --> 00:05:10,140
+00:04:50,520 --> 00:04:54,700
 gönüllülerin iç saati,
 yaklaşık iki saat erkene kaydı.
 
 69
-00:05:11,800 --> 00:05:15,700
+00:04:56,380 --> 00:04:59,760
 Melatoninleri gün batımıyla
 birlikte yükselmeye başladı;
 
 70
-00:05:15,860 --> 00:05:20,800
+00:04:59,880 --> 00:05:04,120
 sabah da biyolojik gecenin
 ortasında değil, sonunda uyandılar.
 
 71
-00:05:22,980 --> 00:05:28,540
+00:05:06,300 --> 00:05:10,920
 Üstelik bir hafta sonu kampı bile, bu
 saati bir buçuk saate yakın erkene çekmeye
 
 72
-00:05:28,580 --> 00:05:29,580
+00:05:10,960 --> 00:05:11,960
 yetti.
 
 73
-00:05:33,040 --> 00:05:34,680
+00:05:15,320 --> 00:05:16,880
 Şimdi gece yarısına dönelim.
 
 74
-00:05:34,720 --> 00:05:40,300
+00:05:16,920 --> 00:05:22,140
 Telefon ekranları ve beyaz LED lambalar,
 mavi bakımından zengin bir ışık yayar.
 
 75
-00:05:40,800 --> 00:05:45,260
+00:05:23,040 --> 00:05:27,200
 Gözündeki dedektif bu ışığı
 ölçer ve SCN’ye haber verir:
 
 76
-00:05:45,340 --> 00:05:46,780
+00:05:27,520 --> 00:05:29,200
 hâlâ gündüz.
 
 77
-00:05:47,280 --> 00:05:51,020
+00:05:29,500 --> 00:05:33,200
 Şef de epifize, melatonini
 durdurmasını söyler.
 
 78
-00:05:52,300 --> 00:05:57,020
+00:05:34,500 --> 00:05:39,040
 Bunun etkisi ölçülebilir. İki bin yirmi
 beşte yayımlanan küçük bir deneyde,
 
 79
-00:05:57,060 --> 00:06:02,180
+00:05:39,080 --> 00:05:44,200
 on iki kişi akşam üç saat boyunca mavi
 ya da kırmızı LED ışığında oturdu.
 
 80
-00:06:02,480 --> 00:06:06,200
+00:05:44,680 --> 00:05:48,440
 İkinci saatin sonunda, mavi
 ışıktakilerin melatonin düzeyi,
 
 81
-00:06:06,300 --> 00:06:09,200
+00:05:48,480 --> 00:05:51,240
 kırmızı ışıktakilerin üçte birinden azdı.
 
 82
-00:06:10,870 --> 00:06:14,329
+00:05:53,080 --> 00:05:56,904
 İki bin on beşte yayımlanan
 bir başka deneyde,
 
 83
-00:06:14,631 --> 00:06:18,676
+00:05:56,939 --> 00:06:00,941
 yatmadan önce dört saat tablette okuyanlar,
 basılı kitap okuyanlara göre daha geç
 
 84
-00:06:18,712 --> 00:06:23,200
+00:06:00,976 --> 00:06:05,393
 uykuya daldı. İç saatleri ileri kaydı;
 sabah da daha az dinç uyandılar.
 
 85
-00:06:24,620 --> 00:06:26,993
+00:06:06,780 --> 00:06:09,287
 Üstelik bunun için güçlü
 bir ışık gerekmiyor.
 
 86
-00:06:27,033 --> 00:06:32,200
+00:06:09,328 --> 00:06:14,380
 İki bin on dokuz tarihli bir çalışmada,
 melatonini yarıya indirmeye otuz lüksten az
 
 87
-00:06:32,240 --> 00:06:36,780
+00:06:14,420 --> 00:06:18,980
 ışık yetti; bu, gece kullandığımız
 sıradan bir oda ışığından daha loş.
 
 88
-00:06:38,140 --> 00:06:41,500
+00:06:20,360 --> 00:06:23,700
 İnsanlar arasındaki fark
 da büyüktü: en hassas kişi,
 
 89
-00:06:41,540 --> 00:06:44,880
+00:06:23,740 --> 00:06:27,140
 en dayanıklı kişiden elli
 kat daha az ışıkla etkilendi.
 
 90
-00:06:46,680 --> 00:06:50,500
+00:06:28,860 --> 00:06:32,180
 Yani arkadaşın gece telefona
 bakıp rahatça uyuyabiliyorsa,
 
 91
-00:06:50,540 --> 00:06:53,300
+00:06:32,220 --> 00:06:34,740
 bu senin için de aynı olacak demek değil.
 
 92
-00:06:56,840 --> 00:07:01,200
+00:06:38,220 --> 00:06:42,600
 Yine de dürüst olalım: geceleri
 uyuyamamamızın tek sebebi ışık değil.
 
 93
-00:07:01,980 --> 00:07:05,380
+00:06:43,360 --> 00:06:46,760
 Kaydırdığımız içerik de beyni
 uyanık tutar: bir bildirim,
 
 94
-00:07:05,420 --> 00:07:07,700
+00:06:46,800 --> 00:06:48,960
 bir tartışma, bir sonraki video.
 
 95
-00:07:08,420 --> 00:07:11,377
+00:06:49,800 --> 00:06:52,640
 Gece modu gibi filtreler
 de tek başına mucize değil.
 
 96
-00:07:11,417 --> 00:07:15,820
+00:06:52,680 --> 00:06:57,200
 Yüz altmış yedi gençle yapılan bir deneyde,
 gece modunu açmak uykuyu ölçülebilir
 
 97
-00:07:15,860 --> 00:07:18,720
+00:06:57,240 --> 00:06:58,700
 biçimde iyileştirmedi.
 
 98
-00:07:18,760 --> 00:07:22,760
+00:07:00,160 --> 00:07:04,140
 Öte yandan ekranın gözü uyaran
 ışığı gerçekten azaltıldığında,
 
 99
-00:07:22,800 --> 00:07:24,640
+00:07:04,180 --> 00:07:05,920
 uykuya dalmak kolaylaşıyor.
 
 100
-00:07:24,740 --> 00:07:29,080
+00:07:06,120 --> 00:07:10,500
 Yani asıl önemli olan renk tonu
 değil, gözüne ulaşan ışığın miktarı.
 
 101
-00:07:32,320 --> 00:07:37,280
+00:07:13,680 --> 00:07:18,660
 Peki ne yapabiliriz? Işık bilimcilerinin
 iki bin yirmi iki tarihli ortak önerileri,
 
 102
-00:07:37,320 --> 00:07:38,840
+00:07:18,700 --> 00:07:20,280
 üç basit kurala çıkıyor.
 
 103
-00:07:40,740 --> 00:07:45,280
+00:07:22,140 --> 00:07:26,640
 Bir: gündüz bol ışık. Sabah dışarıda
 geçirilen kısa bir zaman bile,
 
 104
-00:07:45,320 --> 00:07:47,200
+00:07:26,680 --> 00:07:28,600
 iç saati doğru yöne ayarlar.
 
 105
-00:07:48,700 --> 00:07:52,840
+00:07:30,060 --> 00:07:33,720
 Pratikte bu şu demek: uyanınca
 perdeyi sonuna kadar aç.
 
 106
-00:07:52,880 --> 00:07:59,300
+00:07:33,760 --> 00:07:39,160
 Kahvaltını pencerenin önünde yap; mümkünse
 işe ya da okula giderken bir durak önce
 
 107
-00:07:59,340 --> 00:08:00,340
+00:07:39,200 --> 00:07:40,200
 in ve yürü.
 
 108
-00:08:01,920 --> 00:08:07,580
+00:07:41,680 --> 00:07:47,597
 Gün içinde masanı pencereye yaklaştır;
 öğle arasında birkaç dakikalığına da olsa
 
 109
-00:08:07,620 --> 00:08:12,920
+00:07:47,711 --> 00:07:51,210
 dışarı çık. Bulutlu bir gün bile,
 evin içinden kat kat aydınlıktır.
 
 110
-00:08:16,420 --> 00:08:19,620
+00:07:55,000 --> 00:07:58,180
 İki: yatmadan önceki
 üç saatte, ışığı azalt.
 
 111
-00:08:19,660 --> 00:08:22,760
+00:07:58,220 --> 00:08:01,200
 Tavan lambası yerine loş
 ve sıcak renkli lambalar;
 
 112
-00:08:22,800 --> 00:08:25,360
+00:08:01,400 --> 00:08:05,360
 ekranın parlaklığını en aza indir.
 
 113
-00:08:26,840 --> 00:08:32,500
+00:08:05,400 --> 00:08:10,480
 Bunun en kolay yolu, akşam yemeğinden
 sonra tavan lambasını kapatıp küçük,
 
 114
-00:08:32,580 --> 00:08:34,500
+00:08:10,520 --> 00:08:12,460
 sarı ışıklı bir lamba yakmak.
 
 115
-00:08:35,000 --> 00:08:38,115
+00:08:12,520 --> 00:08:15,180
 Ampul alırken kutusundaki
 kelvin değerine bak:
 
 116
-00:08:38,155 --> 00:08:43,500
+00:08:15,220 --> 00:08:20,080
 iki bin yedi yüz gibi düşük bir sayı,
 sıcak ve sarı bir ışık demektir.
 
 117
-00:08:45,400 --> 00:08:49,620
+00:08:21,800 --> 00:08:25,680
 Telefonu kullanman gerekiyorsa,
 ekranı yüzüne yaklaştırma.
 
 118
-00:08:49,720 --> 00:08:55,820
+00:08:25,780 --> 00:08:30,880
 Ekranı iki kat uzağa tuttuğunda, gözüne
 ulaşan ışık kabaca dörtte birine iner.
 
 119
-00:08:59,840 --> 00:09:03,520
+00:08:34,800 --> 00:08:38,600
 Üç: uyurken karanlık. Yatak
 odan ne kadar karanlıksa,
 
 120
-00:09:03,560 --> 00:09:05,400
+00:08:38,640 --> 00:08:40,280
 iç saatin o kadar rahat.
 
 121
-00:09:06,780 --> 00:09:10,103
+00:08:41,960 --> 00:08:43,960
 Bu yalnızca uyku için değil.
 
 122
-00:09:10,271 --> 00:09:15,633
+00:08:44,140 --> 00:08:49,100
 Bir deneyde, tavan lambası açıkken tek
 bir gece uyuyan sağlıklı gençlerin,
 
 123
-00:09:15,708 --> 00:09:22,007
+00:08:49,140 --> 00:08:54,800
 uyku boyunca kalp atışı hızlandı; ertesi
 sabah da kan şekerini düzenleyen insüline
 
 124
-00:09:22,044 --> 00:09:24,200
+00:08:54,840 --> 00:08:56,600
 verdikleri yanıt zayıfladı.
 
 125
-00:09:26,340 --> 00:09:32,500
+00:08:58,860 --> 00:09:04,180
 Karartma perde ya da bir uyku bandı; şarj
 aletlerinin küçük ışıklarına bir parça
 
 126
-00:09:32,540 --> 00:09:35,980
+00:09:04,220 --> 00:09:07,440
 bant. Gece kalkarsan da
 tavan lambasını değil,
 
 127
-00:09:36,280 --> 00:09:39,820
+00:09:07,540 --> 00:09:10,740
 yere yakın, kısık ve sarı
 bir gece lambasını yak.
 
 128
-00:09:42,340 --> 00:09:46,500
+00:09:12,860 --> 00:09:17,020
 Ve en etkilisi hâlâ en basiti:
 yatmadan bir saat önce,
 
 129
-00:09:46,540 --> 00:09:48,520
+00:09:17,060 --> 00:09:19,080
 telefonu odanın dışında bırakmak.
 
 130
-00:09:50,600 --> 00:09:53,320
+00:09:21,100 --> 00:09:23,640
 Alarm için basit bir masa saati yeter.
 
 131
-00:09:53,480 --> 00:10:00,120
+00:09:23,680 --> 00:09:29,380
 Yatakta ekran kaydırmak yerine kitap oku,
 müzik dinle ya da yarının listesini bir
 
 132
-00:10:00,160 --> 00:10:01,160
+00:09:29,420 --> 00:09:30,420
 kâğıda yaz.
 
 133
-00:10:04,490 --> 00:10:10,143
+00:09:33,860 --> 00:09:38,580
 Hafta sonları da kalkış saatini çok
 kaydırma; farkı bir saat civarında tutmak,
 
 134
-00:10:10,187 --> 00:10:13,415
+00:09:38,620 --> 00:09:40,920
 pazartesi sabahlarını kolaylaştırır.
 
 135
-00:10:15,700 --> 00:10:18,900
+00:09:43,220 --> 00:09:46,140
 İç saat bir gecede değil,
 her gün biraz kayar.
 
 136
-00:10:18,940 --> 00:10:22,700
+00:09:46,180 --> 00:09:49,200
 Bu yüzden bu alışkanlıkları
 en az bir hafta dene;
 
 137
-00:10:22,800 --> 00:10:26,280
+00:09:49,440 --> 00:09:52,200
 sonucu tek gecede değil,
 günler içinde görürsün.
 
 138
-00:10:29,700 --> 00:10:34,940
+00:09:55,760 --> 00:10:00,060
 Ama haftalardır uyuyamıyorsan ya
 da gün boyu sürekli yorgunsan,
 
 139
-00:10:34,980 --> 00:10:38,720
+00:10:00,100 --> 00:10:03,200
 bu ipuçlarıyla yetinme; bir hekime danış.
 
 140
-00:10:41,940 --> 00:10:45,540
+00:10:06,740 --> 00:10:10,300
 Milyonlarca yıl boyunca
 gecenin tek ışığı ay ve ateşti.
 
 141
-00:10:45,580 --> 00:10:48,200
+00:10:10,340 --> 00:10:12,980
 Biyolojimiz hâlâ o dünyaya göre ayarlı.
 
 142
-00:10:49,760 --> 00:10:51,400
+00:10:14,540 --> 00:10:16,220
 Ekranları atmamıza gerek yok.
 
 143
-00:10:51,500 --> 00:10:56,540
+00:10:16,260 --> 00:10:21,360
 Sadece, beynimize saatin kaç olduğunu
 söyleyenin ışık olduğunu hatırlamamız yeterli.
 
 144
-00:10:58,000 --> 00:11:01,940
+00:10:22,760 --> 00:10:26,720
 Bu gece ekranı biraz erken bırak;
 yarın sabah da biraz güneş al.
 
 145
-00:11:01,980 --> 00:11:03,900
+00:10:26,760 --> 00:10:28,920
 İç saatin sana teşekkür edecek.
 
 146
-00:11:05,660 --> 00:11:07,620
+00:10:30,420 --> 00:10:32,440
 YUP Akademi’de görüşmek üzere.
