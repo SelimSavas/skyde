@@ -20,19 +20,19 @@ Bu videoda o saatin nasıl çalıştığını, ışığın onu nasıl kandırdı
 
 BÖLÜMLER
 0:00 Gece yarısı: neden uyuyamıyoruz?
-0:50 İç saat ve pazartesi sendromu
-1:50 Beyindeki orkestra şefi: SCN
-2:17 Melatonin: gecenin sinyali
-2:52 Gözdeki gizli dedektif
-4:01 Bir günün ışığını ölçtük
-4:54 Kamp deneyi
-5:31 Ekran ışığı ve deneyler
-6:55 Dürüst olalım: tek sebep ışık değil
-7:30 Sabah: gündüz bol ışık
-8:14 Akşam: az ve sarı ışık
-8:58 Gece: karanlık oda, telefon dışarıda
-10:03 Bir hafta dene
-10:40 Kapanış
+0:48 İç saat ve pazartesi sendromu
+1:44 Beyindeki orkestra şefi: SCN
+2:12 Melatonin: gecenin sinyali
+2:46 Gözdeki gizli dedektif
+3:53 Bir günün ışığını ölçtük
+4:41 Kamp deneyi
+5:13 Ekran ışığı ve deneyler
+6:36 Dürüst olalım: tek sebep ışık değil
+7:12 Sabah: gündüz bol ışık
+7:53 Akşam: az ve sarı ışık
+8:33 Gece: karanlık oda, telefon dışarıda
+9:32 Bir hafta dene
+10:05 Kapanış
 
 BU AKŞAMIN LİSTESİ
 ✔ Uyanınca perdeyi sonuna kadar aç; mümkünse biraz yürü
@@ -80,7 +80,7 @@ Değiştirilmiş/yapay içerik: Seslendirme yapay zekâ sesi ama gerçek birini 
 Sağlık içeriği   : Açıklamadaki kaynak listesi ve "tıbbi tavsiye değildir" notu kalsın.
 Yorumlar         : Açık.
 
-BİTİŞ EKRANI (son 20 saniye: 10:51'den sonra)
+BİTİŞ EKRANI (son 20 saniye: 10:16'dan sonra)
 • Abone ol öğesi + bir sonraki YUP Akademi videosu.
 • Ortadaki "YUP AKADEMİ" yazısını kapatmamak için öğeleri alt köşelere koy.
 
