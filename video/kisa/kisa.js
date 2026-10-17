@@ -22,9 +22,9 @@
   const { clamp, ease, progress, vis, text, measure } = E;
   const SW = 1080;
   const SH = 1920;
-  const SRC = root.KAYNAK ?? root.ONSOZ;
-  if (!SRC) throw new Error('Kaynak film (window.KAYNAK ya da window.ONSOZ) yüklenmemiş');
-  const scue = SRC.narration.cue;
+  // Kaynak film isteğe bağlıdır: bütün çekimleri kendi çizimi olan kısa videolar onsuz çalışır
+  const SRC = root.KAYNAK ?? root.ONSOZ ?? null;
+  const scue = SRC ? SRC.narration.cue : () => { throw new Error('Kaynak film yüklenmemiş (window.KAYNAK ya da window.ONSOZ)'); };
 
   const C = {
     cream: '#f3ede1',
@@ -196,7 +196,7 @@
         width += (row.length > 1 ? space : 0) + ww;
       }
       if (row.length) rows.push({ words: row, width });
-      if (rows.length <= maxRows) break;
+      if (rows.length <= maxRows || size <= 54) break; // en küçük boyutta kalır (döngü boyutu bir adım fazla küçültmesin)
     }
     const out = { rows, size, lh: size * 1.16 };
     layoutCache.set(key, out);
@@ -389,7 +389,7 @@
 
     // Önsöz'ün efektleri: çekimlerde görünen anlara düşenler aynen taşınır
     const borrowed = [];
-    SRC.score(new Proxy({}, { get: (_, key) => (...args) => { borrowed.push([key, args]); } }), root.Synth.hz);
+    if (SRC) SRC.score(new Proxy({}, { get: (_, key) => (...args) => { borrowed.push([key, args]); } }), root.Synth.hz);
 
     function score(m, hz) {
       const dur = TL.duration;
