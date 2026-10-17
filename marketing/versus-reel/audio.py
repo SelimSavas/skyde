@@ -11,7 +11,7 @@ import wave
 import numpy as np
 
 SR = 48000
-DUR = 28.0
+DUR = 35.0
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
 
@@ -153,10 +153,10 @@ def rumble(d=2.5):
 # ---------------------------------------------------------------- music bed
 CHORDS = [  # (start, midi notes)
     (0.0, [48, 55, 59, 62, 64]),    # Cmaj9 — same weather, two apps
-    (3.2, [45, 52, 55, 60, 64]),    # Am7 — round 1
-    (9.4, [41, 48, 52, 57, 60]),    # Fmaj7 — round 2
-    (15.6, [43, 50, 55, 59, 62]),   # G — round 3
-    (21.8, [48, 55, 60, 62, 64, 67]),  # Cadd9 — Skyde wins
+    (4.2, [45, 52, 55, 60, 64]),    # Am7 — round 1
+    (12.2, [41, 48, 52, 57, 60]),   # Fmaj7 — round 2
+    (19.7, [43, 50, 55, 59, 62]),   # G — round 3
+    (28.5, [48, 55, 60, 62, 64, 67]),  # Cadd9 — Skyde wins
 ]
 
 
@@ -216,8 +216,11 @@ def ease_io(x):
 
 
 
-RS = [3.2, 9.4, 15.6]
-ANS, UNSURE, SCORE = 1.4, 4.8, 5.0
+RS = [4.2, 12.2, 19.7]   # round starts (match promo.html)
+TB = [6.1, 12.9, 21.5]   # the other app gives up
+TA = [8.9, 14.1, 25.6]   # Skyde answers
+TSC = [11.7, 19.4, 28.2] # point to Skyde
+FIN = 28.5
 
 
 def bwoop(d=0.45):
@@ -240,39 +243,43 @@ def sfx():
     place(s, pop(800, 0.1), 1.05, db(-18))
     place(s, pop(950, 0.1), 1.15, db(-18))
     for r, rs in enumerate(RS):
+        tb, ta, tsc = TB[r], TA[r], TSC[r]
         place(s, whoosh(0.5, True, 600, 5000), rs - 0.1, db(-21))
-        # scrolling + ticking timer on the left
+        # scrolling + ticking on the left until it gives up
         for k in range(5):
-            place(s, whoosh(0.35, False, 2500, 600), rs + 0.5 + k * 0.85, db(-25))
-        for k in range(int((UNSURE - 0.4) / 0.25)):
+            if rs + 0.5 + k * 0.85 < ta:
+                place(s, whoosh(0.35, False, 2500, 600), rs + 0.5 + k * 0.85, db(-25))
+        k = 0
+        while rs + 0.4 + k * 0.25 < tb:
             place(s, tick(2200 if k % 2 else 2600), rs + 0.4 + k * 0.25, db(-28))
+            k += 1
+        # the other app gives up
+        place(s, bwoop(), tb - 0.35, db(-14))
+        for i in range(3):
+            place(s, pop(500 + i * 60, 0.09), tb + i * 0.12, db(-22))
         # Skyde answers
         if r == 1:
-            place(s, buzz(0.18), rs + ANS - 0.3, db(-19))
-            place(s, bell(mtof(88), 1.2, 0.7), rs + ANS - 0.25, db(-16))
-            place(s, bell(mtof(83), 1.4, 0.7), rs + ANS - 0.11, db(-16))
+            place(s, buzz(0.18), ta - 0.3, db(-19))
+            place(s, bell(mtof(88), 1.2, 0.7), ta - 0.25, db(-16))
+            place(s, bell(mtof(83), 1.4, 0.7), ta - 0.11, db(-16))
         else:
-            place(s, bell(mtof(84), 1.2, 0.8), rs + ANS - 0.05, db(-16))
-            place(s, bell(mtof(91), 1.0, 0.6), rs + ANS + 0.05, db(-19))
-        place(s, pop(1100, 0.08), rs + ANS + 0.05, db(-20))
-        # the other app gives up
-        place(s, bwoop(), rs + UNSURE - 0.45, db(-14))
-        for i in range(3):
-            place(s, pop(500 + i * 60, 0.09), rs + UNSURE - 0.05 + i * 0.12, db(-22))
+            place(s, bell(mtof(84), 1.2, 0.8), ta - 0.05, db(-16))
+            place(s, bell(mtof(91), 1.0, 0.6), ta + 0.05, db(-19))
+        place(s, pop(1100, 0.08), ta + 0.05, db(-20))
         # point to Skyde
-        place(s, pop(880, 0.1), rs + SCORE, db(-14))
-        place(s, pop(1320, 0.1), rs + SCORE + 0.08, db(-14))
-        place(s, shimmer(0.5, 84), rs + SCORE + 0.05, db(-24))
+        place(s, pop(880, 0.1), tsc, db(-14))
+        place(s, pop(1320, 0.1), tsc + 0.08, db(-14))
+        place(s, shimmer(0.5, 84), tsc + 0.05, db(-24))
     # finale
-    place(s, whoosh(0.9, False, 3000, 150), 21.8, db(-14))
-    place(s, thump(0.5, 45), 22.6, db(-12))
-    place(s, whoosh(0.9, True, 200, 2000), 22.2, db(-15))
-    place(s, shimmer(1.0, 72), 22.5, db(-20))
-    place(s, whoosh(0.7, True, 300, 4000), 24.85, db(-14))
-    place(s, thump(0.6, 50), 25.22, db(-11))
-    place(s, shimmer(1.2, 72), 25.15, db(-14))
-    place(s, whoosh(0.4, True, 800, 6000), 25.4, db(-22))
-    place(s, pop(700, 0.12), 26.8, db(-13))
+    place(s, whoosh(0.9, False, 3000, 150), FIN, db(-14))
+    place(s, thump(0.5, 45), FIN + 0.8, db(-12))
+    place(s, whoosh(0.9, True, 200, 2000), FIN + 0.4, db(-15))
+    place(s, shimmer(1.0, 72), FIN + 0.7, db(-20))
+    place(s, whoosh(0.7, True, 300, 4000), 31.55, db(-14))
+    place(s, thump(0.6, 50), 31.92, db(-11))
+    place(s, shimmer(1.2, 72), 31.85, db(-14))
+    place(s, whoosh(0.4, True, 800, 6000), 32.1, db(-22))
+    place(s, pop(700, 0.12), 33.5, db(-13))
     return s
 
 
@@ -282,7 +289,7 @@ def load_vo(path):
     return np.frombuffer(raw, np.float32).astype(np.float64)
 
 
-VO = [('vo/vo1.mp3', 0.15), ('vo/vo2.mp3', 3.3), ('vo/vo3.mp3', 9.5), ('vo/vo4.mp3', 15.7), ('vo/vo5.mp3', 22.2)]
+VO = [('vo/vo1.mp3', 0.15), ('vo/vo2.mp3', 4.3), ('vo/vo3.mp3', 12.3), ('vo/vo4.mp3', 19.8), ('vo/vo5.mp3', 28.9)]
 
 
 def main(out_path):
