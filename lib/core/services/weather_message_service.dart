@@ -20,17 +20,19 @@ class WeatherMessageService {
     WeatherDecision decision, {
     List<HourlyEntry> todayHourly = const [],
   }) {
+    final t = _effectiveType(type, data);
     final rainDetail = _rainWindowDetails(todayHourly);
-    // Saatlik veride önümüzdeki saatlerde yağış penceresi varsa başlıkta önce onu kullan.
-    // (Şu an gökyüzü "bulutlu" olsa bile yarın öğlene yağış bekleniyorsa üst metin
-    // "Bugünün özeti" ile çelişmesin.)
-    if (rainDetail != null) {
-      return _rainHeadline(rainDetail, mode, isTomorrow: false);
+    // Yağış penceresi varsa başlık onu söylesin (şu an bulutlu olsa bile).
+    // Kritik tipte uyarı önde kalır, pencere sona eklenir.
+    if (rainDetail != null && !_isCritical(t)) {
+      return _rainHeadline(rainDetail, mode,
+          isTomorrow: false, rainingNow: data.isRainingNow);
     }
-    if (mode == UserMode.farmer) {
-      return _farmerHeadline(type, slot, data, decision);
-    }
-    return _cityHeadline(type, slot, data);
+    final base = mode == UserMode.farmer
+        ? _farmerHeadline(t, slot, data, decision)
+        : _cityHeadline(t, slot, data);
+    if (rainDetail != null) return '$base ${_rainHint(rainDetail)}';
+    return base;
   }
 
   // ── Bugün: Alt Yazı ────────────────────────────────────────────────────────
@@ -43,24 +45,26 @@ class WeatherMessageService {
     WeatherDecision decision, {
     List<HourlyEntry> todayHourly = const [],
   }) {
+    final t = _effectiveType(type, data);
     final temp = data.temperature.round();
     final wind = data.windSpeed.round();
     if (mode == UserMode.farmer) {
       final rainDetail = _rainWindowDetails(todayHourly);
       if (rainDetail != null && !data.isRainingNow) {
         return _farmerSubtitleWhenRainForecast(
-            type, slot, data, decision, temp, wind, rainDetail);
+            t, slot, data, decision, temp, wind, rainDetail);
       }
-      return _farmerSubtitle(type, slot, data, decision, temp, wind);
+      return _farmerSubtitle(t, slot, data, decision, temp, wind);
     }
     final rainDetail = _rainWindowDetails(todayHourly);
-    if (rainDetail != null && data.isRainingNow) {
+    // Kritik tipte başlık tipe göre kalıyor, alt yazı da öyle kalsın.
+    if (rainDetail != null && data.isRainingNow && !_isCritical(t)) {
       return _citySubtitle(WeatherMessageType.rain, slot, data, temp);
     }
-    if (rainDetail != null && !data.isRainingNow) {
+    if (rainDetail != null && !data.isRainingNow && !_isCritical(t)) {
       return _citySubtitleWhenRainForecast(slot, data, temp, rainDetail);
     }
-    return _citySubtitle(type, slot, data, temp);
+    return _citySubtitle(t, slot, data, temp);
   }
 
   // ── Bugün: Önemli Notlar ───────────────────────────────────────────────────
@@ -73,9 +77,10 @@ class WeatherMessageService {
     WeatherDecision decision, {
     String? rainSummary,
   }) {
+    final t = _effectiveType(type, data);
     final notes = mode == UserMode.farmer
-        ? _farmerNotes(type, slot, data, decision)
-        : _cityNotes(type, slot, data);
+        ? _farmerNotes(t, slot, data, decision)
+        : _cityNotes(t, slot, data);
     if (rainSummary != null) return '$notes $rainSummary';
     return notes;
   }
@@ -97,30 +102,36 @@ class WeatherMessageService {
         todayDaily?.precipProbMax ?? data.precipitationProbability.round();
     final windMax = todayDaily?.windSpeedMax.round() ?? data.windSpeed.round();
 
-    buf.write(
-        'Bugün sıcaklık $minT° ile $maxT° arasında gidip gelecek; kabaca böyle düşünebilirsin. ');
+    buf.write('Bugün sıcaklık $minT° ile $maxT° arası. ');
 
-    final rainWindow = _rainWindowFromHourly(hours);
+    final rainDetail = _rainWindowDetails(hours);
+    final rainWindow = rainDetail?.range;
+    // Günlük ihtimal saatlik pencereden düşük kalabiliyor, yüksek olanı söyle.
+    final rainProb = rainDetail != null && rainDetail.prob > precipProb
+        ? rainDetail.prob
+        : precipProb;
     if (rainWindow != null) {
-      buf.write('$rainWindow saatlerinde yağış ihtimali öne çıkıyor. ');
+      buf.write('Yağış ${_rainWhen(rainWindow)} bekleniyor. ');
+    } else if (data.isRainingNow) {
+      buf.write('Şu an yağmur var, sonraki saatlerde dinmesi bekleniyor. ');
     } else if (precipProb >= 50) {
-      buf.write('Gün içinde yağış ihtimali %$precipProb; takvimine göre not al. ');
+      buf.write('Gün içinde yağış ihtimali %$precipProb. ');
     } else {
-      buf.write('Şimdilik yağış için alarm çalmıyor; gün kuru geçebilir. ');
+      buf.write('Yağış beklenmiyor, gün kuru geçecek gibi. ');
     }
 
     if (data.isStorm || (todayDaily != null && todayDaily.weatherCode >= 95)) {
-      buf.write('Fırtına uyarısı var; açık alanlardan uzak dur. ');
+      buf.write('Fırtına uyarısı var. Açık alanlardan uzak dur. ');
     }
     if (data.isHailRisk ||
         (todayDaily != null && todayDaily.weatherCode >= 96)) {
-      buf.write('Dolu riski var; araçları ve hassas eşyaları koru. ');
+      buf.write('Dolu riski var. Aracını ve hassas eşyalarını koru. ');
     }
     if (data.isFrostRisk || (todayDaily != null && todayDaily.tempMin <= 2)) {
-      buf.write('Don riski var; sabah yollarda buzlanma olabilir. ');
+      buf.write('Don riski var. Sabah yollarda buzlanma olabilir. ');
     }
     if (windMax >= 40) {
-      buf.write('Kuvvetli rüzgar bekleniyor ($windMax km/s). ');
+      buf.write('Rüzgar kuvvetli, en fazla $windMax km/s. ');
     }
 
     if (mode == UserMode.farmer) {
@@ -141,26 +152,27 @@ class WeatherMessageService {
         if (goodSlots.isNotEmpty) {
           buf.write('İlaçlama için uygun saatler: ${goodSlots.join(" ve ")}. ');
         } else {
-          buf.write('İlaçlama için koşullar uygun; rüzgarı kontrol et. ');
+          buf.write('İlaçlama için koşullar uygun. Başlamadan rüzgara bak. ');
         }
       } else if (rainWindow != null || precipProb >= 30) {
-        buf.write('İlaçlama yapma; yağış ihtimali veya rüzgar uygun değil. ');
+        buf.write('Bugün ilaçlamayı ertele. Yağış ihtimali %$rainProb. ');
       }
-      if (decision.shouldIrrigate) {
-        buf.write('Toprak nemi düşük; akşam serinliğinde sulama yap. ');
+      if (decision.shouldIrrigate && rainWindow != null) {
+        buf.write('Toprak nemi düşük ama yağış geliyor. Sulamayı yağıştan sonraya bırak. ');
+      } else if (decision.shouldIrrigate) {
+        buf.write('Toprak nemi düşük. Akşam serinliğinde sula. ');
       } else if (data.isRainingNow || precipProb >= 60) {
-        buf.write('Sulama gereksiz; yağış toprak nemini artırıyor. ');
+        buf.write('Sulamaya gerek yok, yağış toprağı nemlendirecek. ');
       }
     } else {
       if (rainWindow != null) {
-        buf.write('Şemsiyeni yanına almayı unutma. ');
+        buf.write('Şemsiyeni yanına al. ');
       }
       if (maxT >= 33) {
-        buf.write(
-            'Öğle saatlerinde sıcak olacak; güneş kremi ve bol su unutma. ');
+        buf.write('Öğle saatleri sıcak. Güneş kremi ve su yanında olsun. ');
       }
       if (minT <= 5) {
-        buf.write('Sabah ve akşam soğuk olacak; kalın giyin. ');
+        buf.write('Sabah ve akşam soğuk, kalın giyin. ');
       }
     }
 
@@ -174,13 +186,17 @@ class WeatherMessageService {
     UserMode mode,
     List<HourlyEntry> hours,
   ) {
+    final t = d.messageType;
     final rainDetail = _rainWindowDetails(hours);
-    if (rainDetail != null) {
+    // Bugünle aynı kural: kritik tipte uyarı önde, pencere sonda.
+    if (rainDetail != null && !_isCritical(t)) {
       return _rainHeadline(rainDetail, mode, isTomorrow: true);
     }
-    final t = d.messageType;
-    if (mode == UserMode.farmer) return _tomorrowFarmerHeadline(t, d);
-    return _tomorrowCityHeadline(t, d);
+    final base = mode == UserMode.farmer
+        ? _tomorrowFarmerHeadline(t, d)
+        : _tomorrowCityHeadline(t, d);
+    if (rainDetail != null) return '$base ${_rainHint(rainDetail)}';
+    return base;
   }
 
   // ── Yarın: Önemli Notlar ───────────────────────────────────────────────────
@@ -200,55 +216,62 @@ class WeatherMessageService {
   static String tomorrowSubtitle(DailyEntry d, UserMode mode) {
     final min = d.tempMin.round();
     final max = d.tempMax.round();
+    final prob = d.precipProbMax;
     if (mode == UserMode.farmer) {
-      if (d.precipProbMax >= 60)
-        return 'En yüksek $max°, en düşük $min°. İlaçlama yapma, yağışa göre planla.';
+      if (prob >= 60)
+        return 'En yüksek $max°, en düşük $min°. Yağış ihtimali %$prob, ilaçlama yapma.';
       if (d.tempMin <= 2)
-        return 'En yüksek $max°, en düşük $min°. Don riski var; hassas fideleri koru.';
+        return 'En yüksek $max°, en düşük $min°. Don riski var, hassas fideleri koru.';
       if (d.windSpeedMax > 40)
-        return 'En yüksek $max°, en düşük $min°. Kuvvetli rüzgar bekleniyor.';
-      return 'En yüksek $max°, en düşük $min°. Yağış ihtimali %${d.precipProbMax}.';
+        return 'En yüksek $max°, en düşük $min°. Rüzgar güçlü, en fazla ${d.windSpeedMax.round()} km/s.';
+      return 'En yüksek $max°, en düşük $min°. Yağış ihtimali %$prob.';
     }
-    return 'En yüksek $max°, en düşük $min°. ${d.description}.';
+    // description kapalı havayı da "Parçalı bulutlu" diyor, başlıkla çelişmesin.
+    return 'En yüksek $max°, en düşük $min°. Yağış ihtimali %$prob.';
   }
 
   // ── Haftalık: Başlık ───────────────────────────────────────────────────────
 
   static String weeklyHeadline(List<DailyEntry> days, UserMode mode) {
     if (days.isEmpty) return 'Bu haftanın hava durumu';
-    final rainDays = days.where((d) => d.precipProbMax >= 50).length;
+    final rainList = days.where((d) => d.precipProbMax >= 50).toList();
+    final rainDays = rainList.length;
     final frostDays = days.where((d) => d.tempMin <= 2).length;
-    final hasSevere = days.any((d) => d.weatherCode >= 95);
+    final severeList = days.where((d) => d.weatherCode >= 95).toList();
     final maxT = days.map((d) => d.tempMax).reduce((a, b) => a > b ? a : b);
 
-    if (hasSevere) {
+    if (severeList.isNotEmpty) {
+      final names = _dayNameList(severeList);
+      final plural = severeList.length > 1;
       return mode == UserMode.farmer
-          ? 'Bu hafta hava biraz huysuz; önce güvenlik: koruma ve hasat için acele edilmesi gerekenleri öne al.'
-          : 'Bu hafta hava sertleşebiliyor; panik yok ama uyarıları ciddiye al, küçük hazırlık büyük iş görür.';
+          ? 'Bu hafta $names fırtına ya da dolu riski var. Korumayı ve acil hasadı ${plural ? 'o günlerden' : 'o günden'} önce bitir.'
+          : 'Bu hafta $names fırtına ya da dolu riski var. ${plural ? 'O günler' : 'O gün'} dışarı planlarını esnek tut.';
     }
     if (maxT >= 35) {
       return mode == UserMode.farmer
-          ? 'Bu hafta sıcaklık ${maxT.round()}°C\'ye kadar çıkıyor; öğleyi kısa tut, işi sabah ve akşama yay.'
-          : 'Bu hafta ${maxT.round()}°C civarı görünüyor; su ve gölge planını şimdiden koy, öğleyle kavga etme.';
+          ? 'Bu hafta en yüksek sıcaklık ${maxT.round()}°C. İşi sabaha ve akşama yay, öğleyi kısa tut.'
+          : 'Bu hafta en yüksek sıcaklık ${maxT.round()}°C. Su ve gölge planını şimdiden yap, öğle güneşiyle inatlaşma.';
     }
     if (frostDays > 0) {
       return mode == UserMode.farmer
-          ? 'Bu hafta $frostDays gün don riski var; hassas ürünleri koru, sabah sulama yapma.'
-          : 'Bu hafta $frostDays gün don riski var; sabahları buzlanmaya dikkat et, kalın giyin.';
+          ? 'Bu hafta $frostDays gün don riski var. Hassas ürünleri ört, sabah sulama yapma.'
+          : 'Bu hafta $frostDays gün don riski var. Sabah buzlanmaya dikkat et, kalın giyin.';
     }
-    if (rainDays >= 4) {
+    if (rainDays >= 3) {
       return mode == UserMode.farmer
-          ? 'Bu hafta yağışlı gün sayısı fazla; tarla için pencere dar, yağışsız günleri iyi kullan.'
-          : 'Bu hafta şemsiye sık düşecek; dışarı planını yağışa göre esnet, güneşli aralıkları değerlendir.';
+          ? 'Bu hafta $rainDays gün yağışlı görünüyor. Tarla için pencere dar, kuru günleri iyi kullan.'
+          : 'Bu hafta $rainDays gün yağışlı görünüyor. Şemsiye çantanın kalıcı üyesi olabilir.';
     }
     if (rainDays >= 1) {
+      final names = _dayNameList(rainList);
+      final oGun = rainList.length > 1 ? 'O günler' : 'O gün';
       return mode == UserMode.farmer
-          ? 'Bu hafta $rainDays gün yağış ihtimali var; yağışsız günleri ilaçlama ve tarla işleri için değerlendir.'
-          : 'Bu hafta $rainDays gün yağış ihtimali var; o günlerde şemsiyeni yanında tut, diğer günler daha ferah.';
+          ? 'Bu hafta $names yağış ihtimali var. İlaçlama ve tarla işlerini kuru günlere koy.'
+          : 'Bu hafta $names yağış ihtimali var. $oGun şemsiyen yanında olsun, kalan günler kuru.';
     }
     return mode == UserMode.farmer
-        ? 'Bu hafta tarla için genel olarak sakin bir tablo var; planını net tut, gerektiğinde küçük düzeltmeler yeter.'
-        : 'Bu hafta hava çoğunlukla uyumlu; yağış yok denecek kadar az, planını rahat kurabilirsin.';
+        ? 'Bu hafta yağış beklenmiyor. İlaçlama, sulama ve tarla işleri için uygun bir hafta.'
+        : 'Bu hafta yağış beklenmiyor. Planlarını rahat kurabilirsin.';
   }
 
   // ── Haftalık: Alt Yazı ─────────────────────────────────────────────────────
@@ -257,7 +280,10 @@ class WeatherMessageService {
     if (days.isEmpty) return '7 günlük tahmin birazdan burada.';
     final maxT = days.map((d) => d.tempMax).reduce((a, b) => a > b ? a : b);
     final minT = days.map((d) => d.tempMin).reduce((a, b) => a < b ? a : b);
-    return 'Haftalık tablo: ${minT.round()}° ile ${maxT.round()}° arasında gidip geliyor; uç değerlere göre giyinmeyi ayarla.';
+    final tip = maxT - minT >= 12
+        ? 'Serin ve sıcak günler karışık, katmanlı giyin.'
+        : 'Sıcaklık hafta boyunca dengeli.';
+    return 'Hafta boyunca ${minT.round()}° ile ${maxT.round()}° arası. $tip';
   }
 
   // ── Haftalık: Özet Metin ───────────────────────────────────────────────────
@@ -266,28 +292,33 @@ class WeatherMessageService {
     if (days.isEmpty) return '';
     final dayNames = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
 
-    final rainDays = days.where((d) => d.precipProbMax >= 50).length;
+    final rainList = days.where((d) => d.precipProbMax >= 50).toList();
+    final rainDays = rainList.length;
     final frostDays = days.where((d) => d.tempMin <= 2).length;
     final maxT = days.map((d) => d.tempMax).reduce((a, b) => a > b ? a : b);
     final minT = days.map((d) => d.tempMin).reduce((a, b) => a < b ? a : b);
 
     final buf = StringBuffer();
     buf.write(
-        'Bu hafta sıcaklık ${minT.round()}°C ile ${maxT.round()}°C arasında oynuyor; kabaca böyle düşün. ');
+        'Bu hafta sıcaklık ${minT.round()}°C ile ${maxT.round()}°C arası. ');
 
+    final rainNames =
+        rainList.map((d) => dayNames[d.date.weekday - 1]).join(', ');
     if (rainDays == 0) {
-      buf.write(
-          'Yağış tarafı şimdilik sakin; dışarı ve hafif işler için hafta genel olarak uyumlu görünüyor. ');
+      buf.write('Yağış beklenmiyor. Dışarı işleri için uygun bir hafta. ');
     } else if (rainDays <= 2) {
-      buf.write(
-          '$rainDays günde yağış ihtimali var; o günlerde şemsiyeyi çantaya at, geri kalanı daha rahat. ');
+      // Şemsiye önerisi şehir için, çiftçi tavsiyesi aşağıda.
+      buf.write(mode == UserMode.farmer
+          ? 'Yağış ihtimali olan günler: $rainNames. '
+          : 'Yağış ihtimali olan günler: $rainNames. O günler şemsiyeyi çantaya at. ');
     } else {
       buf.write(
-          '$rainDays gün yağışlı veya yağış ihtimali yüksek; planı birkaç parçaya bölmek işini kolaylaştırır. ');
+          '$rainDays gün yağışlı görünüyor ($rainNames). Planını kuru günlere göre böl. ');
     }
-    if (frostDays > 0) {
+    // Çiftçide don günleri aşağıda isimle geçiyor, tekrar etme.
+    if (frostDays > 0 && mode != UserMode.farmer) {
       buf.write(
-          '$frostDays günde don riski var; sabah yollarda buzlanmaya ve soğuğa dikkat et. ');
+          '$frostDays günde don riski var. Sabah buzlanmaya ve soğuğa dikkat et. ');
     }
 
     if (mode == UserMode.farmer) {
@@ -303,7 +334,7 @@ class WeatherMessageService {
       if (fDays.isNotEmpty) {
         final names = fDays.map((d) => dayNames[d.date.weekday - 1]).join(', ');
         buf.write(
-            'Don riski olan günler: $names. Hassas fideleri koru, sabah sulama yapma. ');
+            'Don riski olan günler: $names. Hassas fideleri ört, sabah sulama yapma. ');
       }
       final heavyRainDays = days.where((d) => d.precipSum > 15).toList();
       if (heavyRainDays.isNotEmpty) {
@@ -317,27 +348,26 @@ class WeatherMessageService {
         final names =
             windDays.map((d) => dayNames[d.date.weekday - 1]).join(', ');
         buf.write(
-            'Kuvvetli rüzgar günleri: $names. İlaçlama yapma, ekipmanları sabitle. ');
+            'Kuvvetli rüzgar günleri: $names. İlaçlama yapma, ekipmanı sabitle. ');
       }
       if (goodDays.isEmpty &&
           heavyRainDays.isEmpty &&
           windDays.isEmpty &&
           fDays.isEmpty) {
-        buf.write(
-            'Hafta genel olarak sıradan bir tablo; rutin işleri yap, abartıya gerek yok.');
+        buf.write('Hafta sıradan görünüyor. Rutin işlerine devam edebilirsin.');
       }
     } else {
-      if (rainDays >= 4) {
+      if (rainDays >= 3) {
         buf.write(
-            'Yağışlı günlerde kapalı mekan veya kısa süreli dışarı; güneşli aralıkları yürüyüş için sakla.');
+            'Yağışlı günlerde kapalı mekan planla. Kuru günleri yürüyüşe sakla.');
       } else if (rainDays == 0) {
         buf.write(
-            'Dışarı çıkmak için hafta genel olarak elverişli; yine de su ve şapka alışkanlığını bozma.');
+            'Dışarı çıkmak için iyi bir hafta. Su ve şapkayı yine de unutma.');
       } else {
-        buf.write('Yağışsız günleri dışarı ve uzun yürüyüş için öne çekmek mantıklı.');
+        buf.write('Uzun yürüyüş ve dışarı planlarını kuru günlere çek.');
       }
     }
-    return buf.toString();
+    return buf.toString().trim();
   }
 
   // ── Bildirim Metinleri ─────────────────────────────────────────────────────
@@ -348,40 +378,43 @@ class WeatherMessageService {
     WeatherData data, {
     String? rainTime,
   }) {
+    final temp = data.temperature.round();
+    final prob = data.precipitationProbability.round();
     if (mode == UserMode.farmer) {
       return switch (type) {
         WeatherMessageType.thunderstorm =>
-            'Hava huysuz: tarlada işi bırak, ekipmanı güvene al.',
+            'Fırtına geliyor. Tarladaki işi bırak, ekipmanı güvene al.',
         WeatherMessageType.hail =>
-            'Dolu geliyor; ürünü ve örtüyü şimdi düşün, sonra pişmanlık olmasın.',
+            'Dolu riski var. Ürünü file ya da örtüyle şimdi koru.',
         WeatherMessageType.frost =>
-            'Don kapıda; fideleri ört, sabah sulamayı ertele.',
+            'Don riski, şu an $temp°C. Fideleri ört, sabah sulama yapma.',
         WeatherMessageType.heavyRain =>
-            'Yağış sert; drenaja bak, ıslak tarlaya girmeyi unut.',
+            'Şiddetli yağış var. Drenaja bak, ıslak tarlaya girme.',
         WeatherMessageType.extremeHeat =>
-            'Sıcak baskın; öğleyi tarlada geçirme, suyu unutma.',
+            'Sıcaklık $temp°C. 11:00–16:00 arası tarlaya çıkma.',
         WeatherMessageType.freezingRain =>
-            'Dondurucu yağmur; bitkiyi ve kendini koru, acele et.',
+            'Dondurucu yağmur var. Hassas bitkileri hemen ört.',
         _ => rainTime != null
-            ? '$rainTime civarında yağış var; ilaçlama için uygun değil.'
-            : 'Kısa özet: ${data.weatherDescription}.',
+            ? '$rainTime civarı yağış bekleniyor. O saatlerde ilaçlama yapma.'
+            : 'Şu an $temp°C, rüzgar ${data.windSpeed.round()} km/s, yağış ihtimali %$prob.',
       };
     }
     return switch (type) {
       WeatherMessageType.thunderstorm =>
-          'Fırtına var; dışarı çıkma, pencereyi kapat, acele yok.',
-      WeatherMessageType.hail => 'Dolu riski; arabayı kapalı yere, seni sağa al.',
+          'Fırtına var. Dışarı çıkma, pencereleri kapat.',
+      WeatherMessageType.hail =>
+          'Dolu riski var. Aracını kapalı yere al, sen de içeride kal.',
       WeatherMessageType.frost =>
-          'Sabah buz ihtimali; yavaş git, kalın giyin.',
+          'Sabah buzlanma riski, şu an $temp°C. Yavaş yürü, kalın giyin.',
       WeatherMessageType.heavyRain =>
-          'Şiddetli yağış; alt geçit ve su birikintisine uzak dur.',
+          'Şiddetli yağış var. Alt geçit ve su birikintilerinden uzak dur.',
       WeatherMessageType.extremeHeat =>
-          'Sıcak baskıyor; su ve gölge planını şimdi yap.',
+          'Sıcaklık $temp°C. Güneşte kalma, suyunu yanında taşı.',
       WeatherMessageType.freezingRain =>
-          'Yollar kaygan; zorunlu değilse dışarı çıkma.',
+          'Yollar buz tutabilir. Zorunlu değilse dışarı çıkma.',
       _ => rainTime != null
-          ? '$rainTime civarında yağmur; şemsiye hazır olsun.'
-          : 'Özet: ${data.weatherDescription}.',
+          ? '$rainTime civarı yağmur bekleniyor. Şemsiyeni al.'
+          : 'Şu an $temp°C, yağış ihtimali %$prob.',
     };
   }
 
@@ -404,11 +437,11 @@ class WeatherMessageService {
     final alerts =
         DailyTaskService.generateTaskAlerts(activeTasks, data, decision, mode);
     if (alerts.isEmpty) {
-      final base =
-          headline(type, mode, slot, data, decision, todayHourly: todayHourly);
+      final base = headline(type, mode, slot, data, decision,
+          todayHourly: todayHourly);
       final taskNames =
           activeTasks.map((t) => t.label.toLowerCase()).take(2).join(' ve ');
-      return '$base Seçtiğin $taskNames için şimdilik hava yoluna girmiş görünüyor.';
+      return '$base Seçtiğin $taskNames için şimdilik bir engel görünmüyor.';
     }
 
     final topAlert = DailyTaskService.cleanLeadingDecor(alerts.first);
@@ -426,25 +459,71 @@ class WeatherMessageService {
     String? rainTime,
   }) {
     if (activeTasks.isEmpty) {
-      return notificationText(type, mode, data, rainTime: rainTime);
+      return notificationText(type, mode, data,
+          rainTime: rainTime);
     }
     final alerts =
         DailyTaskService.generateTaskAlerts(activeTasks, data, decision, mode);
     if (alerts.isNotEmpty) {
       return DailyTaskService.cleanLeadingDecor(alerts.first);
     }
-    return notificationText(type, mode, data, rainTime: rainTime);
+    return notificationText(type, mode, data,
+        rainTime: rainTime);
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
   //  P R I V A T E   H E L P E R S
   // ═══════════════════════════════════════════════════════════════════════════
 
+  // ── Tip yardımcıları ───────────────────────────────────────────────────────
+
+  /// Kod kuru dese de şu an yağıyorsa "kuru" metin çıkmasın.
+  static WeatherMessageType _effectiveType(
+      WeatherMessageType type, WeatherData data) {
+    if (!data.isRainingNow) return type;
+    return switch (type) {
+      WeatherMessageType.clear ||
+      WeatherMessageType.partlyCloudy ||
+      WeatherMessageType.cloudy =>
+        WeatherMessageType.drizzle,
+      _ => type,
+    };
+  }
+
+  /// Yağış penceresinin başlığı ezmemesi gereken tipler.
+  static bool _isCritical(WeatherMessageType type) => switch (type) {
+        WeatherMessageType.hail ||
+        WeatherMessageType.thunderstorm ||
+        WeatherMessageType.freezingRain ||
+        WeatherMessageType.heavyRain ||
+        WeatherMessageType.snow ||
+        WeatherMessageType.frost =>
+          true,
+        _ => false,
+      };
+
+  /// Haftalık başlık için tam gün adları: "Salı ve Perşembe".
+  static String _dayNameList(List<DailyEntry> ds) {
+    const names = [
+      'Pazartesi',
+      'Salı',
+      'Çarşamba',
+      'Perşembe',
+      'Cuma',
+      'Cumartesi',
+      'Pazar',
+    ];
+    final list = ds.map((d) => names[d.date.weekday - 1]).toList();
+    if (list.length <= 1) return list.join();
+    return '${list.sublist(0, list.length - 1).join(', ')} ve ${list.last}';
+  }
+
   // ── Yağış aralığı ──────────────────────────────────────────────────────────
 
-  /// Saatlik tahmine göre yağışlı saatlerin ilk/son anı ve metin aralığı.
-  static ({String range, DateTime first, DateTime last})? _rainWindowDetails(
-      List<HourlyEntry> hours) {
+  /// Saatlik tahmine göre yağışlı saatlerin ilk/son anı, metin aralığı ve en
+  /// yüksek ihtimali.
+  static ({String range, DateTime first, DateTime last, int prob})?
+      _rainWindowDetails(List<HourlyEntry> hours) {
     if (hours.isEmpty) return null;
     final now = DateTime.now();
     final future = hours.where((h) => h.time.isAfter(now)).toList();
@@ -454,43 +533,73 @@ class WeatherMessageService {
     if (rainHours.isEmpty) return null;
     final times = rainHours.map((h) => h.time).toList()..sort();
     final range = formatHours(times);
-    return (range: range, first: times.first, last: times.last);
+    final prob = rainHours
+        .map((h) => h.precipProbability)
+        .reduce((a, b) => a > b ? a : b);
+    return (range: range, first: times.first, last: times.last, prob: prob);
   }
 
-  static String? _rainWindowFromHourly(List<HourlyEntry> hours) {
-    return _rainWindowDetails(hours)?.range;
+  static String _hh(DateTime t) => '${t.hour.toString().padLeft(2, '0')}:00';
+
+  /// "17:00'ye kadar" gibi, saatin okunuşuna göre doğru yönelme eki.
+  static String _untilHour(DateTime t) {
+    const ek = [
+      'a', 'e', 'ye', 'e', 'e', 'e', 'ya', 'ye', 'e', 'a', 'a', 'e', //
+      'ye', 'e', 'e', 'e', 'ya', 'ye', 'e', 'a', 'ye', 'e', 'ye', 'e',
+    ];
+    return "${_hh(t)}'${ek[t.hour]} kadar";
   }
+
+  /// "15:00 civarı", "14:00–17:00 arası", "09:00, 14:00–17:00 saatlerinde".
+  static String _rainWhen(String range) {
+    if (range.contains(',')) return '$range saatlerinde';
+    if (range.contains('–')) return '$range arası';
+    return '$range civarı';
+  }
+
+  /// Kritik tip başlığının sonuna eklenen kısa pencere bilgisi.
+  static String _rainHint(
+          ({String range, DateTime first, DateTime last, int prob}) detail) =>
+      'Yağışlı saatler: ${detail.range}.';
 
   static String _rainHeadline(
-      ({String range, DateTime first, DateTime last}) detail,
+      ({String range, DateTime first, DateTime last, int prob}) detail,
       UserMode mode,
-      {required bool isTomorrow}) {
+      {required bool isTomorrow,
+      bool rainingNow = false}) {
     final window = detail.range;
-    final now = DateTime.now();
     final day = isTomorrow ? 'Yarın' : 'Bugün';
-    final isSingle = !window.contains('–') && !window.contains(',');
-    final endStr =
-        '${detail.last.hour.toString().padLeft(2, '0')}:00';
+    final isMulti = window.contains(',');
+    final isSingle = !isMulti && !window.contains('–');
+    final prob = detail.prob;
 
-    // Henüz yağış başlamadan önce: önce günün sonuna kadar süreyi söyle, sonra aralığı.
-    if (!isSingle && now.isBefore(detail.first)) {
-      if (mode == UserMode.farmer) {
-        return '$day $endStr\'ye kadar yağışlı periyotlar var; $window aralığında yoğunlaşır. '
-            'Sulama ve ilaçlama saatini buna göre sıkılaştır.';
-      }
-      return '$day $endStr\'ye kadar yağmur bekleniyor; $window aralığında başlayıp etkili olabilir. '
-          'Şemsiye ve yağmurluk hazır olsun, yollar ıslak olabilir.';
+    // Yağmur şu an yağıyor ve kesintisiz sürüyorsa önce bitiş saatini söyle.
+    final continuesNow = rainingNow &&
+        !isTomorrow &&
+        !isMulti &&
+        detail.first.difference(DateTime.now()).inMinutes <= 60;
+    if (continuesNow) {
+      return mode == UserMode.farmer
+          ? 'Yağış sürüyor, ${_untilHour(detail.last)} devam edebilir. Tarlaya girme, ilaçlamayı ertele.'
+          : 'Yağmur sürüyor, ${_untilHour(detail.last)} devam edebilir. Şemsiyeni yanından ayırma.';
     }
 
     if (mode == UserMode.farmer) {
-      final verb =
-          isSingle ? 'saat $window civarında' : '$window saatleri arasında';
-      return '$day $verb yağış var; sulama ve ilaçlama saatini buna göre sıkılaştır.';
+      if (isMulti) {
+        return '$day yağış aralıklı: $window. İlaçlama için kuru bir aralık seç, sulamayı ertele.';
+      }
+      if (isSingle) {
+        return '$day $window civarı kısa bir yağış geçebilir. Yağış ihtimali %$prob. İlaçlamayı bu saatten uzak tut.';
+      }
+      return '$day $window arası yağış bekleniyor. Yağış ihtimali %$prob. İlaçlamayı ertele, sulamayı yağışa göre ayarla.';
+    }
+    if (isMulti) {
+      return '$day yağmur aralıklı: $window. En yüksek ihtimal %$prob. Şemsiye çantada kalsın.';
     }
     if (isSingle) {
-      return '$day $window civarında kısa bir yağmur ihtimali var; şemsiye yanında dursun, ıslanmamaya çalış.';
+      return '$day $window civarı kısa bir yağmur geçebilir. Yağış ihtimali %$prob. Şemsiyeni yanına al.';
     }
-    return '$day $window aralığında yağmur bekleniyor; şemsiye ve yağmurluk hazır olsun, yollar ıslak olabilir.';
+    return '$day $window arası yağmur bekleniyor. Yağış ihtimali %$prob. Şemsiyeni al, planını bu saatlere göre kur.';
   }
 
   /// Saatleri insan okunur formata çevirir: 14:00, 14:00–17:00, 09:00–11:00, 14:00
@@ -522,143 +631,138 @@ class WeatherMessageService {
     return switch (type) {
       WeatherMessageType.clear => switch (slot) {
           TimeSlot.morning =>
-            'Güneş erken çıkmış; kahveyi dışarıda içmek için küçük bir bahane var.',
+            'Sabah güneşli. Kahveyi dışarıda içmek için iyi bir bahane.',
           TimeSlot.afternoon =>
-            'Öğleden sonra gökyüzü açık; gözlük ve şapka yanına gelsin, güneş ciddi.',
+            'Öğleden sonra açık ve güneşli. Şapka ve suyunu yanına al.',
           TimeSlot.evening =>
-            'Akşam serin ve sakin; kısa bir yürüyüş veya bankta oturmak için iyi bir zaman.',
-          TimeSlot.night =>
-            'Gece sakin; uyku için pencereyi hafif aralarsan hava tazelenir, fazla soğuk değilse tabii.',
+            'Akşam açık ve sakin. Kısa bir yürüyüş için tam vakti.',
+          TimeSlot.night => 'Gece açık ve sakin. Yağış beklenmiyor.',
         },
       WeatherMessageType.partlyCloudy => switch (slot) {
           TimeSlot.morning =>
-            'Sabah parçalı bulutlu ama sıcak; hafif bir mont veya hırka yeterli olacak.',
+            'Sabah parçalı bulutlu. Hafif bir hırka yeter.',
           TimeSlot.afternoon =>
-            'Öğleden sonra bulutlar arasından güneş açıyor; dışarı planların için sorun yok.',
+            'Öğleden sonra güneş ara ara açıyor. Dışarı planın varsa sorun yok.',
           TimeSlot.evening =>
-            'Akşam parçalı bulutlu ve serin; yürüyüş veya açık hava etkinlikleri için uygun.',
-          TimeSlot.night =>
-            'Gece parçalı bulutlu ve sakin; yağış beklenmiyor, rahatça dinlenebilirsin.',
+            'Akşam parçalı bulutlu ve serin. Yürüyüş için uygun.',
+          TimeSlot.night => 'Gece parçalı bulutlu. Yağış beklenmiyor.',
         },
       WeatherMessageType.cloudy => switch (slot) {
-          TimeSlot.morning =>
-            'Sabah gökyüzü kapalı ama yağış beklenmiyor; ince bir ceket veya mont al.',
+          TimeSlot.morning => 'Sabah kapalı ama kuru. İnce bir ceket al.',
           TimeSlot.afternoon =>
-            'Öğleden sonra bulutlu; güneş çıkması zor görünüyor ama yağış ihtimali düşük.',
-          TimeSlot.evening =>
-            'Akşam kapalı ve serin; dışarı çıkacaksan üstüne bir şey al.',
-          TimeSlot.night =>
-            'Gece boyunca kapalı hava devam edecek; yağış beklenmiyor.',
+            'Öğleden sonra bulutlu. Güneş az, yağış ihtimali düşük.',
+          TimeSlot.evening => 'Akşam kapalı ve serin. Üstüne bir kat al.',
+          TimeSlot.night => 'Gece kapalı geçecek. Yağış beklenmiyor.',
         },
       WeatherMessageType.foggy => switch (slot) {
           TimeSlot.morning =>
-            'Sabah yoğun sis var; araç kullanıyorsan sis farlarını aç ve yavaş git.',
+            'Sabah sis var. Araçtaysan sis farlarını aç, yavaş git.',
           TimeSlot.afternoon =>
-            'Öğleden sonra sis dağılıyor; görüş mesafesi artıyor ama yolda dikkatli ol.',
+            'Öğleden sonra sis dağılıyor. Yolda yine de dikkatli ol.',
           TimeSlot.evening =>
-            'Akşam hafif pus var; yürürken ve araç kullanırken görüş mesafesine dikkat et.',
+            'Akşam pus var. Yolda görüş mesafesine dikkat et.',
           TimeSlot.night =>
-            'Gece boyunca sis ve pus etkili; dışarıda hareket edeceksen çok dikkatli ol.',
+            'Gece sis etkili. Araç kullanacaksan hızını düşür.',
         },
       WeatherMessageType.drizzle => switch (slot) {
           TimeSlot.morning =>
-            'Sabah hafif çisenti var; şemsiye veya kapüşonlu bir mont al, fazla ıslanmazsın ama hazırlıklı ol.',
+            'Sabah hafif çisenti var. Kapüşon ya da küçük bir şemsiye yeter.',
           TimeSlot.afternoon =>
-            'Öğleden sonra çisenti devam ediyor; kısa işler için dışarı çıkabilirsin ama şemsiyeni yanında tut.',
+            'Öğleden sonra çisenti sürüyor. Kısa işler için çıkabilirsin, şemsiye yanında olsun.',
           TimeSlot.evening =>
-            'Akşam hafif çisenti var; yürüyüşe çıkacaksan su geçirmez bir ceket iyi olur.',
+            'Akşam hafif çisenti var. Su geçirmez bir ceket iyi olur.',
           TimeSlot.night =>
-            'Gece hafif çisenti devam edecek; dışarıda bıraktığın eşyaları içeri al.',
+            'Gece hafif çisenti sürecek. Dışarıda eşya bıraktıysan içeri al.',
         },
       WeatherMessageType.rain => switch (slot) {
           TimeSlot.morning =>
-            'Sabah yağmur yağıyor; şemsiyeni ve su geçirmez ayakkabılarını al, yolda dikkatli ol.',
+            'Sabah yağmur yağıyor. Şemsiyeni ve su geçirmez ayakkabını al.',
           TimeSlot.afternoon =>
-            'Öğleden sonra yağmur devam ediyor; dışarı zorunlu işler için çık, şemsiyeni unutma.',
+            'Öğleden sonra yağmur sürüyor. Zorunlu değilse işleri sonraya bırak.',
           TimeSlot.evening =>
-            'Bu akşam yağmur var; dışarı çıkacaksan yağmurluğunu giy ve ıslak yollara dikkat et.',
+            'Bu akşam yağmur var. Çıkacaksan yağmurluk giy, ıslak yollara dikkat et.',
           TimeSlot.night =>
-            'Gece boyunca yağmur devam edecek; araç kullanacaksan görüş mesafesine dikkat et.',
+            'Gece yağmur sürecek. Araç kullanacaksan takip mesafesini aç.',
         },
       WeatherMessageType.heavyRain => switch (slot) {
           TimeSlot.morning =>
-            'Sabah şiddetli yağmur var; zorunlu olmadıkça dışarı çıkma, sel ve su baskını riskine dikkat et.',
+            'Sabah şiddetli yağış var. Zorunlu değilse çıkma, sel riskine dikkat et.',
           TimeSlot.afternoon =>
-            'Öğleden sonra sağanak devam ediyor; alt geçitlerden ve dere yataklarından uzak dur.',
+            'Öğleden sonra sağanak sürüyor. Alt geçitlerden ve dere yataklarından uzak dur.',
           TimeSlot.evening =>
-            'Bu akşam şiddetli yağmur bekleniyor; dışarıdaki eşyalarını içeri al, pencerelerini kapat.',
+            'Bu akşam şiddetli yağış var. Dışarıdaki eşyaları içeri al, pencereleri kapat.',
           TimeSlot.night =>
-            'Gece boyunca sağanak devam edecek; araç kullanma, sel riski var.',
+            'Gece sağanak sürecek. Sel riski var, mümkünse yola çıkma.',
         },
       WeatherMessageType.freezingRain => switch (slot) {
           TimeSlot.morning =>
-            'Sabah dondurucu yağmur var; yollar ve kaldırımlar buz tutmuş olabilir, çok dikkatli yürü.',
+            'Sabah dondurucu yağmur var. Yollar ve kaldırımlar buz tutmuş olabilir.',
           TimeSlot.afternoon =>
-            'Öğleden sonra dondurucu yağmur etkili; araç kullanma, yollar çok kaygan.',
+            'Öğleden sonra dondurucu yağmur sürüyor. Yollar çok kaygan, araç kullanma.',
           TimeSlot.evening =>
-            'Bu akşam dondurucu yağmur bekleniyor; dışarı çıkmaktan kaçın, yollar çok tehlikeli.',
+            'Bu akşam dondurucu yağmur var. Zorunlu değilse dışarı çıkma.',
           TimeSlot.night =>
-            'Gece dondurucu yağmur devam edecek; sabah yollar buz olacak, erken çıkacaksan çok dikkat et.',
+            'Gece dondurucu yağmur sürecek. Sabah yollar buz olabilir, erken çıkacaksan dikkat et.',
         },
       WeatherMessageType.snow => switch (slot) {
           TimeSlot.morning =>
-            'Sabah kar yağıyor; kalın giyin, kaymaz ayakkabı giy ve yollara dikkat et.',
+            'Sabah kar yağıyor. Kalın giyin, kaymaz tabanlı ayakkabı seç.',
           TimeSlot.afternoon =>
-            'Öğleden sonra kar devam ediyor; araç kullanacaksan kış lastiği ve zincir kontrol et.',
+            'Öğleden sonra kar sürüyor. Araçla çıkacaksan kış lastiğini ve zinciri kontrol et.',
           TimeSlot.evening =>
-            'Bu akşam kar yağışı var; dışarıda kalmaktan kaçın, yollar kaygan.',
+            'Bu akşam kar var. Yollar kaygan, dışarıda uzun kalma.',
           TimeSlot.night =>
-            'Gece boyunca kar bekleniyor; sabah yollar kaplı olacak, erken çık veya evde kal.',
+            'Gece kar bekleniyor. Sabah yollar kapalı olabilir, çıkışını buna göre planla.',
         },
       WeatherMessageType.thunderstorm => switch (slot) {
           TimeSlot.morning =>
-            'Sabah gök gürültülü fırtına bekleniyor; zorunlu olmadıkça dışarı çıkma.',
+            'Sabah gök gürültülü fırtına var. Zorunlu değilse dışarı çıkma.',
           TimeSlot.afternoon =>
-            'Öğleden sonra fırtına etkili; açık alanlardan, ağaçlardan ve metal yapılardan uzak dur.',
+            'Öğleden sonra fırtına etkili. Açık alan, ağaç ve direklerden uzak dur.',
           TimeSlot.evening =>
-            'Bu akşam fırtına var; pencere ve kapıları kapat, dışarıda eşya bırakma.',
+            'Bu akşam fırtına var. Pencereleri kapat, balkonu boşalt.',
           TimeSlot.night =>
-            'Gece fırtına devam edecek; elektrik kesintisine hazır ol, el feneri hazırla.',
+            'Gece fırtına sürecek. Elektrik kesilebilir, el fenerini hazır et.',
         },
       WeatherMessageType.hail => switch (slot) {
           TimeSlot.morning =>
-            'Sabah dolu riski var; aracını kapalı yere al, dışarıda durma.',
+            'Sabah dolu riski var. Aracını kapalı yere çek, dışarıda bekleme.',
           TimeSlot.afternoon =>
-            'Öğleden sonra dolu bekleniyor; dışarı çıkma, araçları ve eşyaları koru.',
+            'Öğleden sonra dolu bekleniyor. Aracını ve eşyalarını koru.',
           TimeSlot.evening =>
-            'Bu akşam dolu riski var; pencere ve balkon kapılarını kapat, aracını kapalı yere al.',
+            'Bu akşam dolu riski var. Aracını kapalı yere al, balkon kapısını kapat.',
           TimeSlot.night =>
-            'Gece dolu bekleniyor; araç dışarıdaysa üzerini kalın bir örtüyle ört.',
+            'Gece dolu bekleniyor. Araç dışarıdaysa üstünü kalın bir örtüyle kapat.',
         },
       WeatherMessageType.extremeHeat => switch (slot) {
           TimeSlot.morning =>
-            'Sabah bile sıcak başlıyor; bol su iç ve güne erken başla, öğlen molası ver.',
+            'Sabah bile sıcak. İşlerini erken bitir, suyu yanından ayırma.',
           TimeSlot.afternoon =>
-            'Öğleden sonra kavurucu sıcak; 12:00–16:00 arası doğrudan güneş altında kalma.',
+            'Öğleden sonra kavurucu sıcak. 11:00–16:00 arası doğrudan güneşte kalma.',
           TimeSlot.evening =>
-            'Bu akşam sıcaklık biraz düşse de bunaltıcı; bol su iç ve serinle.',
+            'Akşam sıcaklık biraz düşüyor ama hava hâlâ bunaltıcı. Bol su iç.',
           TimeSlot.night =>
-            'Gece bile sıcak kalabilir; uyku için odayı havalandır, klima varsa abartmadan kullan.',
+            'Gece de sıcak. Yatmadan önce odayı havalandır.',
         },
       WeatherMessageType.frost => switch (slot) {
           TimeSlot.morning =>
-            'Sabah don ve buzlanma riski var; yollarda çok dikkatli ol, adımlarını kısa at.',
+            'Sabah don ve buzlanma riski var. Kaldırımda adımlarını kısa tut.',
           TimeSlot.afternoon =>
-            'Öğleye doğru don etkisi azalıyor ama gölgeli bölgelerde hâlâ buzlanma olabilir.',
+            'Öğleye doğru don çözülüyor. Gölgede kalan yerlerde buz kalabilir.',
           TimeSlot.evening =>
-            'Bu akşam hava hızla soğuyor; dışarıda kalmaktan kaçın, kalın giyin.',
+            'Bu akşam hava hızla soğuyor. Kalın giyin, dışarıda uzun kalma.',
           TimeSlot.night =>
-            'Gece boyunca don bekleniyor; dış muslukları kapat, boruları dona karşı koru.',
+            'Gece don bekleniyor. Dış muslukları kapat, boruları koru.',
         },
       WeatherMessageType.windy => switch (slot) {
           TimeSlot.morning =>
-            'Sabah kuvvetli rüzgar var; şapka ve hafif eşyalara dikkat et, kapıları tutarak aç.',
+            'Sabah kuvvetli rüzgar var. Şapkana ve hafif eşyalarına sahip çık.',
           TimeSlot.afternoon =>
-            'Öğleden sonra rüzgar şiddetleniyor; dışarıda reklam panoları ve uçucu eşyalara dikkat.',
+            'Öğleden sonra rüzgar güçleniyor. Tabela ve iskele yakınından geçme.',
           TimeSlot.evening =>
-            'Bu akşam rüzgar etkili; balkon ve bahçedeki eşyaları sabitle veya içeri al.',
+            'Bu akşam rüzgar etkili. Balkondaki eşyaları sabitle ya da içeri al.',
           TimeSlot.night =>
-            'Gece kuvvetli rüzgar devam edecek; pencere ve kapıların sıkıca kapalı olduğundan emin ol.',
+            'Gece kuvvetli rüzgar sürecek. Pencere ve kapıları sıkıca kapat.',
         },
     };
   }
@@ -667,146 +771,149 @@ class WeatherMessageService {
 
   static String _farmerHeadline(WeatherMessageType type, TimeSlot slot,
       WeatherData data, WeatherDecision decision) {
+    // Başlık ilaçlamayı ancak karar motoru izin veriyorsa önersin.
+    final spray = decision.canSpray;
     return switch (type) {
       WeatherMessageType.clear => switch (slot) {
-          TimeSlot.morning =>
-            'Sabah güneşli ve rüzgar hafif; ilaçlama ve tarla işleri için en verimli saatler başlıyor.',
+          TimeSlot.morning => spray
+              ? 'Sabah açık, rüzgar ilaçlamaya uygun. Erken başla, öğle sıcağından önce bitir.'
+              : 'Sabah açık ama ilaçlama koşulları sınırda. Rüzgarı ve nemi kontrol et.',
           TimeSlot.afternoon =>
-            'Öğleden sonra güneş etkili; toprak nemi düşüyorsa akşam serinliğinde sulamayı planla.',
+            'Öğleden sonra güneş etkili. Sulamayı akşam serinliğine bırak.',
           TimeSlot.evening =>
-            'Akşam sakin ve serin; sulama, gözlem ve hafif tarla bakımı için uygun.',
+            'Akşam sakin ve serin. Sulama ve tarla kontrolü için uygun.',
           TimeSlot.night =>
-            'Gece boyunca hava açık ve sakin; sabah erken ilaçlama veya sulama planlayabilirsin.',
+            'Gece açık ve sakin. Sabah erken ilaçlama ya da sulama planlayabilirsin.',
         },
       WeatherMessageType.partlyCloudy => switch (slot) {
-          TimeSlot.morning =>
-            'Sabah parçalı bulutlu; ilaçlama koşulları uygun, rüzgar kontrol edildikten sonra başlanabilir.',
+          TimeSlot.morning => spray
+              ? 'Sabah parçalı bulutlu. İlaçlama için uygun, başlamadan rüzgara bak.'
+              : 'Sabah parçalı bulutlu. İlaçlama koşulları sınırda, rüzgarı kontrol et.',
           TimeSlot.afternoon =>
-            'Öğleden sonra bulutlu ama yağışsız; tarla gözlemi ve bakım işleri için uygun.',
-          TimeSlot.evening =>
-            'Akşam sakin; sulama ve hafif tarla işleri yapılabilir.',
+            'Öğleden sonra bulutlu ama kuru. Tarla kontrolü ve bakım için uygun.',
+          TimeSlot.evening => 'Akşam sakin. Sulama ve hafif işler için uygun.',
           TimeSlot.night =>
-            'Gece boyunca yağış beklenmiyor; sabah ilaçlama planlanabilir.',
+            'Gece yağış beklenmiyor. Sabah ilaçlamayı planlayabilirsin.',
         },
       WeatherMessageType.cloudy => switch (slot) {
-          TimeSlot.morning =>
-            'Sabah bulutlu ama yağışsız; ilaçlama yapılabilir, rüzgarı kontrol et.',
+          TimeSlot.morning => spray
+              ? 'Sabah kapalı ama kuru. İlaçlama yapabilirsin, önce rüzgara bak.'
+              : 'Sabah kapalı ama kuru. İlaçlama koşulları sınırda, rüzgarı kontrol et.',
           TimeSlot.afternoon =>
-            'Öğleden sonra kapalı hava; buharlaşma düşük, sulama yapacaksan erteleyebilirsin.',
+            'Öğleden sonra kapalı. Buharlaşma düşük, sulama acil değilse bekleyebilir.',
           TimeSlot.evening =>
-            'Akşam bulutlu ve serin; toprak nemi kontrol edilip gerekirse sulama yapılabilir.',
+            'Akşam bulutlu ve serin. Toprak kuruysa bu akşam sula.',
           TimeSlot.night =>
-            'Gece boyunca yağış beklenmiyor; sabah erken tarla işlerine çıkılabilir.',
+            'Gece yağış beklenmiyor. Sabah erken tarlaya çıkabilirsin.',
         },
       WeatherMessageType.foggy => switch (slot) {
           TimeSlot.morning =>
-            'Sabah yoğun sis var; ilaçlama yapma, nem çok yüksek ve ilacın etkisi azalır.',
+            'Sabah yoğun sis var. İlaçlama yapma, nem çok yüksek.',
           TimeSlot.afternoon =>
-            'Öğleye doğru sis açılıyor; açıldıktan sonra ilaçlama yapılabilir.',
+            'Öğleye doğru sis açılıyor. Açıldıktan sonra rüzgar uygunsa ilaçlayabilirsin.',
           TimeSlot.evening =>
-            'Akşam hafif pus var; ilaçlama için uygun değil, sulama yapılabilir.',
+            'Akşam pus var. İlaçlamaya uygun değil, sulama yapabilirsin.',
           TimeSlot.night =>
-            'Gece boyunca yoğun nem ve sis var; tarla işleri sabaha bırakılmalı.',
+            'Gece nem ve sis yüksek. Tarla işlerini sabaha bırak.',
         },
       WeatherMessageType.drizzle => switch (slot) {
           TimeSlot.morning =>
-            'Sabah çisenti var; ilaçlama yapma, ilacı yağmur yıkar. Sulama da gereksiz.',
+            'Sabah çisenti var. İlaçlama yapma, yağmur ilacı yıkar.',
           TimeSlot.afternoon =>
-            'Öğleden sonra çisenti devam ediyor; tarla işlerini ertele, toprak ıslanıyor.',
+            'Öğleden sonra çisenti sürüyor. Toprak ıslanıyor, tarla işlerini ertele.',
           TimeSlot.evening =>
-            'Akşam hafif çisenti; toprak nem alıyor, sulama yapma. Drenajı kontrol et.',
+            'Akşam hafif çisenti var. Sulamaya gerek yok, drenaja bir bak.',
           TimeSlot.night =>
-            'Gece çisenti devam edecek; sabah toprak nemini kontrol edip planlama yap.',
+            'Gece çisenti sürecek. Sabah toprak nemine bakıp günü planla.',
         },
       WeatherMessageType.rain => switch (slot) {
           TimeSlot.morning =>
-            'Sabah yağmur yağıyor; bugün ilaçlama ve gübreleme yapma, yağış sonrasını bekle.',
+            'Sabah yağmur yağıyor. Bugün ilaçlama ve gübreleme yapma.',
           TimeSlot.afternoon =>
-            'Öğleden sonra yağmur devam ediyor; tarla işlerini ertele, drenajı kontrol et.',
+            'Öğleden sonra yağmur sürüyor. Tarla işlerini ertele, drenajı kontrol et.',
           TimeSlot.evening =>
-            'Akşam yağmur var; sulama yapma, toprak zaten nem alıyor. Drenaj kanallarını kontrol et.',
+            'Akşam yağmur var. Sulama yapma, drenaj kanallarına bak.',
           TimeSlot.night =>
-            'Gece yağmur devam edecek; sabah toprak durumunu değerlendir, ıslaksa tarlaya girme.',
+            'Gece yağmur sürecek. Sabah toprak ıslaksa tarlaya girme.',
         },
       WeatherMessageType.heavyRain => switch (slot) {
           TimeSlot.morning =>
-            'Sabah şiddetli yağmur; tüm tarla işlerini iptal et, ekipmanları kapalı yere al.',
+            'Sabah şiddetli yağış var. Tarla işlerini iptal et, ekipmanı kapalı yere al.',
           TimeSlot.afternoon =>
-            'Sağanak devam ediyor; drenaj kanallarını ve set yapılarını kontrol et, taşma riski var.',
+            'Öğleden sonra sağanak sürüyor. Drenajı ve setleri kontrol et, taşma riski var.',
           TimeSlot.evening =>
-            'Akşam şiddetli yağış; tarlada su birikmesi kontrolü yap, hayvanları kapalı alanlara al.',
+            'Akşam şiddetli yağış var. Su birikmesine bak, hayvanları içeri al.',
           TimeSlot.night =>
-            'Gece boyunca sağanak sürecek; sabah sel hasarını kontrol et.',
+            'Gece sağanak sürecek. Sabah ilk iş sel hasarını kontrol et.',
         },
       WeatherMessageType.freezingRain => switch (slot) {
           TimeSlot.morning =>
-            'Sabah dondurucu yağmur; tüm tarla işlerini iptal et, meyve ağaçları ve fideler ciddi risk altında.',
+            'Sabah dondurucu yağmur var. Tarla işlerini iptal et, fideler ve meyve ağaçları risk altında.',
           TimeSlot.afternoon =>
-            'Öğleden sonra donma devam ediyor; sera ve örtü altı yapıları kontrol et, çökme riski var.',
+            'Öğleden sonra donma sürüyor. Sera ve örtü altı yapıları kontrol et, çökme riski var.',
           TimeSlot.evening =>
-            'Akşam dondurucu yağmur etkili; bitkileri acil olarak örtü ile koru.',
+            'Akşam dondurucu yağmur etkili. Hassas bitkileri hemen ört.',
           TimeSlot.night =>
-            'Gece boyunca buz tabakası oluşacak; dallar kırılabilir, örtüleri kontrol et.',
+            'Gece buz tabakası oluşacak. Dallar kırılabilir, örtüleri kontrol et.',
         },
       WeatherMessageType.snow => switch (slot) {
           TimeSlot.morning =>
-            'Sabah kar yağıyor; tüm tarla işlerini iptal et, sera ve örtüleri kontrol et.',
+            'Sabah kar yağıyor. Tarla işlerini iptal et, sera ve örtüleri kontrol et.',
           TimeSlot.afternoon =>
-            'Öğleden sonra kar devam ediyor; sera çatılarındaki kar birikimini temizle, çökme riski var.',
+            'Öğleden sonra kar sürüyor. Sera çatısındaki karı temizle, çökme riski var.',
           TimeSlot.evening =>
-            'Akşam kar etkili; hayvanları kapalı alanlara al, su borularını dona karşı koru.',
+            'Akşam kar etkili. Hayvanları içeri al, su borularını dondan koru.',
           TimeSlot.night =>
-            'Gece boyunca kar ve don; seraları ısıt, hassas ürünleri acil olarak örtü altına al.',
+            'Gece kar ve don var. Serayı ısıt, hassas ürünleri örtü altına al.',
         },
       WeatherMessageType.thunderstorm => switch (slot) {
           TimeSlot.morning =>
-            'Sabah fırtına bekleniyor; tüm tarla işlerini iptal et, ekipmanları bağla ve içeri al.',
+            'Sabah fırtına bekleniyor. Tarla işlerini iptal et, ekipmanı bağla ya da içeri al.',
           TimeSlot.afternoon =>
-            'Fırtına devam ediyor; tarlaya kesinlikle çıkma, hayvanları kapalı alana al.',
+            'Öğleden sonra fırtına sürüyor. Tarlaya çıkma, hayvanları kapalı alana al.',
           TimeSlot.evening =>
-            'Akşam fırtına etkili; sera ve örtüleri kontrol et, uçma ve hasar riski var.',
+            'Akşam fırtına etkili. Sera ve örtüleri kontrol et, rüzgar koparabilir.',
           TimeSlot.night =>
-            'Gece fırtına sürecek; sabah hasar tespiti yap, kırık dalları ve devrilenleri kontrol et.',
+            'Gece fırtına sürecek. Sabah kırık dal ve devrilen yapılara bak.',
         },
       WeatherMessageType.hail => switch (slot) {
           TimeSlot.morning =>
-            'Sabah dolu riski var; ürünleri acil olarak dolu filesi veya örtü ile koru.',
+            'Sabah dolu riski var. Ürünleri dolu filesi ya da örtüyle koru.',
           TimeSlot.afternoon =>
-            'Öğleden sonra dolu bekleniyor; hasat edilecek ürünler varsa hemen topla, koruma önlemlerini al.',
+            'Öğleden sonra dolu bekleniyor. Olgun ürün varsa hemen topla.',
           TimeSlot.evening =>
-            'Akşam dolu riski; sera camlarını ve örtü altı yapılarını kontrol et.',
+            'Akşam dolu riski var. Sera camlarını ve örtü altı yapıları kontrol et.',
           TimeSlot.night =>
-            'Gece dolu bekleniyor; tüm koruma önlemlerinin alındığından emin ol.',
+            'Gece dolu bekleniyor. Koruma önlemlerini yatmadan bir kez daha kontrol et.',
         },
       WeatherMessageType.extremeHeat => switch (slot) {
           TimeSlot.morning =>
-            'Sabah erkenden tarla işlerine başla; sıcak yükselmeden önce bitirmek önemli.',
+            'Sabah serinken tarlaya çık. İşi sıcak bastırmadan bitir.',
           TimeSlot.afternoon =>
-            'Öğle sıcağında kesinlikle tarlada çalışma; güneş çarpması riski çok yüksek.',
+            'Öğle sıcağında tarlada çalışma. Güneş çarpması riski yüksek.',
           TimeSlot.evening =>
-            'Akşam serinliğinde sulama yap; gündüz sulaması suyun buharlaşmasına neden olur.',
+            'Akşam serinliği sulama için en iyi zaman. Gündüz suyun çoğu buharlaşır.',
           TimeSlot.night =>
-            'Gece sulaması için en uygun zaman; buharlaşma en düşük seviyede.',
+            'Gece sulama için uygun. Buharlaşma en düşük seviyede.',
         },
       WeatherMessageType.frost => switch (slot) {
           TimeSlot.morning =>
-            'Sabah don var; hassas fideleri ve genç ürünleri acil olarak örtü ile koru.',
+            'Sabah don var. Hassas fideleri ve genç ürünleri hemen ört.',
           TimeSlot.afternoon =>
-            'Don etkisi azalıyor; örtüleri güneş çıkınca havalandır ama akşam yine kapat.',
+            'Don etkisi azalıyor. Örtüleri havalandır, akşam yine kapat.',
           TimeSlot.evening =>
-            'Bu akşam sıcaklık sıfırın altına düşecek; tüm koruma önlemlerini şimdi al.',
+            'Bu akşam sıcaklık ${data.temperature.round()}°C ve düşüyor. Koruma önlemlerini şimdi al.',
           TimeSlot.night =>
-            'Gece boyunca don etkili; sera ısıtmalarını çalıştır, sulama borularını koru.',
+            'Gece don etkili. Sera ısıtmasını aç, sulama borularını koru.',
         },
       WeatherMessageType.windy => switch (slot) {
           TimeSlot.morning =>
-            'Sabah kuvvetli rüzgar var; ilaçlama kesinlikle yapma, ilacın sürüklenmesi tehlikeli.',
+            'Sabah kuvvetli rüzgar var. İlaçlama yapma, ilaç sürüklenir.',
           TimeSlot.afternoon =>
-            'Öğleden sonra rüzgar devam ediyor; sera örtülerini ve çit yapılarını kontrol et.',
+            'Öğleden sonra rüzgar sürüyor. Sera örtülerini ve çitleri kontrol et.',
           TimeSlot.evening =>
-            'Akşam rüzgar hâlâ etkili; ekipmanları sabitle, sera kapılarını kapat.',
-          TimeSlot.night =>
-            'Gece rüzgar devam edecek; sabah hasar kontrolü yap.',
+            'Akşam rüzgar hâlâ güçlü. Ekipmanı sabitle, sera kapılarını kapat.',
+          TimeSlot.night => 'Gece rüzgar sürecek. Sabah hasar kontrolü yap.',
         },
     };
   }
@@ -815,71 +922,81 @@ class WeatherMessageService {
 
   static String _citySubtitle(
       WeatherMessageType type, TimeSlot slot, WeatherData data, int temp) {
+    final humidity = data.humidity.round();
+    final wind = data.windSpeed.round();
+    final feels = data.feelsLike.round();
     return switch (type) {
-      WeatherMessageType.clear || WeatherMessageType.partlyCloudy => switch (
-            slot) {
-          TimeSlot.morning =>
-            'Şu an $temp°C, nem %${data.humidity.round()}. Güneşli ve rüzgarsız.',
+      WeatherMessageType.clear => switch (slot) {
+          TimeSlot.morning => wind < 15
+              ? 'Şu an $temp°C, nem %$humidity. Rüzgar hafif.'
+              : 'Şu an $temp°C, nem %$humidity. Rüzgar $wind km/s.',
           TimeSlot.afternoon =>
-            'Şu an $temp°C. Güneş tepe noktada, gözlüğünü unutma.',
+            'Şu an $temp°C. Güneş tepede, gözlüğünü unutma.',
           TimeSlot.evening =>
-            'Şu an $temp°C. Akşam serinliği başlıyor, ince bir hırka yeterli.',
-          TimeSlot.night => 'Şu an $temp°C. Sakin ve berrak bir gece.',
+            'Şu an $temp°C. Akşam serinliği başlıyor, ince bir hırka yeter.',
+          TimeSlot.night => 'Şu an $temp°C. Açık ve sakin bir gece.',
+        },
+      WeatherMessageType.partlyCloudy => switch (slot) {
+          TimeSlot.morning =>
+            'Şu an $temp°C, nem %$humidity. Güneş bulutların arasından çıkıyor.',
+          TimeSlot.afternoon =>
+            'Şu an $temp°C. Güneş ara ara açıyor, gözlük işine yarar.',
+          TimeSlot.evening =>
+            'Şu an $temp°C. Akşam serinliği başlıyor, ince bir hırka yeter.',
+          TimeSlot.night => 'Şu an $temp°C. Parçalı bulutlu, sakin bir gece.',
         },
       WeatherMessageType.cloudy => switch (slot) {
           TimeSlot.morning =>
-            'Şu an $temp°C. Kapalı ama kuru; ince bir ceket al.',
+            'Şu an $temp°C, hissedilen $feels°C. Nem %$humidity.',
           TimeSlot.afternoon => 'Şu an $temp°C. Güneş yok ama yağmur da yok.',
-          TimeSlot.evening => 'Şu an $temp°C. Serin ve kapalı bir akşam.',
+          TimeSlot.evening =>
+            'Şu an $temp°C, hissedilen $feels°C. Serin bir akşam.',
           TimeSlot.night => 'Şu an $temp°C. Kapalı ve sakin bir gece.',
         },
       WeatherMessageType.foggy =>
-        'Şu an $temp°C. Görüş mesafesi düşük; dikkatli ol.',
+        'Şu an $temp°C, nem %$humidity. Görüş mesafesi düşük, dikkatli ol.',
       WeatherMessageType.drizzle =>
-        'Şu an $temp°C. Hafif çisenti var; şemsiye veya yağmurluk al.',
+        'Şu an $temp°C. Hafif çisenti var, şemsiye ya da yağmurluk yeter.',
       WeatherMessageType.rain => data.isRainingNow
-          ? 'Şu an yağmur var; şemsiyeni aç, ıslanmamaya dikkat et.'
-          : 'Şu an $temp°C; yağış ihtimali var, şemsiyeni yanına al.',
+          ? 'Şu an $temp°C ve yağmur yağıyor. Şemsiyeni aç.'
+          : 'Şu an $temp°C. Yağış ihtimali %${data.precipitationProbability.round()}, şemsiyeni yanına al.',
       WeatherMessageType.heavyRain =>
-        'Şu an $temp°C. Şiddetli yağış devam ediyor; mümkünse dışarı çıkma.',
+        'Şu an $temp°C. Şiddetli yağış sürüyor, mümkünse dışarı çıkma.',
       WeatherMessageType.freezingRain =>
-        'Şu an $temp°C. Yollar buzlu; dışarı çıkmaktan kaçın.',
-      WeatherMessageType.snow =>
-        'Şu an $temp°C. Kar yağışı var; kalın giyin, kaymaz ayakkabı giy.',
+        'Şu an $temp°C. Yollar buzlu, dışarı çıkmaktan kaçın.',
+      WeatherMessageType.snow => 'Şu an $temp°C. Kar yağıyor, kalın giyin.',
       WeatherMessageType.thunderstorm =>
-        'Şu an $temp°C. Fırtına etkili; evde kal, pencerelerini kapat.',
+        'Şu an $temp°C. Fırtına etkili, evde kal ve pencereleri kapat.',
       WeatherMessageType.hail =>
-        'Şu an $temp°C. Dolu riski var; sığınacak yer bul.',
+        'Şu an $temp°C. Dolu riski var, sağlam bir yere sığın.',
       WeatherMessageType.extremeHeat =>
-        'Şu an $temp°C! Bol su iç, güneşte kalma süresini kısalt.',
+        'Şu an $temp°C, hissedilen $feels°C. Bol su iç, güneşte kalma süreni kısalt.',
       WeatherMessageType.frost =>
-        'Şu an $temp°C. Don ve buzlanma riski var; dikkatli ol.',
+        'Şu an $temp°C. Don ve buzlanma riski var, yürürken dikkatli ol.',
       WeatherMessageType.windy =>
-        'Şu an $temp°C. Rüzgar ${data.windSpeed.round()} km/s; uçucu eşyalara dikkat.',
+        'Şu an $temp°C. Rüzgar $wind km/s, uçabilecek eşyalara dikkat.',
     };
   }
 
-  /// Başlıkta yağış penceresi varken alt yazı “yağış yok / sakin gece” ile çelişmesin.
+  /// Başlık yağış penceresini söylüyor. Alt yazı şu anki kuru durumu ve ilk
+  /// yağış saatini verir, "yağış yok" demez.
   static String _citySubtitleWhenRainForecast(
     TimeSlot slot,
     WeatherData data,
     int temp,
-    ({String range, DateTime first, DateTime last}) detail,
+    ({String range, DateTime first, DateTime last, int prob}) detail,
   ) {
-    final range = detail.range;
-    final endStr =
-        '${detail.last.hour.toString().padLeft(2, '0')}:00';
+    final firstStr = _hh(detail.first);
     final humidity = data.humidity.round();
-    // Üst metin yağış odaklıyken: şu an kuru + gün içi yağış beklentisi.
     return switch (slot) {
       TimeSlot.morning =>
-        'Şu an $temp°C, nem %$humidity. Yağmur henüz yok; gün içinde yağış bekleniyor (çoğunlukla $range, $endStr\'ye kadar). Şemsiyeni yanına al.',
+        'Şu an $temp°C, nem %$humidity. Yağmur henüz başlamadı, ilk yağış $firstStr civarı.',
       TimeSlot.afternoon =>
-        'Şu an $temp°C. Yağmur şimdilik yok; önümüzdeki saatlerde yağış ihtimali var ($range, $endStr\'ye kadar).',
+        'Şu an $temp°C ve kuru. İlk yağış $firstStr civarı, kısa işleri ondan önce hallet.',
       TimeSlot.evening =>
-        'Şu an $temp°C. Şu an kuru; akşam ve geceye doğru yağış bekleniyor ($range). Şemsiyeni unutma.',
+        'Şu an $temp°C ve kuru. İlk yağış $firstStr civarı, dönüş için şemsiye al.',
       TimeSlot.night =>
-        'Şu an $temp°C. Gece şimdilik sakin; gün içinde yağış bekleniyor (çoğunlukla $range, $endStr\'ye kadar). Şemsiyeni hazır tut.',
+        'Şu an $temp°C ve kuru. İlk yağış $firstStr civarı, balkonda eşya kaldıysa içeri al.',
     };
   }
 
@@ -890,37 +1007,32 @@ class WeatherMessageService {
     WeatherDecision decision,
     int temp,
     int wind,
-    ({String range, DateTime first, DateTime last}) detail,
+    ({String range, DateTime first, DateTime last, int prob}) detail,
   ) {
-    final range = detail.range;
-    final endStr =
-        '${detail.last.hour.toString().padLeft(2, '0')}:00';
-    final base =
-        'Rüzgar $wind km/s. Gün içinde yağış bekleniyor ($range, $endStr\'ye kadar); ';
+    final base = 'Rüzgar $wind km/s. İlk yağış ${_hh(detail.first)} civarı. ';
     return switch (type) {
       WeatherMessageType.clear ||
       WeatherMessageType.partlyCloudy =>
-        '${base}ilaçlama ve sulama planını yağışa göre ayarla.',
+        '${base}İlaçlamayı yağıştan en az 4 saat önce bitir.',
       WeatherMessageType.cloudy => decision.shouldIrrigate
-          ? '${base}toprak nemi düşükse sulama zamanını yağışa göre ertele.'
-          : '${base}toprak nemi ve drenajı yağış öncesi kontrol et.',
-      WeatherMessageType.foggy =>
-        '${base}sis açılana kadar ilaçlama yapma.',
+          ? '${base}Sulamayı yağıştan sonraya bırak.'
+          : '${base}Yağıştan önce drenajı kontrol et.',
+      WeatherMessageType.foggy => '${base}Sis açılmadan ilaçlama yapma.',
       WeatherMessageType.drizzle ||
       WeatherMessageType.rain ||
       WeatherMessageType.heavyRain =>
-        '${base}drenajı ve sulama zamanını yağışa göre sıkılaştır.',
+        '${base}Drenajı kontrol et, sulamaya gerek yok.',
       WeatherMessageType.freezingRain ||
       WeatherMessageType.snow ||
       WeatherMessageType.frost =>
-        '${base}don ve yol koşullarına dikkat et.',
+        '${base}Bitkileri ört, yollara dikkat et.',
       WeatherMessageType.thunderstorm ||
       WeatherMessageType.hail =>
-        '${base}açık alanda iş bırak, ekipmanı koru.',
+        '${base}Açık alandaki işi bırak, ekipmanı koru.',
       WeatherMessageType.extremeHeat =>
-        '${base}öğle sıcağında tarla işini kısalt.',
+        '${base}Öğle sıcağında tarla işini kısa tut.',
       WeatherMessageType.windy =>
-        '${base}ilaçlama yapma; rüzgar ilacı sürükler.',
+        '${base}İlaçlama yapma, rüzgar ilacı sürükler.',
     };
   }
 
@@ -928,184 +1040,186 @@ class WeatherMessageService {
 
   static String _farmerSubtitle(WeatherMessageType type, TimeSlot slot,
       WeatherData data, WeatherDecision decision, int temp, int wind) {
+    final humidity = data.humidity.round();
     return switch (type) {
       WeatherMessageType.clear ||
       WeatherMessageType.partlyCloudy =>
         decision.canSpray
-            ? 'Rüzgar $wind km/s, nem uygun. İlaçlama için uygun koşullar.'
+            ? 'Rüzgar $wind km/s, nem %$humidity. İlaçlama için uygun.'
             : decision.shouldIrrigate
-                ? 'Toprak nemi düşük; akşam serinliğinde sulama yapabilirsin.'
-                : 'Hava sakin; tarla işleri ve rutin bakım için uygun.',
+                ? 'Toprak nemi düşük. Akşam serinliğinde sulayabilirsin.'
+                : 'Rüzgar $wind km/s. İlaçlama için sınırda, rutin bakım için uygun.',
       WeatherMessageType.cloudy => decision.shouldIrrigate
-          ? 'Toprak nemi yeterli değil; sulama planlıyorsan bugün uygun.'
-          : 'Toprak nemi yeterli; sulamayı erteleyebilirsin.',
+          ? 'Toprak nemi düşük. Sulama planlıyorsan bugün uygun.'
+          : 'Toprak nemi yeterli. Sulamayı erteleyebilirsin.',
       WeatherMessageType.foggy =>
-        'Nem çok yüksek; ilaçlama yapma, sis açılana kadar bekle.',
+        'Nem %$humidity. İlaçlama yapma, sis açılana kadar bekle.',
       WeatherMessageType.drizzle ||
       WeatherMessageType.rain =>
-        'Drenajı kontrol et; yağış sonrası toprak nemini değerlendir.',
+        'Drenajı kontrol et. Yağış bitince toprak nemine bak.',
       WeatherMessageType.heavyRain => decision.hasCriticalAlert
-          ? 'Drenaj kanallarını kontrol et, ekipmanları kapalı yere al.'
-          : 'Drenajı kontrol et; yağış sonrası tarlada su birikmesine dikkat.',
+          ? 'Drenaj kanallarını kontrol et, ekipmanı kapalı yere al.'
+          : 'Drenajı kontrol et. Tarlada su birikmesine dikkat.',
       WeatherMessageType.freezingRain =>
-        'Bitkileri acil koru; sera ısıtmalarını aç.',
+        'Şu an $temp°C. Bitkileri hemen koru, sera ısıtmasını aç.',
       WeatherMessageType.snow =>
-        'Serayı kapat, hassas fideleri ört; sabah dona karşı tedbir al.',
+        'Şu an $temp°C. Serayı kapat, hassas fideleri ört.',
       WeatherMessageType.thunderstorm =>
-        'Tarlaya çıkma; sulama pompalarını kapat, jeneratörü hazırla.',
+        'Tarlaya çıkma. Sulama pompalarını kapat, jeneratörü hazırla.',
       WeatherMessageType.hail =>
-        'Dolu filesi veya örtü kur; olgunlaşmış ürünleri acil hasat et.',
+        'Dolu filesi ya da örtü kur. Olgun ürünü hemen topla.',
       WeatherMessageType.extremeHeat =>
-        'Erken saatlerde çalış, öğle molası uzun tut. Akşam sula.',
+        'Şu an $temp°C. Erken saatte çalış, öğle arasını uzun tut, akşam sula.',
       WeatherMessageType.frost =>
-        'Don riski var; fideleri çift kat örtü ile koru, sabah sulama yapma.',
+        'Şu an $temp°C. Fideleri çift kat ört, sabah sulama yapma.',
       WeatherMessageType.windy =>
-        'İlaçlama yapma; rüzgar $wind km/s, ilaç sürüklenir ve etkisiz kalır.',
+        'Rüzgar $wind km/s. İlaçlama yapma, ilaç sürüklenir.',
     };
   }
 
   // ── Şehir Modu: Önemli Notlar ─────────────────────────────────────────────
 
+  /// Notlar "yağmur yok" iddiası taşımaz. Yağış bilgisi başlıkta ve
+  /// rainSummary'de, burada çelişki çıkmasın.
   static String _cityNotes(
       WeatherMessageType type, TimeSlot slot, WeatherData data) {
     return switch (type) {
       WeatherMessageType.clear => switch (slot) {
           TimeSlot.morning =>
-            'Hava güzel; güneş kremi sür ve bol su iç. Gün boyu dışarıda vakit geçirebilirsin.',
+            'Hava güzel. Güneş kremi sür, suyunu yanına al.',
           TimeSlot.afternoon =>
-            'UV oranı yüksek olabilir; 12:00–15:00 arası doğrudan güneş altında kalma süreni kısalt. Şapka ve güneş kremi kullan.',
+            'UV yüksek olabilir. 12:00–15:00 arası güneşte kalma süreni kısalt. Şapka ve güneş kremi kullan.',
           TimeSlot.evening =>
-            'Hava sakin; dışarıda yemek, yürüyüş ya da bisiklet için ideal koşullar.',
-          TimeSlot.night =>
-            'Gece ekstra bir sürpriz yok; hava sakin, uyku için uygun.',
+            'Hava sakin. Dışarıda yemek, yürüyüş ya da bisiklet için uygun.',
+          TimeSlot.night => 'Gece sürpriz yok. Hava sakin, uyku için uygun.',
         },
       WeatherMessageType.partlyCloudy => switch (slot) {
           TimeSlot.morning =>
-            'Hava genel olarak güzel. Yağmur beklenmiyor; günlük planlarını rahatça yapabilirsin.',
+            'Hava genel olarak güzel. Günlük planlarını rahat yapabilirsin.',
           TimeSlot.afternoon =>
-            'Güneş zaman zaman çıkıyor; uzun süre dışarıdaysan güneş kremi ve su yanında olsun.',
-          TimeSlot.evening =>
-            'Akşam serin olabilir; ince bir hırka veya ceket al. Yağış riski düşük.',
-          TimeSlot.night => 'Gece sakin; ekstra bir dram yok, rahat uyuyabilirsin.',
+            'Güneş ara ara çıkıyor. Uzun süre dışarıdaysan güneş kremi ve su yanında olsun.',
+          TimeSlot.evening => 'Akşam serin olabilir. İnce bir hırka al.',
+          TimeSlot.night =>
+            'Gece sakin geçecek. Ekstra bir dram yok, rahat uyu.',
         },
       WeatherMessageType.cloudy => switch (slot) {
           TimeSlot.morning =>
-            'Yağmur ihtimali düşük ama hava kapalı. Üşümemek için ince bir kat giyin.',
+            'Hava kapalı ve serin. Üşümemek için ince bir kat ekle.',
           TimeSlot.afternoon =>
-            'Güneş yok ama yağmur da yok; dışarı planların için engel görünmüyor.',
+            'Güneş az, hava serin. Uzun süre dışarıdaysan bir kat fazla al.',
           TimeSlot.evening =>
-            'Akşam biraz daha serinleyebilir; kalın bir hırka veya ceket iyi olur.',
-          TimeSlot.night => 'Gece sakin; endişe edilecek bir durum yok.',
+            'Akşam biraz daha serinleyebilir. Kalın bir hırka iyi olur.',
+          TimeSlot.night => 'Gece sakin. Endişelenecek bir durum yok.',
         },
       WeatherMessageType.foggy => switch (slot) {
           TimeSlot.morning =>
             'Görüş mesafesi çok düşük olabilir. Araçta sis farlarını aç, hızını düşür. Yürürken açık renkli giyin.',
           TimeSlot.afternoon =>
-            'Sis genellikle öğleye doğru dağılır; yine de trafikte dikkatli ol.',
+            'Sis genelde öğleye doğru dağılır. Trafikte yine de dikkatli ol.',
           TimeSlot.evening =>
-            'Akşam yeniden puslanabilir; dışarıda hareket edeceksen reflektörlü veya parlak giysiler tercih et.',
+            'Akşam yeniden puslanabilir. Yürüyeceksen parlak ya da reflektörlü bir şey giy.',
           TimeSlot.night =>
-            'Görüş çok sınırlı; araç kullanmak zorundaysan sis farları + düşük hız.',
+            'Görüş çok sınırlı. Araç kullanman gerekiyorsa sis farlarını aç, yavaş git.',
         },
       WeatherMessageType.drizzle => switch (slot) {
           TimeSlot.morning =>
-            'Hafif yağış; şemsiye veya yağmurluk yeterli. Yollar hafif ıslak olabilir, dikkatli yürü.',
+            'Hafif yağış var. Şemsiye ya da yağmurluk yeter. Yollar kaygan olabilir, dikkatli yürü.',
           TimeSlot.afternoon =>
-            'Çisenti devam ederse de günlük planlarını çok etkilemez; yanında yağmurluk bulundur.',
+            'Çisenti planlarını pek bozmaz. Yağmurluğun yanında olsun.',
           TimeSlot.evening =>
-            'Çisenti hafifliyorsa dışarı çıkmak sorun değil ama bir yağmurluk al.',
+            'Çisenti hafifliyorsa çıkmak sorun değil. Yine de bir yağmurluk al.',
           TimeSlot.night =>
-            'Hafif çisenti sabaha kadar sürebilir; ciddi bir şey değil ama pencereyi kontrol et.',
+            'Hafif çisenti sabaha kadar sürebilir. Açık pencere varsa kapat.',
         },
       WeatherMessageType.rain => switch (slot) {
           TimeSlot.morning =>
-            'Yağmur devam ediyor. Şemsiye ve su geçirmez ayakkabı şart. Trafikte mesafe bırak, frenleme mesafesi uzar.',
+            'Yağmur sürüyor. Şemsiye ve su geçirmez ayakkabı şart. Trafikte mesafeyi aç, fren mesafesi uzar.',
           TimeSlot.afternoon =>
-            'Yağmur durmazsa dışarı planlarını ertele veya kapalı mekanlara yönel. Otopark tercihin kapalı olsun.',
+            'Yağmur dinmezse dışarı planını ertele ya da kapalı mekan seç. Kapalı otopark daha iyi.',
           TimeSlot.evening =>
-            'Islak yollarda dikkatli yürü; ayakkabılarının tabanı kaymaya uygun olmasın.',
+            'Islak zeminde dikkatli yürü. Kaymayan tabanlı ayakkabı giy.',
           TimeSlot.night =>
-            'Gece yağmur altında araç kullanmak zorundaysan sis farlarını ve silecekleri kontrol et.',
+            'Gece yağmurda araç kullanacaksan silecekleri ve farları kontrol et.',
         },
       WeatherMessageType.heavyRain => switch (slot) {
           TimeSlot.morning =>
-            'Şiddetli yağış; alt geçitler ve çukur bölgelerde su birikebilir. Araçla su birikintilerine girme. Mümkünse evde kal.',
+            'Alt geçitler ve çukur yerlerde su birikebilir. Araçla su birikintisine girme. Mümkünse evde kal.',
           TimeSlot.afternoon =>
-            'Sağanak yağış sürerken trafikte olmaktan kaçın. Bodrum ve zemin katlarını kontrol et, su sızması olabilir.',
+            'Sağanak sürerken trafiğe çıkma. Bodrum ve zemin katı kontrol et, su sızabilir.',
           TimeSlot.evening =>
-            'Dışarıda bırakılmış eşyaları, çamaşırları ve saksıları içeri al. Pencere ve balkonları kapat.',
+            'Dışarıdaki çamaşır, saksı ve eşyaları içeri al. Pencere ve balkon kapılarını kapat.',
           TimeSlot.night =>
-            'Gece sel uyarılarını takip et. Cep telefonunu şarjlı tut; acil durumda hazır ol.',
+            'Sel uyarılarını takip et. Telefonun şarjlı olsun.',
         },
       WeatherMessageType.freezingRain => switch (slot) {
           TimeSlot.morning =>
-            'Yollar ve kaldırımlar buz kaplı olabilir. Dışarı çıkmak zorundaysan kaymaz tabanlı ayakkabı giy, adımlarını kısa at.',
+            'Yollar ve kaldırımlar buz kaplı olabilir. Çıkman gerekiyorsa kaymaz tabanlı ayakkabı giy, adımlarını kısa tut.',
           TimeSlot.afternoon =>
-            'Araçta kış lastiği yoksa trafiğe çıkma. Frenleme mesafesi normalin 5 katına çıkar.',
+            'Araçta kış lastiği yoksa yola çıkma. Buzda fren mesafesi kat kat uzar.',
           TimeSlot.evening =>
-            'Mümkünse evde kal. Dondurucu yağmur en tehlikeli hava olaylarından biridir.',
+            'Mümkünse evde kal. Buzlu zeminde en dikkatli adım bile kayabilir.',
           TimeSlot.night =>
-            'Sabah yollar tamamen buzlu olacak. Erken yola çıkacaksan aracını önceden çalıştır ve ısıt.',
+            'Sabah yollar buzlu olacak. Erken çıkacaksan aracı önceden çalıştırıp camları temizle.',
         },
       WeatherMessageType.snow => switch (slot) {
           TimeSlot.morning =>
-            'Kalın mont, bere, eldiven ve atkı giy. Yollarda buzlanma olabilir; yavaş yürü, adımlarını kısa at.',
+            'Kalın mont, bere, eldiven ve atkı giy. Yollar buzlu olabilir, yavaş yürü.',
           TimeSlot.afternoon =>
-            'Araçta yakıt, battaniye ve fener bulundur. Kış lastiği şart; zincirleri kontrol et.',
+            'Araçta yakıt, battaniye ve fener bulunsun. Kış lastiği şart, zinciri kontrol et.',
           TimeSlot.evening =>
-            'Evde sıcak kal. Dışarıda bırakılan boruları ve muslukları dona karşı koru.',
+            'Evde sıcak kal. Dışarıdaki boru ve muslukları dondan koru.',
           TimeSlot.night =>
-            'Sabah kar temizliği gerekecek; kürek ve tuz hazırla. Elektrik kesintisine karşı el feneri hazır tut.',
+            'Sabah kar temizliği gerekecek. Kürek ve tuzu hazırla, el fenerini el altında tut.',
         },
       WeatherMessageType.thunderstorm => switch (slot) {
           TimeSlot.morning =>
-            'Yıldırım riski var; açık alanlardan uzak dur. Şarj edilecek cihazları fişten çek. Mümkünse evde kal.',
+            'Yıldırım riski var. Açık alanlardan uzak dur. Gerekmeyen cihazları fişten çek.',
           TimeSlot.afternoon =>
-            'Fırtına sırasında ağaç altında durma, yüksek yerlere çıkma. Araçtaysan araçta kal.',
+            'Ağaç altında bekleme, yüksek yerlere çıkma. Araçtaysan araçta kal.',
           TimeSlot.evening =>
-            'Balkon ve bahçedeki uçucu eşyaları içeri al. Pencere ve kepenkleri kapat.',
+            'Balkon ve bahçedeki uçabilecek eşyaları içeri al. Pencereleri kapat.',
           TimeSlot.night =>
-            'Elektrik kesintisi olabilir; el feneri ve şarjlı batarya hazırla. Fırtına geçene kadar evde kal.',
+            'Elektrik kesilebilir. El feneri ve şarjlı bir batarya hazır olsun. Fırtına geçene kadar evde kal.',
         },
       WeatherMessageType.hail => switch (slot) {
           TimeSlot.morning =>
-            'Dolu araçlara ciddi hasar verir; kapalı otopark kullan. Dışarıdaysan hemen bir binaya sığın.',
+            'Dolu araçlara ciddi hasar verir. Kapalı otopark kullan. Dışarıdaysan hemen bir binaya gir.',
           TimeSlot.afternoon =>
             'Dolu sırasında ağaç altına sığınma, dallar kırılabilir. Sağlam bir bina bul.',
           TimeSlot.evening =>
-            'Aracın ve eşyaların dışarıdaysa hemen içeri al. Cam kırılma riski var.',
+            'Araç ve eşyaların dışarıdaysa içeri al. Cam kırılma riski var.',
           TimeSlot.night =>
-            'Araç dışarıdaysa kalın battaniye veya örtü ile koru. Sabah hasar kontrolü yap.',
+            'Araç dışarıdaysa kalın bir battaniye ya da örtüyle koru. Sabah hasara bak.',
         },
       WeatherMessageType.extremeHeat => switch (slot) {
           TimeSlot.morning =>
-            'Sıcaklık ${data.temperature.round()}°C ve artıyor. Güneş kremi (SPF 50+), şapka ve bol su şart. Yaşlıları ve çocukları kontrol et.',
+            'Sıcaklık ${data.temperature.round()}°C ve artıyor. Güneş kremi, şapka ve bol su şart. Yaşlı ve çocuk yakınlarını kontrol et.',
           TimeSlot.afternoon =>
-            'Güneş çarpması riski çok yüksek. Gölge arayın, her 20 dakikada su için. Açık havada spor yapmayın.',
+            'Güneş çarpması riski yüksek. Gölgede kal, 20 dakikada bir su iç. Açık havada spor yapma.',
           TimeSlot.evening =>
-            'Asfalt ve beton hâlâ sıcak; çıplak ayakla yürümeyin. Bol su için, hafif giyin.',
+            'Asfalt hâlâ sıcak. Köpeğini yürüteceksen patilerini düşün. Bol su iç, hafif giyin.',
           TimeSlot.night =>
-            'Gece bile ${data.temperature.round()}°C altına düşmeyebilir. Odanızı havalandırın, elektrik kesilmesine karşı hazırlıklı olun.',
+            'Gece de serinlemek zor. Odayı havalandır, yatmadan su iç.',
         },
       WeatherMessageType.frost => switch (slot) {
           TimeSlot.morning =>
-            'Kaldırımlar ve köprüler buzlu olabilir. Araçta kış lastiği şart; camlar buzluysa buz kazıyıcı kullan. Yaşlılar dışarı çıkmasın.',
+            'Kaldırım ve köprüler buzlu olabilir. Camlar buzluysa kazıyıcı kullan. Yaşlı yakınlarına dikkatli olmalarını hatırlat.',
           TimeSlot.afternoon =>
-            'Don genellikle güneş çıkınca çözülür; yine de gölgeli yerlerde dikkat. Araçta antifrizi kontrol et.',
+            'Don güneşle çözülür ama gölgede buz kalır. Araçta antifrizi kontrol et.',
           TimeSlot.evening =>
-            'Akşam hızla soğuyor; mont, eldiven, atkı ve bere giy. Dış muslukları damlat veya kapat.',
+            'Gece daha da soğuyacak. Mont, eldiven, atkı ve bere giy. Dış muslukları kapat.',
           TimeSlot.night =>
-            'Boruların donmaması için açık bırak veya izolasyon yap. Soba veya kombi güvenliğini kontrol et.',
+            'Borular donmasın diye musluğu hafif açık bırak ya da izole et. Soba ve kombi güvenliğini kontrol et.',
         },
       WeatherMessageType.windy => switch (slot) {
           TimeSlot.morning =>
-            'Rüzgar ${data.windSpeed.round()} km/s. Şapka uçabilir, saç ve giysilere dikkat. Bisiklet ve motosiklet kullanmaktan kaçın.',
+            'Rüzgar ${data.windSpeed.round()} km/s. Şapkan uçabilir. Bisiklet ve motosikletle çıkmamaya çalış.',
           TimeSlot.afternoon =>
-            'Ağaç altında durmayın, dal kırılabilir. İnşaat alanlarından uzak durun.',
+            'Ağaç altında bekleme, dal kırılabilir. İnşaat alanlarından uzak dur.',
           TimeSlot.evening =>
-            'Balkon ve terastaki saksı, şemsiye ve hafif mobilyaları sabitle.',
+            'Balkondaki saksı, şemsiye ve hafif mobilyaları sabitle.',
           TimeSlot.night =>
-            'Pencerelerin kapalı olduğundan emin ol. Şiddetli rüzgar gürültüsü normaldir; sakin ol.',
+            'Pencerelerin kapalı olduğundan emin ol. Gece uğultu olabilir, bu normal.',
         },
     };
   }
@@ -1114,146 +1228,150 @@ class WeatherMessageService {
 
   static String _farmerNotes(WeatherMessageType type, TimeSlot slot,
       WeatherData data, WeatherDecision decision) {
+    final spray = decision.canSpray;
     return switch (type) {
       WeatherMessageType.clear => switch (slot) {
-          TimeSlot.morning =>
-            'İlaçlama için ideal koşullar: rüzgar düşük, nem uygun. Sabah erkenden başla, öğle sıcağında ara ver.',
+          TimeSlot.morning => spray
+              ? 'İlaçlama için koşullar uygun. Sabah erken başla, öğle sıcağında ara ver.'
+              : 'İlaçlama koşulları sınırda. Rüzgar düşene kadar bekle, rutin işlere geç.',
           TimeSlot.afternoon =>
-            'Toprak suyu buharlaşıyor; sulama yapacaksan akşam serinliğini bekle. Gün ortasında sulama su israfıdır.',
+            'Toprak hızla su kaybediyor. Sulamayı akşam serinliğine bırak, öğle sulamasında suyun çoğu boşa gider.',
           TimeSlot.evening =>
-            'Akşam sulaması için uygun. Toprak nemini kontrol et; kuruysa bu akşam sula.',
+            'Akşam sulaması için uygun. Toprak kuruysa bu akşam sula.',
           TimeSlot.night =>
-            'Sabah erken tarla işlerine çıkmayı planla. Gece boyunca sorun beklenmiyor.',
+            'Gece sorun beklenmiyor. Sabah erken tarlaya çıkmayı planla.',
         },
       WeatherMessageType.partlyCloudy => switch (slot) {
-          TimeSlot.morning =>
-            'Bulutlar güneşi kesiyor ama ilaçlama için sorun değil. Rüzgarı kontrol et ve sabah erkenden başla.',
+          TimeSlot.morning => spray
+              ? 'Bulutlar güneşi kesiyor ama ilaçlamaya engel değil. Rüzgara bak, sabah erken başla.'
+              : 'İlaçlama koşulları sınırda. Rüzgarı ve nemi tekrar kontrol et.',
           TimeSlot.afternoon =>
-            'Toprak nemi normal seviyelerdeyse sulama ertelenebilir. Bulutlu hava buharlaşmayı azaltıyor.',
+            'Toprak nemi normalse sulamayı erteleyebilirsin. Bulutlar buharlaşmayı azaltıyor.',
           TimeSlot.evening =>
-            'Akşam sulaması verimli olacak; buharlaşma düşük.',
+            'Akşam sulaması verimli olur. Buharlaşma düşük.',
           TimeSlot.night =>
-            'Sabaha kadar sorun beklenmiyor. Erken saatlerde tarla işlerine başlayabilirsin.',
+            'Sabaha kadar sorun beklenmiyor. Erken saatte işe başlayabilirsin.',
         },
       WeatherMessageType.cloudy => switch (slot) {
-          TimeSlot.morning =>
-            'Kapalı hava ilaçlama için kötü değil; buharlaşma düşük olduğundan ilacın etkisi uzun sürer. Rüzgarı kontrol et.',
+          TimeSlot.morning => spray
+              ? 'Kapalı hava ilaçlama için kötü değil. Buharlaşma düşük, ilaç daha uzun etkili kalır. Önce rüzgara bak.'
+              : 'İlaçlama koşulları sınırda. Rüzgarı ve nemi kontrol etmeden başlama.',
           TimeSlot.afternoon =>
-            'Bulutlu havada toprak daha yavaş kurur; sulama acil değilse öğleden sonraya bırak.',
+            'Bulutlu havada toprak yavaş kurur. Sulama acil değilse akşama bırak.',
           TimeSlot.evening =>
-            'Toprak nemini elle kontrol et; kuruyorsa bu akşam sulama yap.',
+            'Toprak nemini elle kontrol et. Kuruysa bu akşam sula.',
           TimeSlot.night =>
-            'Sabah erken işlere başlamak için uygun koşullar bekleniyor.',
+            'Sabah erken işe başlamak için koşullar uygun görünüyor.',
         },
       WeatherMessageType.foggy => switch (slot) {
           TimeSlot.morning =>
-            'Sis sırasında ilaçlama yapma; nem %90 üstünde olduğunda ilaç tutmaz ve damla oluşur. Sis açılana kadar bekle.',
+            'Sis varken ilaçlama yapma. Nem %90 üstündeyse ilaç tutmaz, damla yapar. Sis açılana kadar bekle.',
           TimeSlot.afternoon =>
-            'Sis kalktıysa ve rüzgar uygunsa ilaçlama yapılabilir. Toprak nemini kontrol et.',
+            'Sis kalktıysa ve rüzgar uygunsa ilaçlayabilirsin. Toprak nemine de bak.',
           TimeSlot.evening =>
-            'Yoğun nem koşullarında mantari hastalık riski artar; yaprak gözlemi yap.',
+            'Yüksek nem mantar hastalığı riskini artırır. Yaprakları kontrol et.',
           TimeSlot.night =>
-            'Gece nemi ve sis, bitkilerde mantari hastalık riskini artırır. Sabah tarlayı kontrol et.',
+            'Gece nemi ve sis mantar riskini artırır. Sabah tarlayı gez.',
         },
       WeatherMessageType.drizzle => switch (slot) {
           TimeSlot.morning =>
-            'Çisenti sırasında ilaçlama kesinlikle yapma; ilaç tutmaz ve yıkanır. Yağış durduğunda en az 2 saat bekle.',
+            'Çisenti varken ilaçlama yapma, ilaç yıkanır. Yağış durunca en az 2 saat bekle.',
           TimeSlot.afternoon =>
-            'Toprak ıslak; traktör ve ağır ekipmanla tarlaya girme, toprak sıkışır.',
+            'Toprak ıslak. Traktörle tarlaya girme, toprak sıkışır.',
           TimeSlot.evening =>
-            'Sulama gereksiz; yağış toprak nemini artırıyor. Drenaj kanallarını kontrol et.',
+            'Sulamaya gerek yok, yağış toprağı nemlendiriyor. Drenaj kanallarına bak.',
           TimeSlot.night =>
-            'Sabah tarlayı kontrol et; toprak nemini ölç ve buna göre günü planla.',
+            'Sabah toprak nemini ölç. Günü buna göre planla.',
         },
       WeatherMessageType.rain => switch (slot) {
           TimeSlot.morning =>
-            'Yağmur altında ilaçlama ve gübreleme yapma; ilaç yıkanır, gübre akar. Yağış bittikten sonra en az 4 saat bekle.',
+            'Yağmurda ilaçlama ve gübreleme yapma. İlaç yıkanır, gübre akar. Yağış bitince en az 4 saat bekle.',
           TimeSlot.afternoon =>
-            'Toprak ıslak; ağır ekipmanla tarlaya girme, toprak sıkışır ve kök bölgesine zarar verir.',
+            'Toprak ıslak. Ağır ekipmanla girme, toprak sıkışır ve köklere zarar verir.',
           TimeSlot.evening =>
-            'Drenaj kanallarını kontrol et; tarlada su birikmesi varsa tahliye yap. Sulama kesinlikle gereksiz.',
+            'Drenaj kanallarını kontrol et, su birikiyorsa tahliye et. Sulamaya hiç gerek yok.',
           TimeSlot.night =>
-            'Sabah tarlayı kontrol et; toprak çok ıslaksa kurumasını bekle, 24-48 saat ertele.',
+            'Sabah toprak çok ıslaksa 24–48 saat bekle. Kuruyunca tarlaya gir.',
         },
       WeatherMessageType.heavyRain => switch (slot) {
           TimeSlot.morning =>
-            'Şiddetli yağışta kesinlikle tarlaya girme. Drenajları aç, tıkanıklık varsa gider. Ekipmanları kapalı yere al.',
+            'Şiddetli yağışta tarlaya girme. Drenajları aç, tıkanıklığı gider. Ekipmanı kapalı yere al.',
           TimeSlot.afternoon =>
-            'Toprak doymuş durumda; yağış sonrası en az 48 saat tarlaya girme. Sel riski olan bölgeleri kontrol et.',
+            'Toprak doymuş durumda. Yağıştan sonra en az 48 saat tarlaya girme. Sel riski olan yerlere bak.',
           TimeSlot.evening =>
-            'Tarlada su baskını kontrolü yap. Sera ve örtü altı yapıları kontrol et. Hayvanları içeri al.',
+            'Tarlada su baskını var mı kontrol et. Sera ve örtü altını gez. Hayvanları içeri al.',
           TimeSlot.night =>
-            'Acil durumda drenajı kontrol et. Sabah hasar tespiti yap; erozyon ve kök çürümesi riski var.',
+            'Gerekirse gece drenaja bak. Sabah erozyon ve kök çürümesi için hasar tespiti yap.',
         },
       WeatherMessageType.freezingRain => switch (slot) {
           TimeSlot.morning =>
-            'Dondurucu yağmur bitkileri öldürebilir. Hassas fideleri ve meyve ağaçlarını hemen örtü ile sar. Sulama yapma.',
+            'Dondurucu yağmur bitkiyi öldürebilir. Fideleri ve meyve ağaçlarını hemen ört. Sulama yapma.',
           TimeSlot.afternoon =>
-            'Sera ve tünel yapılarında buz birikimi çökmeye yol açabilir; üstlerini temizle.',
+            'Sera ve tünelde biriken buz çökmeye yol açabilir. Üstlerini temizle.',
           TimeSlot.evening =>
-            'Tüm hassas bitkileri örtü altına al. Sera ısıtmalarını çalıştır.',
+            'Hassas bitkileri örtü altına al. Sera ısıtmasını çalıştır.',
           TimeSlot.night =>
-            'Dal kırılması riski var; ağaçların altından geçme. Sabah hasar tespiti yap.',
+            'Dal kırılma riski var. Ağaç altından geçme, sabah hasara bak.',
         },
       WeatherMessageType.snow => switch (slot) {
           TimeSlot.morning =>
-            'Kar ve don riski birlikte geliyor. Fideler ve hassas ürünler için çift kat örtü kur. Sulama borularını kapat.',
+            'Kar ve don birlikte geliyor. Fidelere çift kat örtü kur. Sulama borularını kapat.',
           TimeSlot.afternoon =>
-            'Sera çatılarında kar birikiyorsa temizle; ağırlık çökmeye yol açar. İçerideki sıcaklığı kontrol et.',
+            'Sera çatısında kar birikiyorsa temizle, ağırlık çökertir. İç sıcaklığı kontrol et.',
           TimeSlot.evening =>
-            'Hayvanları içeri al; su kaplarındaki buz kırılmalı. Tüm dış muslukları kapat.',
+            'Hayvanları içeri al, su kaplarındaki buzu kır. Dış muslukları kapat.',
           TimeSlot.night =>
-            'Sera ısıtma sistemlerini çalıştır. Sabah hasar ve don kontrolü yap.',
+            'Sera ısıtmasını çalıştır. Sabah don hasarına bak.',
         },
       WeatherMessageType.thunderstorm => switch (slot) {
           TimeSlot.morning =>
-            'Yıldırım tarlada çok tehlikelidir; kesinlikle açık alanda durma. Sulama pompalarını kapat, elektrik kesilmesine karşı jeneratörü hazırla.',
+            'Yıldırım tarlada çok tehlikeli. Açık alanda durma. Sulama pompalarını kapat, jeneratörü hazırla.',
           TimeSlot.afternoon =>
-            'Ekipmanları kapalı yere al veya sıkıca bağla. Sera örtülerini kontrol et; rüzgar koparabilir.',
+            'Ekipmanı kapalı yere al ya da sıkıca bağla. Sera örtülerini kontrol et, rüzgar koparabilir.',
           TimeSlot.evening =>
-            'Hayvanları içeri al. Sera kapılarını kapat ve mümkünse iç takviye yap.',
+            'Hayvanları içeri al. Sera kapılarını kapat, mümkünse içten destekle.',
           TimeSlot.night =>
-            'Sabah tüm tarlayı, seraları ve ekipmanları gez. Hasar tespiti yap ve sigortana bildir.',
+            'Sabah tarlayı, serayı ve ekipmanı gez. Hasar varsa sigortana bildir.',
         },
       WeatherMessageType.hail => switch (slot) {
           TimeSlot.morning =>
-            'Dolu tüm ürünleri yok edebilir. Dolu filesi veya kalın örtü hemen kur. Olgunlaşmış ürünleri acil hasat et.',
+            'Dolu ürünü tamamen yok edebilir. Dolu filesi ya da kalın örtüyü hemen kur. Olgun ürünü topla.',
           TimeSlot.afternoon =>
-            'Seralarda cam kırılması riski var; mümkünse iç takviye yap. Meyve ağaçlarına koruyucu file ger.',
+            'Sera camı kırılabilir, mümkünse içten destekle. Meyve ağaçlarına file ger.',
           TimeSlot.evening =>
-            'Tüm koruma önlemlerini kontrol et. Dolu sonrası hasar sigortasına hemen bildir.',
+            'Koruma önlemlerini son kez kontrol et. Hasar olursa sigortaya hemen bildir.',
           TimeSlot.night =>
-            'Sabah erken hasar tespiti yap. Kırık dalları kes ve yaraları ilaçla. Sigortayı bilgilendir.',
+            'Sabah erken hasara bak. Kırık dalları kes, yaraları ilaçla.',
         },
       WeatherMessageType.extremeHeat => switch (slot) {
           TimeSlot.morning =>
-            'Erken saatlerde (06:00–09:00) çalış, sonra mola ver. Bol su iç, gölgede dinlen. Hayvanların su kaynağını kontrol et.',
+            '06:00–10:00 arası çalış, sonra mola ver. Bol su iç, gölgede dinlen. Hayvanların suyunu kontrol et.',
           TimeSlot.afternoon =>
-            '11:00–16:00 arası tarlaya çıkma. Sıcak çarpması belirtileri: baş dönmesi, mide bulantısı. Hemen gölgeye geç ve su iç.',
+            '11:00–16:00 arası tarlaya çıkma. Baş dönmesi ya da mide bulantısı varsa hemen gölgeye geç, su iç.',
           TimeSlot.evening =>
-            'Akşam sulaması ideal; sabah sulamak yerine akşam sula, toprak gece boyunca nemi tutar. Damla sulama tercih et.',
+            'Akşam sulaması ideal. Toprak nemi gece boyunca tutar. Damla sulama daha verimli.',
           TimeSlot.night =>
-            'Gece sulaması buharlaşmayı minimuma indirir. Meyve ağaçlarını ve fideleri bol sula.',
+            'Gece sulamada buharlaşma en düşük. Meyve ağaçlarını ve fideleri bol sula.',
         },
       WeatherMessageType.frost => switch (slot) {
           TimeSlot.morning =>
-            'Sabah sulama yapma; su donarsa köklere zarar verir. Don çözülene kadar (genellikle 09:00–10:00) bekle. Fidelere çift kat örtü koy.',
+            'Sabah sulama yapma, donan su köke zarar verir. Don çözülene kadar bekle, genelde 09:00–10:00. Fidelere çift kat örtü koy.',
           TimeSlot.afternoon =>
-            'Don kalktıysa örtüleri aç ve havalandır; gün boyu kapalı kalırsa bitki terleyemez. Ama akşam yine kapat.',
+            'Don kalktıysa örtüleri açıp havalandır. Bitki nefes alsın, akşam yine kapat.',
           TimeSlot.evening =>
-            'Gece dona hazırlan: örtüleri kapat, sera kapılarını sıkıca kapa, ısıtmayı aç. Sulama borularını boşalt veya izole et.',
+            'Geceye hazırlan. Örtüleri kapat, sera kapılarını sıkıca kapa, ısıtmayı aç. Sulama borularını boşalt.',
           TimeSlot.night =>
-            'Sera içi sıcaklığı izle; 2°C altına düşerse acil müdahale gerekir. Mum veya ısıtıcılarla destek ver.',
+            'Sera içini izle. 2°C altına inerse ek ısıtıcıyı devreye al.',
         },
       WeatherMessageType.windy => switch (slot) {
           TimeSlot.morning =>
-            'İlaçlama yapma; rüzgar ${data.windSpeed.round()} km/s üzerinde olduğunda ilaç sürüklenir, komşu tarlalara zarar verir ve etkisi azalır.',
+            'İlaçlama yapma. Rüzgar ${data.windSpeed.round()} km/s, ilaç sürüklenir ve komşu tarlaya gider.',
           TimeSlot.afternoon =>
-            'Sera örtülerinin sağlamlığını kontrol et; klips ve bağlantıları sıkıştır. Toz ve kum fırtınası riski varsa hayvanları içeri al.',
+            'Sera örtülerini kontrol et, klips ve bağlantıları sıkıştır. Toz kalkıyorsa hayvanları içeri al.',
           TimeSlot.evening =>
-            'Rüzgar hâlâ güçlüyse ilaçlama ve toz uygulaması için yarını bekle. Ekipmanları bağla.',
+            'Rüzgar hâlâ güçlüyse ilaçlamayı yarına bırak. Ekipmanı bağla.',
           TimeSlot.night =>
-            'Sabah sera ve tarla hasarını kontrol et. Devrilmiş veya kırılmış dalları temizle.',
+            'Sabah sera ve tarlada hasar var mı bak. Kırık dalları temizle.',
         },
     };
   }
@@ -1263,33 +1381,33 @@ class WeatherMessageService {
   static String _tomorrowCityHeadline(WeatherMessageType type, DailyEntry d) {
     return switch (type) {
       WeatherMessageType.clear =>
-        'Yarın güneşli ve güzel bir gün; planlarını güvenle yapabilirsin.',
+        'Yarın güneşli. Plan yapmak için iyi bir gün.',
       WeatherMessageType.partlyCloudy =>
-        'Yarın parçalı bulutlu; güneş zaman zaman çıkacak, yağış beklenmiyor.',
+        'Yarın parçalı bulutlu. Güneş ara ara açacak, yağış beklenmiyor.',
       WeatherMessageType.cloudy =>
-        'Yarın gökyüzü kapalı ama yağış ihtimali düşük; ince bir ceket al.',
+        'Yarın kapalı ama yağış ihtimali düşük. İnce bir ceket al.',
       WeatherMessageType.foggy =>
-        'Yarın sabah saatlerinde sis bekleniyor; araç kullanırken görüş mesafesine dikkat.',
+        'Yarın sabah sis bekleniyor. Araçla çıkacaksan yavaş git.',
       WeatherMessageType.drizzle =>
-        'Yarın hafif çisenti bekleniyor; şemsiye veya yağmurluk yanında olsun.',
+        'Yarın hafif çisenti bekleniyor. Şemsiye ya da yağmurluk yanında olsun.',
       WeatherMessageType.rain =>
-        'Yarın yağmur bekleniyor; şemsiyeni ve yağmurluğunu hazırla.',
+        'Yarın yağmur bekleniyor. Şemsiyeni şimdiden kapının yanına koy.',
       WeatherMessageType.heavyRain =>
-        'Yarın şiddetli yağış bekleniyor; mümkünse dışarı çıkmayı ertele.',
+        'Yarın şiddetli yağış bekleniyor. Mümkünse dışarı planlarını ertele.',
       WeatherMessageType.freezingRain =>
-        'Yarın dondurucu yağmur bekleniyor; yollar çok kaygan olacak, araç kullanmaktan kaçın.',
+        'Yarın dondurucu yağmur bekleniyor. Yollar çok kaygan olacak, araç kullanmamaya çalış.',
       WeatherMessageType.snow =>
-        'Yarın kar yağışı bekleniyor; kalın giyin ve kış hazırlığını tamamla.',
+        'Yarın kar bekleniyor. Kalın giyin, kış hazırlığını bu akşam tamamla.',
       WeatherMessageType.thunderstorm =>
-        'Yarın gök gürültülü fırtına bekleniyor; dışarı planlarını ertele.',
+        'Yarın gök gürültülü fırtına bekleniyor. Dışarı planlarını ertele.',
       WeatherMessageType.hail =>
-        'Yarın dolu riski var; araçlarını kapalı yere al ve dışarıda eşya bırakma.',
+        'Yarın dolu riski var. Aracını kapalı yere al, dışarıda eşya bırakma.',
       WeatherMessageType.extremeHeat =>
-        'Yarın kavurucu sıcak bekleniyor; öğle saatlerinde güneş altında kalma.',
+        'Yarın kavurucu sıcak var, en yüksek ${d.tempMax.round()}°C. Öğle saatlerinde güneşte kalma.',
       WeatherMessageType.frost =>
-        'Yarın sabah don riski var; yollarda buzlanmaya dikkat et, kalın giyin.',
+        'Yarın sabah don riski var, en düşük ${d.tempMin.round()}°C. Yollarda buzlanmaya dikkat et.',
       WeatherMessageType.windy =>
-        'Yarın kuvvetli rüzgar bekleniyor; dışarıda hafif eşyalara ve şapkana dikkat et.',
+        'Yarın kuvvetli rüzgar bekleniyor. Hafif eşyalarına ve şapkana dikkat et.',
     };
   }
 
@@ -1297,34 +1415,35 @@ class WeatherMessageService {
 
   static String _tomorrowFarmerHeadline(WeatherMessageType type, DailyEntry d) {
     return switch (type) {
-      WeatherMessageType.clear =>
-        'Yarın güneşli; ilaçlama, sulama ve tarla işleri için ideal koşullar bekleniyor.',
+      WeatherMessageType.clear => d.windSpeedMax < 15
+          ? 'Yarın güneşli ve rüzgar hafif. İlaçlama, sulama ve tarla işleri için uygun.'
+          : 'Yarın güneşli, rüzgar en fazla ${d.windSpeedMax.round()} km/s. İlaçlamayı sakin bir saate bırak.',
       WeatherMessageType.partlyCloudy =>
-        'Yarın parçalı bulutlu; ilaçlama yapılabilir, rüzgarı kontrol et.',
+        'Yarın parçalı bulutlu. İlaçlama yapabilirsin, önce rüzgara bak.',
       WeatherMessageType.cloudy =>
-        'Yarın kapalı hava; ilaçlama uygunsa yapılabilir, sulama ihtiyacını kontrol et.',
+        'Yarın kapalı ve kuru. İlaçlama uygunsa yapabilirsin, sulama ihtiyacına bak.',
       WeatherMessageType.foggy =>
-        'Yarın sabah sis bekleniyor; sis kalkmadan ilaçlama yapma.',
+        'Yarın sabah sis bekleniyor. Sis kalkmadan ilaçlama yapma.',
       WeatherMessageType.drizzle =>
-        'Yarın çisenti bekleniyor; ilaçlama ve gübreleme yapma, yağış durmasını bekle.',
+        'Yarın çisenti bekleniyor. İlaçlama ve gübrelemeyi kuru bir güne bırak.',
       WeatherMessageType.rain =>
-        'Yarın yağış bekleniyor; ilaçlama ve sulama planını ertele.',
+        'Yarın yağış bekleniyor. İlaçlama ve sulamayı ertele.',
       WeatherMessageType.heavyRain =>
-        'Yarın şiddetli yağış bekleniyor; tüm tarla işlerini ertele.',
+        'Yarın şiddetli yağış bekleniyor. Tarla işlerini ertele.',
       WeatherMessageType.freezingRain =>
-        'Yarın dondurucu yağmur; fideleri ve meyve ağaçlarını acil olarak koru.',
+        'Yarın dondurucu yağmur var. Fideleri ve meyve ağaçlarını bu akşam koru.',
       WeatherMessageType.snow =>
-        'Yarın kar bekleniyor; sera ve örtüleri kontrol et, hayvanları içeri al.',
+        'Yarın kar bekleniyor. Sera ve örtüleri kontrol et, hayvanları içeri al.',
       WeatherMessageType.thunderstorm =>
-        'Yarın fırtına bekleniyor; tüm tarla işlerini iptal et, ekipmanları koru.',
+        'Yarın fırtına bekleniyor. Tarla işlerini iptal et, ekipmanı koru.',
       WeatherMessageType.hail =>
-        'Yarın dolu riski var; ürünleri dolu filesiyle koru, olgunlaşmış ürünleri hemen topla.',
+        'Yarın dolu riski var. Ürünleri dolu filesiyle koru, olgun ürünü hemen topla.',
       WeatherMessageType.extremeHeat =>
-        'Yarın çok sıcak; erken saatlerde çalış, öğle molası uzun tut.',
+        'Yarın çok sıcak, en yüksek ${d.tempMax.round()}°C. Erken saatte çalış, öğle arasını uzun tut.',
       WeatherMessageType.frost =>
-        'Yarın sabah don riski var; hassas fideleri ve genç ürünleri bu akşam örtü ile koru.',
+        'Yarın sabah don riski var, en düşük ${d.tempMin.round()}°C. Hassas fideleri bu akşam ört.',
       WeatherMessageType.windy =>
-        'Yarın kuvvetli rüzgar bekleniyor; ilaçlama yapma, sera örtülerini kontrol et.',
+        'Yarın kuvvetli rüzgar bekleniyor. İlaçlama yapma, sera örtülerini kontrol et.',
     };
   }
 
@@ -1332,99 +1451,99 @@ class WeatherMessageService {
 
   static String _tomorrowCityNotes(
       WeatherMessageType type, DailyEntry d, List<HourlyEntry> hours) {
-    final rainBlocks = hours
-        .where((h) => h.precipProbability >= 50 || h.precipitation > 0)
-        .toList();
-    String? rainText;
-    if (rainBlocks.isNotEmpty) {
-      final times = rainBlocks.map((h) => h.time).toList();
-      final formatted = formatHours(times);
-      final isSingle = !formatted.contains('–') && !formatted.contains(',');
-      rainText = isSingle
-          ? 'Yarın saat $formatted civarında kısa süreli bir yağmur bekleniyor.'
-          : 'Yarın $formatted saatleri arasında yağmur bekleniyor.';
-    }
+    // Başlıkla aynı pencere hesabı, metinler tutarlı kalsın.
+    final rainDetail = _rainWindowDetails(hours);
+    final rainText = rainDetail == null
+        ? null
+        : 'Yarın ${_rainWhen(rainDetail.range)} yağmur bekleniyor.';
 
-    return switch (type) {
+    final base = switch (type) {
       WeatherMessageType.clear =>
-        'Yağmur beklenmiyor; uzun süreli dışarı etkinlikleri için ideal. Güneş kremi ve su unutma.',
+        'Yağmur beklenmiyor. Uzun dışarı planları için uygun. Güneş kremi ve su unutma.',
       WeatherMessageType.partlyCloudy =>
-        'Hafif bir ceket yeterli; gün boyu dışarıda olabilirsin.',
+        'Hafif bir ceket yeter. Gün boyu dışarıda olabilirsin.',
       WeatherMessageType.cloudy =>
-        'Güneş çıkması zor; kapalı ama kuru bir gün bekleniyor.',
+        'Güneş az görünecek. Kapalı ama kuru bir gün.',
       WeatherMessageType.foggy =>
-        'Sis genellikle öğleye doğru açılır; sabah trafiğinde dikkatli ol.',
-      WeatherMessageType.drizzle => rainText != null
-          ? '$rainText Şiddetli yağış değil ama ıslak yollar ve kaldırımlara dikkat.'
-          : 'Şiddetli yağış değil ama ıslak yollar ve kaldırımlara dikkat.',
-      WeatherMessageType.rain => rainText != null
-          ? '$rainText Dışarı planlarını yağışsız saatlere ayarla. Islak yollarda dikkatli ol.'
-          : 'Dışarı planlarını yağışsız saatlere ayarla. Islak yollarda dikkatli ol.',
-      WeatherMessageType.heavyRain => rainText != null
-          ? '$rainText Sel ve su baskını riski var. Alt geçitlerden uzak dur, kapalı otopark kullan.'
-          : 'Sel ve su baskını riski var. Alt geçitlerden uzak dur, kapalı otopark kullan.',
+        'Sis genelde öğleye doğru açılır. Sabah trafiğinde dikkatli ol.',
+      WeatherMessageType.drizzle =>
+        'Şiddetli değil ama yollar ve kaldırımlar ıslak olacak.',
+      WeatherMessageType.rain =>
+        'Dışarı planını yağışsız saatlere kaydır. Islak yolda dikkatli ol.',
+      WeatherMessageType.heavyRain =>
+        'Sel ve su baskını riski var. Alt geçitlerden uzak dur, kapalı otopark kullan.',
       WeatherMessageType.freezingRain =>
-        'Buzlanma çok tehlikeli; kış lastiği ve zincir şart. Mümkünse evde kal.',
+        'Buzlanma çok tehlikeli. Kış lastiği ve zincir şart. Mümkünse evde kal.',
       WeatherMessageType.snow =>
-        'Yollar kaplı olacak; kış lastiği kontrol et. Yakıt ve erzak stokunu kontrol et.',
+        'Yollar karla kaplı olabilir. Kış lastiğini, yakıtı ve erzakı kontrol et.',
       WeatherMessageType.thunderstorm =>
-        'Yıldırım ve kuvvetli rüzgar riski var. Elektronik cihazları fişten çek.',
+        'Yıldırım ve kuvvetli rüzgar riski var. Gerekmeyen cihazları fişten çek.',
       WeatherMessageType.hail =>
-        'Dolu büyük hasar verebilir; cam ve araçları koru.',
+        'Dolu ciddi hasar verebilir. Camları ve aracını koru.',
       WeatherMessageType.extremeHeat =>
-        'Bol su iç, güneş kremi ve şapka kullan. 11:00–16:00 arası dışarı çıkmayı sınırla.',
+        'Bol su iç, güneş kremi ve şapka kullan. 11:00–16:00 arası dışarıyı sınırla.',
       WeatherMessageType.frost =>
-        'Sabah erken yola çıkacaksan aracını önceden ısıt. Dış muslukları koru.',
+        'Sabah erken çıkacaksan aracı önceden ısıt. Dış muslukları koru.',
       WeatherMessageType.windy =>
-        'Bisiklet ve motosiklet kullanmaktan kaçın. Balkondaki eşyaları sabitle.',
+        'Bisiklet ve motosikletle çıkmamaya çalış. Balkondaki eşyaları sabitle.',
     };
+    if (rainText == null) return base;
+    // Kuru tipte saatlik yağış varsa "yağmur yok" notu yerine pencereyi söyle.
+    if (type == WeatherMessageType.clear ||
+        type == WeatherMessageType.partlyCloudy ||
+        type == WeatherMessageType.cloudy) {
+      return '$rainText Şemsiyeni yanına al, kalan saatler kuru görünüyor.';
+    }
+    return '$rainText $base';
   }
 
   // ── Yarın: Çiftçi Önemli Notlar ───────────────────────────────────────────
 
   static String _tomorrowFarmerNotes(
       WeatherMessageType type, DailyEntry d, List<HourlyEntry> hours) {
-    final rainHours = hours.where((h) => h.precipitation > 0).toList();
-    String? rainWindow;
-    if (rainHours.isNotEmpty) {
-      final times = rainHours.map((h) => h.time).toList();
-      final formatted = formatHours(times);
-      rainWindow = formatted.contains('–') || formatted.contains(',')
-          ? '$formatted saatleri arasında'
-          : 'saat $formatted civarında';
-    }
+    // Başlıkla aynı eşik (ihtimal >= 50 veya yağış > 0).
+    final rainDetail = _rainWindowDetails(hours);
+    final rainText = rainDetail == null
+        ? null
+        : 'Yarın ${_rainWhen(rainDetail.range)} yağış bekleniyor.';
 
-    return switch (type) {
-      WeatherMessageType.clear =>
-        'Rüzgar düşük ve yağış yok; sabah erkenden ilaçlama yap, akşam sula.',
+    final base = switch (type) {
+      WeatherMessageType.clear => d.windSpeedMax < 15
+          ? 'Rüzgar hafif, yağış yok. Sabah erken ilaçla, akşam sula.'
+          : 'Yağış yok ama rüzgar ${d.windSpeedMax.round()} km/s. İlaçlamayı rüzgarın düştüğü saate bırak.',
       WeatherMessageType.partlyCloudy =>
-        'Bulutlar buharlaşmayı azaltır; sulama verimli olacak.',
+        'Bulutlar buharlaşmayı azaltır. Sulama verimli olur.',
       WeatherMessageType.cloudy =>
-        'Kapalı havada buharlaşma az; sulama acil değilse ertele.',
+        'Kapalı havada buharlaşma az. Sulama acil değilse ertele.',
       WeatherMessageType.foggy =>
-        'Nem çok yüksek; mantari hastalık riski artar, yaprak gözlemi yap.',
+        'Nem çok yüksek. Mantar hastalığı riski artar, yaprakları kontrol et.',
       WeatherMessageType.drizzle =>
-        'Toprak nem alacak; sulama gereksiz. Yağış bittikten sonra 2 saat bekle.',
-      WeatherMessageType.rain => rainWindow != null
-          ? 'Yarın $rainWindow yağış bekleniyor. Tarlaya girme; toprak ıslak olacak. Drenajı kontrol et.'
-          : 'Tarlaya girme; toprak ıslak olacak. Drenajı kontrol et.',
-      WeatherMessageType.heavyRain => rainWindow != null
-          ? 'Yarın $rainWindow şiddetli yağış. Drenaj ve set yapılarını kontrol et; sel riski var. Ekipmanları kapalı yere al.'
-          : 'Drenaj ve set yapılarını kontrol et; sel riski var. Ekipmanları kapalı yere al.',
+        'Toprak nem alacak, sulamaya gerek yok. Yağış bitince 2 saat bekle.',
+      WeatherMessageType.rain =>
+        'Tarlaya girme, toprak ıslak olacak. Drenajı kontrol et.',
+      WeatherMessageType.heavyRain =>
+        'Drenajı ve setleri kontrol et, sel riski var. Ekipmanı kapalı yere al.',
       WeatherMessageType.freezingRain =>
-        'Dallar buz yüküyle kırılabilir; destek çubuğu koy. Sera ısıtmalarını aç.',
+        'Dallar buz yüküyle kırılabilir, destek koy. Sera ısıtmasını aç.',
       WeatherMessageType.snow =>
-        'Kar yükü sera çatılarını çökertebilir; temizle. Sulama borularını koru.',
+        'Kar yükü sera çatısını çökertebilir, temizle. Sulama borularını koru.',
       WeatherMessageType.thunderstorm =>
-        'Yıldırım ve kuvvetli rüzgar riski. Sulama pompalarını kapat, jeneratörü hazırla.',
+        'Yıldırım ve kuvvetli rüzgar riski var. Sulama pompalarını kapat, jeneratörü hazırla.',
       WeatherMessageType.hail =>
-        'Dolu tüm hasadı yok edebilir; acil hasat ve koruma önlemi al. Sigorta bilgilerini hazırla.',
+        'Dolu hasadı yok edebilir. Acil hasat ve koruma önlemi al, sigorta bilgilerini hazırla.',
       WeatherMessageType.extremeHeat =>
-        '06:00–09:00 arası çalış, 10:00–16:00 arası mola. Akşam sula; gündüz sulama su israfı.',
+        '06:00–10:00 arası çalış, 11:00–16:00 arası ara ver. Akşam sula, gündüz sulamada su boşa gider.',
       WeatherMessageType.frost =>
-        'Sabah sulama yapma; su donarsa köklere zarar verir. Don çözülene kadar bekle.',
+        'Sabah sulama yapma, donan su köke zarar verir. Don çözülene kadar bekle.',
       WeatherMessageType.windy =>
-        'İlaç sürüklenmesi riski var. Ekipmanları sabitle, hafif yapıları takviye et.',
+        'İlaç sürüklenme riski var. Ekipmanı sabitle, hafif yapıları güçlendir.',
     };
+    if (rainText == null) return base;
+    if (type == WeatherMessageType.clear ||
+        type == WeatherMessageType.partlyCloudy ||
+        type == WeatherMessageType.cloudy) {
+      return '$rainText İlaçlamayı yağıştan en az 4 saat önce bitir.';
+    }
+    return '$rainText $base';
   }
 }
