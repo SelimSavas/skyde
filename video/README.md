@@ -14,7 +14,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | Birinci Kapı, 4. Bölüm — Veri, Bilgi, Anlam: Üç Basamaklı Merdiven | 13:20 (insan sesiyle) | `ch04-veri-bilgi-anlam/` |
 | Kurs tanıtımı (Udemy) — Bilişim Teknolojileri Yetkinliği | 1:54 (insan sesi sonradan eklenecek) | `tanitim/` |
 | Önsöz kısa videoları (YouTube Shorts, 1080×1920): mesaj, köprü, ekran | 0:23–0:25 (insan sesiyle) | `kisa-mesaj/`, `kisa-kopru/`, `kisa-ekran/` |
-| Var ve Yok kısa videoları (dikey için sıfırdan çizildi): eşik, lambalar, Türkçe harfler | ~0:35 (kayıt bekleniyor) | `kisa-esik/`, `kisa-lamba/`, `kisa-turkce/` |
+| Var ve Yok kısa videoları (dikey için sıfırdan çizildi): eşik (0:36, insan sesiyle), lambalar, Türkçe harfler | ~0:35 | `kisa-esik/`, `kisa-lamba/`, `kisa-turkce/` |
 | Öğretici kısa video: mesajın beş durağı (Önsöz'den) | ~0:29 (kayıt bekleniyor) | `kisa-durak/` |
 | Öğretici kısa video: A harfi aslında bir sayı (Birinci Kapı'dan) | ~0:30 (Birinci Kapı için, kayıt bekleniyor) | `kisa-harf/` |
 
