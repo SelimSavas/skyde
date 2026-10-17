@@ -12,7 +12,7 @@ Senaryodaki her bilgi aşağıdaki kaynaklara dayanır. Video açıklamasına da
 | 12 kişi, 21:00–24:00, mavi (464 nm) ve kırmızı (631 nm) LED; 2. saat: mavi 7,5 – kırmızı 26,0 pg/mL (p = 0,019); 3. saat: 8,3 – 16,6 pg/mL (p = 0,013); tükürükte ölçüm | Sanchez-Cano ve ark. (2025), *Life* (MDPI) 15(5):715, doi:10.3390/life15050715 |
 | Yatmadan önce 4 saat tablette okuma: uykuya geç dalma (~10 dk), melatonin baskısı, iç saatte gecikme, sabah daha az uyanıklık (12 kişi) | Chang ve ark. (2015), *PNAS* 112(4):1232 |
 | Melatoninin yarıya inmesi için < 30 lüks yeter (ED50 ≈ 25 lüks); kişiler arası 6–350 lüks (> 50 kat) fark | Phillips ve ark. (2019), *PNAS* 116(24):12019 |
-| Gece modu (Night Shift) 167 genç yetişkinde uykuyu iyileştirmedi | Jensen ve ark. (2021), *Sleep Health* — BYU çalışması |
+| Gece modu (Night Shift) 167 genç yetişkinde uykuyu iyileştirmedi | Duraccio, Zaugg, Blackburn & Jensen (2021), *Sleep Health*, doi:10.1016/j.sleh.2021.03.005 — BYU çalışması |
 | Ekranın melanopik ışığını düşürmek uykuya dalmayı hızlandırır, melatonin baskısını azaltır (72 kişi) | Schöllhorn ve ark. (2023), *Communications Biology* 6:228 |
 | Gündüz bol ışık (≥ 250 lüks mEDI), yatmadan önceki 3 saatte ≤ 10 lüks, uykuda ≤ 1 lüks | Brown ve ark. (2022), *PLOS Biology* 20(3):e3001571 — uzman uzlaşı önerileri |
 | İçerik ve etkileşim de uyanıklığı artırır; ekran öncesi uykuda tek etken ışık değildir | Hale & Guan (2015) ve gençler için ekran-uyku önerileri derlemesi (PMC5839336); 2024 yetişkin kohortu (*Sleep Medicine*) |

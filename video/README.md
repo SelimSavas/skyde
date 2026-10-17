@@ -17,6 +17,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | Var ve Yok kısa videoları (dikey için sıfırdan çizildi): eşik (0:36, insan sesiyle), lambalar, Türkçe harfler | ~0:35 | `kisa-esik/`, `kisa-lamba/`, `kisa-turkce/` |
 | Öğretici kısa video: mesajın beş durağı (Önsöz'den) | ~0:29 (kayıt bekleniyor) | `kisa-durak/` |
 | Öğretici kısa video: A harfi aslında bir sayı (Birinci Kapı'dan) | ~0:30 (Birinci Kapı için, kayıt bekleniyor) | `kisa-harf/` |
+| YUP Akademi — Gecenin Mavi Işığı: telefon ışığı iç saati nasıl kandırıyor? (kaynaklı, YouTube paketi `youtube/`) | 6:22 (insan sesiyle) | `yup-mavi-isik/` |
 
 ## İzlemek
 

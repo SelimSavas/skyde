@@ -40,7 +40,10 @@
   // ---------------------------------------------------------------------------
   const SCRIPT = window.NARRATION ?? { lines: [] };
   const sayOf = Object.fromEntries(SCRIPT.lines.map((l) => [l.id, l.say]));
+  // Kayıt varsa (voice.js) satırın gerçek süresi, yoksa harf sayısından tahmin; ardından küçük bir pay
+  const recorded = Object.fromEntries((window.VOICE?.lines ?? []).filter((v) => v.say === sayOf[v.id]).map((v) => [v.id, v.dur]));
   const estimate = (id) => {
+    if (recorded[id]) return recorded[id] + 0.6;
     const ph = E.phrases(sayOf[id] ?? '');
     return ph.reduce((n, p) => n + p.length / 13, 0) + 0.42 * Math.max(0, ph.length - 1) + 1.1;
   };
@@ -1687,7 +1690,7 @@
       });
       text(ctx, 'uyku süresi ve kalitesi', 1200, 360, { size: 28, weight: 600, color: C.muted, alpha: ga });
       chip(ctx, 'anlamlı fark yok', 1200, 300, fa * after(t, 'n-filter', 2, 1.2), { size: 32, color: C.cream, border: rgba(SUN, 0.6), weight: 700 });
-      text(ctx, 'Jensen ve ark., 2021 · 167 genç yetişkin · 7 gece', W / 2, 960, { size: 24, family: 'serif', italic: true, color: C.muted, alpha: ga });
+      text(ctx, 'Duraccio ve ark., 2021 · 167 genç yetişkin · 7 gece', W / 2, 960, { size: 24, family: 'serif', italic: true, color: C.muted, alpha: ga });
     }
     // n-amount: ışığın miktarı
     const aa = vis(t, cue('n-amount', 0) - 0.3, sceneEnd('honest'), 0.6, 0.6);
