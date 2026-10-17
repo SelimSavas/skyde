@@ -81,3 +81,21 @@ Bir mesaj karşıya varana kadar beş duraktan geçer: harfler bitlere dönüş�
 
 YUP Stüdyo · Bilişim Teknolojileri Yetkinliği
 #internet #bilişim #teknoloji
+
+────────────────────────────────────────
+ÖĞRETİCİ SHORT · kisa-esik-seslendirme.mp4  (Birinci Kapı: Var ve Yok'tan)
+────────────────────────────────────────
+İlgili video: "Var ve Yok: Bilgisayar Neden Sadece 0 ve 1 Bilir?" (Birinci Kapı, 1. bölüm).
+
+Başlık:
+Bilgisayar neden sadece 0 ve 1 ile sayar? #shorts
+
+Açıklama:
+Bilgisayarın içinde sayılar, teldeki elektrik gerilimiyle tutulur. Ama gerilim hiç sabit durmaz; ısı ve parazit onu sürekli oynatır. On ayrı seviye kullansaydık küçük bir oynama 7'yi 8'e çevirirdi. Bu yüzden makine tek bir eşik çizgisi çeker: üstü 1, altı 0. Gerilim oynasa da cevap değişmez.
+Konunun devamı Birinci Kapı'da:
+▶ Var ve Yok: Bilgisayar Neden Sadece 0 ve 1 Bilir? [BİRİNCİ KAPI BAĞLANTISI]
+
+YUP Stüdyo · Bilişim Teknolojileri Yetkinliği
+#bilgisayar #ikilisistem #bilişim
+
+Etiketler: ikili sistem, binary, 0 ve 1, bit nedir, bilgisayar nasıl çalışır, eşik, dijital sinyal, bilişim

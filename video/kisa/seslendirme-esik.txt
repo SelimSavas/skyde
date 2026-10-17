@@ -1,0 +1,11 @@
+SHORT · Bilgisayar neden sadece 0 ve 1 ile sayar? — SESLENDİRME METNİ
+(Yaklaşık 35 saniye. İlk cümle merak uyandıran bir soru gibi; sonra sakin ve net anlatım.)
+(Satır başındaki kimlikler yalnızca dosya adı içindir, okunmaz.)
+
+e-hook    Bilgisayar neden sıfırdan dokuza kadar değil de, yalnızca sıfır ve birle sayar?
+e-volt    Çünkü makinenin içinde her şey, teldeki elektrik gerilimiyle tutulur.
+e-wobble  Ama bu gerilim hiç sabit durmaz: ısı ve parazit onu sürekli oynatır.
+e-ten     On ayrı seviye kullansaydık, küçük bir oynama yediyi sekize çevirirdi.
+e-two     Bu yüzden makine tek bir çizgi çeker: eşik. Üstündeyse bir, altındaysa sıfır.
+e-safe    Gerilim biraz oynasa da cevap değişmez; iki durum arasında yanılmak çok zordur.
+e-cta     Videonun devamı, kanalımızda.
