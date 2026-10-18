@@ -18,7 +18,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | Öğretici kısa video: mesajın beş durağı (Önsöz'den) | ~0:29 (kayıt bekleniyor) | `kisa-durak/` |
 | Öğretici kısa video: A harfi aslında bir sayı (Birinci Kapı'dan) | ~0:30 (Birinci Kapı için, kayıt bekleniyor) | `kisa-harf/` |
 | YUP Akademi — Gecenin Mavi Işığı: telefon ışığı iç saati nasıl kandırıyor ve bu akşam ne yapmalı? (kaynaklı, günlük hayat sahneleri, YouTube paketi `youtube/`) | 10:39 (insan sesiyle) | `yup-mavi-isik/` |
-| Tabağındaki Bilim #1 — Soğan Neden Ağlatır? (kaynaklı; karakter ve mutfak Gemini görselleri, `araclar/` ile `assets.js`'e gömülür; dizi rehberi `tabagindaki-bilim/`) | ~8:35 (kayıt bekleniyor; önizlemede altyazı) | `sogan-neden-aglatir/` |
+| Tabağındaki Bilim #1 — Soğan Neden Ağlatır? (kaynaklı; karakter ve mutfak Gemini görselleri, `araclar/` ile `assets.js`'e gömülür; dizi rehberi `tabagindaki-bilim/`) | ~8:35 (kayıt bekleniyor) | `sogan-neden-aglatir/` |
 
 ## İzlemek
 

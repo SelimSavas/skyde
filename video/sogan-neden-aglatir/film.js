@@ -7,8 +7,8 @@
  * Karakter, mutfak, büyüteç, mikro dünya ve soğan kareleri Gemini görselleridir (assets.js, build_assets.py);
  * moleküller, hücreler, göz kesiti, grafikler ve kartlar burada kodla çizilir. Karakterin başı ağız ve göz
  * sayfalarından kurulur: konuşurken ağız şekli metindeki seslerden, göz kırpma tohumlu zamanlardan gelir.
- * Kayıt yokken zamanlama metinden tahmin edilir ve ekranın altında altyazı görünür; kayıt gelince
- * (voice.js) zamanlama sese oturur, altyazı kalkar. Kaynaklar: kaynaklar.md.
+ * Kayıt yokken zamanlama metinden tahmin edilir; kayıt gelince (voice.js) zamanlama sese oturur.
+ * Videoda altyazı yoktur (YouTube altyazısı ayrı dosyadır). Kaynaklar: kaynaklar.md.
  */
 (function () {
   'use strict';
@@ -495,6 +495,9 @@
     ctx.restore();
   }
 
+  // Mutfakta sunucu çerçevesi: uyluk hizasından kesilir, ayaklar kadraj dışında kalır
+  const presenter = (ctx, t, x, o = {}, lift = 0) => host(ctx, t, x, 1560 - lift, 1400, o);
+
   function host(ctx, t, x, y, h, o = {}) {
     const key = o.pose ?? 'body';
     const P = A[key];
@@ -528,45 +531,6 @@
       ctx.drawImage(IMG.goggles, G.x, G.y + 172 * ease.inOut(g), G.w, G.h);
     }
     ctx.restore();
-  }
-
-  // ---------------------------------------------------------------------------
-  // Altyazı: yalnızca kayıt yokken (önizleme), anlatılanı takip etmek için
-  // ---------------------------------------------------------------------------
-  let CHUNKS = null;
-  function captions(ctx, t) {
-    if (VOICE.voice) return;
-    const o = { size: 34, weight: 500 };
-    if (!CHUNKS) {
-      CHUNKS = [];
-      for (const l of SCRIPT.lines) {
-        const ph = E.phrases(l.say);
-        let cur = null;
-        ph.forEach((p, k) => {
-          const textNow = cur ? `${cur.text} ${p}` : p;
-          if (cur && E.wrap(ctx, textNow, 1500, o).length > 2) {
-            CHUNKS.push(cur);
-            cur = { text: p, at: cue(l.id, k) };
-          } else if (cur) cur.text = textNow;
-          else cur = { text: p, at: cue(l.id, k) };
-        });
-        if (cur) CHUNKS.push(cur);
-        CHUNKS[CHUNKS.length - 1].end = lineEnd(l.id) + 0.3;
-      }
-      CHUNKS.forEach((c, i) => { c.end = c.end ?? CHUNKS[i + 1]?.at ?? c.at + 4; });
-    }
-    const c = CHUNKS.find((x) => t >= x.at - 0.05 && t < x.end);
-    if (!c) return;
-    const lines = E.wrap(ctx, c.text, 1500, o);
-    const lw = Math.max(...lines.map((s) => measure(ctx, s, o))) + 56;
-    const lh = 46;
-    const h = lines.length * lh + 26;
-    ctx.save();
-    roundRect(ctx, W / 2 - lw / 2, 1040 - h, lw, h, 16);
-    ctx.fillStyle = 'rgba(18,26,48,0.82)';
-    ctx.fill();
-    ctx.restore();
-    lines.forEach((s, i) => text(ctx, s, W / 2, 1040 - h + 13 + lh / 2 + i * lh, { ...o, color: '#fff8ea' }));
   }
 
   // ---------------------------------------------------------------------------
@@ -1140,7 +1104,7 @@
     const enter = progress(t, t0 + 0.2, t0 + 1.4, ease.out);
     const hop = enter < 1 ? Math.abs(Math.sin((t - t0) * 9)) * 26 * (1 - enter) : 0;
     const surprised = vis(t, cue('s-promise', 3) - 0.1, lineEnd('s-promise') + 0.6, 0.05, 0.2);
-    host(ctx, t, lerp(W + 320, 1430, enter), 1075 - hop, 930, { pose: 'poseTools', eyes: surprised > 0.5 ? 7 : 0 });
+    presenter(ctx, t, lerp(W + 420, 1480, enter), { pose: 'poseTools', eyes: surprised > 0.5 ? 7 : 0 }, hop);
     badge(ctx, after(t, 's-hello', 0, 0.6));
     // "büyüteçle bakıyoruz"
     const ma = span(t, 's-hello', 1, 's-promise', 0);
@@ -2560,7 +2524,7 @@
       ];
       const second = t >= cue('c-result', 3) - 0.3;
       panels.slice(second ? 2 : 0, second ? 4 : 2).forEach(([lab, x, , many, at], i) => {
-        const pa = progress(t, at - 0.2, at + 0.3);
+        const pa = second ? progress(t, at - 0.2, at + 0.3) : progress(t, cue('c-result', 0) + i * 0.3, cue('c-result', 0) + i * 0.3 + 0.5);
         card(ctx, x + 100, 170, 700, 600, pa, { fill: '#2a2219' });
         if (pa <= 0) return;
         ctx.save();
@@ -2717,7 +2681,7 @@
       ctx.globalAlpha *= ka;
       kitchen(ctx, t, { zoom: 1.12, fx: 0.62, fy: 0.45, dim: 0.12 });
       const gg = progress(t, cue('p-goggles', 2) - 0.3, cue('p-goggles', 2) + 0.5, ease.inOut);
-      host(ctx, t, 1490, 1070, 920, { goggles: gg, eyes: gg > 0.5 ? 0 : 0 });
+      presenter(ctx, t, 1500, { goggles: gg });
       kicker(ctx, 'BU AKŞAM DENE', after(t, 'p-intro', 0, 0.6), { y: 110 });
       TIPS.forEach(([id, title, sub], i) => {
         const at = cue(id, 0);
@@ -2975,13 +2939,15 @@
       kicker(ctx, 'EFSANE Mİ, GERÇEK Mİ?', 1);
       text(ctx, '"Hiç ağlatmayan soğan var mı?"', 800, 200, { size: 52, weight: 800, color: C.navy, family: 'display' });
       const ja = after(t, 'e-tearless', 3, 0.6);
-      card(ctx, 180, 330, 700, 560, ja);
-      smileOnion(ctx, 530, 520, 110, t, ja);
+      const jc = after(t, 'e-tearless', 1, 0.6);
+      card(ctx, 180, 330, 700, 560, jc);
+      smileOnion(ctx, 530, 520, 110, t, jc);
       text(ctx, 'Japonya', 530, 720, { size: 46, weight: 900, color: C.navy, alpha: ja, family: 'display' });
       text(ctx, 'makası neredeyse çalışmayan soğan', 530, 790, { size: 30, weight: 600, color: C.muted, alpha: ja });
       const ua = after(t, 'e-tearless', 4, 0.6);
-      card(ctx, 1040, 330, 700, 560, ua);
-      smileOnion(ctx, 1390, 520, 110, t + 1, ua);
+      const uc = after(t, 'e-tearless', 1, 0.6, ease.out) * progress(t, cue('e-tearless', 1) + 0.25, cue('e-tearless', 1) + 0.85);
+      card(ctx, 1040, 330, 700, 560, uc);
+      smileOnion(ctx, 1390, 520, 110, t + 1, uc);
       text(ctx, 'ABD', 1390, 720, { size: 46, weight: 900, color: C.navy, alpha: ua, family: 'display' });
       text(ctx, '30 yıllık klasik ıslah', 1390, 790, { size: 30, weight: 600, color: C.muted, alpha: ua });
       text(ctx, 'depoda bekledikçe yumuşar', 1390, 840, { size: 30, weight: 600, color: C.muted, alpha: after(t, 'e-tearless', 5, 0.5) });
@@ -3140,7 +3106,7 @@
       ctx.save();
       ctx.globalAlpha *= ta;
       kitchen(ctx, t, { zoom: 1.1, fx: 0.3, fy: 0.45, dim: 0.1 });
-      host(ctx, t, 1480, 1075, 930, { pose: 'poseTools', eyes: t > cue('z-tonight', 3) ? 9 : 0 });
+      presenter(ctx, t, 1480, { pose: 'poseTools', eyes: t > cue('z-tonight', 3) ? 9 : 0 });
       card(ctx, 150, 220, 760, 520, 1);
       text(ctx, 'Bu akşam', 230, 300, { size: 54, weight: 900, color: C.navy, align: 'left', family: 'display' });
       ['Bıçağını bile', 'Acele etme', 'Aspiratörü aç'].forEach((s2, i) => {
@@ -3173,7 +3139,7 @@
       ctx.save();
       ctx.globalAlpha *= ea;
       kitchen(ctx, t, { zoom: 1.1, fx: 0.5, fy: 0.45, dim: 0.62, fg: 0 });
-      host(ctx, t, 1500, 1075, 930, { pose: 'poseTools', eyes: 9, tilt: Math.sin(t * 3) * 0.03 });
+      presenter(ctx, t, 1500, { pose: 'poseTools', eyes: 9, tilt: Math.sin(t * 3) * 0.03 });
       badge(ctx, 1, 96, 70);
       text(ctx, 'Bir sonraki tabakta görüşmek üzere!', 96, 210, { size: 46, weight: 800, color: C.cream, align: 'left', alpha: after(t, 'z-end', 1, 0.6) });
       text(ctx, 'YUP AKADEMİ', 96, 1000, { size: 34, weight: 900, spacing: 6, color: C.cream, align: 'left', alpha: 0.85, family: 'display' });
@@ -3267,10 +3233,5 @@
     voice: VOICE.voice,
     fade: 0.4,
   });
-  const drawScenes = film.draw;
-  film.draw = (ctx, t) => {
-    drawScenes(ctx, t);
-    captions(ctx, t);
-  };
   window.FILM = film;
 })();
