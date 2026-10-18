@@ -142,14 +142,38 @@ HAZIR KAPAKLAR (1280×720, PNG, 2 MB sınırının altında; videonun kendi gör
 • kapak-B.png : içinde güneş yanan beyin + "NEDEN UYUYAMIYORSUN?" + 01:47
 
 YAPAY ZEKÂYLA KENDİN ÜRETMEK İSTERSEN (Gemini / Nano Banana; görselde yazı olmasın, yazıyı Canva'da ekle)
-Prompt:
-  Flat vector illustration, cinematic night scene, 16:9. A young person lying in bed in a dark
-  bedroom at 1:30 am, holding a smartphone above their face; the cold blue glow of the screen
-  lights only the face and the pillow. Through the window, a city skyline with a few warm lit
-  windows and a crescent moon. Above the bed, a translucent glowing brain outline with a small
-  bright yellow sun shining inside it, as if the brain still thinks it is daytime. Deep navy and
-  electric blue palette with a single warm golden accent (the sun). Soft gradients, clean shapes,
-  no text, no letters, no watermark. Keep the right 40 % of the image dark and empty for a headline.
+Prompt 1 · Telefon ışığındaki yatak odası (önerilen) — yazı: BEYNİN / HÂLÂ GÜNDÜZ
+  Flat vector illustration, cinematic night scene, 16:9 wide format. A young person lying in bed
+  in a dark bedroom at 1:30 am, holding a smartphone above their face. The face is clearly visible
+  and expressive: eyes wide open, tired and restless expression. The cold blue glow of the screen
+  lights only the face and the pillow; the rest of the room is deep navy. Through the window: a
+  city skyline with a few warm lit windows and a crescent moon. Above the bed floats a translucent
+  glowing brain outline with a small bright golden sun shining inside it, as if the brain still
+  thinks it is daytime. Deep navy and electric blue palette with one single warm golden accent
+  (the sun). Cinematic lighting, volumetric glow, subtle film grain, soft gradients, clean shapes.
+  Fewer objects, more empty space, minimal composition. Keep the right 40% of the image dark and
+  empty for a headline. No text, no letters, no numbers, no watermark.
+
+Prompt 2 · İçinde güneş yanan beyin — yazı: NEDEN / UYUYAMIYORSUN? (+ "01:47")
+  Flat vector illustration, 16:9 wide format. Side profile of a human head drawn as a translucent
+  glowing blue outline on a deep navy background, like an x-ray. The face profile is clearly
+  visible and expressive: the eye wide open, tired and restless. Inside the brain, near the eyes,
+  a tiny bright golden sun glows intensely and casts warm light inside the head. A thin beam of
+  cold blue light enters the eye from the right side, coming from a small glowing smartphone.
+  Cinematic lighting, volumetric glow, subtle film grain, high contrast: deep navy, electric blue
+  lines, one warm golden accent. Fewer objects, more empty space, minimal composition. Head placed
+  on the right half; the left half of the image dark and empty for a headline. No text, no
+  letters, no numbers, no watermark.
+
+Prompt 3 · Yarısı gündüz, yarısı gece — yazı: GÜNDÜZ KARANLIK, GECE AYDINLIK
+  Flat vector illustration, 16:9 wide format, split composition. The left half is a bright sunny
+  morning outdoors: golden sunlight, blue sky, a person walking on a street with a coffee in hand.
+  The right half is a dark bedroom at night: the same person in bed, face lit by the cold blue
+  glow of a phone. In both halves the face is clearly visible and expressive; at night the eyes
+  are wide open with a tired, restless expression. The two halves blend softly in the middle
+  through a gradient from warm gold to deep navy. Cinematic lighting, volumetric glow, subtle film
+  grain, soft gradients, clean shapes. Fewer objects, more empty space, minimal composition. Leave
+  a dark empty band across the top for a headline. No text, no letters, no numbers, no watermark.
 
 Yazı ölçüleri (1280×720 kapak için):
 • Yazı tipi : Inter Display ExtraBold ya da Montserrat Black (Canva'da ikisi de var)
