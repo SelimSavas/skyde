@@ -366,151 +366,151 @@ Bir: Bıçağını bile. Keskin bıçak zarı
 ezmeden keser; daha az hücre patlar,
 
 78
-00:06:00,121 --> 00:06:02,195
+00:06:00,121 --> 00:06:01,627
 daha az damlacık fışkırır.
 
 79
-00:06:03,795 --> 00:06:08,725
+00:06:03,227 --> 00:06:08,157
 İki: Acele etme. Sakin, kontrollü
 kesişler daha az damlacık demek.
 
 80
-00:06:08,775 --> 00:06:10,092
+00:06:08,207 --> 00:06:10,136
 Parmakların da sana teşekkür eder.
 
 81
-00:06:11,692 --> 00:06:17,642
+00:06:11,736 --> 00:06:17,686
 Üç: Havalandır. Aspiratörü aç, pencereyi
 arala ya da yanına bir vantilatör koy.
 
 82
-00:06:17,692 --> 00:06:20,337
+00:06:17,736 --> 00:06:20,381
 Ağlatan gaz yüzüne ulaşmadan dağılsın.
 
 83
-00:06:21,937 --> 00:06:28,607
+00:06:21,981 --> 00:06:28,651
 Dört: En kesin çözüm biraz komik görünebilir:
 gözlük. Gazın ulaşamadığı göz ağlamaz.
 
 84
-00:06:28,657 --> 00:06:32,137
+00:06:28,701 --> 00:06:32,181
 Kenarları yüzüne oturan bir
 yüzücü gözlüğü bile iş görür.
 
 85
-00:06:34,137 --> 00:06:39,247
+00:06:34,181 --> 00:06:39,291
 Bir de şunu mutlaka fark etmişsindir:
 Tavada kavrulan soğan seni ağlatmaz.
 
 86
-00:06:39,297 --> 00:06:45,567
+00:06:39,341 --> 00:06:45,611
 Çünkü ısı enzimleri bozar; makas artık
 çalışmaz. Peki kavrulan soğan neden tatlanır?
 
 87
-00:06:45,617 --> 00:06:47,317
+00:06:45,661 --> 00:06:47,361
 O da başka bir bölümün konusu.
 
 88
-00:06:50,717 --> 00:06:53,806
+00:06:50,761 --> 00:06:53,850
 Ve geldik Efsane mi, gerçek mi köşesine.
 
 89
-00:06:55,406 --> 00:07:00,456
+00:06:55,450 --> 00:07:00,500
 Soğanı kesmeden önce buzdolabına koymak
 işe yarar mı? Çok yaygın bir tavsiye.
 
 90
-00:07:00,506 --> 00:07:04,476
+00:07:00,550 --> 00:07:04,520
 Ama aynı Cornell ekibi, soğutulmuş
 soğanların daha az değil,
 
 91
-00:07:04,526 --> 00:07:06,896
+00:07:04,570 --> 00:07:06,940
 daha fazla damlacık
 fırlatabildiğini gördü.
 
 92
-00:07:06,946 --> 00:07:12,036
+00:07:06,990 --> 00:07:12,080
 Araştırmacılar bunun için daha çok çalışma
 gerektiğini söylüyor. Şimdilik hükmümüz:
 
 93
-00:07:12,086 --> 00:07:12,886
+00:07:12,130 --> 00:07:12,930
 şüpheli.
 
 94
-00:07:14,446 --> 00:07:17,756
+00:07:14,490 --> 00:07:17,800
 Ağzında ekmek tutmak ya
 da yanına mum yakmak?
 
 95
-00:07:17,806 --> 00:07:20,296
+00:07:17,850 --> 00:07:20,340
 Bunları ölçen ciddi bir çalışma bulamadık.
 
 96
-00:07:20,346 --> 00:07:23,256
+00:07:20,390 --> 00:07:23,300
 Üstelik ağlatan gaz
 gözüne havadan gidiyor;
 
 97
-00:07:23,306 --> 00:07:28,575
+00:07:23,350 --> 00:07:28,619
 ağzındaki ekmeğin onu durdurması pek
 mümkün görünmüyor. Hükmümüz: kanıtı yok.
 
 98
-00:07:30,375 --> 00:07:35,005
+00:07:30,419 --> 00:07:35,049
 Peki hiç ağlatmayan soğan var
 mı? Bu bir efsane değil, gerçek!
 
 99
-00:07:35,055 --> 00:07:39,505
+00:07:35,099 --> 00:07:39,549
 Japonya'da makası neredeyse hiç
 çalışmayan soğanlar geliştirildi.
 
 100
-00:07:39,555 --> 00:07:42,205
+00:07:39,599 --> 00:07:42,249
 Amerika'da da otuz yıllık klasik ıslahla,
 
 101
-00:07:42,255 --> 00:07:45,814
+00:07:42,299 --> 00:07:45,858
 depoda bekledikçe daha da
 yumuşayan bir soğan raflara çıktı.
 
 102
-00:07:49,214 --> 00:07:54,484
+00:07:49,258 --> 00:07:54,528
 Özetleyelim: Bıçak hücrenin duvarını
 yıkar, iki enzim art arda çalışır,
 
 103
-00:07:54,534 --> 00:07:58,204
+00:07:54,578 --> 00:07:58,248
 ortaya çıkan gaz gözündeki
 sinirleri uyarır ve beynin,
 
 104
-00:07:58,254 --> 00:08:00,575
+00:07:58,298 --> 00:08:00,619
 gözünü yıkamak için gözyaşı gönderir.
 
 105
-00:08:02,375 --> 00:08:07,345
+00:08:02,419 --> 00:08:07,389
 Bu akşam soğan doğrarken bıçağını
 bile, acele etme, aspiratörü aç.
 
 106
-00:08:07,395 --> 00:08:11,679
+00:08:07,439 --> 00:08:11,723
 Yine de gözlerin dolarsa bil ki
 bu, gözünün seni koruma şekli.
 
 107
-00:08:13,279 --> 00:08:18,569
+00:08:13,323 --> 00:08:18,613
 Bir sonraki bölümde başka bir yakıcı soruya
 bakacağız: Acı biber ağzını neden yakar?
 
 108
-00:08:18,619 --> 00:08:21,205
+00:08:18,663 --> 00:08:21,249
 Ve neden su değil de süt işe yarar?
 
 109
-00:08:23,005 --> 00:08:27,513
+00:08:23,049 --> 00:08:27,557
 Tabağındaki Bilim'de bugünlük bu kadar.
 Bir sonraki tabakta görüşmek üzere!
