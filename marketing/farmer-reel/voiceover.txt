@@ -1,11 +1,11 @@
 SKYDE — "Farmer mode / spraying" Instagram Reel / Shorts voiceover (English, 22 s)
 Calm, grounded, warm. Record each line as a separate file (vo1.mp3 … vo5.mp3).
 
-[00.2 – 03.3]  vo1  Spraying today? One gust, and it drifts away.
-[03.7 – 08.0]  vo2  Skyde tells you, in plain words, when conditions are right.
-[08.4 – 13.6]  vo3  Plan your spray window — Skyde watches the wind and rain.
-[14.1 – 17.8]  vo4  Wind picking up? You'll know before you fill the tank.
-[18.4 – 21.8]  vo5  Skyde. Farm smarter, waste less.
+[00.2 – 03.4]  vo1  Spraying today? One gust, and it drifts away.
+[03.9 – 07.1]  vo2  Skyde tells you, in plain words, when conditions are right.
+[08.5 – 11.9]  vo3  Plan your spray window — Skyde watches the wind and rain.
+[14.2 – 17.1]  vo4  Wind picking up? You'll know before you fill the tank.
+[18.4 – 21.4]  vo5  Skyde. Farm smarter, waste less.
 
 --- Plain script (for recording) ---
 Spraying today? One gust, and it drifts away.
