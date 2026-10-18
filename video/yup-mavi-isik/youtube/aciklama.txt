@@ -1,12 +1,20 @@
-BAŞLIK (önerilen; 100 karakter sınırı)
-Telefon Işığı Uykunu Nasıl Bozuyor? Beynindeki Saat ve Bu Akşam Yapabileceğin Basit Şeyler
+YUP AKADEMİ · GECENİN MAVİ IŞIĞI · YOUTUBE YÜKLEME PAKETİ
+Video: yup-mavi-isik-youtube.mp4 (10:39) · Altyazı: altyazi-tr.srt · Kapak: kapak-A.png (yedek: kapak-B.png)
+
+════════════════════════════════════════
+1) BAŞLIK  (100 karakter sınırı; telefonda ilk ~60 karakter görünür)
+════════════════════════════════════════
+Telefon Işığı Uykunu Nasıl Bozuyor? Bu Akşam Deneyebileceğin 7 Basit Şey
 
 Alternatifler:
-• Gece Ekrana Bakınca Neden Uyuyamıyoruz? Bilim ve Bu Akşam Deneyebileceğin 7 Alışkanlık
+• Gece Ekrana Bakınca Neden Uyuyamıyoruz? Beynindeki Saatin Sırrı
 • Mavi Işık Gerçekten Uykunu Bozuyor mu? Bilim Ne Diyor, Sen Ne Yapabilirsin?
 
 
-AÇIKLAMA
+════════════════════════════════════════
+2) AÇIKLAMA  (aşağıdaki çizgiler arasını olduğu gibi yapıştır)
+════════════════════════════════════════
+----------------------------------------
 Gece saat bir buçuk. Ekranı kapattın, gözlerin kapalı ama uyku gelmiyor. Çünkü beyninin derinlerindeki saat hâlâ gündüz olduğunu düşünüyor.
 
 Bu videoda o saatin nasıl çalıştığını, ışığın onu nasıl kandırdığını ve en önemlisi bu akşamdan itibaren neyi farklı yapabileceğini görüyoruz:
@@ -34,7 +42,7 @@ BÖLÜMLER
 9:35 Bir hafta dene
 10:08 Kapanış
 
-BU AKŞAMIN LİSTESİ
+BU HAFTANIN LİSTESİ
 ✔ Uyanınca perdeyi sonuna kadar aç; mümkünse biraz yürü
 ✔ Masanı pencereye yaklaştır, öğle arasında birkaç dakika dışarı çık
 ✔ Akşam yemeğinden sonra tavan lambası yerine küçük, sarı bir lamba (≈ 2700 K)
@@ -64,38 +72,90 @@ Bu video bilgilendirme amaçlıdır; tıbbi tavsiye yerine geçmez. Haftalardır
 YUP Akademi (Yükselen Ufuklar Platformu): merak edenler için bir akademi. Bilişimden psikolojiye, matematikten kişisel gelişime; karmaşık konular sade, adım adım ve animasyonlarla.
 
 #uyku #maviışık #bilim
+----------------------------------------
 
 
-ETİKETLER (virgülle yapıştır)
-mavi ışık, uyku, uykusuzluk, melatonin, sirkadiyen ritim, biyolojik saat, sosyal jet lag, pazartesi sendromu, telefon ve uyku, ekran ışığı, gece modu, uyku hijyeni, sabah ışığı, uyku düzeni, nasıl daha iyi uyurum, ipRGC, melanopsin, SCN, uyku bilimi, sağlık, bilim, YUP Akademi
+════════════════════════════════════════
+3) ETİKETLER  (virgüllerle birlikte yapıştır; 301 karakter, sınır 500)
+════════════════════════════════════════
+mavi ışık, uyku, uykusuzluk, neden uyuyamıyorum, telefon ve uyku, ekran ışığı, melatonin, sirkadiyen ritim, biyolojik saat, iç saat, sosyal jet lag, pazartesi sendromu, gece modu, uyku hijyeni, sabah ışığı, uyku düzeni, nasıl daha iyi uyurum, uyku bilimi, ipRGC, melanopsin, sağlık, bilim, YUP Akademi
 
 
-YÜKLEME AYARLARI
-Küçük resim      : Aşağıdaki öneriye bak (1280×720).
-Oynatma listesi  : "YUP Akademi | Bilim ve Sağlık"
-İzleyiciler      : Hayır, çocuklara özel değil.
-Kategori         : Bilim ve Teknoloji (alternatif: Eğitim)
-Dil              : Türkçe · Altyazı: Türkçe (altyazi-tr.srt dosyasını "Zamanlamalı" olarak yükle)
-Değiştirilmiş/yapay içerik: Seslendirme yapay zekâ sesi ama gerçek birini taklit etmiyor ve video animasyon; "Hayır" yeterli.
-Sağlık içeriği   : Açıklamadaki kaynak listesi ve "tıbbi tavsiye değildir" notu kalsın.
-Yorumlar         : Açık.
+════════════════════════════════════════
+4) YOUTUBE STUDIO AYARLARI  (yükleme ekranındaki sırayla)
+════════════════════════════════════════
+AYRINTILAR
+• Başlık ve açıklama : yukarıdan
+• Küçük resim        : kapak-A.png. Studio'da "Test et ve karşılaştır" çıkıyorsa
+                       kapak-B.png'yi ikinci seçenek olarak ekle; YouTube daha çok
+                       izlenen kapağı kendisi seçer.
+• Oynatma listesi    : yeni liste aç → "YUP Akademi | Bilim ve Sağlık"
+• İzleyiciler        : "Hayır, çocuklara özel değil"
+• Yaş sınırlaması    : Hayır
 
-BİTİŞ EKRANI (son 20 saniye: 10:19'dan sonra)
-• Abone ol öğesi + bir sonraki YUP Akademi videosu.
-• Ortadaki "YUP AKADEMİ" yazısını kapatmamak için öğeleri alt köşelere koy.
+DAHA FAZLA GÖSTER
+• Ücretli tanıtım    : işaretleme (sponsor yok)
+• Değiştirilmiş veya yapay içerik : EVET
+     Neden: seslendirme, gerçek bir kişinin (senin) sesinden yapay zekâyla
+     üretildi. YouTube "bir kişinin sesini yapay olarak üretip videoyu
+     anlattırmayı" beyan gerektiren örnekler arasında sayıyor. Beyan etmenin
+     cezası yok; açıklamaya küçük bir etiket eklenir. Konu sağlık olduğu için
+     etiket videonun üstünde de görünebilir; bu normal.
+• Etiketler          : yukarıdan
+• Dil ve altyazılar  : Video dili Türkçe · Altyazı sertifikası: "Bu içerik ABD'de
+                       televizyonda yayınlanmadı"
+• Kayıt tarihi / yeri: isteğe bağlı, boş bırakılabilir
+• Lisans             : Standart YouTube Lisansı
+• Yerleştirmeye izin ver: ✓
+• Abone akışında yayınla ve abonelere bildir: ✓
+• Shorts remiksi     : "Video ve sesin remikslenmesine izin ver"
+• Kategori           : Bilim ve Teknoloji (alternatif: Eğitim)
+• Yorumlar           : Açık · "Uygunsuz olabilecek yorumları incelemeye beklet"
+• Beğeni sayısını göster: ✓
 
-BİLGİ KARTLARI
-• "Bir günün ışığını ölçtük" bölümünde: oynatma listesi
-• "Sabah: gündüz bol ışık" bölümünde: (varsa) uyku ya da sağlık konulu başka bir video
+VİDEO ÖĞELERİ
+• Altyazı ekle       : "Dosya yükle" → "Zamanlamalı" → altyazi-tr.srt
+• Bitiş ekranı       : son 20 saniye, 10:19'dan sonra
+                       Şablon: "1 video + Abone ol". Video olarak "En son yüklenen"
+                       ya da kanaldaki en uygun video. Öğeleri alt köşelere koy;
+                       ortadaki "YUP AKADEMİ" yazısını kapatmasın.
+• Kartlar            : 3:56'da oynatma listesi kartı · 7:15'te (varsa) uyku ya da
+                       sağlık konulu başka bir video
 
-SABİTLENMİŞ YORUM
+GÖRÜNÜRLÜK
+• Herkese açık ya da Planla. Öneri: hafta içi akşam 19:00–21:00 arası
+  (izleyicinin evde, uyumadan önce telefonda olduğu saatler; konuyla da uyumlu).
+• Yayından sonraki ilk 1–2 saatte gelen yorumlara cevap ver.
+
+
+════════════════════════════════════════
+5) SABİTLENMİŞ YORUM  (yayından hemen sonra yaz ve sabitle)
+════════════════════════════════════════
 Bu hafta listeden hangisini deneyeceksin? 🌙 Benimki: telefonu yatmadan bir saat önce odanın dışında bırakmak. Bir hafta sonra nasıl uyuduğunu yorumlara yaz.
 
 
-KÜÇÜK RESİM (yapay zekâ ile üret, yazıyı Canva'da ekle; 16:9)
+════════════════════════════════════════
+6) KAPAK
+════════════════════════════════════════
+HAZIR KAPAKLAR (1280×720, PNG, 2 MB sınırının altında; videonun kendi görselleriyle)
+• kapak-A.png : telefon ışığındaki yatak odası + "BEYNİN HÂLÂ GÜNDÜZ"  ← önerilen
+• kapak-B.png : içinde güneş yanan beyin + "NEDEN UYUYAMIYORSUN?" + 01:47
+
+YAPAY ZEKÂYLA KENDİN ÜRETMEK İSTERSEN (Gemini / Nano Banana; görselde yazı olmasın, yazıyı Canva'da ekle)
 Prompt:
-  A person lying in bed in a completely dark bedroom, face lit only by the cold blue glow of a smartphone.
-  A subtle glowing clock inside a translucent brain silhouette above the head shows a bright sun.
-  Cinematic, high contrast, deep navy and electric blue with one small warm orange accent, minimal, empty space on the right for a headline. 16:9
-Üstüne yazı (3–4 kelime): "BEYNİN HÂLÂ GÜNDÜZ" ya da "NEDEN UYUYAMIYORSUN?"
-Köşe: küçük YUP Akademi logosu.
+  Flat vector illustration, cinematic night scene, 16:9. A young person lying in bed in a dark
+  bedroom at 1:30 am, holding a smartphone above their face; the cold blue glow of the screen
+  lights only the face and the pillow. Through the window, a city skyline with a few warm lit
+  windows and a crescent moon. Above the bed, a translucent glowing brain outline with a small
+  bright yellow sun shining inside it, as if the brain still thinks it is daytime. Deep navy and
+  electric blue palette with a single warm golden accent (the sun). Soft gradients, clean shapes,
+  no text, no letters, no watermark. Keep the right 40 % of the image dark and empty for a headline.
+
+Yazı ölçüleri (1280×720 kapak için):
+• Yazı tipi : Inter Display ExtraBold ya da Montserrat Black (Canva'da ikisi de var)
+• Ana satırlar : 100–110 px, satır aralığı 0,95, harf aralığı −1
+• Renkler : "BEYNİN" krem beyaz #F3EDE1 · "HÂLÂ GÜNDÜZ" güneş sarısı #FFC24D
+            (yazının arkasına aynı renkte hafif parıltı)
+• Yerleşim : sağ yarı, dikeyde ortada; en fazla 3–4 kelime
+• Logo : sol alt köşe, koyu yarı saydam zemin üstünde küçük "YUP AKADEMİ"
+• Sağ alt köşeyi boş bırak (YouTube süre etiketini oraya koyar)
