@@ -1,0 +1,84 @@
+YUP AKADEMİ · TABAĞINDAKİ BİLİM · GEMINI GÖRSEL PROMPTLARI (2D)
+Her promptun sonunda aynı STİL bloğu var; seri boyunca hiç değiştirme, böylece bütün görseller aynı elden çıkmış gibi durur.
+Renkler YUP Akademi'nin mavi ışık videosuyla aynı aileden: altın sarısı #FFB547, krem #F3EDE1, koyu lacivert.
+
+KULLANIM SIRASI
+1) Prompt 1 ile karakteri üret, beğendiğini indir.
+2) Aynı sohbette Prompt 2 ve 3'ü yaz. Yeni sohbete geçersen karakter görselini yükle; promptlar zaten
+   "the exact same character from the attached image" diyor.
+3) Prompt 5 ile mutfağı KARAKTERSİZ üret. Animasyonda karakter ayrı katman olarak üstüne gelir.
+4) Kapak ya da sahne için iki görseli birlikte yükle:
+   "Place the character from image 1 into the kitchen from image 2, standing in the open area in the center foreground. Keep both exactly as they are."
+5) Kare çıkarsa aynı sohbette: "Make it a 16:9 landscape image, extend the scene to the sides, keep everything else."
+6) Yazıları görsele koydurma; Türkçe harfleri bozuyor. Başlık ve etiketleri sonra biz ekleriz.
+7) Molekülleri Gemini doğru çizemez. Büyüteç içini soyut bırakıyoruz; doğru molekül yapısını videoda motorla biz çizeriz.
+8) Çözünürlük seçeneği varsa en yükseğini seç; yoksa 1080p video için büyütme (upscale) gerekir.
+Erkek karakter istersen Prompt 1'de "a cheerful young woman" yerine "a cheerful young man" yaz, "her/she" kelimelerini "his/he" yap.
+İsim önerisi: Defne (defne yaprağı göndermesi).
+
+────────────────────────────────────────
+PROMPT 1 · Karakter (sunucu)
+────────────────────────────────────────
+Full-body character design of the host of a kitchen-science show for a general audience. A cheerful young woman in her late twenties, about five heads tall, slightly stylized proportions. Warm light-brown skin, big expressive dark eyes, rosy cheeks, a wide curious smile. Dark brown wavy hair in a loose messy bun with a wooden pencil stuck through it, a few loose strands. Round thin gold-rimmed glasses. She wears a navy long-sleeve shirt with the sleeves rolled up to the elbows, a mustard-yellow apron (#FFB547) with one front pocket holding a wooden spoon and a small thermometer, and a small cream hexagon patch on the chest. Cream trousers rolled at the ankle, navy sneakers. A red-and-white checkered tea towel over her left shoulder. Her signature item: a large brass magnifying glass with a wooden handle, its lens glowing softly golden. She holds it up next to her face with her right hand, so one eye looks huge and magnified through the lens; her left hand rests on her hip. Relaxed three-quarter view, friendly and full of energy, as if she just noticed something fascinating. Isolated on a plain solid light cream background with only a small soft oval shadow under the feet, nothing else in the image. Vertical 3:4 image, whole body visible with margin around it.
+Style: flat 2D vector illustration for an educational animation series. Clean geometric shapes with soft rounded corners, no black outlines, flat color fills with gentle soft shading, light paper-grain texture, warm and friendly mood. Limited palette: deep navy #1B2440, warm golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+────────────────────────────────────────
+PROMPT 2 · Karakter sayfası (dönüş + ifadeler)
+────────────────────────────────────────
+Using the exact same character from the attached image (same face, hair, glasses, clothes, colors and proportions), create a character model sheet on a plain solid light cream background, 16:9 landscape. Top row: four full-body views in a neutral standing pose, evenly spaced and the same size: front view, three-quarter view, side profile, back view. Bottom row: six head-and-shoulders expressions, evenly spaced: 1) curious, looking through the magnifying glass; 2) amazed, eyes wide and mouth open; 3) laughing with eyes closed; 4) thinking, finger on chin, eyes looking up; 5) crying comically while cutting an onion, tears streaming, squinting; 6) mouth on fire after tasting a chili pepper, bright red face, little puffs of steam from the ears. The design stays identical in every view.
+Style: flat 2D vector illustration for an educational animation series. Clean geometric shapes with soft rounded corners, no black outlines, flat color fills with gentle soft shading, light paper-grain texture, warm and friendly mood. Limited palette: deep navy #1B2440, warm golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no labels, no logos, no watermark.
+
+────────────────────────────────────────
+PROMPT 3 · Poz sayfası
+────────────────────────────────────────
+Using the exact same character from the attached image (same face, hair, glasses, clothes, colors and proportions), create a pose sheet on a plain solid light cream background, 16:9 landscape, six full-body poses evenly spaced at the same scale: 1) walking in from the left, waving hello; 2) pointing up with the index finger, explaining something; 3) cutting an onion on a small wooden board with a chef's knife; 4) flipping food in a frying pan over a small flame; 5) holding a big bowl of popcorn, a few kernels flying out; 6) holding up a crusty loaf of bread and inspecting it through the magnifying glass.
+Style: flat 2D vector illustration for an educational animation series. Clean geometric shapes with soft rounded corners, no black outlines, flat color fills with gentle soft shading, light paper-grain texture, warm and friendly mood. Limited palette: deep navy #1B2440, warm golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no labels, no logos, no watermark.
+
+────────────────────────────────────────
+PROMPT 4 · Yardımcı maskot "Lup" (isteğe bağlı, molekül büyüteci)
+────────────────────────────────────────
+A small cute mascot character: a living brass magnifying glass with a short wooden handle as its body, two big friendly cartoon eyes visible inside its softly glowing golden lens, tiny simple arms, floating in the air with a few small golden sparkles around it. Show it in four poses evenly spaced on a plain solid light cream background, 16:9 landscape: waving hello, leaning forward to zoom in curiously, surprised with eyes wide, giving a thumbs up.
+Style: flat 2D vector illustration for an educational animation series. Clean geometric shapes with soft rounded corners, no black outlines, flat color fills with gentle soft shading, light paper-grain texture, warm and friendly mood. Limited palette: deep navy #1B2440, warm golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+────────────────────────────────────────
+PROMPT 5 · Ortam: mutfak (karaktersiz, çok nesneli)
+────────────────────────────────────────
+Wide 16:9 background illustration of a cozy, lived-in Turkish home kitchen in the late morning, seen straight from the front at eye level, like a stage set for a side-view animation. No people, no characters. A long wooden countertop runs across the lower third of the image; the floor in front of it is checkered cream and terracotta, and the center foreground is kept open and uncluttered so a character can stand there later.
+Left side: a large window with sage-green frames and warm sunlight streaming in at a gentle angle; potted basil, mint and a small cactus on the sill; a lace half-curtain. Below the window a white sink with a dripping faucet, a dish rack with plates and tea glasses, a sponge and a soap bottle.
+Center-left: a stove with four burners and small blue flames: a frying pan with sizzling meatballs and a small steak, tiny oil droplets and curls of steam rising; a pot with a glass lid full of popcorn, a few popped kernels jumping out; a stacked Turkish double teapot steaming. Above the stove a copper range hood and a metal rail with hanging utensils: ladle, whisk, slotted spatula, sieve, two copper pans of different sizes.
+Center: a big wooden cutting board with a whole onion, a halved onion showing its rings, finely chopped onion pieces and a chef's knife; next to it a bowl of lemons and tomatoes, a head of garlic, a glass bottle of olive oil, salt and pepper shakers, an egg carton with brown eggs, a kitchen scale, nested measuring cups, a wooden spoon, an egg-shaped kitchen timer, a small bowl of fresh green and red chili peppers, and a large brass magnifying glass resting on the counter with a soft golden glint.
+Center-right: a wooden bread box with its lid open showing a crusty round Turkish loaf; on a small board a half-cut loaf with slices and scattered crumbs; a tray with thin tulip-shaped tea glasses and a small copper Turkish coffee pot.
+Upper wall: open wooden shelves full of glass jars of different heights: popcorn kernels, red lentils, rice, pasta, white beans, sugar cubes, dried apricots; a row of small spice jars in bright colors: red pepper flakes, yellow turmeric, green dried mint, brown cinnamon sticks. A string of dried red chili peppers and a braid of garlic hang from hooks, with a mesh bag of onions beside them.
+Right side: a rounded retro cream fridge with colorful magnets (a lemon, a chili, a hexagon-shaped molecule, a child's simple drawing of a sun); a wall clock with dots instead of numbers; a small chalkboard with simple chalk doodles of hexagon molecule shapes and arrows; a laboratory glass beaker used as a vase with a few daisies; an oven mitt and a checkered tea towel on a hook; a small vintage radio.
+Backsplash of sage-green subway tiles with a few hand-painted tiles in a navy-and-cream floral pattern inspired by Iznik tiles. A warm pendant lamp hangs from the ceiling. Lots of small details to discover, but the image stays readable: big clear shapes, the busiest details on the shelves and upper walls, a calm open area in the center foreground. No brand names or labels on jars and packages.
+Style: flat 2D vector illustration for an educational animation series. Clean geometric shapes with soft rounded corners, no black outlines, flat color fills with gentle soft shading, light paper-grain texture, warm and friendly mood. Limited palette: deep navy #1B2440, warm golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+────────────────────────────────────────
+PROMPT 6 · Aynı mutfak, akşam (aynı sohbette, mutfak görseli yüklüyken)
+────────────────────────────────────────
+Using the attached kitchen exactly, change only the lighting to evening: a dark navy sky with a few stars in the window, warm golden light from the pendant lamp and the range hood, soft long shadows, the flames glowing brighter. Keep every object, color and position exactly the same. No text.
+
+────────────────────────────────────────
+PROMPT 7 · Nesne sayfası (animasyon ve yakın çekimler için)
+────────────────────────────────────────
+Kalabalık çıkarsa ikiye böl: önce yiyecekler, sonra kap kacak ve aletler.
+A prop sheet of separate kitchen objects for an animation, each object isolated, evenly spaced in a neat grid on a plain solid light cream background, 16:9 landscape, nothing overlapping: a whole onion, a halved onion showing its rings, chopped onion pieces, a chef's knife, a wooden cutting board, a fresh red chili, a fresh green chili, a jar of red pepper flakes, a crusty round Turkish loaf, a fresh soft slice of bread, a stale dry cracked slice of bread, a handful of corn kernels, a few pieces of popped popcorn, a pot with a glass lid, a frying pan with a seared steak, three meatballs, a Turkish double teapot, a tulip-shaped tea glass with tea, a salt shaker, a brown egg, a lemon, a garlic bulb, a wooden spoon, a whisk, an egg-shaped timer, a kitchen thermometer, a brass magnifying glass.
+Style: flat 2D vector illustration for an educational animation series. Clean geometric shapes with soft rounded corners, no black outlines, flat color fills with gentle soft shading, light paper-grain texture, warm and friendly mood. Limited palette: deep navy #1B2440, warm golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no labels, no logos, no watermark.
+
+────────────────────────────────────────
+PROMPT 8 · Seri imzası: açılış + molekül büyüteci (bölüm başına)
+────────────────────────────────────────
+[SAHNE] yerine aşağıdaki bölüm satırlarından birini koy.
+Close-up 16:9 shot of [SAHNE]. A large brass magnifying glass hovers over the scene from the right; inside its round lens the view is zoomed into a glowing microscopic world of simple, stylized ball-and-stick molecules floating in soft golden light, decorative and abstract, not scientifically exact. Outside the lens the kitchen scene stays normal with a slightly blurred background.
+Style: flat 2D vector illustration for an educational animation series. Clean geometric shapes with soft rounded corners, no black outlines, flat color fills with gentle soft shading, light paper-grain texture, warm and friendly mood. Limited palette: deep navy #1B2440, warm golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+Soğan Neden Ağlatır?
+  a halved onion on a wooden cutting board, a chef's knife mid-cut, a faint pale-yellow mist rising from the cut surface
+Acı Biber Ağzını Neden Gerçekten "Yakar"?
+  a fresh red chili pepper sliced open on a board, showing the pale inner ribs and seeds, a small glass of milk beside it
+Ekmek Neden Bayatlar?
+  a crusty round loaf of Turkish bread on a board, one half fresh and soft, the other half old, dry and cracked
+Patlamış Mısır Nasıl Patlar?
+  a pot over a blue flame with corn kernels at the bottom, one kernel bursting open into fluffy white popcorn in mid-air
+Kızaran Etin O Güzel Kokusu Nereden Gelir?
+  a hot frying pan with a steak getting a deep brown crust, curls of fragrant steam rising
