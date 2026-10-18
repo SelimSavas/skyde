@@ -96,10 +96,12 @@ YUP Akademi (Yükselen Ufuklar Platformu): merak edenler için bir akademi. Bili
 
 
 ════════════════════════════════════════
-3) ETİKETLER  (virgüllerle birlikte yapıştır; 317 karakter, sınır 500)
+3) ETİKETLER  (virgüllerle birlikte yapıştır; 27 etiket, YouTube sayımıyla ≈ 429 / 500)
 ════════════════════════════════════════
-Uykunun Bilimi, mavi ışık, uyku, uykusuzluk, neden uyuyamıyorum, telefon ve uyku, ekran ışığı, melatonin, sirkadiyen ritim, biyolojik saat, iç saat, sosyal jet lag, pazartesi sendromu, gece modu, uyku hijyeni, sabah ışığı, uyku düzeni, nasıl daha iyi uyurum, uyku bilimi, ipRGC, melanopsin, sağlık, bilim, YUP Akademi
+Uykunun Bilimi, uyku, uykusuzluk, uyuyamıyorum, gece uyuyamıyorum, neden uyuyamıyorum, uykusuzluk çözümü, nasıl hızlı uyunur, uyku düzeni, uyku düzeni nasıl sağlanır, telefon uykuyu bozar mı, mavi ışık, mavi ışık zararları, ekran ışığı, gece modu, melatonin, melatonin nedir, biyolojik saat, sirkadiyen ritim, sabah yorgun uyanmak, pazartesi sendromu, sosyal jet lag, uyku hijyeni, beyin, sağlık, bilim, YUP Akademi
 
+Sıralama: seri adı → genel arama kelimeleri → insanların aradığı sorular → bilimsel terimler → kanal.
+Not: YouTube etiketlere az ağırlık verir; asıl iş başlık, açıklamanın ilk satırları ve kapakta.
 
 ════════════════════════════════════════
 4) YOUTUBE STUDIO AYARLARI  (yükleme ekranındaki sırayla)
