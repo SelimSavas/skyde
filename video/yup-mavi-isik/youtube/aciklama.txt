@@ -15,7 +15,8 @@ Alternatifler:
 
 
 ════════════════════════════════════════
-2) AÇIKLAMA  (aşağıdaki çizgiler arasını olduğu gibi yapıştır; 4.413 karakter, sınır 5.000)
+2) AÇIKLAMA  (aşağıdaki çizgiler arasını olduğu gibi yapıştır; 4.512 karakter / 4.910 bayt —
+   YouTube sınırı 5.000 BAYT; Türkçe harfler 2 bayt sayılır, liste bağlantısıyla ≈ 4.950)
    İlk cümle (137 karakter) aramada ve izleme sayfasında görünen kısımdır; anahtar kelimeler orada.
 ════════════════════════════════════════
 ----------------------------------------
@@ -25,14 +26,14 @@ Bu videoda mavi ışığın, melatoninin ve sirkadiyen ritmin nasıl çalıştı
 
 🌙 Uykunun Bilimi serisinin 1. bölümü. Serinin tamamı: [OYNATMA LİSTESİ BAĞLANTISI]
 
-Neler var:
-• İç saat neden her gün kayar? Pazartesi sabahları neden bu kadar zor? (sosyal jet lag)
-• Melatonin bir uyku hapı değil, "dışarıda gece var" sinyalidir
-• Gözündeki gizli dedektif: ışığı ölçen ganglion hücreleri ve melanopsin
-• Bir günün ışığını ölçtük: dışarısı binlerce lüks, evin içi birkaç yüz lüks
-• Bir hafta kamp yapınca iç saat ne kadar değişir?
-• Mavi ışık deneyleri, gece modu ve asıl önemli olan: ışığın miktarı
-• Bu akşamdan itibaren: sabah ışığı, akşam sarı lamba, telefon odanın dışında, karanlık yatak odası
+▶ BU VİDEODA NELER ÖĞRENECEKSİN?
+• İç saatin tam 24 saat değil, ortalama 24 saat 11 dakika; onu her sabah ışık ayarlar. Hafta sonu geç kalkınca pazartesi neden "jet lag" yaşarsın?
+• Beyindeki orkestra şefi SCN, yaklaşık 20.000 nöron. Hava kararınca epifize melatonin salgılatır; melatonin uyku hapı değil, "dışarıda gece var" sinyalidir.
+• 2002'de gözde üçüncü bir ışık algılayıcı keşfedildi: şekil görmez, yalnızca aydınlığı ölçer ve en çok mavi ışığa (≈ 480 nm) duyarlıdır.
+• Bir günün ışığını ölçtük: bulutlu bir günde bile dışarısı birkaç bin lüks, evin içi birkaç yüz lüks. Gündüzlerimiz fazla karanlık, gecelerimiz fazla aydınlık.
+• Bir hafta elektriksiz kamp yapanların iç saati yaklaşık 2 saat erkene kaydı; hafta sonu kampı bile 1,4 saat kaydırdı.
+• Melatonini yarıya indirmeye 30 lüksten az ışık yetebiliyor; kişiler arasında 50 kata varan fark var. Gece modu tek başına işe yaramadı: asıl önemli olan renk değil, ışığın miktarı.
+• Tavan lambası açıkken uyunan tek bir gece bile kalp atışını hızlandırdı, ertesi sabah insüline yanıtı zayıflattı.
 
 BÖLÜMLER
 0:00 Gece yarısı: neden uyuyamıyoruz?
@@ -50,45 +51,43 @@ BÖLÜMLER
 9:35 Bir hafta dene
 10:08 Kapanış
 
-BU HAFTANIN LİSTESİ
-✔ Uyanınca perdeyi sonuna kadar aç; mümkünse biraz yürü
-✔ Masanı pencereye yaklaştır, öğle arasında birkaç dakika dışarı çık
-✔ Akşam yemeğinden sonra tavan lambası yerine küçük, sarı bir lamba (≈ 2700 K)
-✔ Ekranın parlaklığını en aza indir ve yüzüne yaklaştırma
-✔ Yatmadan bir saat önce telefon odanın dışında, alarm için masa saati
-✔ Karanlık yatak odası: karartma perde ya da uyku bandı, şarj ışıklarına bant
-✔ Hafta sonu kalkış saatini hafta içinden en fazla ≈ 1 saat kaydır
+✅ BU HAFTA DENE: 7 BASİT ALIŞKANLIK
+1. Uyanınca perdeyi sonuna kadar aç, mümkünse bir durak önce inip yürü: sabah ışığı iç saati ayarlar.
+2. Masanı pencereye yaklaştır, öğle arasında birkaç dakika dışarı çık: bulutlu gün bile içeriden kat kat aydınlık.
+3. Akşam yemeğinden sonra tavan lambasını kapat, küçük ve sarı bir lamba yak (ampul kutusunda ≈ 2700 K).
+4. Ekran parlaklığını en aza indir ve yüzüne yaklaştırma: iki kat uzakta gözüne kabaca dörtte bir ışık ulaşır.
+5. Yatmadan bir saat önce telefonu odanın dışında şarja tak; alarm için masa saati yeter.
+6. Yatak odasını karart: karartma perde ya da uyku bandı, şarj ışıklarına bant; gece kalkarsan yere yakın, kısık, sarı bir gece lambası.
+7. Hafta sonu kalkış saatini hafta içinden en fazla ≈ 1 saat kaydır.
+Sonucu tek gecede değil, bir haftada görürsün.
 
-KAYNAKLAR (videodaki her bilginin dayanağı)
-İç saat
-• İç saat ≈ 24 sa 11 dk: Czeisler ve ark., Science 1999 · https://doi.org/10.1126/science.284.5423.2177
-• Sosyal jet lag: Wittmann ve ark., Chronobiology International 2006 · https://doi.org/10.1080/07420520500545979
-Beyin ve melatonin
-• SCN, hipotalamus, ≈ 20.000 nöron: Ma & Morrison, StatPearls 2023 · https://www.ncbi.nlm.nih.gov/books/NBK546664/
-• Epifiz bezi ve melatonin: Arendt & Aulinas, Endotext 2022 · https://www.ncbi.nlm.nih.gov/books/NBK550972/
-Gözdeki dedektif
-• Işığa duyarlı ganglion hücreleri: Berson, Dunn & Takao, Science 2002; 295:1070–1073
-• Melanopsin: Hattar ve ark., Science 2002 · https://doi.org/10.1126/science.1069609
-• Görme engellilerde melatonin baskılanması: Czeisler ve ark., NEJM 1995 · https://doi.org/10.1056/NEJM199501053320102
-Işık günlüğü ve kamp deneyi
-• Bir haftalık kamp (≈ 2 saat): Wright ve ark., Current Biology 2013 · https://doi.org/10.1016/j.cub.2013.06.039
-• Hafta sonu kampı (≈ 1,4 saat): Stothard ve ark., Current Biology 2017 · https://doi.org/10.1016/j.cub.2016.12.041
-• Gündüz, akşam ve uyku için ışık önerileri: Brown ve ark., PLOS Biology 2022 · https://doi.org/10.1371/journal.pbio.3001571
-Ekran ve deneyler
-• Mavi ve kırmızı LED (2025): Sanchez-Cano ve ark., Life 2025 · https://doi.org/10.3390/life15050715
-• Tablet ve basılı kitap: Chang ve ark., PNAS 2015 · https://doi.org/10.1073/pnas.1418490112
-• 30 lüksten az ışık, kişiler arası 50 kat fark: Phillips ve ark., PNAS 2019 · https://doi.org/10.1073/pnas.1901824116
-• Gece modu (Night Shift): Duraccio ve ark., Sleep Health 2021 · https://doi.org/10.1016/j.sleh.2021.03.005
-• Ekranın melanopik ışığı: Schöllhorn ve ark., Communications Biology 2023 · https://doi.org/10.1038/s42003-023-04598-4
-• Ekran süresi ve içerik: Hale & Guan, Sleep Medicine Reviews 2015 · https://doi.org/10.1016/j.smrv.2014.07.007
-• Dijital medya ve uyku: LeBourgeois ve ark., Pediatrics 2017 · https://doi.org/10.1542/peds.2016-1758J
-Uykuda ışık
-• Işıkta uyku, kalp atışı ve insülin: Mason ve ark., PNAS 2022 · https://doi.org/10.1073/pnas.2113290119
-• Melanopik ışık ölçümü: CIE S 026/E:2018 standardı · Ters kare yasası ve kelvin: temel fizik
+💬 Hangisini deneyeceksin, sıradaki bölüm hangi soru olsun? Yorumlara yaz.
+🔔 Yeni bölümler için abone ol.
 
-Bu video bilgilendirme amaçlıdır; tıbbi tavsiye yerine geçmez. Haftalardır süren uyku sorunlarında ya da gün boyu süren yorgunlukta bir hekime danışın.
+📚 KAYNAKLAR
+İç saat: Czeisler vd., Science 1999 · https://doi.org/10.1126/science.284.5423.2177
+Sosyal jet lag: Wittmann vd., Chronobiol Int 2006 · https://doi.org/10.1080/07420520500545979
+SCN: Ma & Morrison, StatPearls 2023 · https://www.ncbi.nlm.nih.gov/books/NBK546664/
+Melatonin: Arendt & Aulinas, Endotext 2022 · https://www.ncbi.nlm.nih.gov/books/NBK550972/
+ipRGC: Berson, Dunn & Takao, Science 2002; 295:1070
+Melanopsin: Hattar vd., Science 2002 · https://doi.org/10.1126/science.1069609
+Görme engelliler: Czeisler vd., NEJM 1995 · https://doi.org/10.1056/NEJM199501053320102
+Kamp (1 hafta): Wright vd., Curr Biol 2013 · https://doi.org/10.1016/j.cub.2013.06.039
+Kamp (hafta sonu): Stothard vd., Curr Biol 2017 · https://doi.org/10.1016/j.cub.2016.12.041
+Işık önerileri: Brown vd., PLOS Biol 2022 · https://doi.org/10.1371/journal.pbio.3001571
+Mavi/kırmızı LED: Sanchez-Cano vd., Life 2025 · https://doi.org/10.3390/life15050715
+Tablet/kitap: Chang vd., PNAS 2015 · https://doi.org/10.1073/pnas.1418490112
+30 lüks, 50 kat fark: Phillips vd., PNAS 2019 · https://doi.org/10.1073/pnas.1901824116
+Gece modu: Duraccio vd., Sleep Health 2021 · https://doi.org/10.1016/j.sleh.2021.03.005
+Melanopik ekran ışığı: Schöllhorn vd., Commun Biol 2023 · https://doi.org/10.1038/s42003-023-04598-4
+Ekran süresi: Hale & Guan, Sleep Med Rev 2015 · https://doi.org/10.1016/j.smrv.2014.07.007
+Dijital medya: LeBourgeois vd., Pediatrics 2017 · https://doi.org/10.1542/peds.2016-1758J
+Uykuda ışık: Mason vd., PNAS 2022 · https://doi.org/10.1073/pnas.2113290119
+Melanopik ölçüm: CIE S 026/E:2018
 
-YUP Akademi (Yükselen Ufuklar Platformu): merak edenler için bir akademi. Bilişimden psikolojiye, matematikten kişisel gelişime; karmaşık konular sade, adım adım ve animasyonlarla.
+⚠️ Tıbbi tavsiye değildir; süren uykusuzlukta hekime danış.
+
+YUP Akademi · merak edenler için.
 
 #UykununBilimi #uyku #maviışık
 ----------------------------------------
