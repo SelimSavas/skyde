@@ -4,11 +4,14 @@ Video: yup-mavi-isik-youtube.mp4 (10:39) · Altyazı: altyazi-tr.srt · Kapak: k
 ════════════════════════════════════════
 1) BAŞLIK  (100 karakter sınırı; telefonda ilk ~60 karakter görünür)
 ════════════════════════════════════════
-Telefon Işığı Uykunu Nasıl Bozuyor? Bu Akşam Deneyebileceğin 7 Basit Şey
+Telefon Işığı Uykunu Nasıl Bozuyor? Bu Akşam Deneyebileceğin 7 Basit Şey | Uykunun Bilimi #1
+
+Kural: önce merak uyandıran soru, en sonda seri adı ve numarası. Telefonda ilk ~60 karakter
+görünür; seri etiketi kesilse de sorun olmaz, oynatma listesinde ve kapakta zaten görünür.
 
 Alternatifler:
-• Gece Ekrana Bakınca Neden Uyuyamıyoruz? Beynindeki Saatin Sırrı
-• Mavi Işık Gerçekten Uykunu Bozuyor mu? Bilim Ne Diyor, Sen Ne Yapabilirsin?
+• Gece Ekrana Bakınca Neden Uyuyamıyoruz? | Uykunun Bilimi #1
+• Mavi Işık Gerçekten Uykunu Bozuyor mu? Bilim Ne Diyor, Sen Ne Yapabilirsin? | Uykunun Bilimi #1
 
 
 ════════════════════════════════════════
@@ -16,6 +19,8 @@ Alternatifler:
 ════════════════════════════════════════
 ----------------------------------------
 Gece saat bir buçuk. Ekranı kapattın, gözlerin kapalı ama uyku gelmiyor. Çünkü beyninin derinlerindeki saat hâlâ gündüz olduğunu düşünüyor.
+
+🌙 Uykunun Bilimi serisinin 1. bölümü. Serinin tamamı: [OYNATMA LİSTESİ BAĞLANTISI]
 
 Bu videoda o saatin nasıl çalıştığını, ışığın onu nasıl kandırdığını ve en önemlisi bu akşamdan itibaren neyi farklı yapabileceğini görüyoruz:
 • İç saat neden her gün kayar? Pazartesi sabahları neden bu kadar zor? (sosyal jet lag)
@@ -71,14 +76,15 @@ Bu video bilgilendirme amaçlıdır; tıbbi tavsiye yerine geçmez. Haftalardır
 
 YUP Akademi (Yükselen Ufuklar Platformu): merak edenler için bir akademi. Bilişimden psikolojiye, matematikten kişisel gelişime; karmaşık konular sade, adım adım ve animasyonlarla.
 
-#uyku #maviışık #bilim
+#UykununBilimi #uyku #maviışık
 ----------------------------------------
+(Açıklamadaki ilk üç hashtag başlığın üstünde görünür; seri etiketi her bölümde ilk sırada kalsın.)
 
 
 ════════════════════════════════════════
-3) ETİKETLER  (virgüllerle birlikte yapıştır; 301 karakter, sınır 500)
+3) ETİKETLER  (virgüllerle birlikte yapıştır; 317 karakter, sınır 500)
 ════════════════════════════════════════
-mavi ışık, uyku, uykusuzluk, neden uyuyamıyorum, telefon ve uyku, ekran ışığı, melatonin, sirkadiyen ritim, biyolojik saat, iç saat, sosyal jet lag, pazartesi sendromu, gece modu, uyku hijyeni, sabah ışığı, uyku düzeni, nasıl daha iyi uyurum, uyku bilimi, ipRGC, melanopsin, sağlık, bilim, YUP Akademi
+Uykunun Bilimi, mavi ışık, uyku, uykusuzluk, neden uyuyamıyorum, telefon ve uyku, ekran ışığı, melatonin, sirkadiyen ritim, biyolojik saat, iç saat, sosyal jet lag, pazartesi sendromu, gece modu, uyku hijyeni, sabah ışığı, uyku düzeni, nasıl daha iyi uyurum, uyku bilimi, ipRGC, melanopsin, sağlık, bilim, YUP Akademi
 
 
 ════════════════════════════════════════
@@ -89,7 +95,11 @@ AYRINTILAR
 • Küçük resim        : kapak-A.png. Studio'da "Test et ve karşılaştır" çıkıyorsa
                        kapak-B.png'yi ikinci seçenek olarak ekle; YouTube daha çok
                        izlenen kapağı kendisi seçer.
-• Oynatma listesi    : yeni liste aç → "YUP Akademi | Bilim ve Sağlık"
+• Oynatma listesi    : yeni liste aç → "Uykunun Bilimi | YUP Akademi"
+                       Liste açıklaması: "Neden uyuyamıyoruz, rüya neden görülür, kahve
+                       uykuyu nasıl çalar? Uykunun arkasındaki bilim, günlük hayatta
+                       uygulayabileceğin adımlarla. Her bölüm kaynaklı ve animasyonlu."
+                       Bağlantıyı alıp açıklamadaki [OYNATMA LİSTESİ BAĞLANTISI] yerine koy.
 • İzleyiciler        : "Hayır, çocuklara özel değil"
 • Yaş sınırlaması    : Hayır
 
@@ -132,6 +142,8 @@ GÖRÜNÜRLÜK
 5) SABİTLENMİŞ YORUM  (yayından hemen sonra yaz ve sabitle)
 ════════════════════════════════════════
 Bu hafta listeden hangisini deneyeceksin? 🌙 Benimki: telefonu yatmadan bir saat önce odanın dışında bırakmak. Bir hafta sonra nasıl uyuduğunu yorumlara yaz.
+
+Uykunun Bilimi serisinin bir sonraki bölümünde hangi soruyu cevaplayalım? Kahve mi, rüyalar mı, öğle uykusu mu? Yorumlara yaz, en çok istenen gelsin.
 
 
 ════════════════════════════════════════
@@ -183,3 +195,37 @@ Yazı ölçüleri (1280×720 kapak için):
 • Yerleşim : sağ yarı, dikeyde ortada; en fazla 3–4 kelime
 • Logo : sol alt köşe, koyu yarı saydam zemin üstünde küçük "YUP AKADEMİ"
 • Sağ alt köşeyi boş bırak (YouTube süre etiketini oraya koyar)
+• Seri rozeti : sol üst köşede küçük, hep aynı yerde ve aynı biçimde "UYKUNUN BİLİMİ · 1"
+  (koyu yarı saydam zemin, beyaz küçük harf aralıklı yazı, numara güneş sarısı).
+  Promptla üretiyorsan şu cümleyi ekle:
+  Top-left corner: a small rounded dark semi-transparent badge with the text "UYKUNUN BİLİMİ · 1"
+  in small white spaced capital letters, the number "1" in golden yellow.
+
+
+════════════════════════════════════════
+7) SERİ: UYKUNUN BİLİMİ
+════════════════════════════════════════
+Neden seri: aynı merakla gelen izleyici bir sonraki bölüme geçer (oynatma listesi otomatik
+oynatır), kanal bir konuda tanınır, YouTube benzer videoları birlikte önerir.
+
+Her bölümde aynı kalacaklar
+• Başlık   : [merak uyandıran soru] | Uykunun Bilimi #N
+• Kapak    : koyu lacivert zemin + tek vurgu rengi, aynı yazı tipi, sol üstte seri rozeti
+• Açıklama : 2. paragraf "🌙 Uykunun Bilimi serisinin N. bölümü. Serinin tamamı: …"
+             + bölümler + "bu haftanın listesi" + kaynaklar + tıbbi not
+• Hashtag  : #UykununBilimi ilk sırada
+• Video    : aynı açılış (gece sahnesi + soru), sonda "bu akşam deneyebileceğin" liste
+• Bitiş ekranı: bir sonraki bölüm (yayınlanınca bu videoyu da güncelle) + abone ol
+• Takvim   : haftada bir, hep aynı gün ve saatte (öneri: çarşamba ya da perşembe 20:00)
+
+Bölüm önerileri (her biri günlük hayattan bir soru, kaynaklı cevap, uygulanabilir liste)
+#1 Telefon Işığı Uykunu Nasıl Bozuyor?                        ← bu video
+#2 Kahve Uykunu Nasıl Çalıyor? (adenozin, uyku baskısı, öğleden sonra kahvesi)
+#3 Sabahçı mısın, Gececi mi? (kronotip, gençlerde saatin kayması, okul/iş saatleri)
+#4 Öğle Uykusu İşe Yarar mı? (kısa şekerleme, uyku ataleti, ne zaman, ne kadar)
+#5 Hafta Sonu Uyuyunca Uyku Borcu Kapanır mı? (uyku borcu, sosyal jet lag'in devamı)
+#6 Neden Rüya Görürüz? (uyku evreleri, REM, rüya ve hafıza)
+#7 Uyurken Beynin Ne Yapar? (öğrenme ve hafızanın pekişmesi, sınavdan önceki gece)
+#8 Alkol Uykuya Yardım Eder mi? (uykuya dalış ile uyku kalitesi arasındaki fark)
+
+Sabitlenmiş yorumda "bir sonraki bölümde hangi soru?" diye sor; en çok istenen konuyu öne al.
