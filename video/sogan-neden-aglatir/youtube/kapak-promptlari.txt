@@ -1,0 +1,39 @@
+TABAĞINDAKİ BİLİM #1 · SOĞAN NEDEN AĞLATIR? · KAPAK PROMPTLARI (Gemini)
+Her promptta karakter görselini (video/karakter.jpeg) yükle; karakter videodakiyle aynı kalsın.
+Türkçe harfler (Ğ, İ, I) bozulursa aynı sohbette yaz:
+"Fix the text only, keep everything else exactly the same. The headline must read exactly: ..."
+Yine olmazsa görseli yazısız üret ("No text at all" ekle); yazıyı sonradan kusursuz ekleriz.
+Sonuç 16:9 değilse: "Make it a 16:9 landscape image, extend the scene to the sides, keep everything else."
+YouTube kapağı: 1280×720, 2 MB altı. Sağ alt köşe boş kalsın (süre etiketi oraya gelir).
+
+────────────────────────────────────────
+PROMPT 1 · Ağlayan karakter (önerilen)
+────────────────────────────────────────
+YouTube thumbnail, 16:9, 1280x720. Use the exact same character from the attached image (same face, messy brown hair, lab goggles on the forehead, white lab coat, apron with vegetable and atom pattern) in the same 2D cartoon style with clean dark brown outlines and flat colors. Close-up from the chest up on the left half of the image, the face large and very expressive: he is crying comically while cutting an onion, eyes squeezed shut, big tears streaming down both cheeks, mouth in a wobbly frown. In front of him a halved onion on a wooden cutting board and a chef's knife; a pale yellow mist with a few small glowing molecules rises from the cut onion toward his eyes. Background: a warm, softly blurred cozy kitchen with sage green tiles and copper pans. Bright, high contrast, warm lighting, a soft golden glow behind the character.
+On the right half, a large bold headline in Turkish, in a heavy rounded sans-serif font (like Montserrat Black), all caps, left-aligned, stacked on two lines, exact spelling:
+"NEDEN"
+"AĞLIYORUZ?"
+"NEDEN" in cream white (#F3EDE1) with a thick dark navy (#1B2440) outline; "AĞLIYORUZ?" larger, in warm golden yellow (#FFB547) with a thick dark navy outline and a soft shadow. Perfectly sharp and legible, correct Turkish characters (Ğ with a breve, dotless I in "AĞLIYORUZ").
+Bottom-left corner: a small rounded dark navy label with a tiny golden magnifying glass icon and the text "TABAĞINDAKİ BİLİM" in small white bold capital letters.
+Keep the bottom-right corner empty. No other text, no watermark.
+
+────────────────────────────────────────
+PROMPT 2 · Büyüteç altında ağlatan gaz
+────────────────────────────────────────
+YouTube thumbnail, 16:9, 1280x720. 2D cartoon illustration with clean dark brown outlines and flat colors, matching the style of the attached character. In the center-left, a halved onion on a wooden cutting board, its rings clearly visible. A large brass magnifying glass hovers over the cut surface; inside its round lens the view is zoomed into a glowing dark navy microscopic world where small ball-and-stick molecules with yellow and red atoms rise like a golden mist. On the right edge, the character from the attached image (same face, hair, lab goggles on the forehead, lab coat) peeks in at the magnifying glass with wide, amazed eyes and one tear on his cheek. Background: soft cream kitchen wall, warm light, high contrast.
+At the top, a large bold headline in Turkish, in a heavy rounded sans-serif font (like Montserrat Black), all caps, on one line, exact spelling:
+"AĞLATAN GAZ"
+In warm golden yellow (#FFB547) with a thick dark navy (#1B2440) outline and a soft shadow. Perfectly sharp and legible, correct Turkish character (Ğ with a breve).
+Bottom-left corner: a small rounded dark navy label with a tiny golden magnifying glass icon and the text "TABAĞINDAKİ BİLİM" in small white bold capital letters.
+Keep the bottom-right corner empty. No other text, no watermark.
+
+────────────────────────────────────────
+PROMPT 3 · Gözlüklü karakter: ağlamadan doğra
+────────────────────────────────────────
+YouTube thumbnail, 16:9, 1280x720. Use the exact same character from the attached image in the same 2D cartoon style with clean dark brown outlines and flat colors, but this time the lab goggles are pulled down over his eyes. He stands behind a wooden cutting board on the right half of the image, smiling confidently, slicing an onion slowly with a shiny sharp chef's knife that has a bright sparkle on the blade. Onion slices on the board, no tears. Background: a warm, softly blurred cozy kitchen with sage green tiles. Bright, cheerful, high contrast.
+On the left half, a large bold headline in Turkish, in a heavy rounded sans-serif font (like Montserrat Black), all caps, left-aligned, stacked on two lines, exact spelling:
+"AĞLAMADAN"
+"DOĞRA!"
+"AĞLAMADAN" in cream white (#F3EDE1) with a thick dark navy (#1B2440) outline; "DOĞRA!" larger, in warm golden yellow (#FFB547) with a thick dark navy outline and a soft shadow. Perfectly sharp and legible, correct Turkish characters (Ğ with a breve in both words).
+Bottom-left corner: a small rounded dark navy label with a tiny golden magnifying glass icon and the text "TABAĞINDAKİ BİLİM" in small white bold capital letters.
+Keep the bottom-right corner empty. No other text, no watermark.
