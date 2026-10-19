@@ -1,0 +1,27 @@
+SKYDE — "What does 30% rain mean?" Instagram Reel / Shorts voiceover (English, 27 s)
+Curious, friendly, quick — like telling a fun fact. One file per line (vo1.mp3 … vo5.mp3),
+or one single take with a clear pause between lines (I'll cut it at the pauses).
+
+[00.2 – 03.4]  vo1  "Thirty percent chance of rain." What does that actually mean?
+[03.9 – 09.9]  vo2  Rain for part of the day? Rain on part of the city? Or a chance at your spot? Comment your answer!
+[11.8 – 15.5]  vo3  It's C. Forecaster confidence, times the area that gets rain.
+[16.2 – 21.5]  vo4  Or skip the math. Skyde just tells you: take an umbrella after five.
+[22.9 – 26.5]  vo5  Skyde. No math, just answers. Save this for the next rainy day.
+
+--- Plain script (for recording) ---
+"Thirty percent chance of rain." What does that actually mean?
+Rain for part of the day? Rain on part of the city? Or a chance at your spot? Comment your answer!
+It's C. Forecaster confidence, times the area that gets rain.
+Or skip the math. Skyde just tells you: take an umbrella after five.
+Skyde. No math, just answers. Save this for the next rainy day.
+
+--- Suggested Instagram caption ---
+"30% chance of rain" — A, B or C? 👇 Be honest, did you get it right? ☔
+(It's the forecaster's confidence × the share of the area that gets rain.)
+Skyde skips the math and just tells you what to do.
+#weather #weatherfacts #didyouknow #rain #funfacts #Skyde #weatherapp
+
+--- Fact check ---
+US National Weather Service: Probability of Precipitation (PoP) = C × A, where C is the forecaster's
+confidence that precipitation will occur somewhere in the area and A is the fraction of the area
+expected to receive measurable precipitation. Example: 60% confident × 50% of the area = 30%.

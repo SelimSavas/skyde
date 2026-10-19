@@ -1,0 +1,382 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: Lexend; src: url(fonts/lexend.ttf); font-weight: 100 900; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #2D8FEA; font-family: Lexend, sans-serif; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+  background: linear-gradient(180deg, #2A8BEA 0%, #45A9F5 38%, #6FC2FB 72%, #A6DDFF 100%); }
+.abs { position: absolute; }
+#storm { position: absolute; inset: 0; background: linear-gradient(180deg, #3D5878 0%, #5F7D9F 50%, #8AA3BF 100%); opacity: 0; }
+#sunGlow { left: -260px; top: -300px; width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.75) 0%, rgba(255,255,255,.25) 35%, rgba(255,255,255,0) 70%); }
+.cloud { position: absolute; filter: blur(10px); }
+.cloud i { position: absolute; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #fff 0%, rgba(255,255,255,.92) 45%, rgba(255,255,255,0) 72%); }
+.spark { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #fff; box-shadow: 0 0 14px 4px rgba(255,255,255,.7); }
+.drop { position: absolute; left: 0; top: 0; width: 4px; height: 60px; border-radius: 3px; background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.85)); }
+
+.cap { position: absolute; left: 40px; width: 1000px; top: 250px; text-align: center; color: #fff;
+  font-weight: 600; font-size: 84px; line-height: 1.08; letter-spacing: -1.5px; text-shadow: 0 6px 30px rgba(10,60,140,.35); }
+.cap .line { display: block; white-space: nowrap; }
+.cap .w { display: inline-block; margin: 0 10px; }
+.cap .hl { color: #FFE27A; }
+.cap .sub { display: block; font-size: 38px; font-weight: 400; letter-spacing: 0; margin-top: 22px; color: rgba(255,255,255,.92); }
+
+/* hook */
+#hook { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#big { position: absolute; left: 0; right: 0; top: 860px; text-align: center; color: #fff; font-size: 360px; font-weight: 700; letter-spacing: -14px;
+  text-shadow: 0 20px 60px rgba(10,50,120,.35); line-height: 1; }
+#bigCloud { position: absolute; left: 400px; top: 620px; }
+#hookRain { position: absolute; inset: 0; }
+
+/* quiz */
+.qcard { position: absolute; left: 70px; width: 880px; height: 196px; border-radius: 44px; background: rgba(255,255,255,.94);
+  box-shadow: 0 18px 50px rgba(10,50,120,.22); border: 5px solid transparent; }
+.qcard .lt { position: absolute; left: 34px; top: 46px; width: 96px; height: 96px; border-radius: 50%; background: #1E78E0; color: #fff;
+  font-size: 52px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.qcard .tx { position: absolute; left: 160px; right: 110px; top: 0; bottom: 0; display: flex; align-items: center; font-size: 42px; font-weight: 500; color: #1a1f2b; line-height: 1.2; }
+.qcard .mk { position: absolute; right: 30px; top: 58px; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; }
+.qcard .strike { position: absolute; left: 156px; top: 96px; height: 6px; border-radius: 3px; background: #DC2626; width: 0; }
+#ring { position: absolute; left: 465px; top: 1420px; width: 150px; height: 150px; }
+#ringNum { position: absolute; left: 465px; top: 1420px; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 76px; font-weight: 700; }
+#commentPill { position: absolute; left: 50%; top: 1610px; padding: 22px 40px; border-radius: 999px; background: rgba(11,30,70,.55); color: #fff;
+  font-size: 40px; font-weight: 600; white-space: nowrap; transform: translateX(-50%); }
+
+/* equation */
+.eq { position: absolute; left: 50%; white-space: nowrap; transform: translateX(-50%); }
+.epill { padding: 30px 54px; border-radius: 999px; background: #fff; color: #1a1f2b; font-size: 56px; font-weight: 600; box-shadow: 0 16px 44px rgba(10,50,120,.22);
+  display: flex; align-items: center; gap: 20px; }
+.eop { color: #fff; font-size: 96px; font-weight: 700; text-shadow: 0 8px 24px rgba(10,50,120,.3); }
+#eqRes { color: #FFE27A; font-size: 220px; font-weight: 700; letter-spacing: -8px; text-shadow: 0 16px 50px rgba(10,50,120,.35); }
+#area { position: absolute; left: 50%; top: 0; width: 120px; height: 80px; border-radius: 16px; overflow: hidden; background: #DCEBFA; }
+
+/* phone */
+#phoneWrap { position: absolute; left: 245px; top: 600px; width: 590px; height: 1276px; transform-origin: 50% 0; }
+#phone { position: absolute; inset: 0; border-radius: 74px; padding: 14px;
+  background: linear-gradient(135deg, #cfe2f7 0%, #7f9bc0 30%, #1d2737 32%, #121a26 100%);
+  box-shadow: 0 40px 90px rgba(10,50,120,.35), inset 0 0 0 3px rgba(255,255,255,.35); }
+#phone::before { content: ''; position: absolute; inset: 5px; border-radius: 69px; background: #0d131c; }
+#screenClip { position: relative; width: 562px; height: 1248px; border-radius: 60px; overflow: hidden; }
+#screen { position: absolute; left: 0; top: 0; width: 720px; height: 1600px; transform: scale(.78); transform-origin: 0 0; overflow: hidden; }
+#island { position: absolute; left: 50%; top: 22px; width: 180px; height: 52px; margin-left: -90px; border-radius: 30px; background: #05080d; z-index: 50; }
+.layer { position: absolute; inset: 0; }
+.glass { position: absolute; }
+.pill-txt { position: absolute; font-size: 31px; font-weight: 500; }
+.status { position: absolute; top: 34px; left: 64px; right: 56px; height: 40px; font-size: 30px; font-weight: 600; }
+.rain-drop { position: absolute; left: 0; top: 0; width: 3px; height: 46px; border-radius: 3px; background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.75)); }
+#hiCard { position: absolute; left: 36px; top: 828px; width: 648px; height: 376px; border-radius: 60px; border: 6px solid #FFE27A; opacity: 0; box-shadow: 0 0 40px rgba(255,226,122,.7); }
+#notif { position: absolute; left: 22px; top: 96px; width: 676px; border-radius: 40px; padding: 30px 32px 34px;
+  background: rgba(255,255,255,.92); box-shadow: 0 24px 60px rgba(0,30,80,.3); }
+#notif .hd { display: flex; align-items: center; gap: 16px; font-size: 24px; color: #6b6b78; font-weight: 500; letter-spacing: .5px; }
+#notif .hd img { width: 52px; height: 52px; border-radius: 13px; }
+#notif .hd .now { margin-left: auto; font-weight: 400; letter-spacing: 0; }
+#notif .tt { margin-top: 20px; font-size: 33px; font-weight: 600; color: #111; }
+#notif .bd { margin-top: 10px; font-size: 29px; line-height: 1.42; color: #2c2c36; }
+
+#end { position: absolute; inset: 0; }
+#endGlow { position: absolute; left: 90px; top: 360px; width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,.2) 40%, rgba(255,255,255,0) 70%); }
+#endIcon { position: absolute; left: 380px; top: 560px; width: 320px; height: 320px; border-radius: 76px; overflow: hidden;
+  box-shadow: 0 30px 80px rgba(10,60,150,.4), 0 0 0 4px rgba(255,255,255,.5); }
+#endIcon img { width: 100%; height: 100%; }
+#endWord { position: absolute; left: 0; right: 0; top: 930px; text-align: center; color: #fff; font-size: 150px; font-weight: 600; letter-spacing: -3px;
+  text-shadow: 0 10px 40px rgba(10,60,140,.3); }
+#endTag { position: absolute; left: 0; right: 0; top: 1130px; text-align: center; color: #fff; font-size: 50px; font-weight: 400; }
+#endTag b { font-weight: 600; color: #FFE27A; }
+#endCta { position: absolute; left: 50%; top: 1270px; transform: translateX(-50%); padding: 30px 64px; border-radius: 999px; background: #fff;
+  color: #1E78E0; font-size: 42px; font-weight: 600; white-space: nowrap; box-shadow: 0 18px 50px rgba(10,60,150,.3); }
+#endSave { position: absolute; left: 50%; top: 1420px; padding: 20px 36px; border-radius: 999px; background: rgba(11,30,70,.5); color: #fff; font-size: 34px; font-weight: 500; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="storm"></div>
+  <div id="sunGlow" class="abs"></div>
+  <div id="clouds"></div>
+  <div id="sparks"></div>
+  <div id="hookRain"></div>
+
+  <div id="hook">
+    <div id="bigCloud"></div>
+    <div id="big">30%</div>
+  </div>
+
+  <div id="quiz">
+    <div class="qcard" id="q0" style="top:720px"><div class="lt">A</div><div class="tx"><span>It rains for 30% of the day</span></div><div class="mk"></div><div class="strike"></div></div>
+    <div class="qcard" id="q1" style="top:950px"><div class="lt">B</div><div class="tx"><span>30% of the city gets rain</span></div><div class="mk"></div><div class="strike"></div></div>
+    <div class="qcard" id="q2" style="top:1180px"><div class="lt">C</div><div class="tx"><span>A 30% chance it rains at your spot</span></div><div class="mk"></div><div class="strike"></div></div>
+    <svg id="ring" viewBox="0 0 150 150"><circle cx="75" cy="75" r="66" fill="rgba(11,30,70,.45)" stroke="rgba(255,255,255,.3)" stroke-width="10"/>
+      <circle id="ringArc" cx="75" cy="75" r="66" fill="none" stroke="#FFE27A" stroke-width="10" stroke-linecap="round" transform="rotate(-90 75 75)" stroke-dasharray="415" stroke-dashoffset="0"/></svg>
+    <div id="ringNum">3</div>
+    <div id="commentPill">Comment A, B or C 👇</div>
+  </div>
+
+  <div id="eqWrap">
+    <div class="eq" id="e1" style="top:720px"><div class="epill"><span data-ic="gauge:56:#1E78E0:2.4"></span>60% sure it rains</div></div>
+    <div class="eq eop" id="e2" style="top:858px">×</div>
+    <div class="eq" id="e3" style="top:980px"><div class="epill"><span data-ic="pin:56:#1E78E0:2.4"></span>on 50% of the area</div></div>
+    <div class="eq eop" id="e4" style="top:1118px">=</div>
+    <div class="eq" id="e5" style="top:1220px"><div id="eqRes">30%</div></div>
+  </div>
+
+  <div id="cap1" class="cap"></div>
+  <div id="cap2" class="cap"></div>
+  <div id="cap3" class="cap"></div>
+  <div id="cap4" class="cap"></div>
+
+  <div id="phoneWrap">
+    <div id="phone">
+      <div id="screenClip">
+        <div id="island"></div>
+        <div id="screen">
+          <div id="home" class="layer"></div>
+          <div id="hiCard"></div>
+          <div id="notif">
+            <div class="hd"><img src="icon.png"><span>SKYDE</span><span class="now">now</span></div>
+            <div class="tt">☔ Rain in 20 minutes</div>
+            <div class="bd">Light rain starts around 17:00 — grab your umbrella on the way out.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="end">
+    <div id="endGlow"></div>
+    <div id="endIcon"><img src="icon.png"></div>
+    <div id="endWord">Skyde</div>
+    <div id="endTag">No math. <b>Just answers.</b></div>
+    <div id="endCta">Download now</div>
+    <div id="endSave">🔖 Save this for the next rainy day</div>
+  </div>
+</div>
+
+<script src="icons.js"></script>
+<script>
+let seed = 31; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P01 = (t, a, b) => clamp((t - a) / (b - a));
+const eOut = x => 1 - Math.pow(1 - x, 3);
+const eIn = x => x * x * x;
+const eIO = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eBack = x => { const c1 = 1.5, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+
+document.querySelectorAll('[data-ic]').forEach(el => {
+  const [n, s, c, w] = el.dataset.ic.split(':');
+  el.insertAdjacentHTML('afterbegin', svg(n, +s, c, w ? +w : 2));
+});
+$('bigCloud').innerHTML = svg('rainc', 280, '#ffffff', 1.8);
+
+// ---------- Skyde home (rain theme) ----------
+const th = { bg: 'linear-gradient(170deg,#5C7FA6 0%,#6E89B3 45%,#5A93BC 75%,#4AA7C9 100%)', fg: '#ffffff', sub: 'rgba(255,255,255,.82)',
+  glass: 'rgba(255,255,255,.18)', border: 'rgba(255,255,255,.38)', icon: 'rainc', iconC: '#E9F4FF', calBox: 'rgba(255,255,255,.35)', calC: '#0f2a4a',
+  accent: 'rgba(120,210,255,.95)', clock: '16:40', title: 'Light rain after 17:00. Take an umbrella if you’re out late.', subtxt: 'Dry until then. 19°C now.',
+  sum: 'Between 15° and 22°. Showers 17:00–20:00, clearing by night.' };
+(() => {
+  const g = (l, tp, w, h, r) => `<div class="glass" style="left:${l}px;top:${tp}px;width:${w}px;height:${h}px;border-radius:${r};background:${th.glass};border:2px solid ${th.border}"></div>`;
+  const ic = (n, l, tp, s, c, w = 2) => `<div class="abs" style="left:${l}px;top:${tp}px">${svg(n, s, c, w)}</div>`;
+  const txt = (l, tp, s, wt = 500, extra = '') => `<div class="pill-txt" style="left:${l}px;top:${tp}px;color:${th.fg};font-weight:${wt};${extra}">${s}</div>`;
+  $('home').innerHTML = `<div class="layer" style="background:${th.bg}"></div><div class="layer" id="phoneRain"></div>
+  <div class="status" style="color:${th.fg}"><span class="abs" style="left:0">${th.clock}</span></div>
+  ${g(40, 116, 288, 80, '40px')}${ic('pin', 70, 134, 44, th.fg)}${txt(128, 136, 'My location')}${ic('chev', 290, 146, 28, th.fg)}
+  ${g(408, 116, 80, 80, '50%')}${ic('bell', 428, 136, 40, th.fg)}${g(504, 116, 80, 80, '50%')}${ic('msg', 524, 136, 40, th.fg)}${g(600, 116, 80, 80, '50%')}${ic('gear', 620, 136, 40, th.fg)}
+  ${g(40, 216, 543, 80, '40px')}<div class="abs" style="left:52px;top:228px;width:172px;height:56px;border-radius:28px;background:rgba(255,255,255,.32)"></div>
+  ${txt(88, 236, 'Today', 600)}${txt(262, 236, 'Tomorrow', 400)}${txt(440, 236, 'Weekly', 400)}
+  ${g(600, 216, 80, 80, '26px')}${ic('vol', 620, 236, 40, th.fg)}
+  ${g(40, 316, 640, 80, '40px')}
+  <div class="abs" style="left:66px;top:326px;width:60px;height:60px;border-radius:16px;background:${th.calBox};display:flex;align-items:center;justify-content:center">${svg('cal', 36, th.calC)}</div>
+  ${txt(146, 336, 'Plan Today', 600, 'letter-spacing:.5px')}
+  ${g(182, 436, 356, 356, '72px')}
+  <div class="abs" id="hero" style="left:270px;top:524px">${svg(th.icon, 180, th.iconC, 2.2)}</div>
+  ${g(40, 832, 640, 368, '56px')}
+  <div class="abs" style="left:296px;top:860px;width:128px;height:8px;border-radius:4px;background:${th.accent}"></div>
+  <div class="abs" style="left:70px;top:900px;width:580px;text-align:center">
+    <div style="font-size:40px;font-weight:600;line-height:58px;color:${th.fg}">${th.title}</div>
+    <div style="margin-top:20px;font-size:30px;line-height:42px;color:${th.sub}">${th.subtxt}</div></div>
+  ${g(40, 1232, 640, 420, '56px')}
+  <div class="abs" style="left:88px;top:1302px;width:20px;height:20px;border-radius:50%;background:${th.accent}"></div>
+  <div class="abs" style="left:128px;top:1286px;font-size:36px;font-weight:500;color:${th.fg}">Today's summary</div>
+  <div class="abs" style="left:90px;top:1370px;width:540px;font-size:31px;line-height:50px;color:${th.fg}">${th.sum}</div>`;
+})();
+
+// ---------- background ----------
+function makeCloud(parent, o) {
+  const c = document.createElement('div'); c.className = 'cloud';
+  let h = '';
+  for (let i = 0; i < 7; i++) {
+    const w = 180 + rnd() * 220, x = i * 70 + rnd() * 40, y = 60 - Math.sin(i / 6 * Math.PI) * 90 + rnd() * 40;
+    h += `<i style="left:${x}px;top:${y}px;width:${w}px;height:${w * .8}px"></i>`;
+  }
+  c.innerHTML = h; c.style.opacity = o; parent.appendChild(c); return c;
+}
+const clouds = [
+  { x: -180, y: 1450, s: 1.25, sp: 9, o: .95 }, { x: 640, y: 1560, s: 1.4, sp: -7, o: .95 },
+  { x: 720, y: 470, s: .7, sp: -12, o: .5 }, { x: -120, y: 560, s: .6, sp: 14, o: .45 },
+  { x: 120, y: 1750, s: 1.6, sp: 6, o: 1 }, { x: 760, y: 100, s: .55, sp: -10, o: .45 },
+].map(d => ({ el: makeCloud($('clouds'), d.o), ...d }));
+const sparks = Array.from({ length: 22 }, () => {
+  const s = document.createElement('div'); s.className = 'spark'; $('sparks').appendChild(s);
+  return { el: s, x: rnd() * 1080, y: rnd() * 1920, ph: rnd() * 6.28, sc: .4 + rnd() * .8, sp: .6 + rnd() * 1.2 };
+});
+const stageDrops = Array.from({ length: 50 }, () => {
+  const d = document.createElement('div'); d.className = 'drop'; $('hookRain').appendChild(d);
+  return { el: d, x: rnd() * 1300 - 100, ph: rnd(), sp: 1.1 + rnd() * .6 };
+});
+const phoneDrops = Array.from({ length: 40 }, () => {
+  const d = document.createElement('div'); d.className = 'rain-drop'; $('phoneRain').appendChild(d);
+  return { el: d, x: rnd() * 780 - 30, ph: rnd(), sp: 1.4 + rnd() * .8 };
+});
+
+// ---------- captions ----------
+function buildCap(id, lines, sub) {
+  const el = $(id), words = [];
+  lines.forEach(line => {
+    const ln = document.createElement('span'); ln.className = 'line';
+    line.split(' ').forEach(w => {
+      const s = document.createElement('span'); s.className = 'w';
+      if (w.startsWith('*')) { s.classList.add('hl'); w = w.slice(1); }
+      s.textContent = w; ln.appendChild(s); words.push(s);
+    });
+    el.appendChild(ln);
+  });
+  if (sub) { const s = document.createElement('span'); s.className = 'sub w'; s.textContent = sub; el.appendChild(s); words.push(s); }
+  return words;
+}
+const caps = [
+  { w: buildCap('cap1', ['What does', '*“30% *rain” mean?'], 'Most people get this wrong.'), tin: 0.15, tout: 3.5 },
+  { w: buildCap('cap2', ['Which one', 'is *right?'], null), tin: 3.8, tout: 11.4 },
+  { w: buildCap('cap3', ['It’s *C.'], 'Forecaster confidence × area that gets rain.'), tin: 11.8, tout: 15.7 },
+  { w: buildCap('cap4', ['Or just skip', 'the *math.'], 'Skyde tells you what to do.'), tin: 16.1, tout: 22.2 },
+];
+
+// ---------- timeline ----------
+const Q_IN = 3.9, Q_HL = [4.6, 6.4, 8.0], CD = [8.7, 9.2, 9.7], REVEAL = 10.2, Q_OUT = 11.5;
+const PHONE_IN = 15.9, ANSWER = 17.6, NOTIF = 19.3, EXIT = 22.2;
+
+function render(t) {
+  // background + mood (rainy during the hook, clears afterwards)
+  const storm = eOut(P01(t, 0, .6)) * (1 - eIO(P01(t, 3.4, 4.4))) * .5;
+  $('storm').style.opacity = storm;
+  $('sunGlow').style.opacity = 1 - storm * 1.3;
+  $('sunGlow').style.transform = `scale(${1 + Math.sin(t * .8) * .04})`;
+  clouds.forEach(c => { c.el.style.transform = `translate(${c.x + t * c.sp}px, ${c.y + Math.sin(t * .5 + c.x) * 6}px) scale(${c.s})`; });
+  sparks.forEach(s => {
+    const o = .25 + .75 * Math.max(0, Math.sin(t * s.sp * 2 + s.ph));
+    s.el.style.opacity = o * .8 * (1 - storm * 2);
+    s.el.style.transform = `translate(${s.x}px, ${s.y - t * 12 * s.sc}px) scale(${s.sc * (.6 + o * .5)})`;
+  });
+  const hr = P01(t, .2, .6) * (1 - P01(t, 3.4, 4.0));
+  stageDrops.forEach(d => {
+    const y = ((t * d.sp + d.ph) % 1) * 2100 - 120;
+    d.el.style.opacity = hr * .7;
+    d.el.style.transform = `translate(${d.x - y * .18}px, ${y}px) rotate(10deg)`;
+  });
+
+  // captions
+  caps.forEach(c => {
+    const out = eIn(P01(t, c.tout, c.tout + .35));
+    c.w.forEach((w, i) => {
+      const a = c.tin + i * .08, k = eOut(P01(t, a, a + .45));
+      w.style.opacity = k * (1 - out);
+      w.style.transform = `translateY(${(1 - k) * 50 - out * 40}px) scale(${.92 + .08 * k})`;
+      w.style.filter = `blur(${(1 - k) * 10 + out * 8}px)`;
+    });
+  });
+
+  // hook: giant 30%
+  const hk = P01(t, .1, .7), hOut = eIn(P01(t, 3.3, 3.9));
+  $('big').style.opacity = (hk > 0 ? Math.min(1, hk * 3) : 0) * (1 - hOut);
+  $('big').style.transform = `scale(${(hk > 0 ? eBack(hk) : 0) * (1 + .03 * Math.sin(t * 3)) * (1 + hOut * .6)})`;
+  $('big').style.filter = `blur(${hOut * 16}px)`;
+  const ck = P01(t, .3, .9);
+  $('bigCloud').style.opacity = (ck > 0 ? 1 : 0) * (1 - hOut);
+  $('bigCloud').style.transform = `translateY(${Math.sin(t * 2) * 10 - (1 - eOut(ck)) * 200}px) scale(${ck > 0 ? eBack(ck) : 0})`;
+
+  // quiz
+  [0, 1, 2].forEach(i => {
+    const q = $('q' + i);
+    const k = P01(t, Q_IN + i * .22, Q_IN + .55 + i * .22), out = eIn(P01(t, Q_OUT + i * .06, Q_OUT + .4 + i * .06));
+    const hl = Math.max(0, 1 - Math.abs((t - Q_HL[i]) / .35));
+    const right = i === 2, rv = P01(t, REVEAL + i * .18, REVEAL + .35 + i * .18);
+    const shake = (!right && rv > 0 && rv < 1) ? Math.sin(rv * 30) * 10 * (1 - rv) : 0;
+    q.style.opacity = (k > 0 ? Math.min(1, k * 2) : 0) * (1 - out) * (!right && rv > 0 ? lerp(1, .55, rv) : 1);
+    q.style.transform = `translateX(${lerp(1100, 0, eBack(k)) + shake + out * -1100}px) scale(${1 + .03 * hl + (right ? .05 * eBack(rv) * (rv > 0 ? 1 : 0) : 0)})`;
+    q.style.borderColor = rv > 0 ? (right ? '#22C55E' : '#EF4444') : (hl > .3 ? '#FFE27A' : 'transparent');
+    q.style.background = rv > 0 && right ? '#F0FDF4' : 'rgba(255,255,255,.94)';
+    const mk = q.querySelector('.mk');
+    mk.style.opacity = rv > 0 ? 1 : 0;
+    mk.style.background = right ? '#22C55E' : '#EF4444';
+    mk.style.transform = `scale(${rv > 0 ? eBack(rv) : 0})`;
+    mk.innerHTML = svg(right ? 'check' : 'x', 48, '#fff', 3.4);
+    q.querySelector('.strike').style.width = right ? '0px' : `${eOut(rv) * (q.querySelector('.tx span').offsetWidth + 8)}px`;
+    q.querySelector('.lt').style.background = rv > 0 ? (right ? '#22C55E' : '#9CA3AF') : '#1E78E0';
+  });
+  const rk = P01(t, CD[0] - .4, CD[0]), rOut = P01(t, REVEAL, REVEAL + .25);
+  const cdOn = rk > 0 ? Math.min(1, rk * 2) * (1 - rOut) : 0;
+  $('ring').style.opacity = cdOn; $('ringNum').style.opacity = cdOn;
+  const num = t < CD[1] ? 3 : t < CD[2] ? 2 : 1;
+  $('ringNum').textContent = num;
+  const tick = t < CD[0] ? 0 : P01(t, CD[0] + (3 - num) * .5, CD[0] + (3 - num) * .5 + .5);
+  $('ringNum').style.transform = `scale(${1 + .25 * (1 - eOut(clamp(tick * 3)))})`;
+  $('ringArc').setAttribute('stroke-dashoffset', 415 * P01(t, CD[0], REVEAL));
+  const cp = P01(t, 5.0, 5.4), cpOut = P01(t, REVEAL, REVEAL + .3);
+  $('commentPill').style.opacity = (cp > 0 ? 1 : 0) * Math.min(1, cp * 2) * (1 - cpOut);
+  $('commentPill').style.transform = `translateX(-50%) scale(${(cp > 0 ? eBack(cp) : 0) * (1 + .03 * Math.sin(t * 6))})`;
+
+  // equation
+  const E = [12.3, 13.0, 13.3, 14.0, 14.3];
+  ['e1', 'e2', 'e3', 'e4', 'e5'].forEach((id, i) => {
+    const k = P01(t, E[i], E[i] + .45), out = eIO(P01(t, 15.6, 16.2));
+    const el = $(id);
+    el.style.opacity = (k > 0 ? Math.min(1, k * 2) : 0) * (1 - out);
+    const toPhone = out * (1300 - (720 + i * 130));
+    el.style.transform = `translateX(-50%) translateY(${(1 - eOut(k)) * 60 + toPhone}px) scale(${(k > 0 ? eBack(k) : 0) * lerp(1, .2, out)})`;
+    el.style.filter = `blur(${out * 8}px)`;
+  });
+  $('eqRes').style.transform = `scale(${1 + .04 * Math.sin(t * 4)})`;
+
+  // phone
+  const enter = P01(t, PHONE_IN, PHONE_IN + 1.0), ek = eBack(enter);
+  const exit = eIO(P01(t, EXIT, EXIT + .7));
+  const vib = (t > NOTIF && t < NOTIF + .5) ? Math.sin((t - NOTIF) * 90) * 1.6 * (1 - P01(t, NOTIF, NOTIF + .5)) : 0;
+  const ty = lerp(1500, 0, ek) + Math.sin(t * 1.3) * 8 - exit * 80;
+  const pw = $('phoneWrap');
+  pw.style.opacity = (enter > 0 ? 1 : 0) * (1 - exit);
+  pw.style.filter = `blur(${exit * 14}px)`;
+  pw.style.transform = `perspective(2600px) translateY(${ty}px) rotateX(4deg) rotateY(${Math.sin(t * .9) * 5}deg) rotateZ(${lerp(10, 0, eOut(enter)) + vib}deg) scale(${lerp(1, .78, exit)})`;
+  phoneDrops.forEach(d => {
+    const y = ((t * d.sp + d.ph) % 1) * 1800 - 100;
+    d.el.style.opacity = .75;
+    d.el.style.transform = `translate(${d.x - y * .2}px, ${y}px) rotate(12deg)`;
+  });
+  $('hero').style.transform = `translateY(${Math.sin(t * 2) * 6}px)`;
+  const hi = P01(t, ANSWER - .1, ANSWER + .25) * (1 - P01(t, NOTIF + 1.2, NOTIF + 1.8));
+  $('hiCard').style.opacity = hi;
+  const nk = P01(t, NOTIF, NOTIF + .55), nOut = P01(t, EXIT - .2, EXIT + .2);
+  $('notif').style.opacity = (nk > 0 ? 1 : 0) * (1 - nOut);
+  $('notif').style.transform = `translateY(${lerp(-320, 0, eBack(nk))}px)`;
+
+  // end card
+  const e1 = P01(t, 22.7, 23.4), e2 = P01(t, 23.0, 23.6), e3 = P01(t, 23.8, 24.4), e4 = P01(t, 24.4, 25.0), e5 = P01(t, 25.0, 25.5);
+  $('endGlow').style.opacity = eOut(e1) * (.85 + .15 * Math.sin(t * 2));
+  $('endGlow').style.transform = `scale(${lerp(.6, 1, eOut(e1))})`;
+  $('endIcon').style.opacity = Math.min(1, e1 * 3);
+  $('endIcon').style.transform = `translateY(${Math.sin(t * 1.6) * 6 * e1}px) scale(${e1 > 0 ? eBack(e1) : 0}) rotate(${lerp(-12, 0, eOut(e1))}deg)`;
+  $('endWord').style.opacity = eOut(e2); $('endWord').style.transform = `translateY(${(1 - eOut(e2)) * 60}px)`;
+  $('endWord').style.filter = `blur(${(1 - e2) * 10}px)`;
+  $('endTag').style.opacity = eOut(e3); $('endTag').style.transform = `translateY(${(1 - eOut(e3)) * 40}px)`;
+  const pulse = 1 + .035 * Math.max(0, Math.sin((t - 25.4) * 5)) * (t > 25.4 ? 1 : 0);
+  $('endCta').style.opacity = eOut(e4);
+  $('endCta').style.transform = `translateX(-50%) translateY(${(1 - eOut(e4)) * 40}px) scale(${(e4 > 0 ? eBack(e4) : 0) * pulse})`;
+  $('endSave').style.opacity = eOut(e5); $('endSave').style.transform = `translateX(-50%) translateY(${(1 - eOut(e5)) * 30}px)`;
+}
+window.render = render;
+render(parseFloat(new URLSearchParams(location.search).get('t') || '0'));
+</script>
+</body>
+</html>
