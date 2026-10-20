@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: Lexend; src: url(fonts/lexend.ttf); font-weight: 100 900; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1350px; overflow: hidden; font-family: Lexend, sans-serif; }
+.slide { position: absolute; inset: 0; overflow: hidden; display: none;
+  background: linear-gradient(180deg, #2A8BEA 0%, #45A9F5 42%, #79C7FB 78%, #B4E2FF 100%); color: #fff; }
+.slide.on { display: block; }
+.slide.storm { background: linear-gradient(180deg, #2E4259 0%, #4D6683 55%, #7890AA 100%); }
+.glow { position: absolute; left: -240px; top: -280px; width: 820px; height: 820px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,.22) 35%, rgba(255,255,255,0) 70%); }
+.cloud { position: absolute; filter: blur(9px); }
+.cloud i { position: absolute; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #fff 0%, rgba(255,255,255,.9) 45%, rgba(255,255,255,0) 72%); }
+.drop { position: absolute; width: 4px; height: 64px; border-radius: 3px; background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.8)); transform: rotate(11deg); }
+.content { position: absolute; left: 80px; right: 80px; top: 110px; }
+.kicker { display: inline-flex; align-items: center; gap: 12px; font-size: 30px; font-weight: 600; padding: 12px 26px; border-radius: 999px;
+  background: rgba(255,255,255,.22); border: 2px solid rgba(255,255,255,.5); }
+h1 { font-size: 92px; font-weight: 700; line-height: 1.04; letter-spacing: -2px; margin-top: 34px; text-shadow: 0 6px 30px rgba(10,50,120,.3); }
+h2 { font-size: 74px; font-weight: 700; line-height: 1.06; letter-spacing: -1.5px; margin-top: 30px; text-shadow: 0 6px 30px rgba(10,50,120,.3); }
+.hl { color: #FFE27A; }
+.lead { font-size: 40px; line-height: 1.32; margin-top: 26px; color: rgba(255,255,255,.95); }
+.card { background: rgba(255,255,255,.97); color: #141c2b; border-radius: 44px; box-shadow: 0 22px 60px rgba(10,50,120,.25); }
+.foot { position: absolute; left: 80px; right: 80px; bottom: 64px; display: flex; align-items: center; justify-content: space-between; font-size: 30px; font-weight: 500; }
+.foot .brand, .foot .swipe { display: flex; align-items: center; gap: 14px; padding: 10px 24px 10px 10px; border-radius: 999px; background: rgba(11,30,70,.5); }
+.foot .swipe { padding: 14px 28px; }
+.foot img { width: 52px; height: 52px; border-radius: 13px; box-shadow: 0 4px 14px rgba(10,50,120,.3); }
+.dots { display: flex; gap: 10px; padding: 14px 18px; border-radius: 999px; background: rgba(11,30,70,.5); }
+.dots i { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,.45); }
+.dots i.on { background: #fff; width: 38px; border-radius: 7px; }
+.swipe { font-weight: 600; }
+.src { position: absolute; left: 80px; right: 80px; bottom: 140px; font-size: 22px; color: rgba(255,255,255,.8); }
+</style>
+</head>
+<body>
+
+<!-- 1 · cover -->
+<section class="slide storm" data-n="1">
+  <div class="clouds"></div><div class="rain"></div>
+  <div class="content">
+    <div class="kicker">POV</div>
+    <h1>Your app said <span class="hl" style="white-space:nowrap">“no rain.”</span><br>So why are you soaked?</h1>
+  </div>
+  <div class="card" style="position:absolute;left:250px;top:640px;width:580px;padding:44px 40px;text-align:center;transform:rotate(-3deg)">
+    <div style="display:flex;justify-content:center" class="ic" data-ic="sun:150:#F5A524:2"></div>
+    <div style="font-size:110px;font-weight:300;letter-spacing:-4px;margin-top:6px">24°</div>
+    <div style="margin-top:18px;display:inline-block;padding:16px 34px;border-radius:999px;background:#F2F6FB;font-size:36px;font-weight:600">☀️ No rain today</div>
+  </div>
+  <div class="foot"><span class="swipe">3 reasons + the fix  →</span><div class="dots"></div></div>
+</section>
+
+<!-- 2 · reason 1 -->
+<section class="slide" data-n="2">
+  <div class="glow"></div><div class="clouds"></div>
+  <div class="content">
+    <div class="kicker">Reason 1</div>
+    <h2>The icon is for the <span class="hl">whole day.</span></h2>
+    <p class="lead">One sun icon can hide a short evening shower.</p>
+  </div>
+  <div class="card" style="position:absolute;left:80px;right:80px;top:700px;padding:46px 50px 40px">
+    <div style="display:flex;align-items:center;gap:22px;font-size:38px;font-weight:600"><span class="ic" data-ic="sun:64:#F5A524:2.2"></span>Today: Sunny</div>
+    <div style="position:relative;margin-top:36px;height:70px;border-radius:35px;background:#FFE9A8;overflow:hidden">
+      <div style="position:absolute;top:0;bottom:0;left:76.4%;width:3.4%;border-radius:6px;background:#3B82F6"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:14px;font-size:28px;color:#7b8495"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>
+    <div style="margin-top:30px;display:flex;align-items:center;gap:16px;font-size:34px;color:#1E5FC0;font-weight:600"><span class="ic" data-ic="rainc:48:#1E78E0:2.4"></span>18:20–19:00 · a 40-minute shower</div>
+  </div>
+  <div class="foot"><div class="brand"><img src="icon.png">@skyde.app</div><div class="dots"></div></div>
+</section>
+
+<!-- 3 · reason 2 -->
+<section class="slide" data-n="3">
+  <div class="glow"></div><div class="clouds"></div>
+  <div class="content">
+    <div class="kicker">Reason 2</div>
+    <h2>The % is for an <span class="hl">area,</span> not your street.</h2>
+    <p class="lead">Forecasts are made for grid boxes. A shower can soak one side and miss the other.</p>
+  </div>
+  <div class="card" style="position:absolute;left:190px;top:740px;width:700px;height:450px;padding:30px;overflow:hidden">
+    <div id="grid" style="position:absolute;left:30px;top:30px;width:640px;height:330px;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(3,1fr);gap:8px"></div>
+    <div style="position:absolute;left:244px;top:28px;width:216px;height:224px;border-radius:14px;border:5px solid #2F7DE0"></div>
+    <div style="position:absolute;left:210px;top:40px;width:200px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.5),rgba(59,130,246,0) 70%)"></div>
+    <div style="position:absolute;left:256px;top:70px" class="ic" data-ic="rainc:96:#1E5FC0:2.2"></div>
+    <div style="position:absolute;left:378px;top:150px" class="ic" data-ic="pin:62:#E0413A:2.6"></div>
+    <div style="position:absolute;left:0;right:0;top:376px;text-align:center;font-size:30px;font-weight:600;color:#1E5FC0">One forecast box → one number for all of it</div>
+  </div>
+  <div class="foot"><div class="brand"><img src="icon.png">@skyde.app</div><div class="dots"></div></div>
+</section>
+
+<!-- 4 · reason 3 -->
+<section class="slide" data-n="4">
+  <div class="glow"></div><div class="clouds"></div>
+  <div class="content">
+    <div class="kicker">Reason 3</div>
+    <h2>Short showers are the <span class="hl">hardest</span> to forecast.</h2>
+    <p class="lead">Fast-changing weather is where forecasts slip most. Even a great forecast gives you odds, not a promise.</p>
+  </div>
+  <div class="card" style="position:absolute;left:80px;right:80px;top:830px;padding:44px 50px;display:flex;gap:40px;align-items:center">
+    <span class="ic" data-ic="rainc:150:#1E78E0:2"></span>
+    <div style="font-size:38px;line-height:1.35;font-weight:500">The further ahead you look, the fuzzier the details. <b style="color:#1E5FC0">The next few hours</b> are the part worth watching.</div>
+  </div>
+  <div class="foot"><div class="brand"><img src="icon.png">@skyde.app</div><div class="dots"></div></div>
+</section>
+
+<!-- 5 · the fix -->
+<section class="slide" data-n="5">
+  <div class="glow"></div><div class="clouds"></div>
+  <div class="content">
+    <div class="kicker">The fix</div>
+    <h2>Check the <span class="hl">hour,</span><br>not the day.</h2>
+    <p class="lead">Look at the hours you'll actually be outside.</p>
+  </div>
+  <div class="card" style="position:absolute;left:80px;right:80px;top:740px;padding:40px 40px 44px">
+    <div style="font-size:30px;color:#5b6476;font-weight:600;letter-spacing:.5px">YOUR RUN · 18:00–19:30</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px;text-align:center" id="hours"></div>
+  </div>
+  <div class="foot"><div class="brand"><img src="icon.png">@skyde.app</div><div class="dots"></div></div>
+</section>
+
+<!-- 6 · Skyde -->
+<section class="slide" data-n="6">
+  <div class="glow"></div><div class="clouds"></div>
+  <div class="content">
+    <div class="kicker">Or skip the checking</div>
+    <h2>Let Skyde <span class="hl">watch your hour.</span></h2>
+    <p class="lead">Save the plan with its time. If that hour changes, you hear about it first.</p>
+  </div>
+  <div class="card" style="position:absolute;left:80px;right:80px;top:700px;padding:34px 38px;display:flex;align-items:center;gap:26px">
+    <div style="width:100px;height:100px;border-radius:28px;background:linear-gradient(135deg,#4FB3F6,#2563EB);display:flex;align-items:center;justify-content:center" class="ic" data-ic="feet:54:#fff"></div>
+    <div style="flex:1"><div style="font-size:38px;font-weight:600">I'll walk / run</div><div style="font-size:30px;color:#5b6476;margin-top:6px">Today · 18:00–19:30</div></div>
+    <div style="padding:12px 22px;border-radius:999px;background:#DCFCE7;color:#15803D;font-size:26px;font-weight:600">✓ Alert on</div>
+  </div>
+  <div class="card" style="position:absolute;left:110px;right:50px;top:950px;padding:30px 36px 34px;transform:rotate(1.5deg)">
+    <div style="display:flex;align-items:center;gap:16px;font-size:26px;color:#6b6b78;font-weight:500;letter-spacing:.5px"><img src="icon.png" style="width:52px;height:52px;border-radius:13px">SKYDE<span style="margin-left:auto;font-weight:400">17:30</span></div>
+    <div style="margin-top:18px;font-size:38px;font-weight:600">🏃 Your 18:00 run</div>
+    <div style="margin-top:8px;font-size:34px;line-height:1.38;color:#2c2c36">Rain likely from about 18:30. Head out a little earlier or take a light jacket.</div>
+  </div>
+  <div class="foot"><div class="brand"><img src="icon.png">@skyde.app</div><div class="dots"></div></div>
+</section>
+
+<!-- 7 · CTA -->
+<section class="slide" data-n="7">
+  <div class="glow" style="left:90px;top:120px"></div><div class="clouds"></div>
+  <div style="position:absolute;left:400px;top:190px;width:280px;height:280px;border-radius:66px;overflow:hidden;box-shadow:0 26px 70px rgba(10,60,150,.4),0 0 0 4px rgba(255,255,255,.5)"><img src="icon.png" style="width:100%;height:100%"></div>
+  <div style="position:absolute;left:0;right:0;top:510px;text-align:center;font-size:130px;font-weight:600;letter-spacing:-3px;text-shadow:0 10px 40px rgba(10,60,140,.3)">Skyde</div>
+  <div style="position:absolute;left:0;right:0;top:690px;text-align:center;font-size:44px">Plan the <b class="hl" style="font-weight:600">moment</b>, not the forecast.</div>
+  <div style="position:absolute;left:50%;top:820px;transform:translateX(-50%);display:flex;flex-direction:column;gap:20px;width:760px">
+    <div class="card" style="padding:28px 36px;font-size:38px;font-weight:600;display:flex;align-items:center;gap:20px">🔖 <span>Save this for your next run</span></div>
+    <div class="card" style="padding:28px 36px;font-size:38px;font-weight:600;display:flex;align-items:center;gap:20px">📤 <span>Send it to your running buddy</span></div>
+  </div>
+  <div class="foot"><div class="brand"><img src="icon.png">@skyde.app</div><div class="dots"></div></div>
+</section>
+
+<script src="icons.js"></script>
+<script>
+let seed = 5; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+document.querySelectorAll('[data-ic]').forEach(el => {
+  const [n, s, c, w] = el.dataset.ic.split(':');
+  el.insertAdjacentHTML('afterbegin', svg(n, +s, c, w ? +w : 2));
+});
+// clouds along the bottom of every slide
+document.querySelectorAll('.clouds').forEach(box => {
+  [[-160, 1080, 1.2, .9], [600, 1160, 1.3, .9], [720, 380, .6, .45]].forEach(([x, y, s, o]) => {
+    const c = document.createElement('div'); c.className = 'cloud';
+    let h = '';
+    for (let i = 0; i < 7; i++) {
+      const w = 180 + rnd() * 200, cx = i * 70 + rnd() * 40, cy = 60 - Math.sin(i / 6 * Math.PI) * 90 + rnd() * 40;
+      h += `<i style="left:${cx}px;top:${cy}px;width:${w}px;height:${w * .8}px"></i>`;
+    }
+    c.innerHTML = h; c.style.opacity = o; c.style.transform = `translate(${x}px,${y}px) scale(${s})`; box.appendChild(c);
+  });
+});
+document.querySelectorAll('.rain').forEach(box => {
+  for (let i = 0; i < 46; i++) {
+    const d = document.createElement('div'); d.className = 'drop';
+    d.style.left = (rnd() * 1120 - 20) + 'px'; d.style.top = (rnd() * 1350 - 60) + 'px'; d.style.opacity = .4 + rnd() * .5;
+    box.appendChild(d);
+  }
+});
+// grid boxes (slide 3)
+const grid = document.getElementById('grid');
+for (let i = 0; i < 18; i++) {
+  const b = document.createElement('div');
+  b.style.cssText = `border-radius:10px;background:${[2, 3, 8, 9].includes(i) ? '#E3EEFC' : '#F2F5F9'};border:2px solid ${[2, 3, 8, 9].includes(i) ? '#9CC3F5' : '#E6EBF2'}`;
+  grid.appendChild(b);
+}
+// hourly strip (slide 5)
+document.getElementById('hours').innerHTML = [['17:00', 'sun', '0%', 0], ['18:00', 'cloud', '20%', 0], ['19:00', 'rainc', '70%', 1], ['20:00', 'rainc', '60%', 0]]
+  .map(([h, ic, p, hot]) => `<div style="padding:22px 0 24px;border-radius:30px;${hot ? 'background:#E3EEFC;box-shadow:inset 0 0 0 4px #5B9CF0' : 'background:#F5F7FA'}">
+    <div style="font-size:30px;color:${hot ? '#1E5FC0' : '#7b8495'};font-weight:${hot ? 600 : 400}">${h}</div>
+    <div style="display:flex;justify-content:center;margin:16px 0">${svg(ic, 74, ic === 'sun' ? '#F59E0B' : ic === 'cloud' ? '#8aa0b8' : '#2F8CF0')}</div>
+    <div style="font-size:40px;font-weight:600;color:${hot ? '#1E5FC0' : '#222'}">${p}</div></div>`).join('');
+// page dots
+document.querySelectorAll('.slide').forEach(sl => {
+  const n = +sl.dataset.n, dots = sl.querySelector('.dots');
+  for (let i = 1; i <= 7; i++) { const d = document.createElement('i'); if (i === n) d.className = 'on'; dots.appendChild(d); }
+});
+function show(n) { document.querySelectorAll('.slide').forEach(s => s.classList.toggle('on', +s.dataset.n === n)); }
+window.show = show;
+show(parseInt(new URLSearchParams(location.search).get('s') || '1'));
+</script>
+</body>
+</html>

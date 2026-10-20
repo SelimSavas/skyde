@@ -1,0 +1,427 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: Lexend; src: url(fonts/lexend.ttf); font-weight: 100 900; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #2D8FEA; font-family: Lexend, sans-serif; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+  background: linear-gradient(180deg, #2A8BEA 0%, #45A9F5 38%, #6FC2FB 72%, #A6DDFF 100%); }
+.abs { position: absolute; }
+#storm { position: absolute; inset: 0; background: linear-gradient(180deg, #33485F 0%, #556F8C 50%, #7E95AE 100%); opacity: 0; }
+#flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+#sunGlow { left: -260px; top: -300px; width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.75) 0%, rgba(255,255,255,.25) 35%, rgba(255,255,255,0) 70%); }
+.cloud { position: absolute; filter: blur(10px); }
+.cloud i { position: absolute; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #fff 0%, rgba(255,255,255,.92) 45%, rgba(255,255,255,0) 72%); }
+.spark { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #fff; box-shadow: 0 0 14px 4px rgba(255,255,255,.7); }
+.drop { position: absolute; left: 0; top: 0; width: 4px; height: 70px; border-radius: 3px; background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.85)); }
+
+.cap { position: absolute; left: 40px; width: 1000px; top: 250px; text-align: center; color: #fff;
+  font-weight: 600; font-size: 84px; line-height: 1.08; letter-spacing: -1.5px; text-shadow: 0 6px 30px rgba(10,60,140,.35); }
+.cap .line { display: block; white-space: nowrap; }
+.cap .w { display: inline-block; margin: 0 10px; }
+.cap .hl { color: #FFE27A; }
+.cap .sub { display: block; font-size: 40px; font-weight: 400; letter-spacing: 0; margin-top: 22px; color: rgba(255,255,255,.95); }
+
+/* reason cards */
+.rcard { position: absolute; left: 70px; width: 940px; border-radius: 44px; background: rgba(255,255,255,.95); box-shadow: 0 18px 50px rgba(10,50,120,.22); padding: 34px 40px 36px 164px; }
+.rcard .num { position: absolute; left: 36px; top: 36px; width: 96px; height: 96px; border-radius: 30px; background: #1E78E0; display: flex; align-items: center; justify-content: center; }
+.rcard .tt { font-size: 44px; font-weight: 600; color: #141c2b; line-height: 1.15; }
+.rcard .ds { margin-top: 10px; font-size: 32px; color: #5b6476; line-height: 1.3; }
+.daybar { position: relative; margin-top: 22px; height: 44px; border-radius: 22px; background: #FFE9A8; overflow: hidden; }
+.daybar .wet { position: absolute; top: 0; bottom: 0; left: 76.4%; width: 3.4%; border-radius: 5px; background: #3B82F6; }
+.dayticks { display: flex; justify-content: space-between; margin-top: 8px; font-size: 22px; color: #7b8495; font-variant-numeric: tabular-nums; }
+
+/* phone */
+#phoneWrap { position: absolute; left: 245px; top: 600px; width: 590px; height: 1276px; transform-origin: 50% 0; }
+#phone { position: absolute; inset: 0; border-radius: 74px; padding: 14px;
+  background: linear-gradient(135deg, #cfe2f7 0%, #7f9bc0 30%, #1d2737 32%, #121a26 100%);
+  box-shadow: 0 40px 90px rgba(10,50,120,.35), inset 0 0 0 3px rgba(255,255,255,.35); }
+#phone::before { content: ''; position: absolute; inset: 5px; border-radius: 69px; background: #0d131c; }
+#screenClip { position: relative; width: 562px; height: 1248px; border-radius: 60px; overflow: hidden; }
+#screen { position: absolute; left: 0; top: 0; width: 720px; height: 1600px; transform: scale(.78); transform-origin: 0 0; overflow: hidden; }
+#island { position: absolute; left: 50%; top: 22px; width: 180px; height: 52px; margin-left: -90px; border-radius: 30px; background: #05080d; z-index: 50; }
+.layer { position: absolute; inset: 0; }
+.glass { position: absolute; }
+.pill-txt { position: absolute; font-size: 31px; font-weight: 500; }
+.status { position: absolute; top: 34px; left: 64px; right: 56px; height: 40px; font-size: 30px; font-weight: 600; }
+#screenRain { position: absolute; inset: 0; }
+.sdrop { position: absolute; left: 0; top: 0; width: 3px; height: 46px; border-radius: 3px; background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.9)); }
+
+#detail { background: #F6F6FA; transform: translateX(720px); }
+.card { position: absolute; left: 32px; right: 32px; background: #fff; border-radius: 34px; border: 2px solid #EEEEF3; }
+.dlabel { position: absolute; left: 40px; font-size: 28px; font-weight: 600; color: #747480; letter-spacing: .3px; }
+.tile { position: absolute; top: 0; width: 318px; height: 176px; background: #fff; border-radius: 32px; border: 2px solid #EEEEF3; }
+.tile .tl { position: absolute; left: 30px; top: 28px; font-size: 26px; color: #8a8a96; display: flex; align-items: center; gap: 10px; }
+.tile .tv { position: absolute; left: 30px; top: 70px; font-size: 68px; font-weight: 600; color: #111; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+.hr { position: absolute; top: 22px; width: 150px; text-align: center; border-radius: 26px; padding: 8px 0 12px; }
+.hr .t { font-size: 24px; color: #8a8a96; }
+.hr .i { height: 64px; display: flex; align-items: center; justify-content: center; margin: 6px 0; }
+.hr .d { font-size: 30px; font-weight: 600; color: #222; }
+#saveBtn { position: absolute; left: 32px; right: 32px; height: 124px; border-radius: 62px; color: #fff; font-size: 36px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center; gap: 16px; box-shadow: 0 14px 30px rgba(37,99,235,.3); }
+#tap { position: absolute; width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%;
+  background: rgba(47,140,240,.25); border: 4px solid rgba(47,140,240,.7); opacity: 0; z-index: 40; }
+
+#notif { position: absolute; left: 22px; top: 96px; width: 676px; border-radius: 40px; padding: 30px 32px 34px;
+  background: #fff; box-shadow: 0 24px 60px rgba(0,30,80,.3); }
+#notif .hd { display: flex; align-items: center; gap: 16px; font-size: 24px; color: #6b6b78; font-weight: 500; letter-spacing: .5px; }
+#notif .hd img { width: 52px; height: 52px; border-radius: 13px; }
+#notif .hd .now { margin-left: auto; font-weight: 400; letter-spacing: 0; }
+#notif .tt { margin-top: 20px; font-size: 34px; font-weight: 600; color: #111; }
+#notif .bd { margin-top: 10px; font-size: 30px; line-height: 1.42; color: #2c2c36; }
+
+#end { position: absolute; inset: 0; }
+#endGlow { position: absolute; left: 90px; top: 360px; width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,.2) 40%, rgba(255,255,255,0) 70%); }
+#endIcon { position: absolute; left: 380px; top: 560px; width: 320px; height: 320px; border-radius: 76px; overflow: hidden;
+  box-shadow: 0 30px 80px rgba(10,60,150,.4), 0 0 0 4px rgba(255,255,255,.5); }
+#endIcon img { width: 100%; height: 100%; }
+#endWord { position: absolute; left: 0; right: 0; top: 930px; text-align: center; color: #fff; font-size: 150px; font-weight: 600; letter-spacing: -3px;
+  text-shadow: 0 10px 40px rgba(10,60,140,.3); }
+#endTag { position: absolute; left: 0; right: 0; top: 1130px; text-align: center; color: #fff; font-size: 50px; font-weight: 400; }
+#endTag b { font-weight: 600; color: #FFE27A; }
+#endCta { position: absolute; left: 50%; top: 1270px; transform: translateX(-50%); padding: 30px 60px; border-radius: 999px; background: #fff;
+  color: #1E78E0; font-size: 42px; font-weight: 600; white-space: nowrap; box-shadow: 0 18px 50px rgba(10,60,150,.3); }
+#endHandle { position: absolute; left: 50%; top: 1420px; padding: 18px 34px; border-radius: 999px; background: rgba(11,30,70,.5); color: #fff;
+  font-size: 34px; font-weight: 500; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="storm"></div>
+  <div id="sunGlow" class="abs"></div>
+  <div id="clouds"></div>
+  <div id="sparks"></div>
+  <div id="stageRain"></div>
+
+  <div id="reasons">
+    <div class="rcard" id="r0" style="top:640px"><div class="num" data-ic="sun:56:#fff:2.4"></div>
+      <div class="tt">The icon is for the whole day</div>
+      <div class="ds">One sun can hide a 40-minute shower.</div>
+      <div class="daybar"><div class="wet"></div></div>
+      <div class="dayticks"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>
+    </div>
+    <div class="rcard" id="r1" style="top:1010px"><div class="num" data-ic="pin:56:#fff:2.4"></div>
+      <div class="tt">The % is for a wide area</div>
+      <div class="ds">Not for your street, your park or your route.</div>
+    </div>
+    <div class="rcard" id="r2" style="top:1270px"><div class="num" data-ic="rainc:56:#fff:2.4"></div>
+      <div class="tt">Short showers are the hardest to call</div>
+      <div class="ds">Fast-changing weather is where forecasts slip most.</div>
+    </div>
+  </div>
+
+  <div id="cap1" class="cap"></div>
+  <div id="cap2" class="cap"></div>
+  <div id="cap3" class="cap"></div>
+  <div id="cap4" class="cap"></div>
+
+  <div id="phoneWrap">
+    <div id="phone">
+      <div id="screenClip">
+        <div id="island"></div>
+        <div id="screen">
+          <div id="home" class="layer"></div>
+          <div id="generic" class="layer"></div>
+          <div id="screenRain"></div>
+          <div id="detail" class="layer">
+            <div class="abs" style="left:32px;top:110px;width:72px;height:72px;border-radius:50%;background:#E6E6EE;display:flex;align-items:center;justify-content:center" data-ic="back:34:#333"></div>
+            <div class="abs" style="left:0;right:0;top:124px;text-align:center;font-size:34px;font-weight:600;color:#111">Walk / run</div>
+            <div class="card" style="top:230px;height:170px">
+              <div class="abs" style="left:30px;top:33px;width:100px;height:100px;border-radius:28px;background:linear-gradient(135deg,#4FB3F6,#2563EB);display:flex;align-items:center;justify-content:center" data-ic="feet:52:#fff"></div>
+              <div class="abs" style="left:158px;top:38px;font-size:38px;font-weight:600;color:#111">I'll walk / run</div>
+              <div class="abs" style="left:158px;top:92px;font-size:26px;color:#8a8a96">Today · My location</div>
+            </div>
+            <div class="dlabel" style="top:440px">WHEN?</div>
+            <div class="abs" style="left:32px;top:490px;width:656px;height:176px">
+              <div class="tile" style="left:0"><div class="tl"><span data-ic="clock:26:#8a8a96"></span>Start</div><div class="tv" id="tvStart">12:00</div></div>
+              <div class="tile" style="left:338px"><div class="tl"><span data-ic="clock:26:#8a8a96"></span>End</div><div class="tv" id="tvEnd">13:00</div></div>
+            </div>
+            <div class="dlabel" style="top:706px">YOUR HOUR, NOT YOUR DAY</div>
+            <div class="card" id="hourly" style="top:756px;height:230px">
+              <div class="hr" style="left:9px"><div class="t">17:00</div><div class="i" data-ic="sun:56:#F59E0B"></div><div class="d">0%</div></div>
+              <div class="hr" style="left:163px"><div class="t">18:00</div><div class="i" data-ic="cloud:56:#8aa0b8"></div><div class="d">20%</div></div>
+              <div class="hr" id="hrWet" style="left:317px"><div class="t" style="color:#2563EB;font-weight:600">19:00</div><div class="i" data-ic="rainc:56:#2F8CF0"></div><div class="d" style="color:#2563EB">70%</div></div>
+              <div class="hr" style="left:471px"><div class="t">20:00</div><div class="i" data-ic="rainc:56:#2F8CF0"></div><div class="d">60%</div></div>
+            </div>
+            <div class="card" style="top:1016px;height:128px">
+              <div class="abs" style="left:30px;top:30px;width:66px;height:66px;border-radius:20px;background:#EAF3FF;display:flex;align-items:center;justify-content:center" data-ic="bell:34:#2563EB"></div>
+              <div class="abs" style="left:120px;top:42px;font-size:30px;color:#1a1a22;font-weight:500">Alert me if it changes</div>
+              <div id="tgl" class="abs" style="right:30px;top:38px;width:92px;height:52px;border-radius:26px;background:#D9D9E2">
+                <div id="tglK" class="abs" style="left:5px;top:5px;width:42px;height:42px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2)"></div>
+              </div>
+            </div>
+            <div id="saveBtn" style="top:1184px"><span id="saveTxt">Save plan</span></div>
+          </div>
+          <div id="tap"></div>
+          <div id="notif">
+            <div class="hd"><img src="icon.png"><span>SKYDE</span><span class="now">now</span></div>
+            <div class="tt">🏃 Your 18:00 run</div>
+            <div class="bd">Rain likely from about 18:30. Head out a little earlier or take a light jacket.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="flash"></div>
+
+  <div id="end">
+    <div id="endGlow"></div>
+    <div id="endIcon"><img src="icon.png"></div>
+    <div id="endWord">Skyde</div>
+    <div id="endTag">Plan the <b>moment</b>, not the forecast.</div>
+    <div id="endCta">Tag your running buddy 🏃</div>
+    <div id="endHandle">@skyde.app</div>
+  </div>
+</div>
+
+<script src="icons.js"></script>
+<script>
+let seed = 41; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P01 = (t, a, b) => clamp((t - a) / (b - a));
+const eOut = x => 1 - Math.pow(1 - x, 3);
+const eIn = x => x * x * x;
+const eIO = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eBack = x => { const c1 = 1.5, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+const pad = n => String(n).padStart(2, '0');
+
+document.querySelectorAll('[data-ic]').forEach(el => {
+  const [n, s, c, w] = el.dataset.ic.split(':');
+  el.insertAdjacentHTML('afterbegin', svg(n, +s, c, w ? +w : 2));
+});
+
+// ---------- Skyde home: sunny theme ("no rain today") ----------
+(() => {
+  const th = { bg: 'linear-gradient(170deg,#FFAE1A 0%,#FFBB24 38%,#D9C23C 72%,#7CC36A 100%)', fg: '#2B2410', sub: '#3F7F2A',
+    glass: 'rgba(255,255,255,.24)', border: 'rgba(255,255,255,.45)', calBox: '#F57C00', calC: '#2B2410', accent: '#F57C00' };
+  const g = (l, tp, w, h, r) => `<div class="glass" style="left:${l}px;top:${tp}px;width:${w}px;height:${h}px;border-radius:${r};background:${th.glass};border:2px solid ${th.border}"></div>`;
+  const ic = (n, l, tp, s, c, w = 2) => `<div class="abs" style="left:${l}px;top:${tp}px">${svg(n, s, c, w)}</div>`;
+  const txt = (l, tp, s, wt = 500, extra = '') => `<div class="pill-txt" style="left:${l}px;top:${tp}px;color:${th.fg};font-weight:${wt};${extra}">${s}</div>`;
+  $('home').innerHTML = `<div class="layer" style="background:${th.bg}"></div>
+  <div class="status" style="color:${th.fg}"><span class="abs" style="left:0" id="clock">17:30</span></div>
+  ${g(40, 116, 288, 80, '40px')}${ic('pin', 70, 134, 44, th.fg)}${txt(128, 136, 'My location')}${ic('chev', 290, 146, 28, th.fg)}
+  ${g(408, 116, 80, 80, '50%')}${ic('bell', 428, 136, 40, th.fg)}${g(504, 116, 80, 80, '50%')}${ic('msg', 524, 136, 40, th.fg)}${g(600, 116, 80, 80, '50%')}${ic('gear', 620, 136, 40, th.fg)}
+  ${g(40, 216, 543, 80, '40px')}<div class="abs" style="left:52px;top:228px;width:172px;height:56px;border-radius:28px;background:rgba(255,255,255,.32)"></div>
+  ${txt(88, 236, 'Today', 600)}${txt(262, 236, 'Tomorrow', 400)}${txt(440, 236, 'Weekly', 400)}
+  ${g(600, 216, 80, 80, '26px')}${ic('vol', 620, 236, 40, th.fg)}
+  ${g(40, 316, 640, 80, '40px')}
+  <div class="abs" style="left:66px;top:326px;width:60px;height:60px;border-radius:16px;background:${th.calBox};display:flex;align-items:center;justify-content:center">${svg('cal', 36, th.calC)}</div>
+  ${txt(146, 336, 'Plan Today', 600, 'letter-spacing:.5px')}
+  ${g(182, 436, 356, 356, '72px')}
+  <div class="abs" id="hero" style="left:270px;top:524px">${svg('sun', 180, '#C2410C', 2.2)}</div>
+  ${g(40, 832, 640, 368, '56px')}
+  <div class="abs" style="left:296px;top:860px;width:128px;height:8px;border-radius:4px;background:${th.accent}"></div>
+  <div class="abs" style="left:70px;top:900px;width:580px;text-align:center">
+    <div style="font-size:40px;font-weight:600;line-height:58px;color:${th.fg}">Dry until 18:30. A shower is likely around 19:00.</div>
+    <div style="margin-top:20px;font-size:30px;line-height:42px;color:${th.sub}">24°C now. Sunny for the next hour.</div></div>
+  ${g(40, 1232, 640, 420, '56px')}
+  <div class="abs" style="left:88px;top:1302px;width:20px;height:20px;border-radius:50%;background:${th.accent}"></div>
+  <div class="abs" style="left:128px;top:1286px;font-size:36px;font-weight:500;color:${th.fg}">Today's summary</div>
+  <div class="abs" style="left:90px;top:1370px;width:540px;font-size:31px;line-height:50px;color:${th.fg}">Between 17° and 26°. Sunny, then a short evening shower around 19:00.</div>`;
+})();
+
+// ---------- generic, unbranded weather app (the one that said "no rain") ----------
+(() => {
+  const days = [['Mon', 'sun'], ['Tue', 'sun'], ['Wed', 'cloud'], ['Thu', 'sun'], ['Fri', 'sun']];
+  $('generic').innerHTML = `<div class="layer" style="background:linear-gradient(180deg,#EAF2FB,#F7FAFE)"></div>
+  <div class="status" style="color:#1d2433"><span class="abs" style="left:0">18:42</span></div>
+  <div class="abs" style="left:0;right:0;top:130px;text-align:center;font-size:34px;color:#4a5568">My City</div>
+  <div class="abs" style="left:0;right:0;top:200px;display:flex;justify-content:center">${svg('sun', 220, '#F5A524', 2)}</div>
+  <div class="abs" style="left:0;right:0;top:440px;text-align:center;font-size:170px;font-weight:300;color:#1d2433;letter-spacing:-6px">24°</div>
+  <div class="abs" style="left:0;right:0;top:650px;text-align:center;font-size:40px;color:#4a5568">Sunny</div>
+  <div class="abs" style="left:100px;right:100px;top:740px;height:96px;border-radius:48px;background:#fff;box-shadow:0 8px 24px rgba(20,40,80,.08);display:flex;align-items:center;justify-content:center;gap:16px;font-size:36px;font-weight:600;color:#1d2433">☀️ No rain today</div>
+  <div class="abs" style="left:60px;right:60px;top:900px;height:250px;border-radius:40px;background:#fff;box-shadow:0 8px 24px rgba(20,40,80,.08);display:flex;justify-content:space-around;align-items:center">
+    ${days.map(([d, ic]) => `<div style="text-align:center;font-size:28px;color:#4a5568">${d}<div style="margin:14px 0">${svg(ic, 60, ic === 'sun' ? '#F5A524' : '#8aa0b8')}</div>10%</div>`).join('')}
+  </div>
+  <div class="abs" style="left:60px;right:60px;top:1190px;height:150px;border-radius:40px;background:#fff;box-shadow:0 8px 24px rgba(20,40,80,.08);display:flex;align-items:center;justify-content:space-around;font-size:30px;color:#4a5568">
+    <span>Precip <b style="color:#1d2433">10%</b></span><span>Wind <b style="color:#1d2433">9 km/h</b></span><span>UV <b style="color:#1d2433">5</b></span></div>`;
+})();
+
+// ---------- background ----------
+function makeCloud(parent, o) {
+  const c = document.createElement('div'); c.className = 'cloud';
+  let h = '';
+  for (let i = 0; i < 7; i++) {
+    const w = 180 + rnd() * 220, x = i * 70 + rnd() * 40, y = 60 - Math.sin(i / 6 * Math.PI) * 90 + rnd() * 40;
+    h += `<i style="left:${x}px;top:${y}px;width:${w}px;height:${w * .8}px"></i>`;
+  }
+  c.innerHTML = h; c.style.opacity = o; parent.appendChild(c); return c;
+}
+const clouds = [
+  { x: -180, y: 1450, s: 1.25, sp: 9, o: .95 }, { x: 640, y: 1560, s: 1.4, sp: -7, o: .95 },
+  { x: 720, y: 470, s: .7, sp: -12, o: .5 }, { x: -120, y: 560, s: .6, sp: 14, o: .45 },
+  { x: 120, y: 1750, s: 1.6, sp: 6, o: 1 }, { x: 760, y: 100, s: .55, sp: -10, o: .45 },
+].map(d => ({ el: makeCloud($('clouds'), d.o), ...d }));
+const sparks = Array.from({ length: 22 }, () => {
+  const s = document.createElement('div'); s.className = 'spark'; $('sparks').appendChild(s);
+  return { el: s, x: rnd() * 1080, y: rnd() * 1920, ph: rnd() * 6.28, sc: .4 + rnd() * .8, sp: .6 + rnd() * 1.2 };
+});
+const stageDrops = Array.from({ length: 70 }, () => {
+  const d = document.createElement('div'); d.className = 'drop'; $('stageRain').appendChild(d);
+  return { el: d, x: rnd() * 1300 - 100, ph: rnd(), sp: 1.2 + rnd() * .7 };
+});
+const screenDrops = Array.from({ length: 36 }, () => {
+  const d = document.createElement('div'); d.className = 'sdrop'; $('screenRain').appendChild(d);
+  return { el: d, x: rnd() * 780 - 30, ph: rnd(), sp: 1.5 + rnd() * .8 };
+});
+
+// ---------- captions ----------
+function buildCap(id, lines, sub) {
+  const el = $(id), words = [], subs = [];
+  lines.forEach(line => {
+    const ln = document.createElement('span'); ln.className = 'line';
+    line.split(' ').forEach(w => {
+      const s = document.createElement('span'); s.className = 'w';
+      if (w.startsWith('*')) { s.classList.add('hl'); w = w.slice(1); }
+      if (w.endsWith('*')) w = w.slice(0, -1);
+      s.textContent = w; ln.appendChild(s); words.push(s);
+    });
+    el.appendChild(ln);
+  });
+  if (sub) { const s = document.createElement('span'); s.className = 'sub w'; s.textContent = sub; el.appendChild(s); subs.push(s); }
+  return { words, subs };
+}
+const caps = [
+  { ...buildCap('cap1', ['POV: your app said', '*“no rain.”*'], '…then this happened.'), tin: 0.15, subAt: 2.05, tout: 3.75 },
+  { ...buildCap('cap2', ['Why you', 'got *wet:*'], null), tin: 4.0, tout: 10.9 },
+  { ...buildCap('cap3', ['Check the *hour,*', 'not the day.'], null), tin: 11.2, tout: 16.5 },
+  { ...buildCap('cap4', ['Skyde watches', '*your hour.*'], 'And warns you before it changes.'), tin: 16.9, tout: 21.6 },
+];
+
+// ---------- timeline ----------
+const RAIN_AT = 1.9, R_IN = [4.6, 6.6, 8.6], R_OUT = 10.8;
+const P_BACK = 11.3, NOTIF = 17.6, EXIT = 21.8, END = 22.2;
+
+function render(t) {
+  // sky: storm in the hook, clears for the explanation
+  const storm = eOut(P01(t, RAIN_AT - .2, RAIN_AT + .5)) * (1 - eIO(P01(t, 3.9, 4.8)));
+  $('storm').style.opacity = storm * .75;
+  $('sunGlow').style.opacity = 1 - storm;
+  $('sunGlow').style.transform = `scale(${1 + Math.sin(t * .8) * .04})`;
+  const fl = Math.max(0, 1 - Math.abs((t - RAIN_AT) / .08)) * .8 + Math.max(0, 1 - Math.abs((t - RAIN_AT - .22) / .06)) * .5;
+  $('flash').style.opacity = fl;
+  clouds.forEach(c => { c.el.style.transform = `translate(${c.x + t * c.sp}px, ${c.y + Math.sin(t * .5 + c.x) * 6}px) scale(${c.s})`; });
+  sparks.forEach(s => {
+    const o = .25 + .75 * Math.max(0, Math.sin(t * s.sp * 2 + s.ph));
+    s.el.style.opacity = o * .8 * (1 - storm);
+    s.el.style.transform = `translate(${s.x}px, ${s.y - t * 12 * s.sc}px) scale(${s.sc * (.6 + o * .5)})`;
+  });
+  stageDrops.forEach(d => {
+    const y = ((t * d.sp + d.ph) % 1) * 2100 - 120;
+    d.el.style.opacity = storm * .8;
+    d.el.style.transform = `translate(${d.x - y * .2}px, ${y}px) rotate(11deg)`;
+  });
+  screenDrops.forEach(d => {
+    const y = ((t * d.sp + d.ph) % 1) * 1800 - 100;
+    d.el.style.opacity = storm * .9;
+    d.el.style.transform = `translate(${d.x - y * .2}px, ${y}px) rotate(12deg)`;
+  });
+
+  // captions
+  caps.forEach(c => {
+    const out = eIn(P01(t, c.tout, c.tout + .35));
+    const anim = (w, a) => {
+      const k = eOut(P01(t, a, a + .45));
+      w.style.opacity = k * (1 - out);
+      w.style.transform = `translateY(${(1 - k) * 50 - out * 40}px) scale(${.92 + .08 * k})`;
+      w.style.filter = `blur(${(1 - k) * 10 + out * 8}px)`;
+    };
+    c.words.forEach((w, i) => anim(w, c.tin + i * .08));
+    c.subs.forEach(w => anim(w, c.subAt ?? (c.tin + c.words.length * .08)));
+  });
+
+  // reason cards
+  [0, 1, 2].forEach(i => {
+    const k = P01(t, R_IN[i], R_IN[i] + .55), out = eIn(P01(t, R_OUT + i * .06, R_OUT + .4 + i * .06));
+    const el = $('r' + i);
+    el.style.opacity = (k > 0 ? Math.min(1, k * 2) : 0) * (1 - out);
+    el.style.transform = `translateX(${lerp(1100, 0, eBack(k)) - out * 1100}px)`;
+  });
+  const wb = P01(t, R_IN[0] + .5, R_IN[0] + 1.1);
+  document.querySelector('#r0 .wet').style.transform = `scaleY(${eBack(wb)})`;
+  document.querySelector('#r0 .wet').style.opacity = wb > 0 ? 1 : 0;
+
+  // phone: visible in the hook, leaves for the reasons, returns with the plan
+  const pIn0 = eOut(P01(t, 0, .5)), pOut0 = eIO(P01(t, 3.6, 4.2));
+  const pIn1 = P01(t, P_BACK, P_BACK + 1.0), exit = eIO(P01(t, EXIT, EXIT + .7));
+  const zoom = eIO(P01(t, 18.3, 19.0)) * (1 - exit);
+  const shake = (t > RAIN_AT && t < RAIN_AT + .45) ? Math.sin((t - RAIN_AT) * 80) * 6 * (1 - P01(t, RAIN_AT, RAIN_AT + .45)) : 0;
+  const vib = (t > NOTIF && t < NOTIF + .5) ? Math.sin((t - NOTIF) * 90) * 1.6 * (1 - P01(t, NOTIF, NOTIF + .5)) : 0;
+  let ty, vis;
+  if (t < P_BACK) { ty = lerp(260, 0, pIn0) + pOut0 * 1500; vis = 1 - P01(t, 4.0, 4.2); }
+  else { ty = lerp(1500, 0, eBack(pIn1)) - exit * 80; vis = (pIn1 > 0 ? 1 : 0) * (1 - exit); }
+  ty += Math.sin(t * 1.3) * 8 + zoom * 10;
+  const pw = $('phoneWrap');
+  pw.style.opacity = vis;
+  pw.style.filter = `blur(${exit * 14}px)`;
+  pw.style.transform = `perspective(2600px) translateY(${ty}px) rotateX(${4 * (1 - zoom)}deg) rotateY(${Math.sin(t * .9) * 5 * (1 - zoom)}deg) rotateZ(${shake + vib + (t >= P_BACK ? lerp(10, 0, eOut(pIn1)) : 0)}deg) scale(${lerp(1, 1.34, zoom) * lerp(1, .78, exit)})`;
+  $('hero').style.transform = `rotate(${t * 12}deg)`;
+  $('generic').style.opacity = t < P_BACK ? 1 : 0;
+
+  // plan detail
+  const detIn = t >= P_BACK ? 1 : 0, detOut = eIO(P01(t, 16.7, 17.2));
+  $('detail').style.transform = `translateX(${detIn ? -detOut * 720 : 720}px)`;
+  const st = eIO(P01(t, 12.4, 12.9)), en = eIO(P01(t, 12.7, 13.3));
+  $('tvStart').textContent = `${pad(Math.round(lerp(12, 18, st)))}:00`;
+  const endMin = Math.round(lerp(13 * 60, 19 * 60 + 30, en) / 30) * 30;
+  $('tvEnd').textContent = `${pad(Math.floor(endMin / 60))}:${pad(endMin % 60)}`;
+  document.querySelectorAll('#hourly .hr').forEach((h, i) => {
+    const k = eOut(P01(t, 13.4 + i * .12, 13.8 + i * .12));
+    h.style.opacity = k; h.style.transform = `translateY(${(1 - k) * 20}px)`;
+  });
+  const hw = P01(t, 14.1, 14.4);
+  $('hrWet').style.background = hw > 0 ? `rgba(47,140,240,${.14 * hw})` : 'transparent';
+  $('hrWet').style.boxShadow = hw > 0 ? `inset 0 0 0 ${3 * hw}px rgba(47,140,240,.6)` : 'none';
+  const tg = eOut(P01(t, 14.85, 15.05));
+  $('tgl').style.background = tg > .5 ? '#2F8CF0' : '#D9D9E2';
+  $('tglK').style.left = `${lerp(5, 45, tg)}px`;
+  const saved = t >= 15.85;
+  const bp = Math.max(0, 1 - Math.abs((t - 15.75) / .15));
+  $('saveBtn').style.transform = `scale(${1 - .04 * bp})`;
+  $('saveBtn').style.background = saved ? 'linear-gradient(135deg,#34D399,#16A34A)' : 'linear-gradient(135deg,#3A9BF5,#2563EB)';
+  $('saveTxt').innerHTML = saved ? `<span style="display:flex;align-items:center;gap:14px">${svg('check', 40, '#fff', 3)}Watching 18:00–19:30</span>` : 'Save plan';
+  const taps = [{ t: 14.8, x: 614, y: 1080 }, { t: 15.75, x: 360, y: 1246 }];
+  const tapEl = $('tap'); let shown = false;
+  for (const tp of taps) {
+    const d = t - tp.t;
+    if (d > -.25 && d < .55) {
+      shown = true; tapEl.style.left = tp.x + 'px'; tapEl.style.top = tp.y + 'px';
+      if (d < 0) { const k = eOut(P01(d, -.25, 0)); tapEl.style.opacity = k * .9; tapEl.style.transform = `scale(${lerp(1.3, .8, k)})`; }
+      else { const k = eOut(P01(d, 0, .55)); tapEl.style.opacity = .9 * (1 - k); tapEl.style.transform = `scale(${lerp(.8, 1.8, k)})`; }
+    }
+  }
+  if (!shown) tapEl.style.opacity = 0;
+
+  // notification
+  const nk = P01(t, NOTIF, NOTIF + .55), nOut = P01(t, EXIT - .2, EXIT + .2);
+  const n = $('notif');
+  n.style.opacity = (nk > 0 ? 1 : 0) * (1 - nOut);
+  n.style.transform = `translateY(${lerp(-340, 0, eBack(nk))}px)`;
+  n.style.boxShadow = `0 24px 60px rgba(0,30,80,.3), 0 0 0 ${t > 19.4 ? 4 * eOut(P01(t, 19.4, 19.8)) * (1 - P01(t, 21.0, 21.4)) : 0}px rgba(255,226,122,.95)`;
+
+  // end card
+  const e1 = P01(t, END, END + .7), e2 = P01(t, END + .3, END + .9), e3 = P01(t, END + .9, END + 1.5), e4 = P01(t, END + 1.7, END + 2.3), e5 = P01(t, END + 2.4, END + 2.9);
+  $('endGlow').style.opacity = eOut(e1) * (.85 + .15 * Math.sin(t * 2));
+  $('endGlow').style.transform = `scale(${lerp(.6, 1, eOut(e1))})`;
+  $('endIcon').style.opacity = Math.min(1, e1 * 3);
+  $('endIcon').style.transform = `translateY(${Math.sin(t * 1.6) * 6 * e1}px) scale(${e1 > 0 ? eBack(e1) : 0}) rotate(${lerp(-12, 0, eOut(e1))}deg)`;
+  $('endWord').style.opacity = eOut(e2); $('endWord').style.transform = `translateY(${(1 - eOut(e2)) * 60}px)`;
+  $('endWord').style.filter = `blur(${(1 - e2) * 10}px)`;
+  $('endTag').style.opacity = eOut(e3); $('endTag').style.transform = `translateY(${(1 - eOut(e3)) * 40}px)`;
+  const pulse = 1 + .035 * Math.max(0, Math.sin((t - END - 2.5) * 5)) * (t > END + 2.5 ? 1 : 0);
+  $('endCta').style.opacity = eOut(e4);
+  $('endCta').style.transform = `translateX(-50%) translateY(${(1 - eOut(e4)) * 40}px) scale(${(e4 > 0 ? eBack(e4) : 0) * pulse})`;
+  $('endHandle').style.opacity = eOut(e5); $('endHandle').style.transform = `translateX(-50%) translateY(${(1 - eOut(e5)) * 30}px)`;
+}
+window.render = render;
+render(parseFloat(new URLSearchParams(location.search).get('t') || '0'));
+</script>
+</body>
+</html>
