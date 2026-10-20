@@ -11,7 +11,7 @@ import wave
 import numpy as np
 
 SR = 48000
-DUR = 27.0
+DUR = 31.5
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
 
@@ -153,10 +153,10 @@ def rumble(d=2.5):
 # ---------------------------------------------------------------- music bed
 CHORDS = [  # (start, midi notes)
     (0.0, [45, 52, 55, 59, 60]),    # Am(add9) — what does 30% mean?
-    (3.8, [41, 48, 52, 57, 60]),    # Fmaj7 — quiz
-    (10.2, [48, 55, 59, 62, 64]),   # Cmaj9 — reveal
-    (15.9, [43, 50, 55, 59, 62]),   # G — skip the math
-    (22.7, [48, 55, 60, 62, 64, 67]),  # Cadd9 — logo
+    (4.0, [41, 48, 52, 57, 60]),    # Fmaj7 — quiz
+    (13.5, [48, 55, 59, 62, 64]),   # Cmaj9 — reveal
+    (18.8, [43, 50, 55, 59, 62]),   # G — skip the math
+    (25.4, [48, 55, 60, 62, 64, 67]),  # Cadd9 — logo
 ]
 
 
@@ -227,9 +227,10 @@ def buzzer(d=0.28):
     return lowpass(x, 1400) * np.minimum(1, t / 0.005) * np.clip((d - t) / 0.05, 0, 1)
 
 
-Q_IN, Q_HL, CD, REVEAL, Q_OUT = 3.9, [4.6, 6.4, 8.0], [8.7, 9.2, 9.7], 10.2, 11.5
-EQ = [12.3, 13.0, 13.3, 14.0, 14.3]
-PHONE_IN, ANSWER, NOTIF, EXIT = 15.9, 17.6, 19.3, 22.2
+# timeline (matches promo.html)
+Q_IN, Q_HL, CMT, CD, REVEAL, Q_OUT = 4.1, [4.9, 6.9, 8.9], 10.4, [11.7, 12.3, 12.9], 13.5, 14.6
+EQ, EQ_OUT = [15.0, 15.8, 16.1, 16.9, 17.2], 18.4
+PHONE_IN, ANSWER, NOTIF, EXIT, END = 18.8, 21.6, 23.3, 25.0, 25.4
 
 
 def sfx():
@@ -238,17 +239,17 @@ def sfx():
     place(s, whoosh(0.5, True, 300, 4000), 0.0, db(-16))
     place(s, thump(0.6, 50), 0.38, db(-9))
     place(s, pop(620, 0.14), 0.62, db(-16))
-    r = rain(3.8)
-    r *= np.minimum(1, tt(3.8) / 0.5) * np.clip((3.8 - tt(3.8)) / 0.7, 0, 1)
+    r = rain(4.3)
+    r *= np.minimum(1, tt(4.3) / 0.5) * np.clip((4.3 - tt(4.3)) / 0.7, 0, 1)
     place(s, r, 0.2, db(-25))
     place(s, rumble(2.4), 0.6, db(-20))
-    place(s, whoosh(0.6, True, 600, 7000), 3.3, db(-16))
+    place(s, whoosh(0.6, True, 600, 7000), 3.8, db(-16))
     # quiz
     for i in range(3):
         place(s, whoosh(0.4, False, 4000, 700), Q_IN + i * 0.22, db(-17))
         place(s, pop(700 + i * 120, 0.08), Q_IN + 0.4 + i * 0.22, db(-20))
         place(s, tick(3000), Q_HL[i] - 0.1, db(-22))
-    place(s, pop(900, 0.12), 5.05, db(-16))
+    place(s, pop(900, 0.12), CMT + 0.05, db(-16))
     for i, t0 in enumerate(CD):
         place(s, beep(880), t0, db(-15))
     place(s, beep(1320, 0.2), REVEAL - 0.02, db(-17))
@@ -262,13 +263,13 @@ def sfx():
         place(s, pop(600 + i * 110, 0.1), t0 + 0.15, db(-15))
     place(s, thump(0.5, 60), EQ[4] + 0.2, db(-10))
     place(s, shimmer(0.8, 79), EQ[4] + 0.2, db(-20))
-    place(s, whoosh(0.6, False, 3000, 300), 15.6, db(-15))
+    place(s, whoosh(0.6, False, 3000, 300), EQ_OUT, db(-15))
     # Skyde
     place(s, whoosh(0.9, True, 150, 1800), PHONE_IN - 0.05, db(-12))
     place(s, thump(0.4, 60), PHONE_IN + 0.7, db(-10))
     r = rain(6.0)
     r *= np.minimum(1, tt(6.0) / 0.8) * np.clip((6.0 - tt(6.0)) / 0.8, 0, 1)
-    place(s, r, 16.1, db(-29))
+    place(s, r, PHONE_IN + 0.2, db(-29))
     place(s, bell(mtof(84), 1.2, 0.8), ANSWER - 0.05, db(-17))
     place(s, bell(mtof(91), 1.0, 0.6), ANSWER + 0.05, db(-20))
     place(s, buzz(0.2), NOTIF, db(-17))
@@ -277,11 +278,11 @@ def sfx():
     place(s, bell(mtof(83), 1.4, 0.7), NOTIF + 0.2, db(-15))
     # end card
     place(s, whoosh(0.7, True, 300, 4000), EXIT - 0.05, db(-14))
-    place(s, thump(0.6, 50), 22.82, db(-11))
-    place(s, shimmer(1.2, 72), 22.75, db(-14))
-    place(s, whoosh(0.4, True, 800, 6000), 23.0, db(-22))
-    place(s, pop(700, 0.12), 24.6, db(-13))
-    place(s, pop(1000, 0.1), 25.1, db(-18))
+    place(s, thump(0.6, 50), END + 0.12, db(-11))
+    place(s, shimmer(1.2, 72), END + 0.05, db(-14))
+    place(s, whoosh(0.4, True, 800, 6000), END + 0.3, db(-22))
+    place(s, pop(700, 0.12), END + 2.2, db(-13))
+    place(s, pop(1000, 0.1), END + 3.2, db(-18))
     return s
 
 
@@ -291,7 +292,8 @@ def load_vo(path):
     return np.frombuffer(raw, np.float32).astype(np.float64)
 
 
-VO = [('vo/vo1.mp3', 0.2), ('vo/vo2.mp3', 3.9), ('vo/vo3.mp3', 11.8), ('vo/vo4.mp3', 16.2), ('vo/vo5.mp3', 22.9)]
+# clip starts, placed so each line's first word lands on its cue
+VO = [('vo/vo1.mp3', 0.15), ('vo/vo2.mp3', 4.46), ('vo/vo3.mp3', 13.42), ('vo/vo4.mp3', 18.76), ('vo/vo5.mp3', 25.52)]
 
 
 def main(out_path):

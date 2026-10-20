@@ -1,12 +1,12 @@
-SKYDE — "What does 30% rain mean?" Instagram Reel / Shorts voiceover (English, 27 s)
+SKYDE — "What does 30% rain mean?" Instagram Reel / Shorts voiceover (English, 31.5 s)
 Curious, friendly, quick — like telling a fun fact. One file per line (vo1.mp3 … vo5.mp3),
 or one single take with a clear pause between lines (I'll cut it at the pauses).
 
-[00.2 – 03.4]  vo1  "Thirty percent chance of rain." What does that actually mean?
-[03.9 – 09.9]  vo2  Rain for part of the day? Rain on part of the city? Or a chance at your spot? Comment your answer!
-[11.8 – 15.5]  vo3  It's C. Forecaster confidence, times the area that gets rain.
-[16.2 – 21.5]  vo4  Or skip the math. Skyde just tells you: take an umbrella after five.
-[22.9 – 26.5]  vo5  Skyde. No math, just answers. Save this for the next rainy day.
+[00.2 – 03.9]  vo1  "Thirty percent chance of rain." What does that actually mean?
+[04.6 – 11.6]  vo2  Rain for part of the day? Rain on part of the city? Or a chance at your spot? Comment your answer!
+[13.6 – 17.8]  vo3  It's C. Forecaster confidence, times the area that gets rain.
+[18.9 – 23.2]  vo4  Or skip the math. Skyde just tells you: take an umbrella after five.
+[25.7 – 30.6]  vo5  Skyde. No math, just answers. Save this for the next rainy day.
 
 --- Plain script (for recording) ---
 "Thirty percent chance of rain." What does that actually mean?

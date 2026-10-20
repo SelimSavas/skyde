@@ -4,10 +4,10 @@ Myth-buster / quiz format built for reach: a hook ("What does 30% rain mean?"), 
 countdown and a "Comment A, B or C" prompt, the reveal (PoP = confidence × area), then Skyde
 ("Or just skip the math") and the end card with a save prompt. Same visual system as `../promo-reel`.
 
-- `skyde_rain_myth_reel.mp4` — 1080×1920, 30 fps, 27 s, music bed + animation SFX (no voiceover yet).
+- `skyde_rain_myth_reel.mp4` — 1080×1920, 30 fps, 31.5 s, voiceover + music bed + animation SFX, −14 LUFS.
 - `voiceover.txt` — timed English voiceover script, caption and the fact source.
 - `promo.html` + `icons.js` — the animation; `render(t)` draws the frame for time `t`.
-- `audio.py` — soundtrack; voiceover lines are mixed in from `vo/vo1.mp3 … vo5.mp3` when present.
+- `audio.py` — soundtrack; mixes the voiceover with ducked music and SFX. `vo/voiceover_full.mp3` is the original single take; `vo/vo1–5.mp3` are its five lines, cut at the pauses. The quiz highlights, countdown and reveal are timed to the spoken words.
 
 ```bash
 NODE_PATH=/path/to/node_modules node render.js video silent.mp4
