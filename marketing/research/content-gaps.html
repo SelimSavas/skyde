@@ -1,0 +1,510 @@
+<title>Skyde İçerik Boşlukları</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column for the analysis, wider grid only for the gap cards and their Reels/Carousel pair */
+:root {
+  --bg: #F3F6FA;
+  --surface: #FFFFFF;
+  --ink: #142033;
+  --muted: #5B6B82;
+  --line: #DCE4EE;
+  --sky: #1E6FD9;
+  --sky-soft: #E3EEFC;
+  --sun: #F2B417;
+  --sun-soft: #FFF4D2;
+  --good: #1B8A4B;
+  --good-soft: #E2F5EA;
+  --warn: #B4511C;
+  --warn-soft: #FCEBDF;
+  --f-display: "Lexend", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0E1520; --surface: #162131; --ink: #E7EEF8; --muted: #9AAAC0; --line: #263549;
+  --sky: #6FA8F5; --sky-soft: #1A2D47; --sun: #F5C84B; --sun-soft: #33290F;
+  --good: #5BD08F; --good-soft: #13301F; --warn: #F0996A; --warn-soft: #3A2215; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0E1520; --surface: #162131; --ink: #E7EEF8; --muted: #9AAAC0; --line: #263549;
+  --sky: #6FA8F5; --sky-soft: #1A2D47; --sun: #F5C84B; --sun-soft: #33290F;
+  --good: #5BD08F; --good-soft: #13301F; --warn: #F0996A; --warn-soft: #3A2215; color-scheme: dark }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.55; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-block: 40px 80px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.col { max-width: 760px; }
+h1, h2, h3, h4 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 27px; font-weight: 700; margin-top: 64px; }
+h3 { font-size: 21px; font-weight: 600; }
+h4 { font-size: 15px; font-weight: 600; }
+p { margin: 12px 0 0; }
+a { color: var(--sky); }
+.eyebrow { font-family: var(--f-mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 19px; color: var(--muted); margin-top: 14px; }
+.sec-intro { color: var(--muted); margin-top: 10px; }
+ul.plain { margin: 12px 0 0; padding-left: 20px; }
+ul.plain li + li { margin-top: 6px; }
+
+/* summary */
+.summary { margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.sumbox { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; min-width: 0; }
+.sumbox h4 { color: var(--sky); }
+.sumbox p { margin-top: 8px; font-size: 16px; }
+
+/* tables */
+.tbl { overflow-x: auto; margin-top: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 15.5px; }
+th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--f-display); font-weight: 600; font-size: 13.5px; color: var(--muted); background: var(--bg); position: sticky; top: 0; }
+tr:last-child td { border-bottom: 0; }
+td.intent { font-family: var(--f-display); font-weight: 600; white-space: nowrap; }
+.pill { display: inline-block; font-family: var(--f-mono); font-size: 12px; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.p-surface { background: var(--warn-soft); color: var(--warn); }
+.p-ok { background: var(--good-soft); color: var(--good); }
+.p-mid { background: var(--sun-soft); color: var(--ink); }
+
+/* gap cards */
+.gap { margin-top: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 26px 26px 28px; }
+.gap-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
+.gap-head .tag { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
+.fit { font-family: var(--f-mono); font-size: 12px; padding: 3px 10px; border-radius: 999px; }
+.fit-yes { background: var(--good-soft); color: var(--good); }
+.fit-part { background: var(--sun-soft); color: var(--ink); }
+.fit-no { background: var(--warn-soft); color: var(--warn); }
+.hook { margin-top: 16px; padding: 16px 18px; border-radius: 12px; background: var(--sky-soft); }
+.hook .en { font-family: var(--f-display); font-weight: 600; font-size: 20px; }
+.hook .tr { color: var(--muted); margin-top: 4px; font-size: 16px; }
+.fields { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px 24px; }
+.field { min-width: 0; }
+.field .k { font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.field .v { margin-top: 4px; font-size: 16px; }
+.field.counter .v { border-left: 3px solid var(--warn); padding-left: 12px; }
+.adapt { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 760px) { .adapt { grid-template-columns: 1fr; } }
+.ad { min-width: 0; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--bg); }
+.ad h4 { display: flex; gap: 8px; align-items: center; }
+.ad h4 .fmt { font-family: var(--f-mono); font-size: 11.5px; font-weight: 500; color: var(--muted); }
+ol.beats { list-style: none; margin: 10px 0 0; padding: 0; font-size: 15.5px; }
+ol.beats li { display: grid; grid-template-columns: 74px 1fr; gap: 10px; padding: 7px 0; border-top: 1px dashed var(--line); }
+ol.beats li:first-child { border-top: 0; }
+ol.beats .t { font-family: var(--f-mono); font-size: 12.5px; color: var(--sky); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.note { margin-top: 14px; font-size: 15px; color: var(--muted); }
+.note b { color: var(--ink); }
+
+/* product flags */
+.flag { margin-top: 16px; padding: 16px 18px; border-radius: 12px; background: var(--warn-soft); border: 1px solid var(--line); }
+.flag h4 { color: var(--warn); }
+.flag p { margin-top: 6px; font-size: 16px; }
+code { font-family: var(--f-mono); font-size: 13.5px; background: var(--bg); padding: 1px 6px; border-radius: 6px; border: 1px solid var(--line); }
+
+/* sources */
+.sources { columns: 2 320px; column-gap: 32px; font-size: 14.5px; margin-top: 14px; }
+.sources li { break-inside: avoid; margin-bottom: 6px; }
+.toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.toc a { font-family: var(--f-display); font-size: 14px; text-decoration: none; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.toc a:focus-visible, a:focus-visible { outline: 2px solid var(--sky); outline-offset: 2px; }
+</style>
+
+<div class="wrap">
+  <div class="col">
+    <div class="eyebrow">Skyde · içerik araştırması · Ekim 2026</div>
+    <h1>Skyde İçerik Boşlukları</h1>
+    <p class="lede">İnsanlar hava durumu hakkında tekrar tekrar ne soruyor? Herkes hangi sorulara yüzeysel cevap veriyor? Skyde'nin kazanabileceği boşluklar neler? Bu raporda Reddit, Google, YouTube, haberler ve rakip içerikler taranarak bulunan 8 boşluk var. Her biri için Reels ve Carousel uyarlaması da hazır.</p>
+  </div>
+
+  <nav class="toc" aria-label="Bölümler">
+    <a href="#ozet">Özet</a><a href="#harita">Soru haritası</a><a href="#yuzeysel">Yüzeysel cevaplar</a>
+    <a href="#format">Formatlar</a><a href="#rakip">Rakip içerikler</a><a href="#bosluklar">8 boşluk</a>
+    <a href="#urun">Ürün notları</a><a href="#sinirlar">Sınırlar</a><a href="#kaynaklar">Kaynaklar</a>
+  </nav>
+
+  <section id="ozet">
+    <h2>Özet</h2>
+    <div class="summary">
+      <div class="sumbox"><h4>En büyük boşluk</h4><p>Neredeyse her içerik "bu sayı ne demek?" sorusunda kalıyor. "Peki ben şimdi ne yapayım?" kısmına çok az içerik geçiyor. Bu tam olarak Skyde'nin ürün vaadi.</p></div>
+      <div class="sumbox"><h4>Rakiplerin kör noktası</h4><p>Açıklayıcı içerikler çoğunlukla ABD yerel televizyonlarından geliyor. Uzun, °F birimli ve kişiliksiz videolar. Türkçede neredeyse hiç yok, Ekşi'de 30% konusunda yanlış bir açıklama bile dolaşıyor. Kişilikli tek rakip CARROT.</p></div>
+      <div class="sumbox"><h4>İlk üretilecek 3 içerik</h4><p>1) "3 uygulama, 3 tahmin" (güven), 2) "Hava 3°C ama don var" (çiftçi), 3) "En tehlikeli yağmur en şiddetlisi değil" (sürücü). Üçü de kaynaklı, test/karşılaştırma formatına uygun ve Skyde'nin mevcut özelliklerine bağlanıyor.</p></div>
+    </div>
+    <div class="col">
+      <p class="note"><b>Dikkat:</b> İki fikir şu anki ürünün ötesine vaat veriyor (don eşiği ve ilaçlamada "fazla sakin rüzgâr"). Bunları <a href="#urun">Ürün notları</a> bölümünde ayrıca işaretledim. Bu içerikleri yayınlamadan önce ya ürün güncellenmeli ya da metin yumuşatılmalı.</p>
+    </div>
+  </section>
+
+  <section id="harita">
+    <h2>Tekrar sorulan sorular, niyete göre</h2>
+    <p class="sec-intro col">"Kaynakta görüldüğü yer", sorunun hangi kanalda tekrar ettiğini gösteriyor. "Durum" sütunu, bugünkü içeriklerin bu soruyu ne kadar iyi cevapladığını özetliyor.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Niyet</th><th>Tekrar eden soru</th><th>Kaynakta görüldüğü yer</th><th>Durum</th></tr></thead>
+      <tbody>
+        <tr><td class="intent">Çözme<br><span class="eyebrow">sayı ne demek?</span></td><td>"%30 yağmur" ne demek?</td><td>Yerel TV açıklayıcıları, RMetS, Ekşi Sözlük, Gigerenzer 2005 anketi</td><td><span class="pill p-mid">tanım var, karar yok</span></td></tr>
+        <tr><td class="intent"></td><td>"Hissedilen" sıcaklık neden farklı?</td><td>Met Office blog, yerel TV</td><td><span class="pill p-mid">tanım var, karar yok</span></td></tr>
+        <tr><td class="intent"></td><td>Nem mi, çiğ noktası mı önemli?</td><td>NWS, yerel TV, koşu blogları</td><td><span class="pill p-surface">°F, ABD odaklı</span></td></tr>
+        <tr><td class="intent"></td><td>Yağmur bulutu ikonu gerçekten yağmur mu?</td><td>Which? testi, Reading Üniversitesi</td><td><span class="pill p-surface">az biliniyor</span></td></tr>
+        <tr><td class="intent">Güven<br><span class="eyebrow">kime inanayım?</span></td><td>Uygulamalar neden farklı söylüyor?</td><td>Reddit, Mental Floss, UGA Extension, Inquirer 2026</td><td><span class="pill p-mid">sebep anlatılıyor, yöntem yok</span></td></tr>
+        <tr><td class="intent"></td><td>"Yağmur yok dedi, yağdı"</td><td>Reddit (koşucu başlığı), Apple forumları, Şikayetvar (MGM)</td><td><span class="pill p-surface">çözüm: "radara bak"</span></td></tr>
+        <tr><td class="intent"></td><td>10 günlük tahmin işe yarar mı?</td><td>NOAA eğitim sayfası, yerel TV</td><td><span class="pill p-ok">iyi cevaplanmış</span></td></tr>
+        <tr><td class="intent"></td><td>Tahminler kötüleşti mi?</td><td>NBC, Gizmodo (NWS balon kesintileri, 2025)</td><td><span class="pill p-mid">haber var, kullanıcıya etkisi yok</span></td></tr>
+        <tr><td class="intent">Karar<br><span class="eyebrow">yapayım mı?</span></td><td>Şemsiye alayım mı?</td><td>Reddit, Apple forumları</td><td><span class="pill p-surface">kimse karar vermiyor</span></td></tr>
+        <tr><td class="intent"></td><td>Koşu için çok mu sıcak?</td><td>Koşu blogları, yerel gazete köşeleri</td><td><span class="pill p-surface">resmi eşik yok, °F</span></td></tr>
+        <tr><td class="intent"></td><td>Bu gece bitkileri örteyim mi?</td><td>Bahçe dergileri, Reddit bahçe toplulukları</td><td><span class="pill p-mid">eşikler var, "3°C'de don" az</span></td></tr>
+        <tr><td class="intent"></td><td>Çamaşır dışarıda kurur mu?</td><td>Yaşam dergileri, Weatherzone</td><td><span class="pill p-surface">pratik kural yok</span></td></tr>
+        <tr><td class="intent"></td><td>Bahçe sabah mı akşam mı sulanır?</td><td>Iowa State Extension, Garden Myths</td><td><span class="pill p-ok">iyi cevaplanmış</span></td></tr>
+        <tr><td class="intent">Güvenlik<br><span class="eyebrow">tehlikede miyim?</span></td><td>Gök gürlüyor ama güneşli, güvende miyim?</td><td>Fırtına güvenlik rehberleri, Farmers' Almanac</td><td><span class="pill p-mid">kural var, viral değil</span></td></tr>
+        <tr><td class="intent"></td><td>Sıcak dalgasında yaşlı yakınım risk altında mı?</td><td>WHO Avrupa 2026, haberler, akademik çalışma</td><td><span class="pill p-surface">tüketici içeriği yok</span></td></tr>
+        <tr><td class="intent"></td><td>İlk yağmurda yollar neden daha kaygan?</td><td>UC Berkeley 2003, yerel TV, polis uyarıları</td><td><span class="pill p-surface">araştırma var, video yok</span></td></tr>
+        <tr><td class="intent"></td><td>Bulutlu günde güneş yanığı olur mu?</td><td>IARC, Hong Kong Gözlemevi, sağlık blogları</td><td><span class="pill p-mid">çok ama dağınık</span></td></tr>
+        <tr><td class="intent">Zamanlama<br><span class="eyebrow">ne zaman?</span></td><td>Yağmur kaç dakika sonra başlar?</td><td>Reddit (MyRadar övgüsü), Apple "next-hour" tartışmaları</td><td><span class="pill p-mid">özellik var, güven düşük</span></td></tr>
+        <tr><td class="intent"></td><td>Dolu ne kadar önce bilinir?</td><td>Araştırma makaleleri, ticari sağlayıcılar</td><td><span class="pill p-surface">tüketici içeriği yok</span></td></tr>
+        <tr><td class="intent"></td><td>Don gecesi ne zaman? (zirai don)</td><td>Nisan 2025 zirai don haberleri, TBMM konuşmaları</td><td><span class="pill p-surface">haber var, rehber yok</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="yuzeysel" class="col">
+    <h2>Herkesin yüzeysel cevap verdiği sorular</h2>
+    <p class="sec-intro">Ortak kalıp şu: içerik soruyu tanımlıyor ama kullanıcıyı karar anına götürmüyor.</p>
+    <ul class="plain">
+      <li><b>"%30 yağmur":</b> Herkes tanımı veriyor. Ama Gigerenzer'in beş şehir anketinde yalnızca New York'ta çoğunluk doğru yorumu seçmiş, Avrupa'da en çok "günün %30'u" cevabı verilmiş. Türkçe'de Ekşi'de dolaşan bir açıklama da yanlış. Eksik olan: <i>"Bu durumda şemsiye alayım mı?"</i></li>
+      <li><b>"Uygulamalar neden farklı?":</b> Sebepler (farklı modeller, farklı ikon eşikleri) anlatılıyor. Eksik olan, kullanıcının 10 saniyede uygulayacağı bir okuma yöntemi. Reading Üniversitesi'nin bulgusu neredeyse hiç kullanılmıyor: uygulamalar zamanın %17'sinde yağmur öngörmüş, gerçekte ise zamanın %10–12'sinde yağmış.</li>
+      <li><b>Don:</b> İçerikler °F eşiklerinde kalıyor (32°F, 28°F). Kritik bilgi az anlatılıyor: açık ve rüzgârsız gecede hava 3°C iken bile yerde don olabilir. Türkiye'de Nisan 2025 zirai donu 36 ili etkiledi, ama "don gecesi nasıl tanınır" rehberi yok.</li>
+      <li><b>Koşu ve sıcak:</b> Kaynakların çoğu ticari koşu blogları. Eşikler °F ve resmi değil. °C cinsinden tek cümlelik bir kural yok.</li>
+      <li><b>Yaşlılar ve sıcak:</b> WHO'nun 2026 değerlendirmesinde 22–28 Haziran 2026 haftasında yaklaşık 10.650 fazla ölüm var, bunların 9.000'den fazlası 65 yaş üstü. Ama aileye yönelik içerik yok. Haberler istatistikte kalıyor.</li>
+      <li><b>Şemsiye kararı:</b> Reddit'teki tipik cevap "radar uygulamasına bak". Bu, teknik olmayan kullanıcıyı dışarıda bırakıyor.</li>
+    </ul>
+  </section>
+
+  <section id="format">
+    <h2>Hangi formatlar videolaştırmaya uygun?</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Format</th><th>Hangi soru tipine uyar</th><th>Neden çalışır</th><th>Skyde'de örnek</th></tr></thead>
+      <tbody>
+        <tr><td class="intent">Test / mit kırıcı</td><td>Çözme</td><td>"Çoğu kişi yanlış biliyor" iddiası izletir, A/B/C yorum yazdırır.</td><td>"30% rain" reel'i (hazır)</td></tr>
+        <tr><td class="intent">Bölünmüş ekran (VS)</td><td>Güven, karar</td><td>Karşılaştırma tartışma başlatır, ürün farkını en net bu gösterir.</td><td>"Same weather, two apps" (hazır)</td></tr>
+        <tr><td class="intent">Gerilimli geri sayım</td><td>Zamanlama, güvenlik</td><td>Gerilim videoyu sonuna kadar izletir.</td><td>Don gecesi, yıldırım</td></tr>
+        <tr><td class="intent">"Tek sayıya bak" kuralı</td><td>Karar</td><td>Kısa, kaydedilir, tekrar izlenir.</td><td>Koşu için çiğ noktası</td></tr>
+        <tr><td class="intent">POV / ilişkilendirilebilir</td><td>Güven, karar</td><td>Paylaşılır ("bu benim").</td><td>"POV: 3 uygulamaya baktın, yine ıslandın"</td></tr>
+        <tr><td class="intent">Kontrol listesi (carousel)</td><td>Güvenlik, karar</td><td>Kaydedilir, bu da erişimi besler.</td><td>Don gecesi 3 işaret, yaşlı yakın için sıcak listesi</td></tr>
+        <tr><td class="intent">Duygusal hikâye</td><td>Güvenlik (aile)</td><td>Paylaşılır, markaya sıcaklık katar.</td><td>"Babam hava durumu uygulaması kullanamıyordu"</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="rakip" class="col">
+    <h2>Rakip ve örnek içerikler</h2>
+    <ul class="plain">
+      <li><b>ABD yerel TV açıklayıcıları</b> (WRDW, ClickOrlando, CBS Chicago): Doğru ama uzun, °F birimli ve tek seferlik. Birbirleriyle bile çelişiyorlar; CBS Chicago "%30 = alan" diyor, diğerleri "senin noktan" diyor. Boşluk: kısa, karar veren, uluslararası birimli içerik.</li>
+      <li><b>Met Office, RMetS, NOAA:</b> Güvenilir kaynaklar, ama formatları blog ve eğitim sayfası. Boşluk: aynı bilgiyi 20 saniyeye sığdırmak ve kaynağı göstermek.</li>
+      <li><b>Which? ve Reading Üniversitesi testleri:</b> "Hangi uygulama doğru" haberleri yayılıyor ama sonuçlar birbirini tutmuyor (Which? testinde Weather Channel önde, Reading'de BBC yağmurda biraz daha iyi). Boşluk: "en doğru uygulama yok, doğru okuma var" mesajı.</li>
+      <li><b>CARROT Weather:</b> Kişilikli tek rakip. Esprili, iğneleyici yapay zekâ karakterinin kendisi paylaşılabilir içerik. Skyde'nin tonu (sakin, sıcak, düz dil) farklı bir alanda kalıyor. Bu iyi bir şey, iki marka çakışmıyor.</li>
+      <li><b>MyRadar, Apple "next-hour":</b> Reddit'te en çok övülen özellik "yağmur 15–20 dakika sonra" bildirimi. Apple'ın versiyonu için kullanıcı yorumları karışık. Boşluk: <i>plan saatine bağlı</i> bildirim. Skyde'nin farkı tam olarak burada.</li>
+      <li><b>YouTube:</b> En çok izlenen hava içerikleri açıklayıcılar değil, hava sunucusu gaf derlemeleri. Açıklayıcı videolar binlerle yüz binler arasında izleniyor (izlenme sayılarını doğrudan doğrulayamadım). Boşluk: eğlence ritminde açıklayıcı.</li>
+      <li><b>Türkçe:</b> MGM resmi uyarılar veriyor. Şikayetvar'da tahmin şikâyetleri var, Ekşi'de yanlış açıklamalar dolaşıyor. Türkçe kısa açıklayıcı içerik neredeyse yok. <b>Türkçe versiyonlar ciddi bir fırsat.</b></li>
+    </ul>
+  </section>
+
+  <section id="bosluklar">
+    <h2>8 boşluk: kitle, vaat, kanıt, karşıt görüş, hook, dağıtım</h2>
+    <p class="sec-intro col">Her kartta Reels ve Carousel uyarlamaları ayrı ayrı var. Hook'lar İngilizce (mevcut videolar gibi), altında Türkçe karşılığı var. Rozet, fikrin Skyde'nin bugünkü özellikleriyle ne kadar örtüştüğünü gösteriyor.</p>
+
+    <!-- G1 -->
+    <article class="gap" id="g1">
+      <div class="gap-head"><h3>1 · "3 uygulama, 3 tahmin": kime inanmalı?</h3><span class="fit fit-yes">ürünle örtüşüyor</span></div>
+      <div class="hook"><div class="en">"Three apps. Three forecasts. Here's who to believe."</div><div class="tr">"Üç uygulama, üç farklı tahmin. Hangisine inanmalı?"</div></div>
+      <div class="fields">
+        <div class="field"><div class="k">Hedef kitle</div><div class="v">Birden fazla uygulamaya bakan, "yine yanıldı" diyen şehirli 20–45 yaş.</div></div>
+        <div class="field"><div class="k">Vaat</div><div class="v">10 saniyelik okuma yöntemi: günlük ikona değil saatliğe bak, kısa vadeye güven, kaynaklar arasındaki eğilime bak.</div></div>
+        <div class="field"><div class="k">Kanıt</div><div class="v">Reading Üniversitesi: uygulamalar zamanın %17'sinde yağmur öngörmüş, gerçekte %10–12'sinde yağmış. Which?: ikonlar 200 km'ye varan kareleri özetliyor. NOAA: 5 günlük tahmin yaklaşık %90, 10 günlük yaklaşık %50 doğru.</div></div>
+        <div class="field counter"><div class="k">Karşıt görüş</div><div class="v">"Skyde de bir model kullanıyor (Open-Meteo), neden daha doğru olsun?" Cevap: Skyde daha doğru olduğunu iddia etmez, aynı veriyi karara çevirir. İçerikte "daha doğru" demeyin.</div></div>
+        <div class="field"><div class="k">Dağıtım formatı</div><div class="v">Reels (ana) + Carousel (kaydedilir rehber) + YouTube Shorts. Yanına Story anketi: "Hangi uygulamayı kullanıyorsun?"</div></div>
+      </div>
+      <div class="adapt">
+        <div class="ad"><h4>Reels <span class="fmt">25–30 sn · 9:16</span></h4><ol class="beats">
+          <li><span class="t">0–2 sn</span>Üç telefon yan yana: "Rain 60%", "Sunny", "Showers". Yazı: <i>Three apps. Three forecasts.</i></li>
+          <li><span class="t">2–8 sn</span>Neden farklı: üç farklı model ve üç farklı ikon eşiği. Telefonların arasında model adları beliriyor.</li>
+          <li><span class="t">8–15 sn</span>Kanıt kartı: "Apps predicted rain 17% of the time. It rained 10–12%." Altında kaynak: University of Reading.</li>
+          <li><span class="t">15–21 sn</span>Kural: 1) Saatliğe bak, ikona değil. 2) Kısa vade daha güvenilir. 3) Tek sayıya değil, eğilime bak.</li>
+          <li><span class="t">21–27 sn</span>Skyde ekranı: "Light rain after 17:00. Take an umbrella if you're out late." Yazı: <i>Or let one app read it for you.</i></li>
+          <li><span class="t">27–30 sn</span>Logo ve "Comment the app you use 👇"</li>
+        </ol></div>
+        <div class="ad"><h4>Carousel <span class="fmt">7 kart · 4:5</span></h4><ol class="beats">
+          <li><span class="t">1</span>"3 apps. 3 forecasts. Who's right?" (üç ekran görüntüsü kolajı)</li>
+          <li><span class="t">2</span>Neden farklılar: modeller, işleme, ikon eşiği</li>
+          <li><span class="t">3</span>Bulgu: %17 öngörü, %10–12 gerçekleşen (Reading Üniv.)</li>
+          <li><span class="t">4</span>İkon tuzağı: 200 km'lik karenin özeti</li>
+          <li><span class="t">5</span>Doğruluk takvimi: 5 gün yaklaşık %90, 7 gün yaklaşık %80, 10 gün yaklaşık %50 (NOAA)</li>
+          <li><span class="t">6</span>3 adımlık okuma kuralı</li>
+          <li><span class="t">7</span>Skyde: "Bunu senin yerine okur" + "Kaydet 🔖"</li>
+        </ol></div>
+      </div>
+    </article>
+
+    <!-- G2 -->
+    <article class="gap" id="g2">
+      <div class="gap-head"><h3>2 · "Hava 3°C, ama don var"</h3><span class="fit fit-part">kısmen örtüşüyor (ürün notu)</span></div>
+      <div class="hook"><div class="en">"It's 3°C. Your plants can still freeze tonight."</div><div class="tr">"Termometre 3°C diyor. Bu gece fideler yine de donabilir."</div></div>
+      <div class="fields">
+        <div class="field"><div class="k">Hedef kitle</div><div class="v">Meyve ve sebze üreticileri (kayısı, fındık, şeftali bölgeleri), hobi bahçecileri. Türkçe öncelikli.</div></div>
+        <div class="field"><div class="k">Vaat</div><div class="v">Don gecesini 3 işaretle tanımak: açık gökyüzü, rüzgârsız hava, akşam 3°C ve altı. Bu üçü bir aradaysa önlem al.</div></div>
+        <div class="field"><div class="k">Kanıt</div><div class="v">Radyasyon donu mekanizması (AMS sözlüğü, Naked Scientists): açık ve sakin gecede yer, havadan hızlı soğur. Yer donu genelde hava 3°C ve altındayken görülür. Nisan 2025 zirai donu 36 ili etkiledi (TBMM kaydı). Bursa'daki bir çalışmada rüzgâr makinesi bahçede minimum sıcaklığı 1,9°C artırmış.</div></div>
+        <div class="field counter"><div class="k">Karşıt görüş</div><div class="v">"Her 3°C gecesinde don olmaz." Doğru: bulut ve rüzgâr soğumayı keser. İçerik "risk" demeli, "kesin" dememeli. Ayrıca Skyde'nin don eşiği şu an anlık sıcaklık 2°C ve altı (bkz. Ürün notları).</div></div>
+        <div class="field"><div class="k">Dağıtım formatı</div><div class="v">Türkçe Reels (ana) + Carousel kontrol listesi + WhatsApp'ta paylaşılabilir dikey görsel. Çiftçi kitlesi WhatsApp'ta paylaşır. İlkbahar başında yayınla.</div></div>
+      </div>
+      <div class="adapt">
+        <div class="ad"><h4>Reels <span class="fmt">25–30 sn · gerilimli geri sayım</span></h4><ol class="beats">
+          <li><span class="t">0–3 sn</span>Gece, ay ışığı, çiçek açmış kayısı dalı. Sayaç: "3°C". Yazı: <i>It's 3°C. Safe, right?</i></li>
+          <li><span class="t">3–10 sn</span>Kamera yere iniyor: yaprakta buz kristalleri. Yerdeki sayaç 0°C'ye düşüyor. "Air 3°C · Ground 0°C"</li>
+          <li><span class="t">10–17 sn</span>3 işaret tek tek beliriyor: ☾ açık gökyüzü, 🍃 rüzgâr yok, 🌡 3°C ve altı.</li>
+          <li><span class="t">17–23 sn</span>Kanıt: "April 2025: frost hit 36 provinces in Türkiye."</li>
+          <li><span class="t">23–30 sn</span>Saat 22:00'de telefon yanıyor: Skyde don bildirimi. Logo ve "Save before spring 🔖"</li>
+        </ol></div>
+        <div class="ad"><h4>Carousel <span class="fmt">6 kart · kontrol listesi</span></h4><ol class="beats">
+          <li><span class="t">1</span>"Termometre 3°C. Fideler donabilir mi? Evet."</li>
+          <li><span class="t">2</span>Neden: yer, havadan hızlı soğur (basit çizim)</li>
+          <li><span class="t">3</span>Don gecesinin 3 işareti</li>
+          <li><span class="t">4</span>Riskli yerler: çukurlar ve vadi tabanları (soğuk hava birikir)</li>
+          <li><span class="t">5</span>Önlemler (genel): örtü, rüzgâr makinesi. Ayrıntı için il tarım müdürlüğü.</li>
+          <li><span class="t">6</span>Skyde don uyarısı + "Kaydet, ilkbaharda lazım olacak"</li>
+        </ol></div>
+      </div>
+    </article>
+
+    <!-- G3 -->
+    <article class="gap" id="g3">
+      <div class="gap-head"><h3>3 · "En tehlikeli yağmur, en şiddetlisi değil"</h3><span class="fit fit-yes">ürünle örtüşüyor</span></div>
+      <div class="hook"><div class="en">"The most dangerous rain isn't the heaviest one."</div><div class="tr">"En tehlikeli yağmur en şiddetli olan değil."</div></div>
+      <div class="fields">
+        <div class="field"><div class="k">Hedef kitle</div><div class="v">İşe arabayla gidenler, yeni sürücüler, motosikletliler.</div></div>
+        <div class="field"><div class="k">Vaat</div><div class="v">Uzun kuraklıktan sonraki ilk yağmurda yol daha kaygan olabilir. O gün erken çık, takip mesafesini artır.</div></div>
+        <div class="field"><div class="k">Kanıt</div><div class="v">UC Berkeley (Eisenberg, 2003): yağmurlu günde ölümlü kaza riski, önceki kurak dönem uzadıkça artıyor. 2022 tarihli bir AMS çalışması da benzer sonuç bulmuş (yerel TV haberi). Skyde'nin "Araç kullanacağım" planı yağışta fren mesafesi uyarısı veriyor.</div></div>
+        <div class="field counter"><div class="k">Karşıt görüş</div><div class="v">Yağ ve kirin yola yayılması araştırmacıların açıklaması, doğrudan ölçülmüş bir neden değil. İçerik "olabilir" diline dikkat etmeli.</div></div>
+        <div class="field"><div class="k">Dağıtım formatı</div><div class="v">Reels (POV: sürücü) + Carousel + Shorts. Sonbaharın ilk yağmurlarından hemen önce yayınla.</div></div>
+      </div>
+      <div class="adapt">
+        <div class="ad"><h4>Reels <span class="fmt">20–25 sn · POV</span></h4><ol class="beats">
+          <li><span class="t">0–2 sn</span>Ön camdan görünüm, ilk damlalar. Yazı: <i>The most dangerous rain isn't the heaviest.</i></li>
+          <li><span class="t">2–8 sn</span>Takvim çevriliyor: "38 days without rain." Asfaltta yağ parlaması.</li>
+          <li><span class="t">8–14 sn</span>Kanıt: "Crash risk rises the longer the dry spell." Kaynak: UC Berkeley.</li>
+          <li><span class="t">14–20 sn</span>Skyde plan bildirimi: "Driving at 08:00: first rain in weeks. Leave early, keep extra distance."</li>
+          <li><span class="t">20–25 sn</span>Logo ve "Send this to someone who drives 🚗"</li>
+        </ol></div>
+        <div class="ad"><h4>Carousel <span class="fmt">6 kart</span></h4><ol class="beats">
+          <li><span class="t">1</span>"İlk yağmur = en kaygan yol"</li>
+          <li><span class="t">2</span>Neden (hipotez): biriken yağ ve toz</li>
+          <li><span class="t">3</span>Veri: kurak dönem uzadıkça risk artıyor</li>
+          <li><span class="t">4</span>3 kural: erken çık, mesafeyi iki katına çıkar, ani fren yapma</li>
+          <li><span class="t">5</span>Skyde "Araç kullanacağım" planı ekranı</li>
+          <li><span class="t">6</span>"Paylaş: her gün araba kullanan birine"</li>
+        </ol></div>
+      </div>
+    </article>
+
+    <!-- G4 -->
+    <article class="gap" id="g4">
+      <div class="gap-head"><h3>4 · Koşu için tek sayı: çiğ noktası</h3><span class="fit fit-part">kısmen örtüşüyor</span></div>
+      <div class="hook"><div class="en">"Stop checking the temperature before your run. Check this number."</div><div class="tr">"Koşudan önce sıcaklığa değil, bu sayıya bak."</div></div>
+      <div class="fields">
+        <div class="field"><div class="k">Hedef kitle</div><div class="v">Akşam veya sabah koşanlar, yürüyüşçüler, fitness kitlesi.</div></div>
+        <div class="field"><div class="k">Vaat</div><div class="v">Çiğ noktası 18°C'nin üstündeyse tempoyu düşür, 21°C'nin üstündeyse kısa tut ya da içeride koş. Bağıl nem yanıltabilir.</div></div>
+        <div class="field"><div class="k">Kanıt</div><div class="v">NWS konfor ölçeği: çiğ noktası 65°F (yaklaşık 18°C) üstü "boğucu". Bağıl nem sıcaklığa bağlı olduğu için yanıltıcı (NWS ve yerel TV açıklamaları). Isı indeksi 90°F (32°C) üstünde dış antrenmanı kısaltma önerisi var.</div></div>
+        <div class="field counter"><div class="k">Karşıt görüş</div><div class="v">Resmi bir koşu eşiği yok. Alışma süresi kişiden kişiye değişir. İçerik "kural" değil "pratik eşik" demeli. Skyde şu an çiğ noktası göstermiyor; koşu planı mesajları yağış ve rüzgâra odaklı. Bu içerik daha çok marka bilinirliği sağlar, ya da ürüne çiğ noktası eklenebilir.</div></div>
+        <div class="field"><div class="k">Dağıtım formatı</div><div class="v">Reels ("tek sayıya bak") + Carousel (renkli °C ölçeği) + Strava ve koşu grubu paylaşımları. Yaz başında yayınla.</div></div>
+      </div>
+      <div class="adapt">
+        <div class="ad"><h4>Reels <span class="fmt">15–20 sn · kural</span></h4><ol class="beats">
+          <li><span class="t">0–2 sn</span>Termometre "26°C" üstü çiziliyor. Yazı: <i>Wrong number.</i></li>
+          <li><span class="t">2–8 sn</span>Çiğ noktası ölçeği dolup renk değiştiriyor: &lt;13°C konforlu, 16 nemli, 18 boğucu, 21+ ağır.</li>
+          <li><span class="t">8–13 sn</span>"Humidity 50% at 33°C feels worse than 90% at 12°C." Bağıl nem tuzağı.</li>
+          <li><span class="t">13–18 sn</span>Skyde koşu planı bildirimi. "Save for summer runs 🔖"</li>
+        </ol></div>
+        <div class="ad"><h4>Carousel <span class="fmt">5 kart · ölçek</span></h4><ol class="beats">
+          <li><span class="t">1</span>"Koşu öncesi bakman gereken tek sayı"</li>
+          <li><span class="t">2</span>Bağıl nem neden yanıltır (iki örnek gün)</li>
+          <li><span class="t">3</span>°C çiğ noktası ölçeği (renkli)</li>
+          <li><span class="t">4</span>Ne yapmalı: tempo, süre, saat</li>
+          <li><span class="t">5</span>Skyde ve kaydetme çağrısı</li>
+        </ol></div>
+      </div>
+    </article>
+
+    <!-- G5 -->
+    <article class="gap" id="g5">
+      <div class="gap-head"><h3>5 · Annem/babam için sıcak dalgası</h3><span class="fit fit-yes">ürünle örtüşüyor (sesli okuma, sade dil)</span></div>
+      <div class="hook"><div class="en">"Heatwaves don't look dangerous. That's the problem."</div><div class="tr">"Sıcak dalgası tehlikeli görünmez. Asıl sorun bu."</div></div>
+      <div class="fields">
+        <div class="field"><div class="k">Hedef kitle</div><div class="v">Yaşlı ebeveyni olan 30–55 yaş yetişkinler. Ürünün asıl kitlesi olan yaşlılar ise paylaşım yoluyla dolaylı olarak ulaşılır.</div></div>
+        <div class="field"><div class="k">Vaat</div><div class="v">Yaşlı yakınına teknoloji öğretmeden, onun anlayacağı dilde ve sesli okunan bir hava özeti kur.</div></div>
+        <div class="field"><div class="k">Kanıt</div><div class="v">WHO Avrupa hızlı risk değerlendirmesi (Temmuz 2026): 22–28 Haziran 2026'da yaklaşık 10.650 fazla ölüm, 9.000'den fazlası 65 yaş üstü. Yaşlılar susuzluğu geç hisseder. Skyde'de sesli okuma (TTS) ve 35°C üstü aşırı sıcak mesajı var.</div></div>
+        <div class="field counter"><div class="k">Karşıt görüş</div><div class="v">Bir uygulama tıbbi uyarı sistemi değildir. Resmi uyarılar için MGM ve sağlık kurumları esas alınmalı. Ölüm istatistiği korku pazarlaması gibi algılanabilir; ton şefkatli ve çözüm odaklı olmalı. Skyde'de aileye ayrı uyarı gönderme özelliği yok, bunu vaat etmeyin.</div></div>
+        <div class="field"><div class="k">Dağıtım formatı</div><div class="v">Duygusal hikâye Reels'i + Carousel kontrol listesi + Facebook (40+ kitle). Türkçe ve İngilizce. Sıcak dalgası haberleri çıktığı gün yayınla.</div></div>
+      </div>
+      <div class="adapt">
+        <div class="ad"><h4>Reels <span class="fmt">25–30 sn · hikâye</span></h4><ol class="beats">
+          <li><span class="t">0–3 sn</span>Telefon ekranı: "Dad: missed call ×3". Yazı: <i>Heatwaves don't look dangerous.</i></li>
+          <li><span class="t">3–10 sn</span>Baba karmaşık bir hava uygulamasına bakıyor, rakamlar arasında kayboluyor.</li>
+          <li><span class="t">10–16 sn</span>Kanıt kartı (sakin ton): "Most heat deaths in Europe's June 2026 heatwave were people over 65." Kaynak: WHO.</li>
+          <li><span class="t">16–24 sn</span>Skyde hoparlör butonu, sesli okuma: "Very hot today. Stay inside after 12:00, drink water."</li>
+          <li><span class="t">24–30 sn</span>"Set it up for someone you love." Logo.</li>
+        </ol></div>
+        <div class="ad"><h4>Carousel <span class="fmt">6 kart · aile listesi</span></h4><ol class="beats">
+          <li><span class="t">1</span>"Annen/baban sıcakta güvende mi?"</li>
+          <li><span class="t">2</span>Neden risk: geç hissedilen susuzluk, ilaçlar, yalnız yaşamak</li>
+          <li><span class="t">3</span>Günlük kontrol listesi: su, saat, serin oda, telefon</li>
+          <li><span class="t">4</span>Resmi kaynak: MGM ve sağlık kurumu uyarıları</li>
+          <li><span class="t">5</span>Skyde: sade dil ve sesli okuma (ekran)</li>
+          <li><span class="t">6</span>"Ailene gönder ❤️"</li>
+        </ol></div>
+      </div>
+    </article>
+
+    <!-- G6 -->
+    <article class="gap" id="g6">
+      <div class="gap-head"><h3>6 · "Gökyüzü mavi, gök gürlüyor: güvende misin?"</h3><span class="fit fit-part">kısmen örtüşüyor</span></div>
+      <div class="hook"><div class="en">"Blue sky. Distant thunder. Are you safe? No."</div><div class="tr">"Gökyüzü mavi, uzaktan gök gürlüyor. Güvende misin? Hayır."</div></div>
+      <div class="fields">
+        <div class="field"><div class="k">Hedef kitle</div><div class="v">Piknikçiler, plajdakiler, tarlada çalışanlar, dışarıda spor yapanlar.</div></div>
+        <div class="field"><div class="k">Vaat</div><div class="v">Basit kural: gök gürültüsünü duyuyorsan içeri gir. Son gürültüden sonra 30 dakika bekle.</div></div>
+        <div class="field"><div class="k">Kanıt</div><div class="v">Fırtına güvenlik rehberleri: yıldırım fırtınadan yaklaşık 16 km uzağa düşebilir. "When thunder roars, go indoors." Son gürültüden sonra 30 dakika bekleme kuralı. Skyde'de fırtına ve dolu için kritik uyarılar var.</div></div>
+        <div class="field counter"><div class="k">Karşıt görüş</div><div class="v">Mesafe eşikleri kaynaktan kaynağa değişiyor (10 ve 16 km). "Ölümlerin yarısı fırtına geçtikten sonra" iddiasını tek kaynakta gördüm, doğrulayamadım; kullanmayın. Skyde yıldırımı ayrıca algılamıyor, fırtına kodu üzerinden uyarıyor.</div></div>
+        <div class="field"><div class="k">Dağıtım formatı</div><div class="v">Reels (gerilim) + Carousel + yaz tatili döneminde Story. Sabit bir "güvenlik" vitrin içeriği olarak profile sabitlenebilir.</div></div>
+      </div>
+      <div class="adapt">
+        <div class="ad"><h4>Reels <span class="fmt">15–20 sn</span></h4><ol class="beats">
+          <li><span class="t">0–2 sn</span>Güneşli plaj, uzaktan bir gürültü sesi. Yazı: <i>Blue sky. Distant thunder.</i></li>
+          <li><span class="t">2–8 sn</span>Harita animasyonu: fırtınadan 16 km uzağa çizilen yıldırım oku.</li>
+          <li><span class="t">8–14 sn</span>Kural kartı: "Hear thunder → go inside. Wait 30 min after the last rumble."</li>
+          <li><span class="t">14–20 sn</span>Skyde fırtına uyarısı ve logo.</li>
+        </ol></div>
+        <div class="ad"><h4>Carousel <span class="fmt">5 kart</span></h4><ol class="beats">
+          <li><span class="t">1</span>"Mavi gökyüzü yıldırımdan korumaz"</li>
+          <li><span class="t">2</span>Yıldırım ne kadar uzağa düşer</li>
+          <li><span class="t">3</span>Kural: gürültü duyunca içeri gir, 30 dakika bekle</li>
+          <li><span class="t">4</span>Güvenli yerler: bina, kapalı araç</li>
+          <li><span class="t">5</span>Skyde ve paylaşma çağrısı</li>
+        </ol></div>
+      </div>
+    </article>
+
+    <!-- G7 -->
+    <article class="gap" id="g7">
+      <div class="gap-head"><h3>7 · "Bulutlu gün = güneş kremi yok" efsanesi</h3><span class="fit fit-no">ürünle örtüşmüyor (marka bilinirliği)</span></div>
+      <div class="hook"><div class="en">"Cloudy day, no sunscreen? Up to 80% of UV gets through."</div><div class="tr">"Bulutlu diye krem sürmedin mi? UV'nin %80'e kadarı geçiyor."</div></div>
+      <div class="fields">
+        <div class="field"><div class="k">Hedef kitle</div><div class="v">Geniş kitle: plaj, şehir yürüyüşü, aileler.</div></div>
+        <div class="field"><div class="k">Vaat</div><div class="v">Buluta değil UV indeksine bak. 3 ve üstünde koru.</div></div>
+        <div class="field"><div class="k">Kanıt</div><div class="v">IARC (Avrupa Kanser Kodu): UV'nin %80'e kadarı bulut ve sisten geçebilir. Hong Kong Gözlemevi: dağınık ışıkta önemli UV bileşeni var.</div></div>
+        <div class="field counter"><div class="k">Karşıt görüş</div><div class="v">Oran bulut tipine göre değişir; kalın bulut daha çok bloklar. Önemli: <b>Skyde UV indeksi göstermiyor.</b> Bu içerik yalnızca markayı tanıtır, ürünü öne çıkaramaz. Ya UV eklenmeli ya da öncelik düşük tutulmalı.</div></div>
+        <div class="field"><div class="k">Dağıtım formatı</div><div class="v">Hızlı mit kırıcı Reels (A/B testi) + tek kartlık paylaşılabilir görsel.</div></div>
+      </div>
+      <div class="adapt">
+        <div class="ad"><h4>Reels <span class="fmt">12–15 sn · mit kırıcı</span></h4><ol class="beats">
+          <li><span class="t">0–2 sn</span>Bulutlu gökyüzü, güneş kremi çöpe gidiyor. Yazı: <i>Cloudy = safe?</i></li>
+          <li><span class="t">2–7 sn</span>UV okları bulutun içinden geçiyor, sayaç "80%"e çıkıyor.</li>
+          <li><span class="t">7–12 sn</span>Kural: "UV 3+ → protect, clouds or not." Kaynak: IARC.</li>
+          <li><span class="t">12–15 sn</span>Logo (Skyde UV eklerse burada ürün ekranı gösterilir).</li>
+        </ol></div>
+        <div class="ad"><h4>Carousel <span class="fmt">4 kart</span></h4><ol class="beats">
+          <li><span class="t">1</span>"Bulutlu gün efsanesi"</li>
+          <li><span class="t">2</span>%80'e kadar geçiş (IARC)</li>
+          <li><span class="t">3</span>UV indeksi tablosu</li>
+          <li><span class="t">4</span>Kaydet ve paylaş</li>
+        </ol></div>
+      </div>
+    </article>
+
+    <!-- G8 -->
+    <article class="gap" id="g8">
+      <div class="gap-head"><h3>8 · "Yağmur yok dedi, yağdı": plan saatine bağlı uyarı</h3><span class="fit fit-yes">ürünün asıl farkı</span></div>
+      <div class="hook"><div class="en">"'No rain today.' Then it poured on your run. Here's why."</div><div class="tr">"'Bugün yağmur yok' dedi, koşunun ortasında sağanak. Neden?"</div></div>
+      <div class="fields">
+        <div class="field"><div class="k">Hedef kitle</div><div class="v">Dışarıda plan yapanlar: koşucular, bisikletliler, ebeveynler, piknikçiler.</div></div>
+        <div class="field"><div class="k">Vaat</div><div class="v">Günlük özet gününe bakar, sen ise saatine bakmalısın. Planını saatiyle kaydet; o saatin havası değişirse önceden haber al.</div></div>
+        <div class="field"><div class="k">Kanıt</div><div class="v">Reddit'te üç uygulamanın "yağmur yok" dediği bir koşuda 30. dakikada yağmur başlıyor; yorumcular "radara bak" diyor. Apple Destek: yüzde değeri genel alan tahmini, kesin konum değil. Reddit'te MyRadar'ın "15–20 dakika önce" bildirimi övülüyor.</div></div>
+        <div class="field counter"><div class="k">Karşıt görüş</div><div class="v">Skyde de kısa vadeli sağanağı kaçırabilir; hiçbir tahmin sokak düzeyinde kesin değil. "Asla ıslanmazsın" değil, "o saati izler, değişirse söyler" deyin. Skyde'nin plan bildirimi tahmin güncellemesine bağlı, radar tabanlı değil.</div></div>
+        <div class="field"><div class="k">Dağıtım formatı</div><div class="v">POV Reels + Carousel ("Neden ıslandın: 3 sebep") + Shorts. Mevcut koşu planı tanıtım videosunun devamı gibi çalışır.</div></div>
+      </div>
+      <div class="adapt">
+        <div class="ad"><h4>Reels <span class="fmt">20–25 sn · POV</span></h4><ol class="beats">
+          <li><span class="t">0–2 sn</span>Ekranda "☀️ No rain today", ardından ıslak koşu ayakkabıları. Yazı: <i>POV: your app said no rain.</i></li>
+          <li><span class="t">2–9 sn</span>Neden: "Daily summary = whole day, whole area." Kocaman kare harita animasyonu.</li>
+          <li><span class="t">9–16 sn</span>Çözüm: plan saati seçimi (18:00–19:30) ve saatlik pencere.</li>
+          <li><span class="t">16–22 sn</span>17:30'da Skyde bildirimi: "Your 18:00 run: light rain from 18:40."</li>
+          <li><span class="t">22–25 sn</span>Logo ve "Tag your running buddy 🏃"</li>
+        </ol></div>
+        <div class="ad"><h4>Carousel <span class="fmt">6 kart</span></h4><ol class="beats">
+          <li><span class="t">1</span>"Uygulama 'yağmur yok' dedi. Neden ıslandın?"</li>
+          <li><span class="t">2</span>Sebep 1: günlük özet tüm günü kapsar</li>
+          <li><span class="t">3</span>Sebep 2: yüzde, geniş bir alanın tahmini</li>
+          <li><span class="t">4</span>Sebep 3: kısa sağanaklar en zor tahmin edilen hava olayı</li>
+          <li><span class="t">5</span>Çözüm: plan saatini kaydet (Skyde ekranı)</li>
+          <li><span class="t">6</span>Kaydet ve etiketle</li>
+        </ol></div>
+      </div>
+    </article>
+  </section>
+
+  <section id="urun" class="col">
+    <h2>Ürün notları: içerikten önce düzeltilmesi gerekenler</h2>
+    <div class="flag"><h4>Don eşiği</h4><p>Kodda <code>isFrostRisk: temp &lt;= 2.0</code> var (<code>lib/core/models/weather_data.dart:276</code>). Bu, gecenin minimumu değil, anlık sıcaklık. Kaynaklara göre açık ve sakin gecede hava 3°C iken bile yerde don olabilir. 2. boşluk içeriği yayınlanmadan önce gece minimumu, ≤3°C, açık gökyüzü ve düşük rüzgâr birlikte kontrol edilmeli.</p></div>
+    <div class="flag"><h4>İlaçlamada "fazla sakin rüzgâr"</h4><p>Kod yalnızca üst sınıra bakıyor: rüzgâr 15 km/s'yi geçince "ertele" diyor (<code>plan_message_service.dart:156</code>, <code>daily_task_service.dart:223</code>). Tarım yayım rehberlerinde yaygın öneri, çok sakin havada da (yaklaşık 3–5 km/s altı, özellikle açık gece ve sabah) sürüklenme riski olduğudur, çünkü sıcaklık terselmesi oluşur. Bizim çiftçi videosundaki "Wind 3 km/h … good conditions" mesajı bu öneriyle çelişebilir. Bu konuda arama aracı bu oturumda sonuç vermedi; tavsiyeyi il tarım müdürlüğü veya ziraat fakültesi rehberiyle doğrulayın.</p></div>
+    <div class="flag"><h4>Çamaşır görevi ve UV</h4><p>"I'll hang laundry" planı ve UV indeksi uygulamada yok. Çamaşır videosu ve 7. boşluk, ürün eklenene kadar marka bilinirliği içeriği sayılmalı.</p></div>
+  </section>
+
+  <section id="sinirlar" class="col">
+    <h2>Araştırmanın sınırları</h2>
+    <ul class="plain">
+      <li>Reddit sayfalarına doğrudan erişemedim. Reddit sinyalleri arşiv aynaları ve yorum toplayıcı siteler üzerinden geldi.</li>
+      <li>YouTube, Instagram ve TikTok izlenme sayılarını doğrulayamadım. Rakiplerin sosyal medya performans verisi yok.</li>
+      <li>İlaçlama (rüzgâr ve sıcaklık terselmesi) konusundaki aramalar bu oturumda araç filtresine takıldı. O bölüm genel tarım yayım bilgisine dayanıyor ve doğrulanmalı.</li>
+      <li>Bazı arama sonuçları düşük kaliteli veya otomatik üretilmiş sayfalardı. Bunları kanıt olarak kullanmadım.</li>
+      <li>Kanıt olarak önerilen her rakamı yayınlamadan önce orijinal kaynakta tekrar kontrol edin.</li>
+    </ul>
+  </section>
+
+  <section id="kaynaklar">
+    <h2>Kaynaklar</h2>
+    <ul class="sources">
+      <li><a href="https://eprints.lse.ac.uk/16975">Gigerenzer vd. 2005, "A 30% chance of rain tomorrow" (Risk Analysis)</a></li>
+      <li><a href="https://www.rmets.org/metmatters/what-does-30-chance-rain-mean">RMetS: What does 30% chance of rain mean</a></li>
+      <li><a href="https://www.wrdw.com/2026/07/23/what-chance-rain-really-means/">WRDW: What we mean by "chance of rain"</a></li>
+      <li><a href="https://www.cbsnews.com/chicago/news/what-does-a-chance-of-rain-mean">CBS Chicago: What does a chance of rain mean</a></li>
+      <li><a href="https://eksisozluk.com/entry/170198986">Ekşi Sözlük girdisi (yanlış yorum örneği)</a></li>
+      <li><a href="https://mentalfloss.com/article/501595/why-do-different-weather-apps-have-different-forecasts">Mental Floss: Why weather apps differ</a></li>
+      <li><a href="https://site.extension.uga.edu/climate/2019/11/why-are-weather-apps-so-unreliable/">UGA Extension: Why are weather apps so unreliable</a></li>
+      <li><a href="https://www.inquirer.com/weather/weather-apps-forecasts-comparison-20260423.html">Inquirer: Weather apps comparison (2026)</a></li>
+      <li><a href="https://www.reading.ac.uk/news/2025/Research-News/Met-Office-BBC-Weather-apps-compared-which-is-best">University of Reading: Met Office vs BBC Weather (2025)</a></li>
+      <li><a href="https://saga.co.uk/magazine/life/best-weather-app">Saga: How the weather forecast really works</a></li>
+      <li><a href="https://www.which.co.uk/news/article/weather-apps-which-are-most-accurate-aL43y6N3kuUN">Which?: What a rain cloud really means</a></li>
+      <li><a href="https://www.nesdis.noaa.gov/about/k-12-education/weather-forecasting/how-reliable-are-weather-forecasts">NOAA: How reliable are weather forecasts</a></li>
+      <li><a href="https://www.nbcnews.com/science/science-news/weather-balloons-stop-trump-cuts-forecasts-less-accurate-rcna198055">NBC: Fewer weather balloons, less accurate forecasts</a></li>
+      <li><a href="https://reddit.sentinel-team.org/posts/1q4cztp/snapshots/2026-01-10T11%3A51%3A21.87059Z">Reddit arşivi: "no rain" dedi, koşuda yağdı</a></li>
+      <li><a href="https://discussions.apple.com/thread/255067026">Apple Community: Inaccurate data in weather app</a></li>
+      <li><a href="https://gummysearch.com/tools/best-products/weather-app/">GummySearch: Weather app reviews from Reddit</a></li>
+      <li><a href="https://tidbits.com/2021/11/17/weather-in-ios-15-gains-precipitation-notifications-but-do-they-work-reliably/">TidBITS: iOS next-hour precipitation notifications</a></li>
+      <li><a href="https://www.tapsmart.com/apps/review-carrot-weather-gives-you-forecasts-and-malevolency-in-equal-measure/">TapSmart: CARROT Weather review</a></li>
+      <li><a href="https://www.metoffice.gov.uk/blog/2026/temperature-versus-feels-like-why-they-are-not-always-the-same">Met Office: Temperature vs feels like (2026)</a></li>
+      <li><a href="https://www.weather.gov/arx/why_dewpoint_vs_humidity">NWS La Crosse: Why dew point vs humidity</a></li>
+      <li><a href="https://www.keysnews.com/living/columns/check-the-dew-point-before-exercising-outside/article_99519a5e-e639-11eb-b674-4be99af03e44.html">Keys News: Check the dew point before exercising</a></li>
+      <li><a href="https://glossary.ametsoc.org/wiki/Radiation_frost">AMS Glossary: Radiation frost</a></li>
+      <li><a href="https://www.thenakedscientists.com/node/195282">Naked Scientists: Why do we get frosts above zero?</a></li>
+      <li><a href="https://cnycentral.com/news/local/frost-at-35-degrees-how-can-that-be">CNY Central: Frost at 35 degrees?</a></li>
+      <li><a href="https://tbmm.gov.tr/Milletvekili/UyeGenelKurulKonusmalariDetay?eid=134227">TBMM Genel Kurul konuşması: Nisan 2025 zirai don</a></li>
+      <li><a href="https://www.haberturk.com/tzob-dondan-zarar-goren-ciftcimizin-takipcisi-olacagiz-3883560-ekonomi">Habertürk: TZOB zirai don açıklaması</a></li>
+      <li><a href="https://acikerisim.uludag.edu.tr/items/ca75d1a9-ef07-4427-abad-b850ba6f08d5/full">Uludağ Üniv.: Rüzgâr makinesiyle şeftali bahçesi don koruması</a></li>
+      <li><a href="https://newsarchive.berkeley.edu/news/media/releases/2003/10/31_rain.shtml">UC Berkeley 2003: Rain after dry spells and fatal crashes</a></li>
+      <li><a href="https://spectrumlocalnews.com/us/snplus/weather/2022/03/07/rain-snow-fog-weather-related-crashes-kill-more-people-than-tornadoes">Spectrum News: Wet roads, weather-related crashes</a></li>
+      <li><a href="https://cdn.who.int/media/docs/default-source/_sage-2026/20260723_who-rapid-risk-assessment_-heatwave_euro_v.1.pdf">WHO Europe: Heatwave rapid risk assessment (Temmuz 2026)</a></li>
+      <li><a href="https://www.who.int/europe/health-topics/heatwaves">WHO Europe: Heatwaves</a></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11840092/">npj Digital Medicine 2025: Heat early warning for older adults</a></li>
+      <li><a href="https://www.farmersalmanac.com/lightning-safety">Farmers' Almanac: Lightning safety and the 30-30 rule</a></li>
+      <li><a href="https://cancer-code-europe.iarc.fr/index.php/en/ecac-12-ways?id=78">IARC European Code Against Cancer: UV through clouds</a></li>
+      <li><a href="https://www.hko.gov.hk/en/education/weather/sunshine-and-uv/00128-do-we-get-sunburned-on-a-cloudy-day.html">Hong Kong Observatory: Sunburn on a cloudy day</a></li>
+      <li><a href="https://www.idealhome.co.uk/house-manual/cleaning/can-you-dry-clothes-outside-during-winter">Ideal Home: Drying clothes outside in winter</a></li>
+      <li><a href="https://yardandgarden.extension.iastate.edu/faq/when-best-time-water-garden">Iowa State Extension: Best time to water</a></li>
+      <li><a href="https://www.meteorologicaltechnologyinternational.com/news/extreme-weather/colorado-state-university-and-nvidia-partner-to-extend-severe-storm-prediction-lead-times.html">CSU ve Nvidia: Fırtına tahmininde öngörü süresi</a></li>
+      <li><a href="https://www.sikayetvar.com/meteoroloji-genel-mudurlugu">Şikayetvar: Meteoroloji Genel Müdürlüğü</a></li>
+    </ul>
+  </section>
+</div>
