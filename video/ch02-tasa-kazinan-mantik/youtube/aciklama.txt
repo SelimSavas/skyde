@@ -1,0 +1,93 @@
+BAŞLIK
+Taşa Kazınan Mantık: Elektrik Nasıl Düşünür? | Bilişim Teknolojileri Yetkinliği · 2. Bölüm
+
+Alternatifler:
+• Bilgisayar Nasıl Düşünür? Mantık Kapıları | Bilişim Teknolojileri Yetkinliği · 2. Bölüm
+• Bir Lamba, İki Anahtar: Bilgisayarın Düşünme Sırrı | Bilişim Teknolojileri Yetkinliği · 2. Bölüm
+
+AÇIKLAMA  (1,992 karakter / 2,217 bayt; sınır 5.000)
+Not: BÖLÜMLER şu anki videoya göre. Yeni kayıtla süreler değişirse yeni zamanları veririm.
+----------------------------------------
+Bir lamba, iki anahtar. Bu kadar basit bir düzenek nasıl olur da "düşünür"? Telefonundaki işlemcinin içinde Türkiye nüfusunun yüz katından fazla anahtar var ve hepsi aynı üç basit kuralla çalışıyor.
+
+Bu bölümde elektriğin nasıl karar verdiğini, bir insan cümlesinin nasıl devreye dönüştüğünü ve mantığın sözün gerçek anlamıyla taşa nasıl kazındığını adım adım görüyoruz:
+• VE, VEYA, DEĞİL: bilişimin bütün mantığını kuran üç kapı
+• Buzdolabının ışığı ve merdiven lambası hangi kapıyla çalışır?
+• "Kapı açıksa VE alarm kuruluysa sireni çal": bir cümle nasıl devreye dönüşür?
+• George Boole kâğıt üzerinde kurdu, Claude Shannon yaklaşık yüz yıl sonra elektriğe taşıdı
+• Doğruluk tablosu nedir, VE tablosu neden bir çarpım tablosudur?
+• İki kapı yan yana gelince nasıl toplama yapar?
+• Transistör: yirminci yüzyılın belki de en önemli icadı
+• Vakum tüplerinden, 30 tona yaklaşan ENIAC'tan silisyum çipe
+• Birkaç binden on milyarlarca transistöre: insanlık tarihinin en hızlı büyüme eğrilerinden biri
+
+Ön bilgi gerekmez. Bir önceki bölümü (Var ve Yok) izlediysen her şey yerine oturacak.
+
+BÖLÜMLER
+0:00 Elektrik nasıl düşünür?
+0:31 Devre, anahtar, bir ve sıfır
+1:10 VE kapısı
+1:59 VEYA kapısı
+2:24 DEĞİL kapısı: buzdolabının ışığı
+3:09 Bir cümleyi elektriğe çevirmek
+4:06 George Boole ve Claude Shannon
+5:00 Doğruluk tablosu
+6:06 Özel veya: merdiven lambası
+6:44 Kapılar nasıl toplama yapar?
+7:50 Anahtarı kim çevirir? Transistör
+8:39 Vakum tüpleri ve ENIAC
+9:13 Çip: mantık taşa kazınır
+9:53 En hızlı büyüme eğrisi
+10:28 Cebindeki milyarlarca anahtar
+11:07 Kapanış
+
+SERİDE
+◀ Önceki: Var ve Yok: Bilgisayar Neden Sadece 0 ve 1 Bilir? (Birinci Kapı, 1. Bölüm) [VAR VE YOK BAĞLANTISI]
+▶ Sıradaki: Sayılardan Devreye (Birinci Kapı, 3. Bölüm)
+Oynatma listesi: [OYNATMA LİSTESİ BAĞLANTISI]
+
+YUP (Yükselen Ufuklar Platformu): merak edenler için bir akademi. Bilişimden psikolojiye, matematikten kişisel gelişime; karmaşık konular sade, adım adım ve animasyonlarla.
+
+#bilişim #mantıkkapıları #transistör
+----------------------------------------
+
+
+ETİKETLER (Ayrıntılar > Daha fazla göster > Etiketler; virgülle yapıştır)
+mantık kapıları, VE kapısı, VEYA kapısı, DEĞİL kapısı, XOR, özel veya, doğruluk tablosu, Boole cebri, George Boole, Claude Shannon, transistör, transistör nedir, çip nasıl yapılır, entegre devre, silisyum, ENIAC, Moore yasası, işlemci nasıl çalışır, bilgisayar nasıl çalışır, bilgisayar nasıl düşünür, ikili sistem, toplayıcı devre, bilişim teknolojileri, bilgisayar bilimi, bilişim dersi, YUP Stüdyo
+
+
+YÜKLEME AYARLARI
+Küçük resim       : Aşağıdaki öneriye bak (1280×720, 2 MB altı).
+Oynatma listesi   : "Bilişim Teknolojileri Yetkinliği | Dijital Dünyayı Baştan Sona Anlamak" (Var ve Yok'tan hemen sonra, 3. sıra).
+İzleyiciler       : Hayır, çocuklara özel değil.
+Yaş kısıtlaması   : Yok.
+Ücretli tanıtım   : İşaretleme.
+Değiştirilmiş/yapay içerik: EVET. Yeni seslendirme ElevenLabs'te senin sesinden üretiliyor; YouTube gerçek bir kişinin
+                    sesini yapay olarak üretmeyi beyan gerektiren örnekler arasında sayıyor. Cezası yok, açıklamaya küçük bir etiket eklenir.
+Dil               : Türkçe. Altyazı: Altyazılar > Ekle > Dosya yükle > "Zamanlamalı" > altyazi-tr.srt (yeni kayıttan sonra hazırlanır).
+Kategori          : Eğitim
+Lisans            : Standart YouTube Lisansı
+Yorumlar          : Açık; sıralama "En popüler".
+
+BİTİŞ EKRANI (son 20 saniye)
+• Video öğesi: "Belirli bir video" > Sayılardan Devreye (yayınlandıysa); yoksa "Oynatma listesi".
+• Abone ol öğesi: kanal logosu.
+• Son saniyelerde ortadaki "Taşa kazınan mantık." yazısı boş kalmalı; öğeleri sol alt ve sağ alta yerleştir.
+
+BİLGİ KARTLARI
+• 0:10 – Video: Var ve Yok (1. Bölüm) — "Önce bunu izle"
+• 5:00 – Oynatma listesi: serinin tamamı
+• 11:00 – Video: Sayılardan Devreye (yayınlandıysa)
+
+SABİTLENMİŞ YORUM
+Merdiven boşluğundaki lamba hem aşağıdan hem yukarıdan nasıl açılıp kapanıyor? Videoyu izlemeden tahminini yaz,
+sonra 6:06'dan itibaren kontrol et. 💡 Sıradaki bölümde kapılar sayılarla buluşuyor: Sayılardan Devreye.
+
+KÜÇÜK RESİM (Gemini; yazıyı Gemini bozarsa yazısız üret, Canva'da ekle)
+Prompt:
+  YouTube thumbnail, 16:9, 1280x720. A single glowing light bulb on a deep navy background, wired to two
+  brass toggle switches, the wires turning into glowing golden circuit lines that flow into a small silicon
+  chip carved like a stone tablet. Cinematic, high contrast, minimal, one strong focal point, warm orange glow,
+  empty space on the left for a headline. No text, no watermark.
+Üstüne yazı (en fazla 3–4 kelime):  "ELEKTRİK DÜŞÜNÜR MÜ?"  ya da  "VE · VEYA · DEĞİL"
+Köşe rozeti: "2. BÖLÜM" + YUP logosu (önceki bölümlerdeki şablonla aynı yerde).
