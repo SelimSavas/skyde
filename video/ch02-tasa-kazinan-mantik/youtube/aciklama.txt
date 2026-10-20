@@ -83,11 +83,22 @@ SABİTLENMİŞ YORUM
 Merdiven boşluğundaki lamba hem aşağıdan hem yukarıdan nasıl açılıp kapanıyor? Videoyu izlemeden tahminini yaz,
 sonra 5:14'ten itibaren kontrol et. 💡 Sıradaki bölümde kapılar sayılarla buluşuyor: Sayılardan Devreye.
 
-KÜÇÜK RESİM (Gemini; yazıyı Gemini bozarsa yazısız üret, Canva'da ekle)
-Prompt:
-  YouTube thumbnail, 16:9, 1280x720. A single glowing light bulb on a deep navy background, wired to two
-  brass toggle switches, the wires turning into glowing golden circuit lines that flow into a small silicon
-  chip carved like a stone tablet. Cinematic, high contrast, minimal, one strong focal point, warm orange glow,
-  empty space on the left for a headline. No text, no watermark.
-Üstüne yazı (en fazla 3–4 kelime):  "ELEKTRİK DÜŞÜNÜR MÜ?"  ya da  "VE · VEYA · DEĞİL"
-Köşe rozeti: "2. BÖLÜM" + YUP logosu (önceki bölümlerdeki şablonla aynı yerde).
+KÜÇÜK RESİM (Gemini; 16:9, 1280×720, 2 MB altı)
+Önerilen prompt (yazı görselin içinde):
+  YouTube thumbnail, 16:9, 1280x720. Cinematic digital illustration on a deep navy (#0f1730) background.
+  On the right half, a single large glowing light bulb with a warm orange-gold filament, wired to two brass toggle
+  switches labeled with small engraved letters A and B. The wires turn into glowing golden circuit traces that flow
+  down into an ancient grey stone tablet; the circuit lines are carved deep into the stone and glow from inside,
+  as if logic is engraved in stone. Tiny 1 and 0 digits float faintly in the dark. Dramatic warm light on the bulb,
+  soft glow, high contrast, one strong focal point, minimal, clean.
+  On the left half, a large bold headline in Turkish, in a heavy geometric sans-serif font (like Montserrat Black),
+  all caps, left-aligned, on two lines, exact spelling:
+  "ELEKTRİK"
+  "DÜŞÜNÜR MÜ?"
+  "ELEKTRİK" in cream white (#F3EDE1); "DÜŞÜNÜR MÜ?" larger, in warm golden yellow (#FFB547) with a soft golden glow.
+  Perfectly sharp and legible, correct Turkish characters (dotted İ in "ELEKTRİK", Ü and Ş in "DÜŞÜNÜR", Ü in "MÜ").
+  Bottom-left corner: a small rounded dark label with the text "2. BÖLÜM" in small white bold capital letters.
+  Keep the bottom-right corner empty. No other text, no watermark.
+Alternatif yazı (aynı prompt, iki satırı değiştir): "VE · VEYA" / "DEĞİL"
+Türkçe harf bozulursa aynı sohbette: "Fix the text only, keep everything else exactly the same. The headline must read exactly: ELEKTRİK / DÜŞÜNÜR MÜ?"
+Yine olmazsa "No text at all" ekleyip yazısız üret; yazıyı ve YUP logosunu Canva'da önceki bölümlerdeki yere ekle.
