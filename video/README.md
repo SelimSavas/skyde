@@ -9,7 +9,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 |---|---|---|
 | Önsöz — Gece Yarısı Dokunulan Cam (kursa hoş geldiniz) | 11:20 (seslendirmeli) | `onsoz/` |
 | Birinci Kapı — Var ve Yok: İki Simgeli Bir Evren | 9:19 (insan sesiyle) | `ch01-var-ve-yok/` |
-| Birinci Kapı, 2. Bölüm — Taşa Kazınan Mantık | 11:21 (insan sesiyle) | `ch02-tasa-kazinan-mantik/` |
+| Birinci Kapı, 2. Bölüm — Taşa Kazınan Mantık (YouTube paketi `youtube/`) | 9:41 (insan sesiyle, yeni kayıt `seslendirme/TasaKazinan`) | `ch02-tasa-kazinan-mantik/` |
 | Birinci Kapı, 3. Bölüm — Sayılardan Devreye: Elektriğin Hesap Yapması | 14:41 (insan sesiyle) | `ch03-sayilardan-devreye/` |
 | Birinci Kapı, 4. Bölüm — Veri, Bilgi, Anlam: Üç Basamaklı Merdiven | 13:20 (insan sesiyle) | `ch04-veri-bilgi-anlam/` |
 | Kurs tanıtımı (Udemy) — Bilişim Teknolojileri Yetkinliği | 1:54 (insan sesi sonradan eklenecek) | `tanitim/` |

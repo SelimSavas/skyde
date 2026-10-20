@@ -5,8 +5,8 @@ Alternatifler:
 • Bilgisayar Nasıl Düşünür? Mantık Kapıları | Bilişim Teknolojileri Yetkinliği · 2. Bölüm
 • Bir Lamba, İki Anahtar: Bilgisayarın Düşünme Sırrı | Bilişim Teknolojileri Yetkinliği · 2. Bölüm
 
-AÇIKLAMA  (1,992 karakter / 2,217 bayt; sınır 5.000)
-Not: BÖLÜMLER şu anki videoya göre. Yeni kayıtla süreler değişirse yeni zamanları veririm.
+AÇIKLAMA  (1.990 karakter / 2.215 bayt; sınır 5.000)
+Video: ch02-tasa-kazinan-mantik-youtube.mp4 (9:41) · Altyazı: altyazi-tr.srt
 ----------------------------------------
 Bir lamba, iki anahtar. Bu kadar basit bir düzenek nasıl olur da "düşünür"? Telefonundaki işlemcinin içinde Türkiye nüfusunun yüz katından fazla anahtar var ve hepsi aynı üç basit kuralla çalışıyor.
 
@@ -25,21 +25,21 @@ Bu bölümde elektriğin nasıl karar verdiğini, bir insan cümlesinin nasıl d
 
 BÖLÜMLER
 0:00 Elektrik nasıl düşünür?
-0:31 Devre, anahtar, bir ve sıfır
-1:10 VE kapısı
-1:59 VEYA kapısı
-2:24 DEĞİL kapısı: buzdolabının ışığı
-3:09 Bir cümleyi elektriğe çevirmek
-4:06 George Boole ve Claude Shannon
-5:00 Doğruluk tablosu
-6:06 Özel veya: merdiven lambası
-6:44 Kapılar nasıl toplama yapar?
-7:50 Anahtarı kim çevirir? Transistör
-8:39 Vakum tüpleri ve ENIAC
-9:13 Çip: mantık taşa kazınır
-9:53 En hızlı büyüme eğrisi
-10:28 Cebindeki milyarlarca anahtar
-11:07 Kapanış
+0:28 Devre, anahtar, bir ve sıfır
+1:02 VE kapısı
+1:45 VEYA kapısı
+2:07 DEĞİL kapısı: buzdolabının ışığı
+2:44 Bir cümleyi elektriğe çevirmek
+3:33 George Boole ve Claude Shannon
+4:18 Doğruluk tablosu
+5:14 Özel veya: merdiven lambası
+5:46 Kapılar nasıl toplama yapar?
+6:42 Anahtarı kim çevirir? Transistör
+7:24 Vakum tüpleri ve ENIAC
+7:53 Çip: mantık taşa kazınır
+8:27 En hızlı büyüme eğrisi
+8:55 Cebindeki milyarlarca anahtar
+9:29 Kapanış
 
 SERİDE
 ◀ Önceki: Var ve Yok: Bilgisayar Neden Sadece 0 ve 1 Bilir? (Birinci Kapı, 1. Bölüm) [VAR VE YOK BAĞLANTISI]
@@ -64,24 +64,24 @@ Yaş kısıtlaması   : Yok.
 Ücretli tanıtım   : İşaretleme.
 Değiştirilmiş/yapay içerik: EVET. Yeni seslendirme ElevenLabs'te senin sesinden üretiliyor; YouTube gerçek bir kişinin
                     sesini yapay olarak üretmeyi beyan gerektiren örnekler arasında sayıyor. Cezası yok, açıklamaya küçük bir etiket eklenir.
-Dil               : Türkçe. Altyazı: Altyazılar > Ekle > Dosya yükle > "Zamanlamalı" > altyazi-tr.srt (yeni kayıttan sonra hazırlanır).
+Dil               : Türkçe. Altyazı: Altyazılar > Ekle > Dosya yükle > "Zamanlamalı" > altyazi-tr.srt
 Kategori          : Eğitim
 Lisans            : Standart YouTube Lisansı
 Yorumlar          : Açık; sıralama "En popüler".
 
-BİTİŞ EKRANI (son 20 saniye)
+BİTİŞ EKRANI (son 20 saniye: 9:21 – 9:41)
 • Video öğesi: "Belirli bir video" > Sayılardan Devreye (yayınlandıysa); yoksa "Oynatma listesi".
 • Abone ol öğesi: kanal logosu.
 • Son saniyelerde ortadaki "Taşa kazınan mantık." yazısı boş kalmalı; öğeleri sol alt ve sağ alta yerleştir.
 
 BİLGİ KARTLARI
 • 0:10 – Video: Var ve Yok (1. Bölüm) — "Önce bunu izle"
-• 5:00 – Oynatma listesi: serinin tamamı
-• 11:00 – Video: Sayılardan Devreye (yayınlandıysa)
+• 4:18 – Oynatma listesi: serinin tamamı
+• 9:15 – Video: Sayılardan Devreye (yayınlandıysa)
 
 SABİTLENMİŞ YORUM
 Merdiven boşluğundaki lamba hem aşağıdan hem yukarıdan nasıl açılıp kapanıyor? Videoyu izlemeden tahminini yaz,
-sonra 6:06'dan itibaren kontrol et. 💡 Sıradaki bölümde kapılar sayılarla buluşuyor: Sayılardan Devreye.
+sonra 5:14'ten itibaren kontrol et. 💡 Sıradaki bölümde kapılar sayılarla buluşuyor: Sayılardan Devreye.
 
 KÜÇÜK RESİM (Gemini; yazıyı Gemini bozarsa yazısız üret, Canva'da ekle)
 Prompt:
