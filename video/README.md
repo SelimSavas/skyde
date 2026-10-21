@@ -125,6 +125,12 @@ Sığmayan satırda önce duraklar kısalır, gerekirse satır hafifçe hızlan�
   makinenin ve insanın payı, veriyi kimin konuşturduğu, veri türleri ve baştaki sıfır, düzenli ve düzensiz veri); aynı yapı.
 - `narrate.mjs` — seslendirme izini üretir (MBROLA, Piper ya da insan kaydı).
 - `dub.mjs` — insan sesi kayıtlarını hazır videoya ekler (görüntüyü yeniden dökmeden).
+- `araclar/` — tek parça ElevenLabs kaydını satırlara bölüp doğrular (`kaydi-bol.sh`: Whisper sözcük zamanları,
+  hizalama, ham kesim, satır satır döküm ve sözcük hata oranı), YouTube altyazısı (`altyazi.cjs`) ve bölüm zamanları
+  (`bolumler.cjs`) üretir, filmi sahte tuvalle dener (`duman.cjs`). Her dosyanın başında kullanımı yazılı.
+- `skill-paketi/` — bütün üretim sürecini anlatan taşınabilir skill (kaynağı `.claude/skills/yup-video-uretim/`):
+  `.zip` claude.ai'ye skill olarak yüklenir, `.skill` Claude Code/Cowork içindir, `-tek-dosya.md` herhangi bir sohbete
+  yapıştırılır. Skill ya da araçlar değişince `bash video/araclar/skill-paketle.sh` ile yenilenir.
 - `onsoz/` — önsöz: kursa hoş geldiniz videosu (Elif'in gece yarısı mesajı ve görünmez yolculuğu, Malabadi Köprüsü,
   görünmez köprü, teknoloji kurulan bir şeydir, bütüncül bakış, bu yolculuk kimin için, çırak–kalfa–usta,
   kendi taşını yontmak). Kitabın önsözünden genel izleyici için uyarlandı; vuruş uzunlukları satırların
