@@ -1,0 +1,102 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../shared/base.css">
+<style>
+#mood { background: linear-gradient(180deg, #141B2E 0%, #26324C 50%, #3F4E69 100%); }
+#bolt { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#counter { position: absolute; left: 0; right: 0; top: 700px; text-align: center; color: #fff; }
+#cNum { font-size: 400px; font-weight: 700; letter-spacing: -14px; line-height: 1; text-shadow: 0 20px 70px rgba(120,160,255,.45); font-variant-numeric: tabular-nums; }
+#cLbl { font-size: 44px; letter-spacing: 6px; opacity: .85; }
+#eq { position: absolute; left: 50%; top: 700px; padding: 40px 64px; border-radius: 48px; background: #fff; color: #141c2b; white-space: nowrap;
+  font-size: 92px; font-weight: 700; letter-spacing: -2px; box-shadow: 0 22px 60px rgba(10,50,120,.3); }
+#eq b { color: #1E78E0; }
+#map { position: absolute; left: 140px; top: 1000px; width: 800px; height: 420px; border-radius: 44px; background: rgba(255,255,255,.95); box-shadow: 0 22px 60px rgba(10,50,120,.25); overflow: hidden; }
+#map .grid { position: absolute; inset: 0; background-image: linear-gradient(#EEF2F7 2px, transparent 2px), linear-gradient(90deg, #EEF2F7 2px, transparent 2px); background-size: 80px 80px; }
+#dist { position: absolute; left: 230px; top: 196px; height: 6px; background: repeating-linear-gradient(90deg, #1E78E0 0 18px, transparent 18px 30px); }
+#distLbl { position: absolute; left: 330px; top: 120px; padding: 10px 24px; border-radius: 999px; background: #1E78E0; color: #fff; font-size: 38px; font-weight: 700; }
+</style></head>
+<body><div id="stage">
+  <div id="sunGlow"></div><div id="sky"></div>
+  <div id="mood" class="fill"></div>
+  <div id="rainHost"></div>
+  <svg id="bolt" viewBox="0 0 1080 1920"><defs><filter id="glow"><feGaussianBlur stdDeviation="10"/></filter></defs>
+    <g id="boltG"><polyline points="760,0 700,170 770,190 650,420 720,440 560,760" fill="none" stroke="#CFE0FF" stroke-width="28" filter="url(#glow)"/>
+    <polyline points="760,0 700,170 770,190 650,420 720,440 560,760" fill="none" stroke="#fff" stroke-width="9" stroke-linejoin="round"/></g></svg>
+
+  <div id="counter"><div id="cNum">1</div><div id="cLbl">SECONDS</div></div>
+
+  <div id="eq">9 s ÷ 3 = <b>3 km</b></div>
+  <div id="map"><div class="grid"></div>
+    <div class="abs" style="left:120px;top:150px" data-ic="pin:100:#E0413A:2.4"></div>
+    <div id="dist"></div><div id="distLbl">3 km</div>
+    <div class="abs" style="left:560px;top:110px" data-ic="zap:170:#1E5FC0:2.2"></div>
+    <div class="abs" style="left:96px;top:300px;font-size:30px;font-weight:600;color:#5b6476">you</div>
+    <div class="abs" style="left:580px;top:300px;font-size:30px;font-weight:600;color:#5b6476">the storm</div>
+  </div>
+
+  <div class="icard" id="s1" style="top:700px"><div class="num" data-ic="home:56:#fff:2.4"></div>
+    <div class="tt">Go inside a building or a hard-topped car</div></div>
+  <div class="icard" id="s2" style="top:930px"><div class="num" data-ic="timer:56:#fff:2.4"></div>
+    <div class="tt">Wait 30 minutes after the last rumble</div></div>
+
+  <div id="cap1" class="cap"></div><div id="cap2" class="cap"></div><div id="cap3" class="cap"></div><div id="cap4" class="cap"></div>
+
+  <div class="phoneWrap" id="pw"><div class="phone"><div class="screenClip"><div class="island"></div><div class="screen">
+    <div id="home" class="layer"></div>
+    <div class="notif" id="nt"><div class="hd"><img src="../shared/icon.png"><span>SKYDE</span><span class="now">now</span></div>
+      <div class="tt">🧺 Your 15:00 picnic</div><div class="bd">Thunderstorms are possible around 15:00. Plan an indoor backup or shift the time.</div></div>
+  </div></div></div></div>
+  <div id="flash"></div>
+  <div id="endHost"></div>
+</div>
+<script src="../shared/icons.js"></script><script src="../shared/base.js"></script>
+<script>
+seedRnd(31);
+$('endHost').outerHTML = END_HTML('Plan the <b>moment</b>, not the forecast.', 'Save this for summer ⚡');
+$('home').innerHTML = homeHTML('sky', { clock: '11:20', title: 'Warm and bright now. Storms may build after 14:00.', sub: '27°C now. Keep an eye on the afternoon.',
+  sum: 'Between 19° and 29°. Sunny morning, thunderstorms possible 14:00–17:00.' });
+initIcons();
+Sky.init({ drops: 50 });
+Caps.add('cap1', ['See the flash?', '*Count.*'], null, .2, 6.9);
+Caps.add('cap2', ['Seconds ÷ 3', '= *km away.*'], null, 7.1, 11.4);
+Caps.add('cap3', ['Hear thunder?', 'You’re *close enough.*'], 'Lightning can strike about 16 km from a storm.', 11.6, 17.0);
+Caps.add('cap4', ['Outdoor plans?', 'Skyde *checks the hour.*'], 'And tells you if storms are on the way.', 17.2, 21.5);
+const FLASH = .5, COUNT0 = 1.3, STEP = .6, THUNDER = 6.8, END = 21.8;
+
+window.render = t => {
+  const dark = 1 - eIO(P01(t, 10.8, 11.6));
+  $('mood').style.opacity = dark;
+  Sky.update(t, { glow: 1 - dark, sparkle: 1 - dark, rain: dark * .7 });
+  const fl = pulseAt(t, FLASH, .1) * .9 + pulseAt(t, FLASH + .18, .07) * .6 + pulseAt(t, THUNDER, .12) * .25;
+  $('flash').style.opacity = fl;
+  const bolt = Math.max(pulseAt(t, FLASH, .16), pulseAt(t, FLASH + .18, .1));
+  $('boltG').style.opacity = bolt;
+  Caps.update(t);
+
+  // counter 1…9, then thunder
+  const n = clamp(Math.floor((t - COUNT0) / STEP) + 1, 1, 9);
+  const ck = P01(t, COUNT0 - .3, COUNT0), cOut = eIn(P01(t, THUNDER + .5, THUNDER + .9));
+  $('counter').style.opacity = (t >= COUNT0 - .3 ? Math.min(1, ck * 3) : 0) * (1 - cOut);
+  $('cNum').textContent = n;
+  const beat = P01(t, COUNT0 + (n - 1) * STEP, COUNT0 + (n - 1) * STEP + .25);
+  const shake = t > THUNDER && t < THUNDER + .6 ? Math.sin((t - THUNDER) * 70) * 18 * (1 - P01(t, THUNDER, THUNDER + .6)) : 0;
+  $('counter').style.transform = `translateX(${shake}px) scale(${1 + .18 * (1 - eOut(beat)) + cOut * .3})`;
+  $('stage').style.transform = `translate(${shake * .4}px, ${shake * .3}px)`;
+
+  // the rule
+  popIn($('eq'), t, 7.6, 11.2);
+  const mk = P01(t, 8.4, 8.9), mOut = eIn(P01(t, 11.2, 11.6));
+  $('map').style.opacity = Math.min(1, mk * 2) * (1 - mOut);
+  $('map').style.transform = `translateY(${(1 - eOut(mk)) * 80}px)`;
+  $('dist').style.width = `${eOut(P01(t, 8.9, 9.6)) * 330}px`;
+  $('distLbl').style.opacity = P01(t, 9.5, 9.8);
+
+  slideCard($('s1'), t, 13.4, 16.9);
+  slideCard($('s2'), t, 14.6, 16.96);
+
+  phoneUpdate($('pw'), t, { enter: [17.0, 18.0], exit: [21.3, 22.0], vib: [18.5] });
+  notifUpdate($('nt'), t, 18.5, 21.3, 19.6);
+  endUpdate(t, END);
+};
+render(parseFloat(new URLSearchParams(location.search).get('t') || '0'));
+</script></body></html>

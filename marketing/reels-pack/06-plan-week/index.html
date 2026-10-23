@@ -1,0 +1,136 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../shared/base.css">
+<style>
+#watch { position: absolute; left: 50%; top: 470px; padding: 16px 34px; border-radius: 999px; background: rgba(11,30,70,.55); color: #fff;
+  font-size: 44px; font-weight: 700; white-space: nowrap; display: flex; align-items: center; gap: 14px; font-variant-numeric: tabular-nums; z-index: 20; }
+.sh-title { position: absolute; left: 40px; top: 120px; font-size: 50px; font-weight: 700; color: #111; }
+.sh-sub { position: absolute; left: 40px; top: 190px; width: 600px; font-size: 27px; color: #8a8a96; line-height: 1.35; }
+.sh-div { position: absolute; left: 0; right: 0; top: 290px; height: 2px; background: #E7E7EE; }
+#cnt { position: absolute; right: 36px; top: 128px; padding: 12px 22px; border-radius: 999px; background: #EAF3FF; color: #1E5FC0; font-size: 28px; font-weight: 700; }
+.chipD { position: absolute; top: 0; width: 80px; height: 80px; border-radius: 24px; border: 2px solid #E2E4EC; background: #fff; display: flex; align-items: center; justify-content: center;
+  font-size: 26px; font-weight: 600; color: #5b6476; }
+.day { position: absolute; left: 32px; right: 32px; height: 168px; border-radius: 30px; background: #fff; border: 2px solid #EEEEF3; }
+.day .dn { position: absolute; left: 30px; top: 30px; font-size: 32px; font-weight: 700; color: #111; }
+.day .dt { position: absolute; left: 30px; top: 78px; font-size: 26px; color: #8a8a96; }
+.day .di { position: absolute; left: 150px; top: 44px; }
+.day .tg { position: absolute; left: 244px; top: 30px; right: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
+.day .tg span { padding: 10px 18px; border-radius: 999px; background: #F1F4F9; font-size: 24px; color: #1a1f2b; font-weight: 500; white-space: nowrap; }
+.day .tg span.warn { background: #FFE8E6; color: #B42318; font-weight: 600; }
+</style></head>
+<body><div id="stage">
+  <div id="sunGlow"></div><div id="sky"></div>
+  <div id="watch"><span data-ic="timer:46:#fff:2.4"></span><span id="watchT">0.0 s</span></div>
+
+  <div id="cap1" class="cap"></div><div id="cap2" class="cap"></div><div id="cap3" class="cap"></div><div id="cap4" class="cap"></div><div id="cap5" class="cap"></div>
+
+  <div class="phoneWrap" id="pw"><div class="phone"><div class="screenClip"><div class="island"></div><div class="screen">
+    <div id="home" class="layer"></div>
+    <div id="week" class="layer sheet" style="background:#F6F6FA">
+      <div class="abs" style="left:40px;top:110px;font-size:46px;font-weight:700;color:#111">This week</div>
+      <div class="abs" style="left:40px;top:172px;font-size:26px;color:#8a8a96">5 plans · checked against the forecast</div>
+      <div id="days"></div>
+    </div>
+    <div id="sheet" class="layer sheet">
+      <div class="sh-title">Plan your week</div>
+      <div class="sh-sub">Pick activities. Details open next. Up to 5 plans.</div>
+      <div id="cnt">0 / 5</div>
+      <div class="sh-div"></div>
+      <div id="rows"></div>
+    </div>
+    <div id="detail" class="layer sheet">
+      <div class="abs" style="left:0;right:0;top:124px;text-align:center;font-size:34px;font-weight:600;color:#111">I'll be driving</div>
+      <div class="dlabel" style="top:250px">WHICH DAYS?</div>
+      <div class="abs" id="chips" style="left:32px;top:300px;width:656px;height:80px"></div>
+      <div class="dlabel" style="top:440px">WHAT TIME?</div>
+      <div class="card" style="top:490px;height:176px"><div class="abs" style="left:30px;top:30px;font-size:26px;color:#8a8a96">Start</div>
+        <div class="abs" id="tv" style="left:30px;top:66px;font-size:72px;font-weight:600;color:#111;font-variant-numeric:tabular-nums">12:00</div></div>
+      <div class="card" style="top:700px;height:128px">
+        <div class="abs" style="left:30px;top:30px;width:66px;height:66px;border-radius:20px;background:#EAF3FF;display:flex;align-items:center;justify-content:center" data-ic="bell:34:#2563EB"></div>
+        <div class="abs" style="left:120px;top:42px;font-size:30px;color:#1a1a22;font-weight:500">Alert me if it changes</div>
+        <div class="abs" style="right:30px;top:38px;width:92px;height:52px;border-radius:26px;background:#2F8CF0"><div class="abs" style="left:45px;top:5px;width:42px;height:42px;border-radius:50%;background:#fff"></div></div>
+      </div>
+      <div class="abs" id="save" style="left:32px;right:32px;top:870px;height:124px;border-radius:62px;color:#fff;font-size:36px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:14px">Save plan</div>
+    </div>
+    <div class="notif" id="nt"><div class="hd"><img src="../shared/icon.png"><span>SKYDE</span><span class="now">Thu 07:15</span></div>
+      <div class="tt">🚗 Your 08:00 drive</div><div class="bd">Rain until about 09:00. Leave 10 minutes early and take it easy.</div></div>
+    <div class="tap" id="tap"></div>
+  </div></div></div></div>
+  <div id="endHost"></div>
+</div>
+<script src="../shared/icons.js"></script><script src="../shared/base.js"></script>
+<script>
+seedRnd(61);
+$('endHost').outerHTML = END_HTML('Plan the <b>moment</b>, not the forecast.', 'What’s on your week? 👇');
+$('home').innerHTML = homeHTML('sky', { clock: '20:30', title: 'Mostly dry week. Rain on Thursday morning.', sub: 'Plan around Thursday 06:00–09:00.',
+  sum: 'Sunny Monday to Wednesday, showers Thursday morning, warm weekend.', tab: 2, planLabel: 'Plan This Week' });
+const ROWS = [['trees', "I'm going out"], ['act', "I'll work out"], ['car', "I'll be driving"], ['cart', "I'll go shopping"], ['users', 'Guests are coming'], ['brief', 'Commuting to work']];
+$('rows').innerHTML = ROWS.map(([ic, lb], i) => `<div class="row" style="top:${330 + i * 156}px"><div class="ib" data-ic="${ic}:40:#6b6b78"></div><div class="lb">${lb}</div><div class="cb" id="cb${i}"></div></div>`).join('');
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+$('chips').innerHTML = DAYS.map((d, i) => `<div class="chipD" id="dc${i}" style="left:${i * 94}px">${d}</div>`).join('');
+const WEEK = [['Mon', '22°', 'sun', ['🚗 08:00', '🏃 19:00']], ['Tue', '23°', 'sun', ['🚗 08:00', '🛒 18:00']], ['Wed', '21°', 'cloud', ['🚗 08:00']],
+  ['Thu', '16°', 'rainc', ['🚗 08:00 · rain, leave early', '🏃 19:00']], ['Fri', '20°', 'sunsm', ['🚗 08:00', '🌳 17:00']], ['Sat', '24°', 'sun', ['🏡 Guests 15:00']]];
+$('days').innerHTML = WEEK.map(([d, tmp, ic, tags], i) => `<div class="day" id="wd${i}" style="top:${250 + i * 186}px">
+  <div class="dn">${d}</div><div class="dt">${tmp}</div><div class="di">${svg(ic, 76, ic === 'rainc' ? '#2F8CF0' : ic === 'cloud' ? '#8aa0b8' : '#F59E0B')}</div>
+  <div class="tg">${tags.map(g => `<span class="${g.includes('rain') ? 'warn' : ''}">${g}</span>`).join('')}</div></div>`).join('');
+initIcons();
+Sky.init();
+Caps.add('cap1', ['Plan your whole week', 'in *15 seconds.*'], null, .15, 3.7);
+Caps.add('cap2', ['Pick what', 'you’re *doing.*'], null, 3.9, 7.4);
+Caps.add('cap3', ['Choose the days.', 'Set the *time.*'], null, 7.6, 10.8);
+Caps.add('cap4', ['Skyde checks', '*every plan.*'], null, 11.0, 15.4);
+Caps.add('cap5', ['Rain on Thursday?', 'You’ll *know first.*'], null, 15.6, 20.2);
+const T0 = 1.8, PICK = [3.0, 3.55, 4.1, 4.65, 5.2], NEXT = 5.9, DAYT = [6.8, 7.1, 7.4, 7.7, 8.0], SAVE = 9.6, NOTIF = 16.4, END = 20.6;
+
+window.render = t => {
+  Sky.update(t);
+  Caps.update(t);
+  phoneUpdate($('pw'), t, { enter: [.2, 1.1], exit: [20.1, 20.8], vib: [NOTIF] });
+
+  // stopwatch runs until the plan is saved
+  const el = clamp(t - T0, 0, SAVE - T0);
+  $('watchT').textContent = t >= SAVE ? `${el.toFixed(1)} s ✓` : `${el.toFixed(1)} s`;
+  $('watch').style.background = t >= SAVE ? 'rgba(22,163,74,.85)' : 'rgba(11,30,70,.55)';
+  popIn($('watch'), t, 1.4, 15.4);
+
+  const sheetIn = eOut(P01(t, 2.3, 2.8)), toDetail = eOut(P01(t, NEXT + .1, NEXT + .55));
+  $('sheet').style.transform = `translateY(${(1 - sheetIn) * 1600}px) translateX(${-toDetail * 720}px)`;
+  PICK.forEach((p, i) => {
+    const on = t >= p + .1, cb = $('cb' + i);
+    cb.style.background = on ? '#2F8CF0' : 'transparent'; cb.style.borderColor = on ? '#2F8CF0' : '#D5D5DD';
+    cb.innerHTML = on ? svg('check', 30, '#fff', 3.2) : '';
+    cb.style.transform = `scale(${on ? eBack(P01(t, p + .1, p + .35)) : 1})`;
+  });
+  const picked = PICK.filter(p => t >= p + .1).length;
+  $('cnt').textContent = `${picked} / 5`;
+  $('cnt').style.transform = `scale(${1 + .2 * PICK.reduce((m, p) => Math.max(m, pulseAt(t, p + .15, .15)), 0)})`;
+
+  const dOut = eIO(P01(t, 10.0, 10.5));
+  $('detail').style.transform = `translateX(${(1 - toDetail) * 720 - dOut * 720}px)`;
+  DAYT.forEach((d, i) => {
+    const on = t >= d + .05, c = $('dc' + i);
+    c.style.background = on ? '#2F8CF0' : '#fff'; c.style.color = on ? '#fff' : '#5b6476'; c.style.borderColor = on ? '#2F8CF0' : '#E2E4EC';
+    c.style.transform = `scale(${on ? eBack(P01(t, d + .05, d + .3)) : 1})`;
+  });
+  $('tv').textContent = `${pad(Math.round(lerp(12, 8, eIO(P01(t, 8.4, 9.0)))))}:00`;
+  const saved = t >= SAVE + .1;
+  $('save').style.background = saved ? 'linear-gradient(135deg,#34D399,#16A34A)' : 'linear-gradient(135deg,#3A9BF5,#2563EB)';
+  $('save').innerHTML = saved ? `${svg('check', 40, '#fff', 3)}Saved · Mon–Fri 08:00` : 'Save plan';
+  $('save').style.transform = `scale(${1 - .04 * pulseAt(t, SAVE)})`;
+
+  // the week
+  $('week').style.opacity = t >= 10.0 ? 1 : 0;
+  WEEK.forEach((w, i) => {
+    const k = P01(t, 10.4 + i * .12, 10.8 + i * .12), el2 = $('wd' + i);
+    el2.style.opacity = k; el2.style.transform = `translateY(${(1 - eOut(k)) * 30}px)`;
+    if (i === 3) el2.style.boxShadow = t > 12.6 ? `0 0 0 ${4 * eOut(P01(t, 12.6, 13.0))}px #F87171` : 'none';
+  });
+
+  tapUpdate($('tap'), t, [{ t: 1.6, x: 492, y: 256, light: true }, { t: 2.1, x: 360, y: 356, light: true },
+    ...PICK.map((p, i) => ({ t: p, x: 360, y: 400 + i * 156 })), { t: NEXT, x: 600, y: 160 },
+    ...DAYT.map((d, i) => ({ t: d, x: 72 + i * 94, y: 340 })), { t: SAVE, x: 360, y: 932 }]);
+  notifUpdate($('nt'), t, NOTIF, 20.1, 17.5);
+  endUpdate(t, END);
+};
+render(parseFloat(new URLSearchParams(location.search).get('t') || '0'));
+</script></body></html>

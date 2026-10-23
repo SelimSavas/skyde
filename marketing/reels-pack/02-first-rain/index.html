@@ -1,0 +1,138 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../shared/base.css">
+<style>
+#mood { background: linear-gradient(180deg, #1F2A3A 0%, #34465E 45%, #55697F 100%); }
+#road { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#glass { position: absolute; inset: 0; }
+.gdrop { position: absolute; left: 0; top: 0; border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.85), rgba(255,255,255,.18) 45%, rgba(255,255,255,.05) 70%); }
+#wiper { position: absolute; left: 536px; top: 1000px; width: 10px; height: 860px; border-radius: 6px; background: #0b0f15; transform-origin: 50% 100%; box-shadow: 0 0 0 3px rgba(0,0,0,.25); }
+#dash { position: absolute; left: -60px; right: -60px; top: 1760px; height: 400px; border-radius: 50% 50% 0 0; background: #0b0f15; }
+#cal { position: absolute; left: 290px; top: 700px; width: 500px; border-radius: 40px; background: #fff; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.35); text-align: center; color: #141c2b; }
+#cal .band { background: #E0413A; color: #fff; font-size: 30px; font-weight: 600; letter-spacing: 3px; padding: 22px 0; }
+#cal .n { font-size: 200px; font-weight: 700; letter-spacing: -8px; line-height: 1.05; padding-top: 18px; font-variant-numeric: tabular-nums; }
+#cal .l { font-size: 36px; color: #5b6476; padding: 0 0 34px; }
+#sheen { position: absolute; left: 300px; top: 1250px; width: 480px; height: 200px; border-radius: 50%; filter: blur(16px);
+  background: conic-gradient(from 30deg, rgba(255,80,80,.55), rgba(255,220,60,.55), rgba(80,220,120,.55), rgba(60,160,255,.55), rgba(190,90,255,.55), rgba(255,80,80,.55)); }
+#sheenLbl { position: absolute; left: 50%; top: 1480px; padding: 16px 30px; border-radius: 999px; background: rgba(255,255,255,.92); color: #141c2b; font-size: 32px; font-weight: 600; white-space: nowrap; }
+</style></head>
+<body><div id="stage">
+  <div id="sunGlow"></div><div id="sky"></div>
+  <div id="mood" class="fill"></div>
+  <svg id="road" viewBox="0 0 1080 1920">
+    <path d="M470 860 L610 860 L1400 1920 L-320 1920 Z" fill="#2A2F38"/>
+    <path d="M0 860 L1080 860 L1080 900 L0 900 Z" fill="#3A4656" opacity=".6"/>
+    <g id="dashes"></g>
+  </svg>
+  <div id="sheen"></div><div id="sheenLbl">oil + dust + first rain</div>
+  <div id="rainHost"></div>
+  <div id="glass"></div>
+  <div id="wiper"></div>
+  <div id="dash"></div>
+
+  <div id="cal"><div class="band">DAYS WITHOUT RAIN</div><div class="n" id="calN">1</div><div class="l" id="calL">and counting</div></div>
+
+  <div class="icard" id="proof" style="top:720px"><div class="num" data-ic="car:56:#fff:2.4"></div>
+    <div class="tt">Crash risk climbs the longer it's been dry</div>
+    <div class="ds">UC Berkeley study of U.S. fatal crashes, 1975–2000</div></div>
+  <div class="icard" id="t1" style="top:640px"><div class="num" data-ic="timer:56:#fff:2.4"></div><div class="tt">Leave 10 minutes early</div></div>
+  <div class="icard" id="t2" style="top:850px"><div class="num" data-ic="car:56:#fff:2.4"></div><div class="tt">Double your following distance</div></div>
+  <div class="icard" id="t3" style="top:1060px"><div class="num" data-ic="shield:56:#fff:2.4"></div><div class="tt">Brake gently, no sudden moves</div></div>
+
+  <div id="cap1" class="cap"></div><div id="cap2" class="cap"></div><div id="cap3" class="cap"></div><div id="cap4" class="cap"></div><div id="cap5" class="cap"></div>
+
+  <div class="phoneWrap" id="pw"><div class="phone"><div class="screenClip"><div class="island"></div><div class="screen">
+    <div id="home" class="layer"></div><div id="sRain" class="layer"></div>
+    <div class="notif" id="nt"><div class="hd"><img src="../shared/icon.png"><span>SKYDE</span><span class="now">now</span></div>
+      <div class="tt">🚗 Your 08:00 drive</div><div class="bd">Rain on the way. Leave a bit early and keep extra distance.</div></div>
+  </div></div></div></div>
+  <div id="flash"></div>
+  <div id="endHost"></div>
+</div>
+<script src="../shared/icons.js"></script><script src="../shared/base.js"></script>
+<script>
+seedRnd(23);
+$('endHost').outerHTML = END_HTML('Plan the <b>moment</b>, not the forecast.', 'Send this to someone who drives 🚗');
+$('home').innerHTML = homeHTML('rain', { clock: '07:15', title: 'First rain in weeks. Roads may be slick this morning.', sub: '14°C now. Showers until 10:00.',
+  sum: 'Between 12° and 18°. Showers this morning, drying out after noon.' });
+initIcons();
+Sky.init({ drops: 60 });
+const dashes = Array.from({ length: 7 }, (_, i) => {
+  const r = document.createElementNS('http://www.w3.org/2000/svg', 'path'); $('dashes').appendChild(r); return { el: r, i };
+});
+const gdrops = Array.from({ length: 70 }, () => {
+  const d = document.createElement('div'); d.className = 'gdrop'; $('glass').appendChild(d);
+  const s = 14 + rnd() * 34;
+  d.style.width = d.style.height = s + 'px';
+  return { el: d, x: rnd() * 1080, y: 80 + rnd() * 1650, born: rnd() };
+});
+const sDrops = Array.from({ length: 30 }, () => {
+  const d = document.createElement('div'); d.className = 'sdrop'; $('sRain').appendChild(d);
+  return { el: d, x: rnd() * 780 - 30, ph: rnd(), sp: 1.5 + rnd() * .8 };
+});
+Caps.add('cap1', ['The most dangerous rain', 'isn’t the *heaviest.*'], null, .15, 3.9);
+Caps.add('cap2', ['It’s the *first rain*', 'after a dry spell.'], 'Oil and dust on the road can turn slick.', 4.2, 10.6);
+Caps.add('cap3', ['The data', '*agrees.*'], null, 10.9, 14.5);
+Caps.add('cap4', ['First wet morning?', '*Do this:*'], null, 14.8, 19.2);
+Caps.add('cap5', ['Skyde warns you', '*before you drive.*'], null, 19.5, 23.3);
+const WIPES = [1.0, 2.3, 3.6, 7.2, 8.5, 9.8];
+const END = 23.8;
+
+window.render = t => {
+  const pov = 1 - eIO(P01(t, 10.5, 11.3));
+  $('mood').style.opacity = pov * .95;
+  Sky.update(t, { glow: 1 - pov, sparkle: 1 - pov, rain: pov * (t < 4.2 ? 1 : P01(t, 6.6, 7.0)) });
+  ['road', 'dash', 'wiper', 'glass'].forEach(id => { $(id).style.opacity = pov; });
+  // lane dashes rushing toward the viewer
+  dashes.forEach(d => {
+    const k = ((t * .9 + d.i / 7) % 1), y0 = 860 + Math.pow(k, 2.2) * 1060, y1 = y0 + 10 + Math.pow(k, 2.2) * 180;
+    const w0 = 3 + k * 14, w1 = 3 + Math.min(1, k + .1) * 18;
+    d.el.setAttribute('d', `M${540 - w0} ${y0} L${540 + w0} ${y0} L${540 + w1} ${y1} L${540 - w1} ${y1} Z`);
+    d.el.setAttribute('fill', '#E8E2C8'); d.el.setAttribute('opacity', .85);
+  });
+  // windshield drops grow, wipers clear them
+  const wet = t < 4.2 ? 1 : P01(t, 6.6, 7.4);
+  let lastWipe = -10; WIPES.forEach(w => { if (t >= w + .35) lastWipe = w + .35; });
+  gdrops.forEach(d => {
+    const since = t - lastWipe, appear = clamp((since - d.born * 1.1) / .2);
+    d.el.style.opacity = appear * .9 * wet;
+    d.el.style.transform = `translate(${d.x}px, ${d.y}px)`;
+  });
+  let ang = -72;
+  WIPES.forEach(w => { const k = P01(t, w, w + .7); if (k > 0 && k < 1) ang = -72 + Math.sin(Math.PI * k) * 144; });
+  $('wiper').style.transform = `rotate(${ang}deg)`;
+
+  Caps.update(t);
+  // calendar
+  const ck = P01(t, 4.4, 4.9), cOut = eIn(P01(t, 10.3, 10.7));
+  $('cal').style.opacity = Math.min(1, ck * 2) * (1 - cOut);
+  $('cal').style.transform = `scale(${(ck > 0 ? eBack(ck) : 0)}) translateY(${cOut * -80}px)`;
+  const day = Math.round(lerp(1, 38, eIO(P01(t, 4.8, 6.4))));
+  const firstRain = t >= 6.6;
+  $('calN').textContent = firstRain ? '39' : day;
+  $('calL').textContent = firstRain ? '☔ first rain' : 'and counting';
+  $('calL').style.color = firstRain ? '#1E5FC0' : '#5b6476';
+  $('cal').querySelector('.band').textContent = firstRain ? 'DAY' : 'DAYS WITHOUT RAIN';
+  $('cal').querySelector('.band').style.background = firstRain ? '#1E78E0' : '#E0413A';
+  $('calN').style.transform = `scale(${1 + .15 * pulseAt(t, 6.6, .2)})`;
+  const sh = P01(t, 8.0, 8.8);
+  $('sheen').style.opacity = eOut(sh) * .9 * pov * (.8 + .2 * Math.sin(t * 3));
+  $('sheen').style.transform = `rotate(${t * 20}deg) scale(${lerp(.6, 1, eOut(sh))})`;
+  popIn($('sheenLbl'), t, 8.4, 10.3);
+
+  slideCard($('proof'), t, 11.2, 14.4);
+  slideCard($('t1'), t, 15.3, 19.0);
+  slideCard($('t2'), t, 16.3, 19.06);
+  slideCard($('t3'), t, 17.3, 19.12);
+
+  phoneUpdate($('pw'), t, { enter: [19.3, 20.3], exit: [23.4, 24.1], vib: [20.8] });
+  sDrops.forEach(d => {
+    const y = ((t * d.sp + d.ph) % 1) * 1800 - 100;
+    d.el.style.opacity = .85;
+    d.el.style.transform = `translate(${d.x - y * .2}px, ${y}px) rotate(12deg)`;
+  });
+  notifUpdate($('nt'), t, 20.8, 23.4, 21.9);
+  endUpdate(t, END);
+};
+render(parseFloat(new URLSearchParams(location.search).get('t') || '0'));
+</script></body></html>

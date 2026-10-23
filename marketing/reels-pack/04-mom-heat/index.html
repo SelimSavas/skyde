@@ -1,0 +1,113 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../shared/base.css">
+<style>
+#mood { background: linear-gradient(180deg, #F0782F 0%, #F7A04A 50%, #FFC873 100%); }
+.bub { position: absolute; left: 40px; max-width: 560px; padding: 24px 32px; border-radius: 36px 36px 36px 10px; background: #fff; color: #1a1f2b;
+  font-size: 36px; line-height: 1.3; box-shadow: 0 6px 18px rgba(20,30,60,.08); }
+.chip { position: absolute; left: 0; top: 0; padding: 22px 34px; border-radius: 999px; white-space: nowrap; color: #fff; font-size: 40px; font-weight: 600;
+  background: rgba(190,60,20,.55); border: 2px solid rgba(255,255,255,.6); box-shadow: 0 12px 40px rgba(120,40,10,.2); }
+#speech { position: absolute; left: 90px; width: 900px; top: 560px; padding: 34px 40px; border-radius: 44px; background: #fff; color: #1a1f2b; z-index: 30;
+  font-size: 42px; line-height: 1.3; font-weight: 500; box-shadow: 0 22px 60px rgba(120,40,10,.3); display: flex; gap: 24px; align-items: flex-start; }
+#speech::after { content: ''; position: absolute; left: 640px; bottom: -26px; border: 18px solid transparent; border-top: 22px solid #fff; }
+#wave { position: absolute; left: 470px; top: 160px; display: flex; gap: 8px; align-items: center; height: 70px; }
+#wave i { width: 10px; border-radius: 5px; background: #fff; }
+</style></head>
+<body><div id="stage">
+  <div id="sunGlow"></div><div id="sky"></div>
+  <div id="mood" class="fill"></div>
+  <div id="chips"></div>
+
+  <div id="cap1" class="cap"></div><div id="cap2" class="cap"></div><div id="cap3" class="cap"></div><div id="cap4" class="cap"></div>
+
+  <div class="phoneWrap" id="pw"><div class="phone"><div class="screenClip"><div class="island"></div><div class="screen">
+    <div id="home" class="layer"></div>
+    <div id="wave"></div>
+    <div class="tap" id="tap"></div>
+    <div id="chat" class="layer" style="background:#F2F3F7">
+      <div class="abs" style="left:0;right:0;top:0;height:200px;background:#fff;border-bottom:2px solid #E6E8EE"></div>
+      <div class="abs" style="left:40px;top:110px;font-size:40px;color:#1E78E0">‹</div>
+      <div class="abs" style="left:244px;top:96px;width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#FFB38A,#F06A3C);display:flex;align-items:center;justify-content:center;color:#fff;font-size:34px;font-weight:600">M</div>
+      <div class="abs" style="left:338px;top:112px;font-size:36px;font-weight:600;color:#1a1f2b">Mom ❤️</div>
+      <div class="bub" id="b0" style="top:260px">Is it too hot to go out today?</div>
+      <div class="bub" id="b1" style="top:420px">My app says 38°, feels like 41°</div>
+      <div class="bub" id="b2" style="top:580px">and UV 9?? what does that even mean 😅</div>
+      <div class="bub" id="b3" style="top:790px">should I go to the market or not?</div>
+      <div class="abs" id="typing" style="left:40px;top:950px;padding:20px 30px;border-radius:30px;background:#fff;font-size:40px;color:#9aa3b2;letter-spacing:6px">•••</div>
+    </div>
+  </div></div></div></div>
+
+  <div id="speech"><span data-ic="vol:56:#E2550F:2.4"></span><span>“Very hot today. Stay inside between 12 and 4, and drink water.”</span></div>
+
+  <div class="icard" id="w1" style="top:700px"><div class="num" style="background:#E2550F" data-ic="heart:56:#fff:2.4"></div>
+    <div class="tt">Heat hits older adults hardest</div>
+    <div class="ds">Most deaths in Europe's June 2026 heatwave were people over 65 (WHO).</div></div>
+  <div class="icard" id="w2" style="top:1020px"><div class="num" style="background:#1E78E0" data-ic="vol:56:#fff:2.4"></div>
+    <div class="tt">A clear answer helps them decide</div>
+    <div class="ds">No numbers to decode. Just what to do.</div></div>
+
+  <div id="endHost"></div>
+</div>
+<script src="../shared/icons.js"></script><script src="../shared/base.js"></script>
+<script>
+seedRnd(43);
+$('endHost').outerHTML = END_HTML('Weather, in <b>plain words.</b>', 'Set it up for someone you love ❤️');
+$('home').innerHTML = homeHTML('heat', { clock: '10:05', title: 'Very hot today. Stay inside between 12 and 4.', sub: '33°C now, 38°C this afternoon. Drink water.',
+  sum: 'Between 26° and 38°. Hottest 13:00–16:00. Cooler after sunset.', volId: 'volBtn' });
+initIcons();
+Sky.init();
+for (let i = 0; i < 14; i++) { const b = document.createElement('i'); $('wave').appendChild(b); }
+const chipDefs = [['38°', 300, 760, -4], ['Feels like 41°', 760, 700, 3], ['UV 9', 560, 900, -2], ['Heat index 40', 270, 1080, 3],
+  ['Humidity 32%', 790, 1060, -3], ['Dew point 14°', 520, 1250, 2], ['Wind 6 km/h', 300, 1420, -3], ['Pressure 1009', 790, 1400, 4]];
+const chips = chipDefs.map(([txt, x, y, r], i) => {
+  const c = document.createElement('div'); c.className = 'chip'; c.textContent = txt; $('chips').appendChild(c); return { el: c, x, y, r, i };
+});
+Caps.add('cap1', ['If your mom texts you', 'this *every summer…*'], null, .15, 5.0);
+Caps.add('cap2', ['Her weather app', 'gives her *numbers.*'], null, 5.4, 10.0);
+Caps.add('cap3', ['Skyde gives her', '*one button.*'], 'It reads the day out loud, in plain words.', 10.5, 17.0);
+Caps.add('cap4', ['A clear answer', 'helps her *stay safe.*'], null, 17.4, 21.6);
+const BUB = [.6, 1.7, 2.8, 3.9], TAP = 12.0, END = 22.0;
+
+window.render = t => {
+  const heat = eOut(P01(t, 5.2, 5.8)) * (1 - eIO(P01(t, 9.8, 10.6)));
+  $('mood').style.opacity = heat * .9;
+  Sky.update(t, { glow: 1, sparkle: 1 - heat });
+  Caps.update(t);
+
+  // chat phone, then Skyde phone
+  const chatPhase = t < 7;
+  phoneUpdate($('pw'), t, chatPhase
+    ? { enter: [0, .7], exit: [5.0, 5.6], vib: BUB }
+    : { enter: [10.4, 11.4], exit: [16.9, 17.6] });
+  $('chat').style.opacity = chatPhase ? 1 : 0;
+  BUB.forEach((b, i) => {
+    const k = P01(t, b, b + .35), el = $('b' + i);
+    el.style.opacity = k > 0 ? 1 : 0;
+    el.style.transform = `scale(${k > 0 ? eBack(k) : 0})`; el.style.transformOrigin = '0 100%';
+  });
+  const ty = P01(t, 4.3, 4.5);
+  $('typing').style.opacity = ty * (.6 + .4 * Math.sin(t * 10));
+
+  // numbers chaos
+  chips.forEach(c => {
+    const a = 5.6 + c.i * .14, k = P01(t, a, a + .45), out = eIO(P01(t, 9.4 + c.i * .03, 10.1 + c.i * .03));
+    const fx = Math.sin(t * 2.4 + c.i) * 14, fy = Math.cos(t * 2 + c.i * 2) * 16;
+    c.el.style.opacity = Math.min(1, k * 2) * (1 - out);
+    c.el.style.transform = `translate(-50%,-50%) translate(${lerp(c.x, 540, out) + fx}px, ${lerp(c.y, 1200, out) + fy}px) rotate(${c.r + Math.sin(t * 3 + c.i) * 3}deg) scale(${(k > 0 ? eBack(k) : 0) * lerp(1, .2, out)})`;
+  });
+
+  // the one button
+  tapUpdate($('tap'), t, [{ t: TAP, x: 640, y: 256, light: true }]);
+  const speaking = P01(t, TAP + .2, TAP + .5) * (1 - P01(t, 16.4, 16.8));
+  $('wave').style.opacity = speaking;
+  [...$('wave').children].forEach((b, i) => { b.style.height = `${12 + speaking * (20 + 40 * Math.abs(Math.sin(t * 9 + i * .8)))}px`; });
+  const sk = P01(t, TAP + .3, TAP + .8), sOut = eIn(P01(t, 16.7, 17.1));
+  $('speech').style.opacity = Math.min(1, sk * 2) * (1 - sOut);
+  $('speech').style.transform = `translateY(${(1 - eOut(sk)) * 40}px) scale(${sk > 0 ? eBack(sk) : .8})`;
+
+  slideCard($('w1'), t, 17.8, 21.5);
+  slideCard($('w2'), t, 19.0, 21.56);
+  endUpdate(t, END);
+};
+render(parseFloat(new URLSearchParams(location.search).get('t') || '0'));
+</script></body></html>

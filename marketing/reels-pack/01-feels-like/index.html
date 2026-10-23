@@ -1,0 +1,98 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../shared/base.css">
+<style>
+#mood { background: linear-gradient(180deg, #3E6A9C 0%, #6C93BF 55%, #9DB9D8 100%); }
+.wline { position: absolute; left: 0; top: 0; height: 5px; border-radius: 3px; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.9), rgba(255,255,255,0)); }
+#thermo { position: absolute; left: 0; right: 0; top: 640px; text-align: center; color: #fff; }
+#airVal { font-size: 300px; font-weight: 700; letter-spacing: -12px; line-height: 1; text-shadow: 0 20px 60px rgba(10,50,120,.35); }
+#airLbl { font-size: 40px; font-weight: 500; letter-spacing: 6px; opacity: .9; margin-top: 6px; }
+#feels { position: absolute; left: 50%; top: 1130px; padding: 34px 60px; border-radius: 999px; background: #fff; color: #1E5FC0;
+  font-size: 76px; font-weight: 700; white-space: nowrap; box-shadow: 0 20px 60px rgba(10,50,120,.3); display: flex; align-items: center; gap: 22px; }
+#ruleCard { position: absolute; left: 110px; right: 110px; top: 760px; padding: 50px 56px; border-radius: 48px; background: #fff; color: #141c2b;
+  box-shadow: 0 22px 60px rgba(10,50,120,.25); text-align: center; }
+#ruleCard .big { font-size: 120px; font-weight: 300; letter-spacing: -4px; }
+#ruleCard .row2 { margin-top: 10px; font-size: 54px; font-weight: 500; color: #5b6476; position: relative; display: inline-block; padding: 8px 24px; }
+#ring { position: absolute; inset: -6px -10px; border-radius: 60px; border: 7px solid #F2B417; }
+#ruleCard .tip { margin-top: 30px; font-size: 38px; color: #1E5FC0; font-weight: 600; }
+</style></head>
+<body><div id="stage">
+  <div id="mood" class="fill"></div><div id="sunGlow"></div><div id="sky"></div><div id="rainHost"></div>
+  <div id="winds"></div>
+
+  <div id="thermo"><div id="airVal">10°</div><div id="airLbl">AIR TEMPERATURE</div></div>
+  <div id="feels"><span data-ic="wind:76:#1E5FC0:2.6"></span>Feels like 4°</div>
+
+  <div class="icard" id="c1" style="top:700px"><div class="num" data-ic="wind:56:#fff:2.4"></div>
+    <div class="tt">Wind pulls heat off your skin</div>
+    <div class="ds">Cold + wind feels colder. That's wind chill.</div></div>
+  <div class="icard" id="c2" style="top:1020px"><div class="num" style="background:#F07B2B" data-ic="droplets:56:#fff:2.4"></div>
+    <div class="tt">Humid air stops sweat from cooling you</div>
+    <div class="ds">Hot + humid feels hotter. That's the heat index.</div></div>
+
+  <div id="ruleCard"><div class="big">10°</div><div class="row2"><span id="ring"></span>Feels like 4°</div>
+    <div class="tip">↑ dress for this one</div></div>
+
+  <div id="cap1" class="cap"></div><div id="cap2" class="cap"></div><div id="cap3" class="cap"></div><div id="cap4" class="cap"></div>
+
+  <div class="phoneWrap" id="pw"><div class="phone"><div class="screenClip"><div class="island"></div><div class="screen">
+    <div id="home" class="layer"></div>
+    <div class="abs" id="hi" style="left:36px;top:828px;width:648px;height:376px;border-radius:60px;border:6px solid #FFE27A;opacity:0;box-shadow:0 0 40px rgba(255,226,122,.7)"></div>
+  </div></div></div></div>
+
+  <div id="endHost"></div>
+</div>
+<script src="../shared/icons.js"></script><script src="../shared/base.js"></script>
+<script>
+seedRnd(11);
+$('endHost').outerHTML = END_HTML('Weather, without the <b>weather app feeling.</b>', 'Follow for weather that makes sense');
+$('home').innerHTML = homeHTML('cold', { clock: '08:10', title: 'Feels like 4° in the wind. Grab a warm layer.', sub: '10°C now, breezy until the evening.',
+  sum: 'Between 6° and 12°. Windy all day, dry. A warm, windproof layer is enough.' });
+initIcons();
+Sky.init();
+const winds = Array.from({ length: 16 }, () => {
+  const d = document.createElement('div'); d.className = 'wline'; $('winds').appendChild(d);
+  return { el: d, y: 560 + rnd() * 1100, w: 220 + rnd() * 320, sp: 1.2 + rnd() * .8, ph: rnd() };
+});
+Caps.add('cap1', ['Why does 10°C', 'feel like *4°C?*'], 'The gap nobody explains.', .15, 3.8);
+Caps.add('cap2', ['Two things', 'change the *feel:*'], null, 4.0, 10.8);
+Caps.add('cap3', ['Dress for the', '*second number.*'], null, 11.2, 15.5);
+Caps.add('cap4', ['Or let Skyde tell you', '*what to wear.*'], null, 15.9, 20.5);
+const END = 21.0;
+
+window.render = t => {
+  const cold = eOut(P01(t, 1.4, 2.0)) * (1 - eIO(P01(t, 3.8, 4.6)));
+  $('mood').style.opacity = cold * .8;
+  Sky.update(t, { glow: 1 - cold, sparkle: 1 - cold });
+  const windAmt = Math.max(cold, eOut(P01(t, 4.6, 5.2)) * (1 - P01(t, 7.4, 8.0)) * .8);
+  winds.forEach(w => {
+    const x = ((t * w.sp + w.ph) % 1) * 1700 - 500;
+    w.el.style.width = w.w + 'px'; w.el.style.opacity = windAmt;
+    w.el.style.transform = `translate(${x}px, ${w.y + Math.sin(t * 3 + w.ph * 6) * 12}px)`;
+  });
+  Caps.update(t);
+
+  // hook: 10° then the "feels like" slam
+  const tk = P01(t, .2, .8), tOut = eIn(P01(t, 3.6, 4.1));
+  $('thermo').style.opacity = Math.min(1, tk * 2) * (1 - tOut);
+  $('thermo').style.transform = `scale(${(tk > 0 ? eBack(tk) : 0) * (1 - .03 * cold)}) translateX(${Math.sin(t * 40) * 4 * pulseAt(t, 1.6, .3)}px)`;
+  $('airVal').style.color = `rgb(${lerp(255, 215, cold)},${lerp(255, 232, cold)},255)`;
+  popIn($('feels'), t, 1.5, 3.6, { dur: .4 });
+
+  slideCard($('c1'), t, 4.8, 10.6);
+  slideCard($('c2'), t, 7.6, 10.66);
+
+  const rk = P01(t, 11.4, 11.9), rOut = eIn(P01(t, 15.3, 15.7));
+  $('ruleCard').style.opacity = Math.min(1, rk * 2) * (1 - rOut);
+  $('ruleCard').style.transform = `translateY(${(1 - eOut(rk)) * 80 + rOut * 60}px)`;
+  const ring = P01(t, 12.6, 13.1);
+  $('ring').style.opacity = ring > 0 ? 1 : 0;
+  $('ring').style.transform = `scale(${lerp(1.4, 1, eOut(ring))})`;
+  $('ruleCard').querySelector('.tip').style.opacity = eOut(P01(t, 13.2, 13.6));
+
+  phoneUpdate($('pw'), t, { enter: [15.7, 16.7], exit: [20.6, 21.3] });
+  $('hi').style.opacity = P01(t, 17.4, 17.7) * (1 - P01(t, 19.6, 20.1));
+  endUpdate(t, END);
+};
+render(parseFloat(new URLSearchParams(location.search).get('t') || '0'));
+</script></body></html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../shared/base.css">
+<style>
+#mood { background: linear-gradient(180deg, #0B1330 0%, #16224A 50%, #22325F 100%); }
+#scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.star { position: absolute; left: 0; top: 0; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+.tpill { position: absolute; padding: 20px 34px; border-radius: 999px; background: rgba(255,255,255,.95); color: #141c2b; font-size: 46px; font-weight: 700;
+  white-space: nowrap; display: flex; align-items: center; gap: 14px; box-shadow: 0 16px 40px rgba(0,0,0,.3); font-variant-numeric: tabular-nums; }
+.tpill small { font-size: 26px; font-weight: 600; color: #5b6476; letter-spacing: 2px; }
+.ice { position: absolute; left: 0; top: 0; color: #E8F4FF; font-size: 34px; text-shadow: 0 0 10px rgba(200,230,255,.9); }
+</style></head>
+<body><div id="stage">
+  <div id="sunGlow"></div><div id="sky"></div>
+  <div id="mood" class="fill"></div>
+  <div id="stars"></div>
+  <svg id="scene" viewBox="0 0 1080 1920">
+    <defs><radialGradient id="moonG"><stop offset="0" stop-color="#FFF8E1"/><stop offset=".6" stop-color="#FFF1C2"/><stop offset="1" stop-color="#FFF1C2" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="880" cy="820" r="150" fill="url(#moonG)" opacity=".5"/><circle cx="880" cy="820" r="70" fill="#FFF6D8"/>
+    <path d="M0 1500 Q 300 1400 620 1460 T 1080 1430 V 1920 H 0 Z" fill="#1B2A4A"/>
+    <path d="M0 1640 Q 500 1560 1080 1630 V 1920 H 0 Z" fill="#14203B"/>
+    <g id="branch"></g>
+  </svg>
+  <div id="ice"></div>
+  <div class="tpill" id="air" style="left:120px;top:1060px"><span data-ic="therm:48:#1E78E0:2.4"></span><span id="airV">3°C</span><small>AIR</small></div>
+  <div class="tpill" id="ground" style="left:560px;top:1700px"><span data-ic="snow:48:#1E78E0:2.4"></span><span id="grV">3°C</span><small>GROUND</small></div>
+
+  <div class="icard" id="g1" style="top:700px"><div class="num" style="background:#3B4A8C" data-ic="moon:56:#fff:2.4"></div><div class="tt">Clear sky</div><div class="ds">No clouds to hold the warmth in.</div></div>
+  <div class="icard" id="g2" style="top:930px"><div class="num" style="background:#3B4A8C" data-ic="wind:56:#fff:2.4"></div><div class="tt">No wind</div><div class="ds">Cold air settles and pools near the ground.</div></div>
+  <div class="icard" id="g3" style="top:1160px"><div class="num" style="background:#3B4A8C" data-ic="therm:56:#fff:2.4"></div><div class="tt">3°C or less in the evening</div><div class="ds">Then frost is a real risk by dawn.</div></div>
+  <div class="icard" id="pf" style="top:760px"><div class="num" style="background:#E0413A" data-ic="flower:56:#fff:2.2"></div>
+    <div class="tt">April 2025: frost hit 36 provinces in Türkiye</div>
+    <div class="ds">Apricot and hazelnut orchards were among the hardest hit.</div></div>
+
+  <div id="cap1" class="cap"></div><div id="cap2" class="cap"></div><div id="cap3" class="cap"></div><div id="cap4" class="cap"></div><div id="cap5" class="cap"></div>
+
+  <div class="phoneWrap" id="pw"><div class="phone"><div class="screenClip"><div class="island"></div><div class="screen">
+    <div id="home" class="layer"></div>
+    <div class="notif" id="nt"><div class="hd"><img src="../shared/icon.png"><span>SKYDE</span><span class="now">now</span></div>
+      <div class="tt">🌡️ Frost risk tonight</div><div class="bd">Very cold after midnight. Protect seedlings and blossoms before sunset.</div></div>
+  </div></div></div></div>
+  <div id="endHost"></div>
+</div>
+<script src="../shared/icons.js"></script><script src="../shared/base.js"></script>
+<script>
+seedRnd(53);
+$('endHost').outerHTML = END_HTML('Farm smarter. <b>Waste less.</b>', 'Save this before spring 🌸');
+$('home').innerHTML = homeHTML('night', { clock: '18:40', title: 'Clear and still tonight. Frost risk before dawn.', sub: '4°C now, dropping to 0°C around 05:00.',
+  sum: 'Clear night, light wind. Coldest 04:00–06:00. Cover sensitive plants.', planLabel: 'Plan Tomorrow' });
+initIcons();
+Sky.init({ sparks: false });
+const stars = Array.from({ length: 60 }, () => {
+  const s = document.createElement('div'); s.className = 'star'; $('stars').appendChild(s);
+  return { el: s, x: rnd() * 1080, y: rnd() * 1300, ph: rnd() * 6.28, sc: .4 + rnd() * .9 };
+});
+// blossom branch
+const NS = 'http://www.w3.org/2000/svg';
+const mk = (tag, a, p) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
+const br = $('branch');
+mk('path', { d: 'M1120 1180 C 900 1210 760 1290 600 1330 S 360 1420 230 1520', stroke: '#4A2E22', 'stroke-width': 18, fill: 'none', 'stroke-linecap': 'round' }, br);
+mk('path', { d: 'M800 1265 C 760 1200 700 1170 640 1160', stroke: '#4A2E22', 'stroke-width': 10, fill: 'none', 'stroke-linecap': 'round' }, br);
+const flowers = [[880, 1240], [700, 1300], [640, 1160], [520, 1370], [400, 1430], [300, 1480], [760, 1190], [960, 1215]].map(([x, y], i) => {
+  const g = mk('g', { transform: `translate(${x} ${y})` }, br);
+  for (let k = 0; k < 5; k++) mk('ellipse', { cx: 0, cy: -20, rx: 14, ry: 22, fill: i % 2 ? '#F9C6D3' : '#FBD8E1', transform: `rotate(${k * 72})` }, g);
+  mk('circle', { cx: 0, cy: 0, r: 8, fill: '#E7A13A' }, g);
+  return { g, x, y };
+});
+const ice = Array.from({ length: 46 }, (_, i) => {
+  const e = document.createElement('div'); e.className = 'ice'; e.textContent = '✦'; $('ice').appendChild(e);
+  const onFlower = i < 16, f = flowers[i % flowers.length];
+  return { el: e, x: onFlower ? f.x - 20 + rnd() * 40 : rnd() * 1080, y: onFlower ? f.y - 30 + rnd() * 40 : 1500 + rnd() * 380, born: 7.0 + rnd() * 2.2, sc: .5 + rnd() * .8 };
+});
+Caps.add('cap1', ['3°C tonight.', 'Your blossoms are *safe…*'], 'right?', .15, 4.0, 2.4);
+Caps.add('cap2', ['Not on a', '*clear, calm night.*'], 'The ground cools faster than the air.', 4.2, 11.0);
+Caps.add('cap3', ['Watch for', '*3 signs:*'], null, 11.3, 16.5);
+Caps.add('cap4', ['One night can', 'cost a *season.*'], null, 16.8, 19.6);
+Caps.add('cap5', ['Skyde’s farmer mode', 'flags *frost risk.*'], null, 19.8, 23.6);
+const END = 24.0;
+
+window.render = t => {
+  const night = 1 - eIO(P01(t, 19.4, 20.2));
+  $('mood').style.opacity = night;
+  Sky.update(t, { glow: 1 - night, cloudOpacity: 1 - night });
+  stars.forEach(s => {
+    s.el.style.opacity = night * (.35 + .65 * Math.max(0, Math.sin(t * 2 + s.ph)));
+    s.el.style.transform = `translate(${s.x}px, ${s.y}px) scale(${s.sc})`;
+  });
+  const sceneOn = night * (1 - eIO(P01(t, 11.0, 11.6)) * .55);
+  $('scene').style.opacity = sceneOn;
+  flowers.forEach((f, i) => f.g.setAttribute('transform', `translate(${f.x} ${f.y}) rotate(${Math.sin(t * .8 + i) * 4})`));
+  Caps.update(t);
+
+  // thermometers: air holds at 3, ground drops to 0
+  popIn($('air'), t, .8, 10.8, { base: '' });
+  popIn($('ground'), t, 5.0, 10.8, { base: '' });
+  const gv = Math.round(lerp(3, 0, eIO(P01(t, 5.4, 7.2))));
+  $('grV').textContent = `${gv}°C`;
+  $('grV').style.color = gv <= 0 ? '#1E5FC0' : '#141c2b';
+  ice.forEach(c => {
+    const k = P01(t, c.born, c.born + .5) * (1 - P01(t, 10.8, 11.3));
+    c.el.style.opacity = k * (.6 + .4 * Math.sin(t * 5 + c.x));
+    c.el.style.transform = `translate(${c.x}px, ${c.y}px) scale(${c.sc * eBack(clamp(k))})`;
+  });
+
+  slideCard($('g1'), t, 11.9, 16.3);
+  slideCard($('g2'), t, 12.9, 16.36);
+  slideCard($('g3'), t, 13.9, 16.42);
+  slideCard($('pf'), t, 17.1, 19.5);
+
+  phoneUpdate($('pw'), t, { enter: [19.7, 20.7], exit: [23.5, 24.2], vib: [21.1] });
+  notifUpdate($('nt'), t, 21.1, 23.5, 22.2);
+  endUpdate(t, END);
+};
+render(parseFloat(new URLSearchParams(location.search).get('t') || '0'));
+</script></body></html>
