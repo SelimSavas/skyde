@@ -4,6 +4,7 @@ voiceover placement with ducking, and the final mix.
 A reel's audio.py calls setup(duration, chords), builds its SFX with the helpers below,
 then calls mix(out_path, sfx_buffer, vo_list). Voiceover files that don't exist yet are skipped.
 """
+import json
 import os
 import subprocess
 import wave
@@ -15,6 +16,7 @@ DUR = 20.0
 N = int(SR * DUR)
 CHORDS = [(0.0, [48, 55, 59, 62, 64])]
 rng = np.random.default_rng(7)
+WARP = None  # (old knot times, new knot times) when a voiceover stretches the scenes
 
 
 def setup(duration, chords):
@@ -249,3 +251,27 @@ def mix(out_path, fx, vo_list, music_db=-16):
         w.setsampwidth(2)
         w.setframerate(SR)
         w.writeframes(pcm.tobytes())
+
+
+def old2new(t):
+    """Map a time on the reel's original timeline to the final (voiceover-fitted) timeline."""
+    return float(np.interp(t, WARP[0], WARP[1])) if WARP is not None else t
+
+
+def put(buf, x, at, gain=1.0):
+    """place() for timeline events: `at` is on the original timeline and gets warped."""
+    place(buf, x, old2new(at), gain)
+
+
+def load_warp(folder):
+    """Apply <folder>/warp.json if present: new duration, warped chords; returns the voiceover list."""
+    global WARP, DUR, N, CHORDS
+    path = os.path.join(folder, 'warp.json')
+    if not os.path.exists(path):
+        return None
+    w = json.load(open(path))
+    WARP = (np.array([k[1] for k in w['knots']], float), np.array([k[0] for k in w['knots']], float))
+    DUR = float(w['duration'])
+    N = int(SR * DUR)
+    CHORDS = [(old2new(start), notes) for start, notes in CHORDS]
+    return [(v['file'], v['at']) for v in w['vo']]

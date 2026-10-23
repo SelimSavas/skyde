@@ -25,24 +25,27 @@ def clock_tick():
 def build():
     s = empty()
     room = band_noise(DUR, 80, 400) * 0.6 * np.minimum(1, tt(DUR) / 1.5) * np.clip((DUR - tt(DUR)) / 1.5, 0, 1)
-    place(s, room, 0.0, db(-34))
+    put(s, room, 0.0, db(-34))
     for k in range(int(FLIP)):
-        place(s, clock_tick(), 0.4 + k, db(-22))
-    place(s, clock_tick(), FLIP, db(-16))
-    place(s, buzz(0.15), NOTIF, db(-24))
-    place(s, bell(mtof(84), 2.0, 0.5), NOTIF + 0.05, db(-15))
-    place(s, bell(mtof(79), 2.2, 0.5), NOTIF + 0.25, db(-17))
-    place(s, shimmer(0.8, 84), 5.0, db(-26))
-    place(s, click(0.04), LAMP_OFF, db(-14))
-    place(s, thump(0.3, 70), LAMP_OFF, db(-20))
-    place(s, whoosh(0.7, True, 300, 3000), 14.15, db(-18))
-    place(s, thump(0.6, 50), END + 0.12, db(-14))
-    place(s, shimmer(1.2, 72), END + 0.05, db(-17))
-    place(s, pop(700, 0.12), END + 1.8, db(-16))
-    place(s, pop(1000, 0.1), END + 2.45, db(-20))
+        put(s, clock_tick(), 0.4 + k, db(-22))
+    put(s, clock_tick(), FLIP, db(-16))
+    put(s, buzz(0.15), NOTIF, db(-24))
+    put(s, bell(mtof(84), 2.0, 0.5), NOTIF + 0.05, db(-15))
+    put(s, bell(mtof(79), 2.2, 0.5), NOTIF + 0.25, db(-17))
+    put(s, shimmer(0.8, 84), 5.0, db(-26))
+    put(s, click(0.04), LAMP_OFF, db(-14))
+    put(s, thump(0.3, 70), LAMP_OFF, db(-20))
+    put(s, whoosh(0.7, True, 300, 3000), 14.15, db(-18))
+    put(s, thump(0.6, 50), END + 0.12, db(-14))
+    put(s, shimmer(1.2, 72), END + 0.05, db(-17))
+    put(s, pop(700, 0.12), END + 1.8, db(-16))
+    put(s, pop(1000, 0.1), END + 2.45, db(-20))
     return s
+
+
+WARPED_VO = load_warp(os.path.dirname(os.path.abspath(__file__)))
 
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    mix(sys.argv[1], build(), VO, music_db=-18)
+    mix(sys.argv[1], build(), WARPED_VO or VO, music_db=-18)

@@ -219,3 +219,19 @@ function endUpdate(t, END) {
 }
 const END_HTML = (tag, cta) => `<div id="end"><div id="endGlow"></div><div id="endIcon"><img src="../shared/icon.png"></div>
   <div id="endWord">Skyde</div><div id="endTag">${tag}</div><div id="endCta">${cta}</div><div id="endHandle">@skyde.app</div></div>`;
+
+// Stretch scenes to fit a recorded voiceover: knots are [newTime, oldTime] pairs. The scene keeps
+// its original timeline; the wrapped render maps final video time back to it, piecewise linear.
+function applyWarp(knots) {
+  const orig = window.render;
+  const map = t => {
+    if (t <= knots[0][0]) return knots[0][1];
+    for (let i = 1; i < knots.length; i++) {
+      const [n0, o0] = knots[i - 1], [n1, o1] = knots[i];
+      if (t <= n1) return o0 + (t - n0) / (n1 - n0) * (o1 - o0);
+    }
+    const [nl, ol] = knots[knots.length - 1];
+    return ol + (t - nl);
+  };
+  window.render = t => orig(map(t));
+}
