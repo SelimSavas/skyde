@@ -134,6 +134,7 @@ Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve
 - Tabağındaki Bilim #2 "Acı biber ağzını neden gerçekten yakar?" (aşama kareleri promptu hazır: `tabagindaki-bilim/animasyon-promptlari.txt` E2)
 - Bekleyen Shorts kayıtları (`kisa-durak`, `kisa-harf`)
 - Udemy tanıtımının insan sesi
+- Güncel konu fikirleri (Ekim 2026): `video/konu-fikirleri-2026-10.md` dosyasında 10 konu var: kış saati, 2026 Nobel'leri, zayıflama iğnesi, üşütmek, yapay zekâ, kestane, ilk bilgisayar, falso. Bazılarının son tarihi var (25 ve 29 Ekim).
 - Shorts serileri: 10 fikir `video/kisa/shorts-serileri.md` dosyasında. Kullanıcı birini seçince ilk bölümün metnini yaz; kayıt gelince dikey (1080×1920) olarak üret.
 
 **Yanıtsız kalan eski istek:** "Instagram hikâyesi kısmını ortadan çıkaralım, kampanya için yazı stili ve boyut önerileri verelim." Böyle bir içerik bulunamadı. Kullanıcı tekrar sorarsa hangi metni kastettiğini sor.
