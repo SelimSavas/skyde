@@ -134,6 +134,7 @@ Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve
 - Tabağındaki Bilim #2 "Acı biber ağzını neden gerçekten yakar?" (aşama kareleri promptu hazır: `tabagindaki-bilim/animasyon-promptlari.txt` E2)
 - Bekleyen Shorts kayıtları (`kisa-durak`, `kisa-harf`)
 - Udemy tanıtımının insan sesi
+- Shorts serileri: 10 fikir `video/kisa/shorts-serileri.md` dosyasında. Kullanıcı birini seçince ilk bölümün metnini yaz; kayıt gelince dikey (1080×1920) olarak üret.
 
 **Yanıtsız kalan eski istek:** "Instagram hikâyesi kısmını ortadan çıkaralım, kampanya için yazı stili ve boyut önerileri verelim." Böyle bir içerik bulunamadı. Kullanıcı tekrar sorarsa hangi metni kastettiğini sor.
 
@@ -337,6 +338,8 @@ Keep the bottom-right corner empty. No other text, no watermark.
 | ch04 Veri, Bilgi, Anlam | `ch04-veri-bilgi-anlam/` | 13:20 | `seslendirme/Bölüm1.4` | Video hazır, paketi yok |
 
 Shorts (1080×1920): `kisa-mesaj`, `kisa-kopru` ve `kisa-ekran` (Önsöz'den), `kisa-esik`, `kisa-lamba` ve `kisa-turkce` (Var ve Yok'tan) var. `kisa-durak` ile `kisa-harf` kayıt bekliyor. Kayıt metinleri `kisa/*-tek-dosya.txt`, YouTube bilgileri `kisa/youtube.txt` dosyasında. Kısa videolar uzun bölümün filmini dikey kadraja yakınlaşarak yeniden çizer (`kisa/kisa.js`).
+
+**Yeni Shorts serileri (2026-10-23, fikir aşaması):** `video/kisa/shorts-serileri.md` dosyasında 10 seri var. Her birinin kalıbı, görseli, ilk üç konusu ve uzun seriye köprüsü yazılı. Seriler: Efsane mi Gerçek mi?, Gözünü Kandırayım, Bir Sayı Bir Şok, Cebindeki Bilim, Ustanın Bilmecesi, Kelimenin Yolculuğu, Kazara Bulundu, Gece Bir Buçuk, Tek Lokma Bilim, Vücudun Gizli Ayarları. Önerilen başlangıç üçlüsü: Gözünü Kandırayım, Efsane mi Gerçek mi?, Ustanın Bilmecesi. Kullanıcı henüz seçmedi.
 
 Udemy: tanıtım videosu (`tanitim/`, 1:54) insan sesi bekliyor. Sayfa metinleri ve kurs görseli `udemy/` klasöründe.
 

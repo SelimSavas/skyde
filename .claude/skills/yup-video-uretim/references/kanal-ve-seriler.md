@@ -29,6 +29,8 @@
 
 Shorts (1080×1920): `kisa-mesaj`, `kisa-kopru` ve `kisa-ekran` (Önsöz'den), `kisa-esik`, `kisa-lamba` ve `kisa-turkce` (Var ve Yok'tan) var. `kisa-durak` ile `kisa-harf` kayıt bekliyor. Kayıt metinleri `kisa/*-tek-dosya.txt`, YouTube bilgileri `kisa/youtube.txt` dosyasında. Kısa videolar uzun bölümün filmini dikey kadraja yakınlaşarak yeniden çizer (`kisa/kisa.js`).
 
+**Yeni Shorts serileri (2026-10-23, fikir aşaması):** `video/kisa/shorts-serileri.md` dosyasında 10 seri var. Her birinin kalıbı, görseli, ilk üç konusu ve uzun seriye köprüsü yazılı. Seriler: Efsane mi Gerçek mi?, Gözünü Kandırayım, Bir Sayı Bir Şok, Cebindeki Bilim, Ustanın Bilmecesi, Kelimenin Yolculuğu, Kazara Bulundu, Gece Bir Buçuk, Tek Lokma Bilim, Vücudun Gizli Ayarları. Önerilen başlangıç üçlüsü: Gözünü Kandırayım, Efsane mi Gerçek mi?, Ustanın Bilmecesi. Kullanıcı henüz seçmedi.
+
 Udemy: tanıtım videosu (`tanitim/`, 1:54) insan sesi bekliyor. Sayfa metinleri ve kurs görseli `udemy/` klasöründe.
 
 ## Seri 2 · Tabağındaki Bilim (YUP Akademi)
