@@ -20,7 +20,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | YUP Akademi — Gecenin Mavi Işığı: telefon ışığı iç saati nasıl kandırıyor ve bu akşam ne yapmalı? (kaynaklı, günlük hayat sahneleri, YouTube paketi `youtube/`) | 10:39 (insan sesiyle) | `yup-mavi-isik/` |
 | Tabağındaki Bilim #1 — Soğan Neden Ağlatır? (kaynaklı; karakter ve mutfak Gemini görselleri, `araclar/` ile `assets.js`'e gömülür; dizi rehberi `tabagindaki-bilim/`) | 8:40 (insan sesiyle; YouTube altyazısı `youtube/altyazi-tr.srt`) | `sogan-neden-aglatir/` |
 | YUP Akademi kısa (Uykunun Bilimi, yeni marka dili; logo ve yazı tipleri `yup-marka/`) — Saatler geri alınmıyor: vücudun buna ne diyor? | 0:58 (insan sesiyle, `seslendirme/KisSaati`; YouTube bilgisi `youtube.txt`) | `kisa-kis-saati/` |
-| YUP Akademi kısa · Efsane mi, Gerçek mi? #1 — Islak saçla dışarı çıkarsan hasta olur musun? (ortak marka motoru `yup-marka/kisa.js`) | ~1:00 (kayıt bekleniyor, `seslendirme-pause.txt`) | `kisa-islak-sac/` |
+| YUP Akademi kısa · Efsane mi, Gerçek mi? #1 — Islak saçla dışarı çıkarsan hasta olur musun? (ortak marka motoru `yup-marka/kisa.js`) | 0:59 (insan sesiyle, `seslendirme/IslakSac`; YouTube bilgisi `youtube.txt`) | `kisa-islak-sac/` |
 
 ## İzlemek
 

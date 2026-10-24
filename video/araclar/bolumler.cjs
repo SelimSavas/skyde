@@ -4,9 +4,7 @@
 const fs = require('fs'), vm = require('vm'), path = require('path');
 const dir = path.resolve(process.argv[2]);
 const lines = process.argv.includes('--satir');
-global.window = global;
-global.Image = class { decode() { return Promise.resolve(); } };
-for (const f of ['../shared/engine.js', 'assets.js', 'narration.js', 'voice.js', 'film.js']) if (fs.existsSync(path.join(dir, f))) vm.runInThisContext(fs.readFileSync(path.join(dir, f), 'utf8'));
+require('./yukle.cjs')(dir);
 const F = window.FILM, N = F.narration;
 if (N && !N.voice) console.error('uyarı: voice.js taze değil, zamanlar tahminî');
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;

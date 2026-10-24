@@ -3,12 +3,7 @@
 const fs = require('fs'), vm = require('vm'), path = require('path');
 const dir = path.resolve(process.argv[2]);
 const step = +(process.argv[3] ?? 0.1);
-global.window = global;
-global.Image = class { constructor() { this.width = 10; this.height = 10; } decode() { return Promise.resolve(); } };
-for (const f of ['../shared/engine.js', 'assets.js', 'narration.js', 'voice.js', 'film.js']) {
-  const p = path.join(dir, f);
-  if (fs.existsSync(p)) vm.runInThisContext(fs.readFileSync(p, 'utf8'), { filename: f });
-}
+require('./yukle.cjs')(dir);
 const grad = { addColorStop() {} };
 const ctx = new Proxy({}, {
   get(o, k) {

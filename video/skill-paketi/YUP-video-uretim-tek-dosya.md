@@ -133,7 +133,7 @@ Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve
 
 **Biten short:** `kisa-kis-saati` (0:58, yeni marka dili, kayıt `seslendirme/KisSaati`; paket `kisa-kis-saati/youtube.txt`). Dikey short'un dub çıktısı (yaklaşık 650 kbps, 6 MB) doğrudan yüklenebilir, yeniden kodlamaya gerek yok.
 
-**Kayıt bekleyen:** `kisa-islak-sac` (Efsane mi, Gerçek mi? #1; ortak motor `yup-marka/kisa.js`). Kayıt gelince §5'i uygula, kayıt klasörü `IslakSac`. Narrate iki kez çalıştırılır. Süre 60 sn'yi aşarsa `film.js`'teki `extra` değerleri kısaltılır.
+**Biten short'lar:** `kisa-islak-sac` (Efsane mi, Gerçek mi? #1, 0:59, kayıt `seslendirme/IslakSac`, paket `youtube.txt`). Araçlar (`altyazi.cjs`, `bolumler.cjs`, `duman.cjs`) filmi `araclar/yukle.cjs` ile bölümün `index.html` betik sırasına göre yükler, bu yüzden ortak marka modülünü de görürler.
 
 **Sıradaki olası işler:**
 - Tabağındaki Bilim #2 "Acı biber ağzını neden gerçekten yakar?" (aşama kareleri promptu hazır: `tabagindaki-bilim/animasyon-promptlari.txt` E2)
@@ -356,7 +356,7 @@ Shorts (1080×1920): `kisa-mesaj`, `kisa-kopru` ve `kisa-ekran` (Önsöz'den), `
 
 **Ortak marka motoru:** `video/yup-marka/kisa.js` (`YupKisa.short(def)`). Zemin, seri etiketi, daire açılışlı geçişler, isteğe bağlı yorum çağrısı kartı, logo ve abone kapanışı ile kapanış seslerini verir. Yeni markalı short'ta yalnız `narration.js` ve sahne çizimleri (`def.draw`) yazılır. Örnek: `kisa-islak-sac/film.js`. (`kisa-kis-saati` bu modülden önce yazıldı, kendi kopyasını taşır.)
 
-**Efsane mi, Gerçek mi? #1:** `kisa-islak-sac/`, "Islak saçla dışarı çıkarsan hasta olur musun?" Hüküm ŞÜPHELİ. Yorum çağrısı iki yerde: başta oy ("Sence efsane mi, gerçek mi? Cevabı görmeden yorumlara yaz"), sonda "Sıradaki efsaneyi sen seç". Kayıt bekliyor (kayıt klasörü `IslakSac`). Oynatma listesi "Efsane mi, Gerçek mi? | YUP Akademi".
+**Efsane mi, Gerçek mi? #1:** `kisa-islak-sac/`, "Islak saçla dışarı çıkarsan hasta olur musun?" Hüküm ŞÜPHELİ. Yorum çağrısı iki yerde: başta oy ("Sence efsane mi, gerçek mi? Cevabı görmeden yorumlara yaz"), sonda "Sıradaki efsaneyi sen seç". 0:59, insan sesiyle bitti (kayıt `seslendirme/IslakSac`). Oynatma listesi "Efsane mi, Gerçek mi? | YUP Akademi".
 
 **Yeni Shorts serileri (2026-10-23, fikir aşaması):** `video/kisa/shorts-serileri.md` dosyasında 10 seri var. Her birinin kalıbı, görseli, ilk üç konusu ve uzun seriye köprüsü yazılı. Seriler: Efsane mi Gerçek mi?, Gözünü Kandırayım, Bir Sayı Bir Şok, Cebindeki Bilim, Ustanın Bilmecesi, Kelimenin Yolculuğu, Kazara Bulundu, Gece Bir Buçuk, Tek Lokma Bilim, Vücudun Gizli Ayarları. Önerilen başlangıç üçlüsü: Gözünü Kandırayım, Efsane mi Gerçek mi?, Ustanın Bilmecesi. Kullanıcı henüz seçmedi.
 

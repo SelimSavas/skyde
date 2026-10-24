@@ -3,9 +3,7 @@
 // voice.js taze olmalı (narrate.mjs kayıtla çalıştırılmış). Ekrandaki yazım (ör. "sin-propantiyal-S-oksit") korunur.
 const fs = require('fs'), vm = require('vm'), path = require('path');
 const dir = path.resolve(process.argv[2]);
-global.window = global;
-global.Image = class { decode() { return Promise.resolve(); } };
-for (const f of ['../shared/engine.js', 'assets.js', 'narration.js', 'voice.js', 'film.js']) if (fs.existsSync(path.join(dir, f))) vm.runInThisContext(fs.readFileSync(path.join(dir, f), 'utf8'));
+require('./yukle.cjs')(dir);
 const F = window.FILM, N = F.narration;
 if (!N.voice) throw new Error('voice.js taze değil');
 const MAX = 84, LINE = 42;
