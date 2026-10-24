@@ -38,6 +38,10 @@ Shorts (1080×1920): `kisa-mesaj`, `kisa-kopru` ve `kisa-ekran` (Önsöz'den), `
 
 **Markalı ilk short:** `kisa-kis-saati/` (Uykunun Bilimi kısa: "Saatler geri alınmıyor: vücudun buna ne diyor?"). Yeni marka diliyle, dikey, sonda logo ve abone çağrısı var. 0:58, insan sesiyle bitti (kayıt `seslendirme/KisSaati`, paket `youtube.txt`, 25 Ekim'den önce yayınlanmalı). Yeni markalı short'lar bu klasör kopyalanarak yapılır.
 
+**Ortak marka motoru:** `video/yup-marka/kisa.js` (`YupKisa.short(def)`). Zemin, seri etiketi, daire açılışlı geçişler, isteğe bağlı yorum çağrısı kartı, logo ve abone kapanışı ile kapanış seslerini verir. Yeni markalı short'ta yalnız `narration.js` ve sahne çizimleri (`def.draw`) yazılır. Örnek: `kisa-islak-sac/film.js`. (`kisa-kis-saati` bu modülden önce yazıldı, kendi kopyasını taşır.)
+
+**Efsane mi, Gerçek mi? #1:** `kisa-islak-sac/`, "Islak saçla dışarı çıkarsan hasta olur musun?" Hüküm ŞÜPHELİ. Yorum çağrısı iki yerde: başta oy ("Sence efsane mi, gerçek mi? Cevabı görmeden yorumlara yaz"), sonda "Sıradaki efsaneyi sen seç". Kayıt bekliyor (kayıt klasörü `IslakSac`). Oynatma listesi "Efsane mi, Gerçek mi? | YUP Akademi".
+
 **Yeni Shorts serileri (2026-10-23, fikir aşaması):** `video/kisa/shorts-serileri.md` dosyasında 10 seri var. Her birinin kalıbı, görseli, ilk üç konusu ve uzun seriye köprüsü yazılı. Seriler: Efsane mi Gerçek mi?, Gözünü Kandırayım, Bir Sayı Bir Şok, Cebindeki Bilim, Ustanın Bilmecesi, Kelimenin Yolculuğu, Kazara Bulundu, Gece Bir Buçuk, Tek Lokma Bilim, Vücudun Gizli Ayarları. Önerilen başlangıç üçlüsü: Gözünü Kandırayım, Efsane mi Gerçek mi?, Ustanın Bilmecesi. Kullanıcı henüz seçmedi.
 
 Udemy: tanıtım videosu (`tanitim/`, 1:54) insan sesi bekliyor. Sayfa metinleri ve kurs görseli `udemy/` klasöründe.

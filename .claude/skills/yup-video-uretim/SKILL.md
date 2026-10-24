@@ -133,6 +133,8 @@ Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve
 
 **Biten short:** `kisa-kis-saati` (0:58, yeni marka dili, kayıt `seslendirme/KisSaati`; paket `kisa-kis-saati/youtube.txt`). Dikey short'un dub çıktısı (yaklaşık 650 kbps, 6 MB) doğrudan yüklenebilir, yeniden kodlamaya gerek yok.
 
+**Kayıt bekleyen:** `kisa-islak-sac` (Efsane mi, Gerçek mi? #1; ortak motor `yup-marka/kisa.js`). Kayıt gelince §5'i uygula, kayıt klasörü `IslakSac`. Narrate iki kez çalıştırılır. Süre 60 sn'yi aşarsa `film.js`'teki `extra` değerleri kısaltılır.
+
 **Sıradaki olası işler:**
 - Tabağındaki Bilim #2 "Acı biber ağzını neden gerçekten yakar?" (aşama kareleri promptu hazır: `tabagindaki-bilim/animasyon-promptlari.txt` E2)
 - Bekleyen Shorts kayıtları (`kisa-durak`, `kisa-harf`)

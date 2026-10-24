@@ -133,6 +133,8 @@ Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve
 
 **Biten short:** `kisa-kis-saati` (0:58, yeni marka dili, kayıt `seslendirme/KisSaati`; paket `kisa-kis-saati/youtube.txt`). Dikey short'un dub çıktısı (yaklaşık 650 kbps, 6 MB) doğrudan yüklenebilir, yeniden kodlamaya gerek yok.
 
+**Kayıt bekleyen:** `kisa-islak-sac` (Efsane mi, Gerçek mi? #1; ortak motor `yup-marka/kisa.js`). Kayıt gelince §5'i uygula, kayıt klasörü `IslakSac`. Narrate iki kez çalıştırılır. Süre 60 sn'yi aşarsa `film.js`'teki `extra` değerleri kısaltılır.
+
 **Sıradaki olası işler:**
 - Tabağındaki Bilim #2 "Acı biber ağzını neden gerçekten yakar?" (aşama kareleri promptu hazır: `tabagindaki-bilim/animasyon-promptlari.txt` E2)
 - Bekleyen Shorts kayıtları (`kisa-durak`, `kisa-harf`)
@@ -351,6 +353,10 @@ Keep the bottom-right corner empty. No other text, no watermark.
 Shorts (1080×1920): `kisa-mesaj`, `kisa-kopru` ve `kisa-ekran` (Önsöz'den), `kisa-esik`, `kisa-lamba` ve `kisa-turkce` (Var ve Yok'tan) var. `kisa-durak` ile `kisa-harf` kayıt bekliyor. Kayıt metinleri `kisa/*-tek-dosya.txt`, YouTube bilgileri `kisa/youtube.txt` dosyasında. Kısa videolar uzun bölümün filmini dikey kadraja yakınlaşarak yeniden çizer (`kisa/kisa.js`).
 
 **Markalı ilk short:** `kisa-kis-saati/` (Uykunun Bilimi kısa: "Saatler geri alınmıyor: vücudun buna ne diyor?"). Yeni marka diliyle, dikey, sonda logo ve abone çağrısı var. 0:58, insan sesiyle bitti (kayıt `seslendirme/KisSaati`, paket `youtube.txt`, 25 Ekim'den önce yayınlanmalı). Yeni markalı short'lar bu klasör kopyalanarak yapılır.
+
+**Ortak marka motoru:** `video/yup-marka/kisa.js` (`YupKisa.short(def)`). Zemin, seri etiketi, daire açılışlı geçişler, isteğe bağlı yorum çağrısı kartı, logo ve abone kapanışı ile kapanış seslerini verir. Yeni markalı short'ta yalnız `narration.js` ve sahne çizimleri (`def.draw`) yazılır. Örnek: `kisa-islak-sac/film.js`. (`kisa-kis-saati` bu modülden önce yazıldı, kendi kopyasını taşır.)
+
+**Efsane mi, Gerçek mi? #1:** `kisa-islak-sac/`, "Islak saçla dışarı çıkarsan hasta olur musun?" Hüküm ŞÜPHELİ. Yorum çağrısı iki yerde: başta oy ("Sence efsane mi, gerçek mi? Cevabı görmeden yorumlara yaz"), sonda "Sıradaki efsaneyi sen seç". Kayıt bekliyor (kayıt klasörü `IslakSac`). Oynatma listesi "Efsane mi, Gerçek mi? | YUP Akademi".
 
 **Yeni Shorts serileri (2026-10-23, fikir aşaması):** `video/kisa/shorts-serileri.md` dosyasında 10 seri var. Her birinin kalıbı, görseli, ilk üç konusu ve uzun seriye köprüsü yazılı. Seriler: Efsane mi Gerçek mi?, Gözünü Kandırayım, Bir Sayı Bir Şok, Cebindeki Bilim, Ustanın Bilmecesi, Kelimenin Yolculuğu, Kazara Bulundu, Gece Bir Buçuk, Tek Lokma Bilim, Vücudun Gizli Ayarları. Önerilen başlangıç üçlüsü: Gözünü Kandırayım, Efsane mi Gerçek mi?, Ustanın Bilmecesi. Kullanıcı henüz seçmedi.
 
