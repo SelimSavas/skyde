@@ -24,6 +24,7 @@ Bunların her biri kullanıcının açıkça söylediği ya da düzelttiği şey
 - **İçerik** bilimsel ve kaynaklı olur, gündelik ve güzel bir Türkçeyle yazılır. Ton samimidir ama laubali değildir; izleyiciye "sen" denir. Pratik bir kazanç sunar ("bu akşam dene").
 - **"Tam ver" dendiğinde** şunların hepsi kopyala-yapıştır hazır verilir: başlık ve alternatifler, eksiksiz açıklama (bölüm zamanları dahil), etiketler, yükleme ayarları, bitiş ekranı, kartlar ve sabitlenmiş yorum.
 - **"Sadece X ver" dendiğinde yalnızca X verilir.** Kullanıcı kapak için HTML maket hazırlanırken sözü kesti ve "bana sadece gemini için prompt ver" dedi.
+- **Yeni marka dili:** logo, palet (#0F766E #2E7D5B #6EC1C9 #F59E0B #1E3A8A) ve yazı tipleri (Nunito, Caveat) `video/yup-marka/` klasöründe. Her yeni video sonunda logoyu kısaca gösterir ve abone olmaya davet eder (bkz. `references/kanal-ve-seriler.md`).
 - **Gemini promptları İngilizce yazılır.** Görselde yer alacak Türkçe yazı tırnak içinde, birebir yazımıyla verilir. Prompta harf düzeltme talimatı ve yazısız yedek yol eklenir.
 - **Yeni dosyalar commit edilip push edilir.** Oturum sonunda takip edilmeyen dosya kalırsa uyarı geliyor.
 
@@ -34,7 +35,7 @@ Bunların her biri kullanıcının açıkça söylediği ya da düzelttiği şey
 | Bilişim Teknolojileri Yetkinliği (kitap/kurs) | Karaktersiz vektör animasyon, koyu lacivert ve ateş renkleri, 9–15 dk | `X: Merak Sorusu? \| Bilişim Teknolojileri Yetkinliği · N. Bölüm` | Önsöz ve ch01 yayında. ch02 hazır (paketi var). ch03 ve ch04 videoları hazır, paketleri bekliyor. |
 | Tabağındaki Bilim (mutfak kimyası) | Gemini karakter ve mutfak görselleriyle konuşan sunucu, 9 dk | `Merak Sorusu? Kanca \| Tabağındaki Bilim #N` | #1 Soğan bitti (8:40). Sırada #2 Acı Biber var. |
 | Uykunun Bilimi (YUP Akademi) | Günlük hayat sahneleri, kaynaklı, 10 dk | `Soru? Kanca \| Uykunun Bilimi #N` | #1 Gecenin Mavi Işığı bitti (10:39). |
-| Shorts | 1080×1920, 25–40 sn, uzun bölümlerden | `kisa-*` klasörleri | Birkaçı bitti, bazıları kayıt bekliyor. |
+| Shorts | 1080×1920, 30–55 sn. Eskiler uzun bölümlerden kırpılmadan yeniden çizilir; yeniler YUP marka diliyle sıfırdan çizilir (`kisa-kis-saati`) | `kisa-*` klasörleri | Birkaçı bitti, bazıları kayıt bekliyor. |
 | Udemy kursu | Tanıtım videosu ve sayfa metinleri | `tanitim/`, `udemy/` | Tanıtım insan sesi bekliyor. |
 
 Kanal kimliği, renkler, oynatma listeleri ve bölüm bölüm ayrıntılı durum `references/kanal-ve-seriler.md` dosyasında.
@@ -129,6 +130,8 @@ Görsel varlıklar (Gemini JPEG → macenta ya da beyaz zemin temizliği → `as
 - ch04 Veri, Bilgi, Anlam (13:20)
 
 Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve kapak promptunu ver.
+
+**Kayıt bekleyen:** `kisa-kis-saati` (yeni marka dilindeki ilk short, yaklaşık 55 sn). Kayıt gelince §5'i uygula. Kayıt klasörü `KisSaati`. Film, satır sürelerini kayıttan alır, bu yüzden narrate iki kez çalıştırılır. Dikey render'ın YouTube sürümü için 420k yerine 1.2M kullan.
 
 **Sıradaki olası işler:**
 - Tabağındaki Bilim #2 "Acı biber ağzını neden gerçekten yakar?" (aşama kareleri promptu hazır: `tabagindaki-bilim/animasyon-promptlari.txt` E2)
@@ -316,6 +319,13 @@ Keep the bottom-right corner empty. No other text, no watermark.
 - **Kısa tanıtım** (açıklamaların sonunda kullanılır): "YUP (Yükselen Ufuklar Platformu): merak edenler için bir akademi. Bilişimden psikolojiye, matematikten kişisel gelişime; karmaşık konular sade, adım adım ve animasyonlarla." Kısa hâli: "YUP Akademi · merak edenler için."
 - **Kapak köşe etiketi:** sol altta küçük, yuvarlak köşeli koyu etiket (seri adı ya da "N. BÖLÜM"). Sağ alt köşe boş kalır, çünkü süre etiketi oraya gelir.
 - **Ortak renkler:** altın sarısı #FFB547, krem #F3EDE1, koyu lacivert #1B2440 (Bilişim'de daha koyu: #0f1730). Uykunun Bilimi'nde sarı biraz daha parlaktır: #FFC24D.
+- **Yeni marka kimliği (Ekim 2026, kullanıcının referans görseli `video/yup-marka/marka-referansi.webp`):**
+  - **Logo:** teal yuvarlak kare içinde beyaz çizgi sembol (açık kitap, filiz ve Y harfi). Dosya `video/yup-marka/logo.jpg`. Saydam beyaz sembol ve gömülü yazı tipleri `video/yup-marka/marka.js` içinde; `python3 video/yup-marka/build.py <fontsource-node_modules>` ile üretilir.
+  - **Palet:** teal #0F766E (ana), yeşil #2E7D5B, açık camgöbeği #6EC1C9, kehribar #F59E0B, lacivert #1E3A8A. Zemin krem #F7F3EA, yazı koyu teal #123B3A.
+  - **Yazı:** "YUP" Nunito 900 teal, "Akademi" Nunito 600. Başlıklar Nunito 800–900, el yazısı vurgular Caveat 700.
+  - **Slogan:** "Küçük bir merak, büyük bir keşif." (el yazısı). Alt satır: "Merak et • Keşfet • Öğren".
+  - **Biçim dili:** krem zemin, köşelerde organik teal ve kehribar lekeler, ince kehribar kavisler, yuvarlak köşeli kartlar, yumuşak gölge, düz vektör ve yuvarlak çizgi simgeler.
+  - **Kural:** Yeni videolar (özellikle Shorts) sonunda kısaca logoyu gösterir ve abone olmaya davet eder: simge zıplar, sembol sapından büyür, "ABONE OL" düğmesine el basar, düğme "ABONE OLUNDU" olur. Örnek: `video/kisa-kis-saati/film.js` (`appIcon`, `DRAW['k-cta']`).
 - **Kanal sahibi ve ses:** Selim Savaş. Seslendirme Selim'in sesinden ElevenLabs IVC klonuyla yapılır (ayarlar dosya adında: sp100, s50, sb75, v4). YouTube'da "Değiştirilmiş/yapay içerik" = EVET.
 
 ### Seri 1 · Bilişim Teknolojileri Yetkinliği
@@ -339,6 +349,8 @@ Keep the bottom-right corner empty. No other text, no watermark.
 | ch04 Veri, Bilgi, Anlam | `ch04-veri-bilgi-anlam/` | 13:20 | `seslendirme/Bölüm1.4` | Video hazır, paketi yok |
 
 Shorts (1080×1920): `kisa-mesaj`, `kisa-kopru` ve `kisa-ekran` (Önsöz'den), `kisa-esik`, `kisa-lamba` ve `kisa-turkce` (Var ve Yok'tan) var. `kisa-durak` ile `kisa-harf` kayıt bekliyor. Kayıt metinleri `kisa/*-tek-dosya.txt`, YouTube bilgileri `kisa/youtube.txt` dosyasında. Kısa videolar uzun bölümün filmini dikey kadraja yakınlaşarak yeniden çizer (`kisa/kisa.js`).
+
+**Markalı ilk short:** `kisa-kis-saati/` (Uykunun Bilimi kısa: "Saatler geri alınmıyor: vücudun buna ne diyor?"). Yeni marka diliyle, dikey, sonda logo ve abone çağrısı var. Kayıt bekliyor (`seslendirme-pause.txt`, kayıt klasörü `seslendirme/KisSaati`). Yeni markalı short'lar bu klasör kopyalanarak yapılır.
 
 **Yeni Shorts serileri (2026-10-23, fikir aşaması):** `video/kisa/shorts-serileri.md` dosyasında 10 seri var. Her birinin kalıbı, görseli, ilk üç konusu ve uzun seriye köprüsü yazılı. Seriler: Efsane mi Gerçek mi?, Gözünü Kandırayım, Bir Sayı Bir Şok, Cebindeki Bilim, Ustanın Bilmecesi, Kelimenin Yolculuğu, Kazara Bulundu, Gece Bir Buçuk, Tek Lokma Bilim, Vücudun Gizli Ayarları. Önerilen başlangıç üçlüsü: Gözünü Kandırayım, Efsane mi Gerçek mi?, Ustanın Bilmecesi. Kullanıcı henüz seçmedi.
 

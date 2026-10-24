@@ -1,0 +1,11 @@
+YUP Akademi · Uykunun Bilimi kısa video · Saatler geri alınmıyor: vücudun buna ne diyor? · seslendirme metni (8 satır, 101 kelime)
+(Sakin, sıcak, merak uyandıran bir anlatıcı; ilk cümle canlı ve net. Köşeli parantezdeki kimlikler okunmaz.)
+
+  [k-hook]  Bu pazar Avrupa'da saatler bir saat geri alınıyor. Türkiye'de ise alınmıyor.
+  [k-ask]  Peki vücudun buna ne diyor?
+  [k-clock]  Beyninde küçük bir iç saat var. Onu her sabah, gözüne giren gün ışığı kuruyor.
+  [k-late]  Türkiye iki bin on altıdan beri yıl boyu yaz saatinde. Bu yüzden İstanbul'da aralıkta güneş, sekiz buçuğa doğru doğuyor.
+  [k-dark]  Okula ve işe karanlıkta gidiyoruz. İç saat ışığı geç alınca, gece uyku da geç geliyor.
+  [k-science]  Bu yüzden uyku bilimcilerinin çoğu, kalıcı yaz saatini değil, kalıcı kış saatini öneriyor.
+  [k-tip]  Saati sen değiştiremezsin, ama ışığını değiştirebilirsin. Sabah ilk yarım saatte gün ışığına çık; akşam ışıkları kıs.
+  [k-cta]  Uykunun bilimini merak ediyorsan, YUP Akademi'ye abone ol.
