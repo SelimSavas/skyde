@@ -19,7 +19,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | Öğretici kısa video: A harfi aslında bir sayı (Birinci Kapı'dan) | ~0:30 (Birinci Kapı için, kayıt bekleniyor) | `kisa-harf/` |
 | YUP Akademi — Gecenin Mavi Işığı: telefon ışığı iç saati nasıl kandırıyor ve bu akşam ne yapmalı? (kaynaklı, günlük hayat sahneleri, YouTube paketi `youtube/`) | 10:39 (insan sesiyle) | `yup-mavi-isik/` |
 | Tabağındaki Bilim #1 — Soğan Neden Ağlatır? (kaynaklı; karakter ve mutfak Gemini görselleri, `araclar/` ile `assets.js`'e gömülür; dizi rehberi `tabagindaki-bilim/`) | 8:40 (insan sesiyle; YouTube altyazısı `youtube/altyazi-tr.srt`) | `sogan-neden-aglatir/` |
-| YUP Akademi kısa (Uykunun Bilimi, yeni marka dili; logo ve yazı tipleri `yup-marka/`) — Saatler geri alınmıyor: vücudun buna ne diyor? | ~0:55 (kayıt bekleniyor, `seslendirme-pause.txt`) | `kisa-kis-saati/` |
+| YUP Akademi kısa (Uykunun Bilimi, yeni marka dili; logo ve yazı tipleri `yup-marka/`) — Saatler geri alınmıyor: vücudun buna ne diyor? | 0:58 (insan sesiyle, `seslendirme/KisSaati`; YouTube bilgisi `youtube.txt`) | `kisa-kis-saati/` |
 
 ## İzlemek
 

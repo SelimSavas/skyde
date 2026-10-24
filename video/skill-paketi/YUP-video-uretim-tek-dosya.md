@@ -131,7 +131,7 @@ Görsel varlıklar (Gemini JPEG → macenta ya da beyaz zemin temizliği → `as
 
 Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve kapak promptunu ver.
 
-**Kayıt bekleyen:** `kisa-kis-saati` (yeni marka dilindeki ilk short, yaklaşık 55 sn). Kayıt gelince §5'i uygula. Kayıt klasörü `KisSaati`. Film, satır sürelerini kayıttan alır, bu yüzden narrate iki kez çalıştırılır. Dikey render'ın YouTube sürümü için 420k yerine 1.2M kullan.
+**Biten short:** `kisa-kis-saati` (0:58, yeni marka dili, kayıt `seslendirme/KisSaati`; paket `kisa-kis-saati/youtube.txt`). Dikey short'un dub çıktısı (yaklaşık 650 kbps, 6 MB) doğrudan yüklenebilir, yeniden kodlamaya gerek yok.
 
 **Sıradaki olası işler:**
 - Tabağındaki Bilim #2 "Acı biber ağzını neden gerçekten yakar?" (aşama kareleri promptu hazır: `tabagindaki-bilim/animasyon-promptlari.txt` E2)
@@ -350,7 +350,7 @@ Keep the bottom-right corner empty. No other text, no watermark.
 
 Shorts (1080×1920): `kisa-mesaj`, `kisa-kopru` ve `kisa-ekran` (Önsöz'den), `kisa-esik`, `kisa-lamba` ve `kisa-turkce` (Var ve Yok'tan) var. `kisa-durak` ile `kisa-harf` kayıt bekliyor. Kayıt metinleri `kisa/*-tek-dosya.txt`, YouTube bilgileri `kisa/youtube.txt` dosyasında. Kısa videolar uzun bölümün filmini dikey kadraja yakınlaşarak yeniden çizer (`kisa/kisa.js`).
 
-**Markalı ilk short:** `kisa-kis-saati/` (Uykunun Bilimi kısa: "Saatler geri alınmıyor: vücudun buna ne diyor?"). Yeni marka diliyle, dikey, sonda logo ve abone çağrısı var. Kayıt bekliyor (`seslendirme-pause.txt`, kayıt klasörü `seslendirme/KisSaati`). Yeni markalı short'lar bu klasör kopyalanarak yapılır.
+**Markalı ilk short:** `kisa-kis-saati/` (Uykunun Bilimi kısa: "Saatler geri alınmıyor: vücudun buna ne diyor?"). Yeni marka diliyle, dikey, sonda logo ve abone çağrısı var. 0:58, insan sesiyle bitti (kayıt `seslendirme/KisSaati`, paket `youtube.txt`, 25 Ekim'den önce yayınlanmalı). Yeni markalı short'lar bu klasör kopyalanarak yapılır.
 
 **Yeni Shorts serileri (2026-10-23, fikir aşaması):** `video/kisa/shorts-serileri.md` dosyasında 10 seri var. Her birinin kalıbı, görseli, ilk üç konusu ve uzun seriye köprüsü yazılı. Seriler: Efsane mi Gerçek mi?, Gözünü Kandırayım, Bir Sayı Bir Şok, Cebindeki Bilim, Ustanın Bilmecesi, Kelimenin Yolculuğu, Kazara Bulundu, Gece Bir Buçuk, Tek Lokma Bilim, Vücudun Gizli Ayarları. Önerilen başlangıç üçlüsü: Gözünü Kandırayım, Efsane mi Gerçek mi?, Ustanın Bilmecesi. Kullanıcı henüz seçmedi.
 

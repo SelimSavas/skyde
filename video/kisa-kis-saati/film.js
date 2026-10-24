@@ -47,9 +47,10 @@
   // ---------------------------------------------------------------------------
   // Logo ve yazı tipleri hazır olmadan oynatıcı başlamaz
   // ---------------------------------------------------------------------------
-  const L = window.YUP_LOGO;
+  // Araçlar (altyazı, bölüm zamanları) marka.js olmadan da yükleyebilsin
+  const L = window.YUP_LOGO ?? { src: '', w: 1, h: 1, box: [0, 0, 2000] };
   const LOGO = new Image();
-  LOGO.src = L.src;
+  if (L.src) LOGO.src = L.src;
   window.FILM_READY = Promise.all([LOGO.decode().catch(() => {}), window.YUP_FONTS_READY ?? Promise.resolve()]);
 
   // ---------------------------------------------------------------------------
@@ -65,7 +66,7 @@
     return ph.reduce((n, p, k) => n + p.length / CPS + (k < ph.length - 1 ? E.PAUSES[p.slice(-1)] ?? 0.3 : 0), 0);
   };
   // satırdan sonra görüntünün kalacağı süre ve satırın sahne başından gecikmesi
-  const EXTRA = { 'k-hook': 0.9, 'k-ask': 0.6, 'k-clock': 1.3, 'k-late': 2.0, 'k-dark': 1.2, 'k-science': 1.3, 'k-tip': 1.0, 'k-cta': 3.4 };
+  const EXTRA = { 'k-hook': 0.7, 'k-ask': 0.5, 'k-clock': 1.0, 'k-late': 1.6, 'k-dark': 1.0, 'k-science': 1.1, 'k-tip': 0.8, 'k-cta': 3.1 };
   const LEAD = { 'k-hook': 0.45, 'k-ask': 0.3, 'k-clock': 0.3, 'k-late': 0.45, 'k-dark': 0.3, 'k-science': 0.45, 'k-tip': 0.45, 'k-cta': 0.55 };
   const TITLES = {
     'k-hook': 'Avrupa saatleri geri alıyor',

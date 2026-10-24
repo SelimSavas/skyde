@@ -131,7 +131,7 @@ Görsel varlıklar (Gemini JPEG → macenta ya da beyaz zemin temizliği → `as
 
 Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve kapak promptunu ver.
 
-**Kayıt bekleyen:** `kisa-kis-saati` (yeni marka dilindeki ilk short, yaklaşık 55 sn). Kayıt gelince §5'i uygula. Kayıt klasörü `KisSaati`. Film, satır sürelerini kayıttan alır, bu yüzden narrate iki kez çalıştırılır. Dikey render'ın YouTube sürümü için 420k yerine 1.2M kullan.
+**Biten short:** `kisa-kis-saati` (0:58, yeni marka dili, kayıt `seslendirme/KisSaati`; paket `kisa-kis-saati/youtube.txt`). Dikey short'un dub çıktısı (yaklaşık 650 kbps, 6 MB) doğrudan yüklenebilir, yeniden kodlamaya gerek yok.
 
 **Sıradaki olası işler:**
 - Tabağındaki Bilim #2 "Acı biber ağzını neden gerçekten yakar?" (aşama kareleri promptu hazır: `tabagindaki-bilim/animasyon-promptlari.txt` E2)
