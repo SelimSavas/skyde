@@ -1,0 +1,86 @@
+ANNEKOLAY · SHORT #01
+"Yenidoğanla ilk hafta: Kimsenin söylemediği 5 normal şey"
+Seslendirme metni (ElevenLabs) · Tahmini süre: 55-62 sn
+=====================================================================
+
+NASIL ÜRETİLECEK
+- Her bölümü AYRI ayrı üretin ve dosyayı başlıktaki isimle kaydedin
+  (01.mp3, 02.mp3 ... 08.mp3). Videoyu her dosyanın gerçek süresine
+  göre kurgulayacağım, böylece yazılar ve altyazılar sese tam oturur.
+- Köşeli parantezli başlıkları ve bu açıklamaları OKUTMAYIN; sadece
+  tırnak dışındaki düz metni kopyalayın.
+- Sayılar bilerek yazıyla yazıldı ("otuz sekiz", "yüzde onuna"),
+  "AnneKolay" da doğru okunsun diye "Anne Kolay" diye ayrı yazıldı.
+  Lütfen değiştirmeyin.
+
+ÖNERİLEN AYARLAR
+- Model: Eleven Multilingual v2 (bölümler arasında en tutarlı ses)
+  Eleven v3 kullanırsanız her bölümün başına [warm] ekleyebilirsiniz.
+- Ses: sıcak, sakin, 28-38 yaş arası kadın sesi (Türkçe)
+- Stability: %50 · Similarity: %75 · Style: %0-15 · Speaker boost: açık
+- Speed: 1.0 (gerekirse 1.05)
+- Çıktı: MP3 44.1 kHz 128 kbps veya üstü (WAV varsa daha iyi)
+- 8 bölümün hepsini AYNI ses ve AYNI ayarlarla üretin.
+- Ton: bir arkadaşa sakin sakin anlatır gibi. Telaşlı ya da
+  "reklam" tonu olmasın. Bir bölüm kötü çıkarsa sadece onu yeniden
+  üretin.
+
+=====================================================================
+
+[01.mp3] GİRİŞ (merak uyandıran açılış, sakin ama kendinden emin)
+
+Yenidoğan bebeğiniz bunları yapıyorsa, derin bir nefes alın. Hepsi tamamen normal.
+
+---------------------------------------------------------------------
+
+[02.mp3] 1 · HAPŞIRMA
+
+Bir: Sık sık hapşırıyor. Bu, hasta olduğu anlamına gelmiyor; bebekler burunlarını hapşırarak temizler.
+
+---------------------------------------------------------------------
+
+[03.mp3] 2 · HIÇKIRIK (son cümle hafif gülümseyerek)
+
+İki: Sık sık hıçkırıyor. Özellikle beslendikten sonra çok yaygındır ve kendiliğinden geçer. Alnına ıslak iplik yapıştırmanıza gerek yok.
+
+---------------------------------------------------------------------
+
+[04.mp3] 3 · UYKUDA SESLER (biraz daha yumuşak ve yavaş)
+
+Üç: Uykusunda hırıldıyor, inliyor, nefesi bazen düzensiz. Burun yolları çok dar ve uyku düzeni daha yeni oturuyor.
+
+---------------------------------------------------------------------
+
+[05.mp3] 4 · KİLO KAYBI
+
+Dört: İlk günlerde kilo veriyor. Doğum kilosunun yüzde onuna kadarını kaybetmesi normaldir; çoğu bebek bunu iki hafta içinde geri kazanır.
+
+---------------------------------------------------------------------
+
+[06.mp3] 5 · GÖBEK KORDONU
+
+Beş: Göbek kordonu kararıp kuruyor. Bir ile üç hafta arasında kendiliğinden düşer; siz sadece kuru ve temiz tutun.
+
+---------------------------------------------------------------------
+
+[07.mp3] NE ZAMAN DOKTOR? (ciddi ama korkutmadan, son cümle şefkatle)
+
+Ama otuz sekiz derece ve üzeri ateş, beslenmeyi reddetme, dudaklarda morarma ya da nefes almakta zorlanma varsa, beklemeden doktorunuzu arayın. İçinizden bir ses, bir şeyler yolunda değil diyorsa, o sese güvenin.
+
+---------------------------------------------------------------------
+
+[08.mp3] KAPANIŞ / CTA (sıcak, gülümseyerek)
+
+Bu videoyu hamile bir arkadaşınıza gönderin; o ilk hafta size teşekkür edecek. Anne Kolay. Anneye kolaylık, bebeğe konfor.
+
+=====================================================================
+
+TEK DOSYA TERCİH EDERSENİZ
+Tüm metni tek seferde de üretebilirsiniz. Bölümler arasına boş satır
+koyun; sessizliklerden bölüp senkronlarım. Yine de ayrı dosyalar daha
+kesin sonuç verir.
+
+İÇERİK DOĞRULUĞU (yayın öncesi)
+Bilgiler genel kabul görmüş yenidoğan rehberleriyle (AAP / Sağlık
+Bakanlığı) uyumlu yazıldı. Yine de yayından önce bir çocuk doktoruna
+ya da ebeye okutmanızı öneririm; "uzman onaylı" etiketi güveni artırır.

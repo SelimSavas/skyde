@@ -1,0 +1,53 @@
+{
+  "title": "Yenidoğanla ilk hafta: Kimsenin söylemediği 5 normal şey",
+  "segments": [
+    {
+      "id": "01",
+      "scene": "hook",
+      "tts": "Yenidoğan bebeğiniz bunları yapıyorsa, derin bir nefes alın. Hepsi tamamen normal.",
+      "caption": "Yenidoğan bebeğiniz bunları yapıyorsa, derin bir nefes alın. Hepsi tamamen normal."
+    },
+    {
+      "id": "02",
+      "scene": "sneeze",
+      "tts": "Bir: Sık sık hapşırıyor. Bu, hasta olduğu anlamına gelmiyor; bebekler burunlarını hapşırarak temizler.",
+      "caption": "1: Sık sık hapşırıyor. Bu, hasta olduğu anlamına gelmiyor; bebekler burunlarını hapşırarak temizler."
+    },
+    {
+      "id": "03",
+      "scene": "hiccup",
+      "tts": "İki: Sık sık hıçkırıyor. Özellikle beslendikten sonra çok yaygındır ve kendiliğinden geçer. Alnına ıslak iplik yapıştırmanıza gerek yok.",
+      "caption": "2: Sık sık hıçkırıyor. Özellikle beslendikten sonra çok yaygındır ve kendiliğinden geçer. Alnına ıslak iplik yapıştırmanıza gerek yok."
+    },
+    {
+      "id": "04",
+      "scene": "sleep",
+      "tts": "Üç: Uykusunda hırıldıyor, inliyor, nefesi bazen düzensiz. Burun yolları çok dar ve uyku düzeni daha yeni oturuyor.",
+      "caption": "3: Uykusunda hırıldıyor, inliyor, nefesi bazen düzensiz. Burun yolları çok dar ve uyku düzeni daha yeni oturuyor."
+    },
+    {
+      "id": "05",
+      "scene": "weight",
+      "tts": "Dört: İlk günlerde kilo veriyor. Doğum kilosunun yüzde onuna kadarını kaybetmesi normaldir; çoğu bebek bunu iki hafta içinde geri kazanır.",
+      "caption": "4: İlk günlerde kilo veriyor. Doğum kilosunun %10'una kadarını kaybetmesi normaldir; çoğu bebek bunu iki hafta içinde geri kazanır."
+    },
+    {
+      "id": "06",
+      "scene": "cord",
+      "tts": "Beş: Göbek kordonu kararıp kuruyor. Bir ile üç hafta arasında kendiliğinden düşer; siz sadece kuru ve temiz tutun.",
+      "caption": "5: Göbek kordonu kararıp kuruyor. 1 ile 3 hafta arasında kendiliğinden düşer; siz sadece kuru ve temiz tutun."
+    },
+    {
+      "id": "07",
+      "scene": "safety",
+      "tts": "Ama otuz sekiz derece ve üzeri ateş, beslenmeyi reddetme, dudaklarda morarma ya da nefes almakta zorlanma varsa, beklemeden doktorunuzu arayın. İçinizden bir ses, bir şeyler yolunda değil diyorsa, o sese güvenin.",
+      "caption": "Ama 38 derece ve üzeri ateş, beslenmeyi reddetme, dudaklarda morarma ya da nefes almakta zorlanma varsa, beklemeden doktorunuzu arayın. İçinizden bir ses \"bir şeyler yolunda değil\" diyorsa, o sese güvenin."
+    },
+    {
+      "id": "08",
+      "scene": "outro",
+      "tts": "Bu videoyu hamile bir arkadaşınıza gönderin; o ilk hafta size teşekkür edecek. Anne Kolay. Anneye kolaylık, bebeğe konfor.",
+      "caption": "Bu videoyu hamile bir arkadaşınıza gönderin; o ilk hafta size teşekkür edecek. AnneKolay. Anneye kolaylık, bebeğe konfor."
+    }
+  ]
+}
