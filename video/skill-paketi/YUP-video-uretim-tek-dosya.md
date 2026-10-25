@@ -333,7 +333,7 @@ Keep the bottom-right corner empty. No other text, no watermark.
   - **Slogan:** "Küçük bir merak, büyük bir keşif." (el yazısı). Alt satır: "Merak et • Keşfet • Öğren".
   - **Biçim dili:** krem zemin, köşelerde organik teal ve kehribar lekeler, ince kehribar kavisler, yuvarlak köşeli kartlar, yumuşak gölge, düz vektör ve yuvarlak çizgi simgeler.
   - **Kural:** Yeni videolar (özellikle Shorts) sonunda kısaca logoyu gösterir ve abone olmaya davet eder: simge zıplar, sembol sapından büyür, "ABONE OL" düğmesine el basar, düğme "ABONE OLUNDU" olur. Örnek: `video/kisa-kis-saati/film.js` (`appIcon`, `DRAW['k-cta']`).
-- **YouTube kanal anahtar kelimeleri:** `video/youtube-kanal-ayarlari.txt` (Studio > Ayarlar > Kanal > Temel bilgiler; 500 karakter, çok sözcüklüler tırnak içinde). Yeni seri açılınca güncellenir.
+- **YouTube kanal anahtar kelimeleri:** `video/youtube-kanal-ayarlari.txt` (Studio > Ayarlar > Kanal > Temel bilgiler; virgülle ayrılır, 500 karakter). Yeni seri açılınca güncellenir.
 - **Instagram (Ekim 2026'da açılıyor):** profil metni, kullanıcı adı ve ad önerileri `video/instagram/profil.txt` dosyasında. Profil fotoğrafı `video/yup-marka/instagram-profil.png`. Shorts dikey videoları Reels olarak da paylaşılabilir (aynı mp4).
 - **Kanal sahibi ve ses:** Selim Savaş. Seslendirme Selim'in sesinden ElevenLabs IVC klonuyla yapılır (ayarlar dosya adında: sp100, s50, sb75, v4). YouTube'da "Değiştirilmiş/yapay içerik" = EVET.
 
