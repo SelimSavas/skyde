@@ -335,6 +335,12 @@ Keep the bottom-right corner empty. No other text, no watermark.
   - **Kural:** Yeni videolar (özellikle Shorts) sonunda kısaca logoyu gösterir ve abone olmaya davet eder: simge zıplar, sembol sapından büyür, "ABONE OL" düğmesine el basar, düğme "ABONE OLUNDU" olur. Örnek: `video/kisa-kis-saati/film.js` (`appIcon`, `DRAW['k-cta']`).
 - **YouTube kanal anahtar kelimeleri:** `video/youtube-kanal-ayarlari.txt` (Studio > Ayarlar > Kanal > Temel bilgiler; virgülle ayrılır, 500 karakter). Yeni seri açılınca güncellenir.
 - **Instagram (Ekim 2026'da açılıyor):** profil metni, kullanıcı adı ve ad önerileri `video/instagram/profil.txt` dosyasında. Profil fotoğrafı `video/yup-marka/instagram-profil.png`. Shorts dikey videoları Reels olarak da paylaşılabilir (aynı mp4).
+- **Yayın takvimi (öneri, Ekim 2026):**
+  - Haftada 4 short ve 1 uzun video. Aynı gün aynı platforma birden fazla short atılmaz, yoksa birbirleriyle yarışırlar.
+  - Short'lar: Pazartesi, Çarşamba, Cuma ve Pazar 19:00 (Uykunun Bilimi short'ları 22:00).
+  - Uzun video: Cumartesi 11:00, sabit "haftalık randevu". Her uzun videodan 2–3 short çıkarılır ve "İlgili video" ile ona bağlanır.
+  - Instagram'a aynı orijinal mp4 Reels olarak yüklenir. YouTube'dan indirilmiş dosya kullanılmaz. Instagram açıklamasında #shorts olmaz, 3–5 hashtag kullanılır.
+  - 3–4 hafta sonra saatler YouTube Studio'daki "izleyicileriniz ne zaman YouTube'da" raporuna ve Instagram istatistiklerine göre ayarlanır.
 - **Kanal sahibi ve ses:** Selim Savaş. Seslendirme Selim'in sesinden ElevenLabs IVC klonuyla yapılır (ayarlar dosya adında: sp100, s50, sb75, v4). YouTube'da "Değiştirilmiş/yapay içerik" = EVET.
 
 ### Seri 1 · Bilişim Teknolojileri Yetkinliği
