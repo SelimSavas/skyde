@@ -1,0 +1,14 @@
+{
+ "_note": "audio/tam.mp3 (ElevenLabs tek dosya) için sessizlik analizinden çıkarılan cümle parçaları. Süreler saniye, dosya içi mutlak zaman.",
+ "file": "audio/tam.mp3",
+ "segments": {
+  "01": [["Yenidoğan bebeğiniz bunları yapıyorsa, derin bir nefes alın.", 0.0, 3.613], ["Hepsi tamamen normal.", 4.037, 5.663]],
+  "02": [["1:", 6.555, 6.869], ["Sık sık hapşırıyor.", 7.243, 8.408], ["Bu, hasta olduğu anlamına gelmiyor;", 8.902, 10.926], ["bebekler burunlarını hapşırarak temizler.", 11.295, 13.589]],
+  "03": [["2:", 14.312, 14.640], ["Sık sık hıçkırıyor.", 15.007, 16.186], ["Özellikle beslendikten sonra çok yaygındır ve kendiliğinden geçer.", 16.657, 20.456], ["Alnına ıslak iplik yapıştırmanıza gerek yok.", 20.959, 23.387]],
+  "04": [["3:", 24.147, 24.460], ["Uykusunda hırıldıyor, inliyor, nefesi bazen düzensiz.", 24.872, 28.812], ["Burun yolları çok dar ve uyku düzeni daha yeni oturuyor.", 29.319, 32.668]],
+  "05": [["4:", 33.295, 33.682], ["İlk günlerde kilo veriyor.", 34.094, 35.539], ["Doğum kilosunun %10'una kadarını kaybetmesi normaldir;", 36.036, 39.312], ["çoğu bebek bunu iki hafta içinde geri kazanır.", 39.667, 41.587]],
+  "06": [["5:", 42.380, 42.794], ["Göbek kordonu kararıp kuruyor.", 43.203, 44.870], ["1 ile 3 hafta arasında kendiliğinden düşer;", 45.437, 48.085], ["siz sadece kuru ve temiz tutun.", 48.436, 51.533]],
+  "07": [["Ama 38 derece ve üzeri ateş, beslenmeyi reddetme,", 52.234, 56.259], ["dudaklarda morarma ya da nefes almakta zorlanma varsa, beklemeden doktorunuzu arayın.", 56.559, 61.937], ["İçinizden bir ses", 62.395, 63.424], ["\"bir şeyler yolunda değil\" diyorsa,", 63.762, 65.637], ["o sese güvenin.", 65.957, 66.796]],
+  "08": [["Bu videoyu hamile bir arkadaşınıza gönderin;", 67.563, 69.944], ["o ilk hafta size teşekkür edecek.", 70.297, 72.269], ["AnneKolay.", 72.954, 73.631], ["Anneye kolaylık, bebeğe konfor.", 74.128, 76.4]]
+ }
+}

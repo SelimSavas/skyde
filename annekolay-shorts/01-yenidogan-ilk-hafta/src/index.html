@@ -351,6 +351,20 @@ const VOW = /[aeıioöuüâîûAEIİOÖUÜÂÎÛ]/g;
 function wWeight(w) { let v = (w.match(VOW) || []).length; v += (w.match(/\d/g) || []).length * 1.8; if (w.includes("%")) v += 2; return Math.max(v, 0.8); }
 function wPause(w) { if (/[.!?]["”]?$/.test(w)) return 2.4; if (/[,;:]["”]?$/.test(w)) return 1.4; return 0; }
 function timeWords(seg) {
+  if (seg.phrases) {
+    const out = [];
+    seg.phrases.forEach(ph => {
+      const toks = ph.text.split(/\s+/).filter(Boolean);
+      let total = 0; toks.forEach((w, i) => { total += wWeight(w) + (i < toks.length - 1 ? wPause(w) * 0.5 : 0); });
+      let acc = 0;
+      toks.forEach((w, i) => {
+        const t0 = ph.s + (ph.e - ph.s) * acc / total; acc += wWeight(w); const t1 = ph.s + (ph.e - ph.s) * acc / total;
+        if (i < toks.length - 1) acc += wPause(w) * 0.5;
+        out.push({ w, t0, t1, brk: i === toks.length - 1 && !/^\d+:$/.test(w) });
+      });
+    });
+    return out;
+  }
   const toks = seg.caption.split(/\s+/).filter(Boolean);
   const a = seg.speechStart, b = seg.speechEnd;
   let total = 0; toks.forEach((w, i) => { total += wWeight(w) + (i < toks.length - 1 ? wPause(w) : 0); });
@@ -368,7 +382,7 @@ function chunkWords(words) {
     const len = cur.map(x => x.w).join(" ").length;
     if (cur.length && (cur.length >= 3 || len + o.w.length + 1 > 22)) flush();
     cur.push(o);
-    if (/[.,;!?]["”]?$/.test(o.w)) flush();
+    if (/[.,;!?]["”]?$/.test(o.w) || o.brk) flush();
   });
   flush();
   return chunks;

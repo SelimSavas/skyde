@@ -44,13 +44,43 @@ def clean(src, dst):
     run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(src), "-af", af, "-ac", "1", "-ar", "48000", str(dst)])
 
 
+def take_file(script):
+    return json.loads((ROOT / "alignment.json").read_text())["file"]
+
+
+def full_take(script):
+    """Tek dosya seslendirme + alignment.json -> bölümler, toplam süre, ses filtresi."""
+    al_path = ROOT / "alignment.json"
+    if not al_path.exists() or all(find_audio(s["id"]) for s in script["segments"]):
+        return None
+    al = json.loads(al_path.read_text())
+    src = ROOT / al["file"]
+    if not src.exists():
+        return None
+    segs = []
+    for s in script["segments"]:
+        ph = al["segments"][s["id"]]
+        a, b = ph[0][1], ph[-1][2]
+        segs.append({**s, "start": round(LEAD + a, 3), "dur": round(b - a, 3), "speechStart": 0.0,
+                     "speechEnd": round(b - a, 3), "wav": str(src),
+                     "phrases": [{"text": t, "s": round(x - a, 3), "e": round(y - a, 3)} for t, x, y in ph]})
+    total = round(LEAD + duration(src) + TAIL - 0.2, 3)
+    ms = int(LEAD * 1000)
+    vf = f"[0:a]aresample=48000,adelay={ms}|{ms},highpass=f=70,afade=t=in:d=0.02,apad=whole_dur={total}[vo]"
+    return segs, total, vf
+
+
 def main():
     stills = "--stills" in sys.argv
     script = json.loads((ROOT / "script.json").read_text())
     WORK.mkdir(parents=True, exist_ok=True)
     segs, have_audio = [], True
+    take = full_take(script)
+    if take:
+        segs, total, voice_filter = take
+        have_audio = True
     t = LEAD
-    for s in script["segments"]:
+    for s in ([] if take else script["segments"]):
         src = find_audio(s["id"])
         if src:
             wav = WORK / f"{s['id']}.wav"
@@ -62,7 +92,8 @@ def main():
         segs.append({**s, "start": round(t, 3), "dur": round(dur, 3), "speechStart": 0.0,
                      "speechEnd": round(dur, 3), "wav": str(wav) if wav else None})
         t += dur + GAP
-    total = round(t - GAP + TAIL, 3)
+    if not take:
+        total = round(t - GAP + TAIL, 3)
     tl = {"total": total, "segments": segs}
     (WORK / "timeline.json").write_text(json.dumps(tl, ensure_ascii=False, indent=1))
     print(f"Toplam süre: {total:.1f} sn ({'gerçek ses' if have_audio else 'tahmini süreler'})")
@@ -88,13 +119,16 @@ def main():
         return
 
     inputs, filt = [], []
-    for i, s in enumerate(segs):
-        inputs += ["-i", s["wav"]]
-        ms = int(s["start"] * 1000)
-        filt.append(f"[{i}:a]adelay={ms}|{ms}[a{i}]")
-    n = len(segs)
-    mix = "".join(f"[a{i}]" for i in range(n)) + f"amix=inputs={n}:normalize=0,apad=whole_dur={total}[vo]"
-    filt.append(mix)
+    if take:
+        inputs, n = ["-i", str(ROOT / take_file(script))], 1
+        filt.append(voice_filter)
+    else:
+        for i, s in enumerate(segs):
+            inputs += ["-i", s["wav"]]
+            ms = int(s["start"] * 1000)
+            filt.append(f"[{i}:a]adelay={ms}|{ms},highpass=f=70[a{i}]")
+        n = len(segs)
+        filt.append("".join(f"[a{i}]" for i in range(n)) + f"amix=inputs={n}:normalize=0,apad=whole_dur={total}[vo]")
     music = next((p for p in AUDIO.glob("muzik.*")), None)
     if music:
         inputs += ["-stream_loop", "-1", "-i", str(music)]
