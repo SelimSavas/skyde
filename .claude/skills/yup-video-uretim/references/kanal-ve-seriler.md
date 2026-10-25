@@ -13,7 +13,7 @@
   - **Biçim dili:** krem zemin, köşelerde organik teal ve kehribar lekeler, ince kehribar kavisler, yuvarlak köşeli kartlar, yumuşak gölge, düz vektör ve yuvarlak çizgi simgeler.
   - **Kural:** Yeni videolar (özellikle Shorts) sonunda kısaca logoyu gösterir ve abone olmaya davet eder: simge zıplar, sembol sapından büyür, "ABONE OL" düğmesine el basar, düğme "ABONE OLUNDU" olur. Örnek: `video/kisa-kis-saati/film.js` (`appIcon`, `DRAW['k-cta']`).
 - **YouTube kanal anahtar kelimeleri:** `video/youtube-kanal-ayarlari.txt` (Studio > Ayarlar > Kanal > Temel bilgiler; virgülle ayrılır, 500 karakter). Yeni seri açılınca güncellenir.
-- **Instagram (Ekim 2026'da açılıyor):** profil metni, kullanıcı adı ve ad önerileri `video/instagram/profil.txt` dosyasında. Profil fotoğrafı `video/yup-marka/instagram-profil.png`. Shorts dikey videoları Reels olarak da paylaşılabilir (aynı mp4).
+- **Instagram (Ekim 2026'da açılıyor):** profil metni, kullanıcı adı ve ad önerileri `video/instagram/profil.txt` dosyasında. Aynı dosyada ayarlar ve para kazanma yolları da var: Türkiye'de izlenme başına ödeme yok; Hediyeler (~500 takipçi), Abonelik (~10 bin) ve marka iş birlikleri var. Her Reels'te yapay zekâ etiketi açılır. Profil fotoğrafı `video/yup-marka/instagram-profil.png`. Shorts dikey videoları Reels olarak da paylaşılabilir (aynı mp4).
 - **Yayın takvimi (öneri, Ekim 2026):**
   - Haftada 4 short ve 1 uzun video. Aynı gün aynı platforma birden fazla short atılmaz, yoksa birbirleriyle yarışırlar.
   - Short'lar: Pazartesi, Çarşamba, Cuma ve Pazar 19:00 (Uykunun Bilimi short'ları 22:00).
