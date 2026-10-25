@@ -138,7 +138,7 @@ Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve
 
 **Biten short:** `kisa-kis-saati` (0:58, yeni marka dili, kayıt `seslendirme/KisSaati`; paket `kisa-kis-saati/youtube.txt`). Dikey short'un dub çıktısı (yaklaşık 650 kbps, 6 MB) doğrudan yüklenebilir, yeniden kodlamaya gerek yok.
 
-**Biten short'lar:** `kisa-islak-sac` (Efsane mi, Gerçek mi? #1, 0:59, kayıt `seslendirme/IslakSac`, paket `youtube.txt`). Araçlar (`altyazi.cjs`, `bolumler.cjs`, `duman.cjs`) filmi `araclar/yukle.cjs` ile bölümün `index.html` betik sırasına göre yükler, bu yüzden ortak marka modülünü de görürler.
+**Biten short'lar:** `kisa-kestane` (hızlı kalıp, 0:41, kayıt `seslendirme/Kestane`); `kisa-islak-sac` (Efsane mi, Gerçek mi? #1, 0:59, kayıt `seslendirme/IslakSac`, paket `youtube.txt`). Araçlar (`altyazi.cjs`, `bolumler.cjs`, `duman.cjs`) filmi `araclar/yukle.cjs` ile bölümün `index.html` betik sırasına göre yükler, bu yüzden ortak marka modülünü de görürler.
 
 **Sıradaki olası işler:**
 - Tabağındaki Bilim #2 "Acı biber ağzını neden gerçekten yakar?" (aşama kareleri promptu hazır: `tabagindaki-bilim/animasyon-promptlari.txt` E2)

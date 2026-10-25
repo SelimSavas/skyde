@@ -21,7 +21,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | Tabağındaki Bilim #1 — Soğan Neden Ağlatır? (kaynaklı; karakter ve mutfak Gemini görselleri, `araclar/` ile `assets.js`'e gömülür; dizi rehberi `tabagindaki-bilim/`) | 8:40 (insan sesiyle; YouTube altyazısı `youtube/altyazi-tr.srt`) | `sogan-neden-aglatir/` |
 | YUP Akademi kısa (Uykunun Bilimi, yeni marka dili; logo ve yazı tipleri `yup-marka/`) — Saatler geri alınmıyor: vücudun buna ne diyor? | 0:58 (insan sesiyle, `seslendirme/KisSaati`; YouTube bilgisi `youtube.txt`) | `kisa-kis-saati/` |
 | YUP Akademi kısa · Efsane mi, Gerçek mi? #1 — Islak saçla dışarı çıkarsan hasta olur musun? (ortak marka motoru `yup-marka/kisa.js`) | 0:59 (insan sesiyle, `seslendirme/IslakSac`; YouTube bilgisi `youtube.txt`) | `kisa-islak-sac/` |
-| YUP Akademi kısa · Tabağındaki Bilim — Kestane ateşte neden patlar? (hızlı kalıp: çarpıcı ilk kare, ~40 sn, tek çağrı sonda) | ~0:41 (kayıt bekleniyor, `seslendirme-pause.txt`) | `kisa-kestane/` |
+| YUP Akademi kısa · Tabağındaki Bilim — Kestane ateşte neden patlar? (hızlı kalıp: çarpıcı ilk kare, ~40 sn, tek çağrı sonda) | 0:41 (insan sesiyle, `seslendirme/Kestane`; YouTube bilgisi `youtube.txt`) | `kisa-kestane/` |
 
 ## İzlemek
 

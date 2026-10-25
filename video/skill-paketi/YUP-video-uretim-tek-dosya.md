@@ -138,7 +138,7 @@ Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve
 
 **Biten short:** `kisa-kis-saati` (0:58, yeni marka dili, kayıt `seslendirme/KisSaati`; paket `kisa-kis-saati/youtube.txt`). Dikey short'un dub çıktısı (yaklaşık 650 kbps, 6 MB) doğrudan yüklenebilir, yeniden kodlamaya gerek yok.
 
-**Biten short'lar:** `kisa-islak-sac` (Efsane mi, Gerçek mi? #1, 0:59, kayıt `seslendirme/IslakSac`, paket `youtube.txt`). Araçlar (`altyazi.cjs`, `bolumler.cjs`, `duman.cjs`) filmi `araclar/yukle.cjs` ile bölümün `index.html` betik sırasına göre yükler, bu yüzden ortak marka modülünü de görürler.
+**Biten short'lar:** `kisa-kestane` (hızlı kalıp, 0:41, kayıt `seslendirme/Kestane`); `kisa-islak-sac` (Efsane mi, Gerçek mi? #1, 0:59, kayıt `seslendirme/IslakSac`, paket `youtube.txt`). Araçlar (`altyazi.cjs`, `bolumler.cjs`, `duman.cjs`) filmi `araclar/yukle.cjs` ile bölümün `index.html` betik sırasına göre yükler, bu yüzden ortak marka modülünü de görürler.
 
 **Sıradaki olası işler:**
 - Tabağındaki Bilim #2 "Acı biber ağzını neden gerçekten yakar?" (aşama kareleri promptu hazır: `tabagindaki-bilim/animasyon-promptlari.txt` E2)
@@ -363,7 +363,7 @@ Shorts (1080×1920): `kisa-mesaj`, `kisa-kopru` ve `kisa-ekran` (Önsöz'den), `
 
 **Efsane mi, Gerçek mi? #1:** `kisa-islak-sac/`, "Islak saçla dışarı çıkarsan hasta olur musun?" Hüküm ŞÜPHELİ. Yorum çağrısı iki yerde: başta oy ("Sence efsane mi, gerçek mi? Cevabı görmeden yorumlara yaz"), sonda "Sıradaki efsaneyi sen seç". 0:59, insan sesiyle bitti (kayıt `seslendirme/IslakSac`). Oynatma listesi "Efsane mi, Gerçek mi? | YUP Akademi".
 
-**Tabağındaki Bilim kısa · Kestane ateşte neden patlar?:** `kisa-kestane/`. Yeni hızlı kalıpla yapılan ilk short: ilk karede başlık ve ateşteki kestane, ilk cümlede patlama, yaklaşık 40 sn, tek çağrı sonda. Kayıt bekliyor (kayıt klasörü `Kestane`).
+**Tabağındaki Bilim kısa · Kestane ateşte neden patlar?:** `kisa-kestane/`. Yeni hızlı kalıpla yapılan ilk short: ilk karede başlık ve ateşteki kestane, ilk cümlede patlama, yaklaşık 40 sn, tek çağrı sonda. 0:41, insan sesiyle bitti (kayıt `seslendirme/Kestane`, konuşma 34 sn).
 
 **İzleyici verisi:** "Islak saç" short'u: izleyicilerin %35,4'ü izlemeye devam etti, %65'i ilk anlarda kaydırdı, beğeni ve yorum düşük kaldı. Dersler SKILL.md §2'deki Shorts kurallarında.
 

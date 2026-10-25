@@ -683,7 +683,7 @@
     gap: 0.15,
     breath: 0.25,
     wipe: 0.4,
-    extra: { 'c-hook': 0.45, 'c-water': 0.9, 'c-press': 0.55, 'c-cross': 0.4, 'c-starch': 1.2, 'c-cta': 2.3 },
+    extra: { 'c-hook': 0.35, 'c-water': 0.6, 'c-press': 0.5, 'c-cross': 0.35, 'c-starch': 0.9, 'c-cta': 1.9 },
     lead: { 'c-hook': 0.1, 'c-water': 0.2, 'c-press': 0.2, 'c-cross': 0.2, 'c-starch': 0.2, 'c-cta': 0.3 },
     titles: {
       'c-hook': 'Buhar bombası',
