@@ -13,6 +13,7 @@
  *   def.cut      [satır, ...]   bu satırlara daire açılışla değil, kesintisiz geçilir (önceki sahne devam eder)
  *   def.chords   { satır: [nota, ...] }  sahnenin yatak akoru
  *   def.score    (m, hz, api) => {}  sahneye özgü efektler
+ *   def.gap, def.breath, def.wipe   tempo: satırlar arası en az boşluk (0,25), satır sonrası nefes (0,35), geçiş süresi (0,6)
  * Son satır her zaman kapanıştır: api.cta(ctx, t, { invite }) logo, el yazısı slogan ve "abone ol" düğmesini çizer;
  * invite verilirse üstte yorum çağrısı kartı çıkar. Kapanışın sesleri otomatik eklenir.
  * Örnek: video/kisa-islak-sac/film.js
@@ -576,7 +577,7 @@
       stretch: slow[sc.id] ? [[0, BEATS[sc.id][2], slow[sc.id]]] : [],
       holds: holds[sc.id] > 0 ? [[BEATS[sc.id][3], holds[sc.id]]] : [],
     })));
-    const VOICE = E.narration({ build, beats: BEATS, lines: SCRIPT.lines, voice: root.VOICE, breath: 0.35, gap: 0.25, cps: CPS });
+    const VOICE = E.narration({ build, beats: BEATS, lines: SCRIPT.lines, voice: root.VOICE, breath: def.breath ?? 0.35, gap: def.gap ?? 0.25, cps: CPS });
     const TL = VOICE.timeline;
     const cue = VOICE.cue;
     const end = VOICE.end;
@@ -595,7 +596,7 @@
       cta: (ctx, t, o = {}) => cta(ctx, t, o),
     };
     const cut = new Set(def.cut ?? []);
-    const WIPE = 0.6;
+    const WIPE = def.wipe ?? 0.6;
 
     // Daire açılışlı geçiş: önceki sahne altta, yeni sahne büyüyen dairenin içinde
     function drawScene(id, ctx, t) {

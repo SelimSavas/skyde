@@ -25,6 +25,11 @@ Bunların her biri kullanıcının açıkça söylediği ya da düzelttiği şey
 - **"Tam ver" dendiğinde** şunların hepsi kopyala-yapıştır hazır verilir: başlık ve alternatifler, eksiksiz açıklama (bölüm zamanları dahil), etiketler, yükleme ayarları, bitiş ekranı, kartlar ve sabitlenmiş yorum.
 - **"Sadece X ver" dendiğinde yalnızca X verilir.** Kullanıcı kapak için HTML maket hazırlanırken sözü kesti ve "bana sadece gemini için prompt ver" dedi.
 - **Yeni marka dili:** logo, palet (#0F766E #2E7D5B #6EC1C9 #F59E0B #1E3A8A) ve yazı tipleri (Nunito, Caveat) `video/yup-marka/` klasöründe. Her yeni video sonunda logoyu kısaca gösterir ve abone olmaya davet eder (bkz. `references/kanal-ve-seriler.md`).
+- **Shorts kuralları (izleyici verisinden, Ekim 2026).** "Islak saç" short'unda izleyicilerin yalnız %35,4'ü izlemeye devam etti, %65'i ilk anlarda kaydırdı. Beğeni ve yorum düşük kaldı. Bu yüzden:
+  1. İlk kare ve ilk cümle doğrudan çarpıcı bir bilgi ya da görüntüdür ("Ateşteki kestane, küçük bir buhar bombasıdır."). "Bunu kaç kez duydun?" ya da "Sence?" gibi sorularla açılmaz. Başlık ve ana görsel ilk karede hazırdır (solarak gelmez).
+  2. 30–40 sn, yaklaşık 70–80 kelime. Satır arası boşluk az tutulur: `YupKisa.short({ gap: 0.15, breath: 0.25, wipe: 0.4 })`, `extra` değerleri 0,4–1,2 sn.
+  3. Tek çağrı, yalnızca sonda: "Hangi … merak ediyorsun? Yorumlara yaz, sıradaki video o olsun." Ortada oy ya da yorum çağrısı olmaz. Abone daveti görseldir (logo ve "abone ol" düğmesi).
+  Örnek: `video/kisa-kestane/`.
 - **Gemini promptları İngilizce yazılır.** Görselde yer alacak Türkçe yazı tırnak içinde, birebir yazımıyla verilir. Prompta harf düzeltme talimatı ve yazısız yedek yol eklenir.
 - **Yeni dosyalar commit edilip push edilir.** Oturum sonunda takip edilmeyen dosya kalırsa uyarı geliyor.
 
