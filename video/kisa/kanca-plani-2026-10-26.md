@@ -88,3 +88,19 @@ Beş konu da bu haftanın gündeminden. Her birinde ilk kare, ekrandaki yazı ve
 - Tüyler ve kıl kök hücreleri: https://www.hsci.harvard.edu/goosebumps-hair-follicle-stem-cells · https://www.sciencenews.org/article/goose-bumps-could-boost-hair-growth
 - Altın: https://www.gold.org/about-gold/gold-supply/gold-mining/how-much-gold-has-been-mined
 - Balık yağı: https://sciencedaily.com/releases/2026/06/260622014300.htm · https://www.newswise.com/articles/fish-oil-supplements-may-not-prevent-alzheimer-s-related-decline
+
+## 10 yedek konu (hızlı liste)
+Dağılım: 6 genel, 4 bilişim ve teknoloji (strateji: %60 geniş kitle, %40 bilişim). Rakamlar metin yazılırken kaynakla yeniden doğrulanır.
+
+| # | Konu | Seri | Ekran yazısı | Kanca | Neden şimdi |
+|---|---|---|---|---|---|
+| 1 | Yapraklar neden sararır? | Kanal geneli | SARI ZATEN ORADAYDI | "Sonbaharın sarısı yeni gelmiyor; bütün yaz yaprağın içindeydi." | Sonbahar; sarı karotenoitler yaz boyu klorofilin altında saklı |
+| 2 | Kapı kolunda çarpılmak | Vücudun Gizli Ayarları | BİNLERCE VOLT | "Kapı kolunda yediğin o küçük çarpma, binlerce volt." | Kaloriferler açıldı, hava kuru; çarpmayı ancak birkaç bin voltun üstünde hissederiz |
+| 3 | Ekmek buzdolabında | Tabağındaki Bilim | BUZDOLABI = BAYAT | "Ekmeği buzdolabına koyarsan, daha hızlı bayatlar." | Nişasta buzdolabı sıcaklığında en hızlı sertleşir; dondurucu durdurur |
+| 4 | Sis | Kanal geneli | YERE İNEN BULUT | "Sabah içinden yürüdüğün sis, aslında yere inmiş bir bulut." | Kasım sisleri ve uçuş iptalleri |
+| 5 | Uykuya dalarken sıçramak | Uykunun Bilimi | YANLIŞ ALARM | "Uykuya dalarken düşüyormuş gibi sıçraman, beyninin yanlış alarmı." | Uzayan geceler; insanların yaklaşık %60–70'i yaşar |
+| 6 | Esneme bulaşır | Gözünü Kandırayım | ŞİMDİ ESNEYECEKSİN | "Bu videoyu izleyenlerin yaklaşık yarısı esneyecek." | Her zaman; izleyiciyi o an deneyin içine alır, yorum çeker |
+| 7 | Telefonu %100 şarj etmek | Cebindeki Bilim | %100 = ERKEN YAŞLANMA | "Telefonunu her gece %100 şarj etmek, bataryasını erken yaşlandırıyor." | Telefonlarda %80 sınırı ayarı yaygınlaştı |
+| 8 | Wi-Fi ve mikrodalga | Cebindeki Bilim | AYNI FREKANS | "Evindeki Wi-Fi, mikrodalga fırınla aynı frekansta çalışıyor." | İkisi de 2,4 GHz civarı; fark güçte (≈0,1 W'a karşı ≈1000 W) |
+| 9 | Ekrandaki renkler | Bilişim | 24 SIFIR VE BİR | "Ekranındaki her renk, 24 tane sıfır ve birden yapılmış." | Bilişim kursuna köprü; 16,7 milyon renk |
+| 10 | Yapay zekâ nasıl konuşur? | Bilişim | SADECE TAHMİN | "Yapay zekâ ne dediğini bilmiyor; sıradaki kelimeyi tahmin ediyor." | Yeni modeller gündemde; kursa köprü |
