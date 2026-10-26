@@ -334,6 +334,35 @@
       this.route(e2, { gain, wet: 0.25 });
     }
 
+    // Stadyum uğultusu: bant geçiren pembe gürültü, yavaş dalgalanma. swells: [[t, kat, süre], ...] (gol coşkusu)
+    crowd(t, dur, { gain = 0.2, swells = [] } = {}) {
+      const n = this.noise('pink', t, dur);
+      const e = this.hold(t, dur, 0.5, 0.8);
+      const lfo = this.osc('sine', 0.23, t, dur);
+      const depth = this.ctx.createGain();
+      depth.gain.value = 0.16;
+      lfo.connect(depth).connect(e.gain);
+      n.connect(this.filter('bandpass', 750, 0.45)).connect(this.filter('lowpass', 2800)).connect(e);
+      const g = this.route(e, { gain, wet: 0.35 });
+      for (const [at, k, len] of swells) {
+        g.gain.setValueAtTime(gain, at);
+        g.gain.linearRampToValueAtTime(gain * k, at + 0.3);
+        g.gain.linearRampToValueAtTime(gain, at + len);
+      }
+    }
+
+    // Hakem düdüğü: titreşimli yüksek ton
+    whistle(t, { dur = 0.32, gain = 0.045 } = {}) {
+      const o = this.osc('sine', 2950, t, dur);
+      const trill = this.osc('square', 30, t, dur);
+      const depth = this.ctx.createGain();
+      depth.gain.value = 140;
+      trill.connect(depth).connect(o.frequency);
+      const e = this.hold(t, dur, 0.015, 0.06);
+      o.connect(e);
+      this.route(e, { gain, wet: 0.3 });
+    }
+
     // Elektrik vınlaması (50 Hz şebeke)
     hum(t, dur, { gain = 0.12 } = {}) {
       const lp = this.filter('lowpass', 420, 1);
