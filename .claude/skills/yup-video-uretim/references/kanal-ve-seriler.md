@@ -52,6 +52,13 @@ Shorts (1080×1920): `kisa-mesaj`, `kisa-kopru` ve `kisa-ekran` (Önsöz'den), `
 
 **Efsane mi, Gerçek mi? #1:** `kisa-islak-sac/`, "Islak saçla dışarı çıkarsan hasta olur musun?" Hüküm ŞÜPHELİ. Yorum çağrısı iki yerde: başta oy ("Sence efsane mi, gerçek mi? Cevabı görmeden yorumlara yaz"), sonda "Sıradaki efsaneyi sen seç". 0:59, insan sesiyle bitti (kayıt `seslendirme/IslakSac`). Oynatma listesi "Efsane mi, Gerçek mi? | YUP Akademi".
 
+**Derbi özel kısa · Falsonun fiziği:** `kisa-falso/`. Galatasaray–Fenerbahçe derbisi (26 Ekim 2026) günü için. Kullanıcı "top ve ortam gerçekten gerçekçi olsun" dedi, bu yüzden marka kartları yerine gerçekçi kalıp kullanıldı:
+- gece stadyumu piksel piksel ışın izlemeyle çizilir (çim dokusu ve mip seviyeleri, FIFA ölçülü saha çizgileri, marka yazılı LED panolar, tribünde seyirci hücreleri, projektörler);
+- topun yolu fizikle hesaplanır (`flight()`), "dönmeseydi" yolu aynı vuruşun dönüşsüz hâlidir;
+- vuruş önce vurucunun gözünden, sonra yüksek tekrar kamerasından gösterilir (arkadan bakınca kıvrılma görünmüyordu);
+- kulüp renkleri yok, baraj marka rengi teal.
+Synth'e `crowd` (stadyum uğultusu) ve `whistle` (düdük) eklendi. Notadaki çağrılar kaydedilip sonra kurulduğu için score içinde elle düğüm bağlanamaz; yeni ses gerekiyorsa synth.js'e yöntem olarak eklenir.
+
 **Tabağındaki Bilim kısa · Kestane ateşte neden patlar?:** `kisa-kestane/`. Yeni hızlı kalıpla yapılan ilk short: ilk karede başlık ve ateşteki kestane, ilk cümlede patlama, yaklaşık 40 sn, tek çağrı sonda. 0:41, insan sesiyle bitti (kayıt `seslendirme/Kestane`, konuşma 34 sn).
 
 **İzleyici verisi:** "Islak saç" short'u: izleyicilerin %35,4'ü izlemeye devam etti, %65'i ilk anlarda kaydırdı, beğeni ve yorum düşük kaldı. Dersler SKILL.md §2'deki Shorts kurallarında.

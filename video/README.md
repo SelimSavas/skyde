@@ -22,6 +22,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | YUP Akademi kısa (Uykunun Bilimi, yeni marka dili; logo ve yazı tipleri `yup-marka/`) — Saatler geri alınmıyor: vücudun buna ne diyor? | 0:58 (insan sesiyle, `seslendirme/KisSaati`; YouTube bilgisi `youtube.txt`) | `kisa-kis-saati/` |
 | YUP Akademi kısa · Efsane mi, Gerçek mi? #1 — Islak saçla dışarı çıkarsan hasta olur musun? (ortak marka motoru `yup-marka/kisa.js`) | 0:59 (insan sesiyle, `seslendirme/IslakSac`; YouTube bilgisi `youtube.txt`) | `kisa-islak-sac/` |
 | YUP Akademi kısa · Tabağındaki Bilim — Kestane ateşte neden patlar? (hızlı kalıp: çarpıcı ilk kare, ~40 sn, tek çağrı sonda) | 0:41 (insan sesiyle, `seslendirme/Kestane`; YouTube bilgisi `youtube.txt`) | `kisa-kestane/` |
+| YUP Akademi kısa · Derbi özel — Falsonun fiziği: Top havada neden kıvrılır? (gerçekçi kalıp: piksel piksel çizilen gece stadyumu, fizikle hesaplanan top yolu, duman tüneli) | ~0:35 (kayıt bekleniyor, `seslendirme/Falso`; YouTube ve Instagram bilgisi `youtube.txt`) | `kisa-falso/` |
 
 ## İzlemek
 
