@@ -14,9 +14,9 @@ Amaç: İzleyici videoyu görünce aklına bir isim gelsin ve videoyu ona gönde
 | # | Kimin için | Seri | Ekran yazısı | Kanca | Ters köşe (bilim) | Çağrı |
 |---|---|---|---|---|---|---|
 | 1 | Ofiste hep üşüyen | Vücudun Gizli Ayarları | ÜŞÜMEKTE HAKLI | "Ofiste hep üşüyen arkadaşın haklı: Klimalar 40 yaşında, 70 kiloluk bir erkeğe göre ayarlı." | Isı standartları bu erkeğin metabolizmasına göre yazıldı (Kingma ve van Marken Lichtenbelt, Nature Climate Change 2015) | "Hep üşüyen arkadaşına gönder." |
-| 2 | Odaya girip neden geldiğini unutan | Gözünü Kandırayım | KAPI SİLDİ | "Odaya girip neden geldiğini unutan arkadaşın unutkan değil: Kapı beynini sıfırlıyor." | Kapı eşiği etkisi: kapıdan geçmek hafızada "yeni sahne" açar (Radvansky ve ark. 2011) | "Bunu yapan arkadaşına gönder." |
+| 2 | Odaya girip neden geldiğini unutan | Efsane mi, Gerçek mi? | KAPIYI SUÇLAMA | "Odaya girip neden geldiğini unutan arkadaşın kapıyı suçluyorsa, yarı haklı." | Kapı eşiği etkisi 2006–2011 deneylerinde bulundu; 2021'deki tekrarda etki yalnız kafa doluyken çıktı (McFadyen ve ark., BMC Psychology). Damga: ŞÜPHELİ | "Hep bir şey unutan arkadaşına gönder." |
 | 3 | Acıkınca sinirlenen | Tabağındaki Bilim | AÇLIK = ÖFKE | "Acıkınca çekilmez olan arkadaşın şımarık değil: Açlık öfkesi bilimsel olarak gerçek." | Açlık arttıkça öfke ve sinirlilik artıyor (Swami ve ark., PLOS ONE 2022) | "Acıkınca sinirlenen arkadaşına gönder." |
-| 4 | Az uyuyup gece buzdolabına giden | Uykunun Bilimi | SUÇLU HORMON | "Gece buzdolabını basan arkadaşın iradesiz değil; uykusuz." | İki gece 4 saat uyuyanlarda açlık hormonu %28, açlık hissi %24 arttı (Spiegel ve ark. 2004) | "Gece atıştıran arkadaşına gönder." |
+| 4 | Az uyuyup gece buzdolabına giden | Uykunun Bilimi | +385 KALORİ | "Gece buzdolabını basan arkadaşın iradesiz değil; uykusuz." | Az uyuyanlar ertesi gün ortalama 250–385 kcal fazla yiyor (meta-analizler 2017, 2019). Hormon açıklaması tutarsız, metne alınmaz | "Gece atıştıran arkadaşına gönder." |
 | 5 | Hep "beş dakikaya oradayım" diyen | Kanal geneli | YALAN DEĞİL | "Hep 'beş dakikaya oradayım' diyen arkadaşın yalan söylemiyor; beyni süreyi yanlış hesaplıyor." | Planlama yanılgısı: öğrenciler tezlerini 34 günde bitireceğini sandı, 56 günde bitirdi (Buehler ve ark. 1994) | "Hep geç kalan arkadaşına gönder." |
 | 6 | Gece 2'ye kadar telefona bakan | Uykunun Bilimi | GÜNÜ GERİ ALIYOR | "Gece 2'ye kadar telefona bakan arkadaşın, gününü geri almaya çalışıyor." | Yatma vaktini erteleme: yorgun olduğu hâlde kendine zaman çalma (Kroese ve ark. 2014) | "Gece yatmayan arkadaşına gönder." |
 | 7 | Telefon titredi sanan | Cebindeki Bilim | TİTREŞİM YOKTU | "Cebinde telefon titredi sandın ama titremedi: Öğrencilerin %89'u bunu yaşıyor." | Hayalet titreşim: beyin bekleneni duyar (Drouin ve ark. 2012) | "Telefondan kopamayan arkadaşına gönder." |
@@ -24,6 +24,20 @@ Amaç: İzleyici videoyu görünce aklına bir isim gelsin ve videoyu ona gönde
 | 9 | Acıya bayılan | Tabağındaki Bilim | ZARARSIZ KORKU | "Acıya bayılan arkadaşın aslında küçük bir korku filmi izliyor." | "Zararsız mazoşizm": beden tehlike sanır, beyin güvende olduğunu bilir ve zevk alır (Rozin ve ark. 2013) | "İsotsuz yemeyen arkadaşına gönder." |
 | 10 | Sürekli iç çeken | Vücudun Gizli Ayarları | SAATTE 12 KEZ | "Sürekli iç çeken arkadaşın dertli değil: Hepimiz saatte yaklaşık 12 kez iç çekeriz." | İç çekme akciğerdeki hava keseciklerini yeniden açan bir refleks (Li ve ark., Nature 2016) | "Sürekli 'off' diyen arkadaşına gönder." |
 
+## Kanıt gücü (metindeki iddia bu güce göre kurulur)
+| # | Güç | Not |
+|---|---|---|
+| 1 | Orta-güçlü | Standardın 40 yaşında erkeğin metabolizmasına dayandığı sağlam. Kadınların daha sıcak ortam istediği küçük bir ölçüme dayanıyor, "ortalama" denir. |
+| 2 | Zayıf, tartışmalı | Tekrar denemesinde çoğunlukla çıkmadı. Dürüst kurgu: "yarı haklı", damga ŞÜPHELİ. |
+| 3 | Orta | 64 kişi, 3 hafta günlük ölçüm (2022); ilişki var, kesin neden-sonuç değil. |
+| 4 | Güçlü | Fazla yeme meta-analizlerle sağlam; açlık hormonu bulgusu tutarsız, söylenmez. |
+| 5 | Güçlü | Planlama yanılgısı defalarca tekrarlandı. |
+| 6 | Orta-zayıf | Davranış tarif edilmiş (2014); "intikam" yorumu anketlere dayanıyor, neden diye sunulmaz. |
+| 7 | Orta | Yaygınlık anketleri tutarlı (%68–89); mekanizma tahmin. |
+| 8 | Zayıf-orta | Tek deney: 98 kişi, 3 dakika. "Bir deneyde" denir. |
+| 9 | Orta | Anketlere dayanan bir kavram; endorfin gibi kesinleşmemiş açıklamalar söylenmez. |
+| 10 | Güçlü | İç çekmenin akciğeri açma işlevi iyi biliniyor. |
+
 ## Üretim notu
 - `kisa.js` kapanışına "gönder" çeşidi eklenmeli: yorum kartı yerine kâğıt uçak simgesi ve "Arkadaşına gönder" düğmesi.
-- Önce 1 (kalorifer dönemi), 2 ve 3 denensin. Instagram istatistiklerinde "gönderilme" sayısı ötekilerle karşılaştırılsın.
+- Önce kanıtı en güçlü olanlar denensin: 1 (kalorifer dönemi), 5 ve 4. Instagram istatistiklerinde "gönderilme" sayısı ötekilerle karşılaştırılsın.
