@@ -146,6 +146,7 @@ Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve
 - Udemy tanıtımının insan sesi
 - Güncel konu fikirleri (Ekim 2026): `video/konu-fikirleri-2026-10.md` dosyasında 10 konu var: kış saati, 2026 Nobel'leri, zayıflama iğnesi, üşütmek, yapay zekâ, kestane, ilk bilgisayar, falso. Bazılarının son tarihi var (25 ve 29 Ekim).
 - Gündemden 10 short konusu (26 Ekim 2026): `video/konu-fikirleri-2026-10-26.md`. Havai fişek renkleri (28 Ekim), tüyler diken diken (30 Ekim), hız ve yakıt (1 Kasım), bütün altın bir küpte, balık yağı (Efsane mi #2), sınav uykusu, yağmur kokusu, falso, kuşlar ve kadınlar, Tavşanlı Höyük pati izi (tek kaynak, teyit bekliyor). Her birinde kanca cümlesi, seri, son tarih ve kaynak var.
+- Kanca planı (26 Ekim 2026): `video/kisa/kanca-plani-2026-10-26.md`. Kanal verisinden çıkan 5 kanca kuralı ve takvime oturan 5 short: havai fişek (28 Ekim), tüyler diken diken (30 Ekim), benzin zammı ve hız (1 Kasım), bütün altın tek küpte (2 Kasım, stadyum motoruyla), balık yağı (Efsane mi #2, 4 Kasım). Her birinde ilk kare, ekran yazısı, kanca, yedek kancalar, akış, döngü ve tek çağrı var.
 - Shorts serileri: 10 fikir `video/kisa/shorts-serileri.md` dosyasında. Kullanıcı birini seçince ilk bölümün metnini yaz; kayıt gelince dikey (1080×1920) olarak üret.
 
 **Yanıtsız kalan eski istek:** "Instagram hikâyesi kısmını ortadan çıkaralım, kampanya için yazı stili ve boyut önerileri verelim." Böyle bir içerik bulunamadı. Kullanıcı tekrar sorarsa hangi metni kastettiğini sor.
