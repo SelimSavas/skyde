@@ -138,7 +138,7 @@ Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve
 
 **Biten short:** `kisa-kis-saati` (0:58, yeni marka dili, kayıt `seslendirme/KisSaati`; paket `kisa-kis-saati/youtube.txt`). Dikey short'un dub çıktısı (yaklaşık 650 kbps, 6 MB) doğrudan yüklenebilir, yeniden kodlamaya gerek yok.
 
-**Biten short'lar:** `kisa-falso` (derbi özel, gerçekçi kalıp: kodla ışın izlenen gece stadyumu, `flight()` ile yer çekimi + hava direnci + Magnus'tan hesaplanan top yolu, kesik ikosahedron top, potansiyel akışla duman tüneli; koyu sahnelerde `darkTag`, kayıt `seslendirme/Falso`); `kisa-kestane` (hızlı kalıp, 0:41, kayıt `seslendirme/Kestane`); `kisa-islak-sac` (Efsane mi, Gerçek mi? #1, 0:59, kayıt `seslendirme/IslakSac`, paket `youtube.txt`). Araçlar (`altyazi.cjs`, `bolumler.cjs`, `duman.cjs`) filmi `araclar/yukle.cjs` ile bölümün `index.html` betik sırasına göre yükler, bu yüzden ortak marka modülünü de görürler.
+**Biten short'lar:** `kisa-falso` (derbi özel, gerçekçi kalıp: kodla ışın izlenen gece stadyumu, `flight()` ile yer çekimi + hava direnci + Magnus'tan hesaplanan top yolu, kesik ikosahedron top, potansiyel akışla duman tüneli; koyu sahnelerde `darkTag`, 0:38, kayıt `seslendirme/Falso`); `kisa-kestane` (hızlı kalıp, 0:41, kayıt `seslendirme/Kestane`); `kisa-islak-sac` (Efsane mi, Gerçek mi? #1, 0:59, kayıt `seslendirme/IslakSac`, paket `youtube.txt`). Araçlar (`altyazi.cjs`, `bolumler.cjs`, `duman.cjs`) filmi `araclar/yukle.cjs` ile bölümün `index.html` betik sırasına göre yükler, bu yüzden ortak marka modülünü de görürler.
 
 **Sıradaki olası işler:**
 - Tabağındaki Bilim #2 "Acı biber ağzını neden gerçekten yakar?" (aşama kareleri promptu hazır: `tabagindaki-bilim/animasyon-promptlari.txt` E2)
@@ -374,7 +374,7 @@ Shorts (1080×1920): `kisa-mesaj`, `kisa-kopru` ve `kisa-ekran` (Önsöz'den), `
 
 **Efsane mi, Gerçek mi? #1:** `kisa-islak-sac/`, "Islak saçla dışarı çıkarsan hasta olur musun?" Hüküm ŞÜPHELİ. Yorum çağrısı iki yerde: başta oy ("Sence efsane mi, gerçek mi? Cevabı görmeden yorumlara yaz"), sonda "Sıradaki efsaneyi sen seç". 0:59, insan sesiyle bitti (kayıt `seslendirme/IslakSac`). Oynatma listesi "Efsane mi, Gerçek mi? | YUP Akademi".
 
-**Derbi özel kısa · Falsonun fiziği:** `kisa-falso/`. Galatasaray–Fenerbahçe derbisi (26 Ekim 2026) günü için. Kullanıcı "top ve ortam gerçekten gerçekçi olsun" dedi, bu yüzden marka kartları yerine gerçekçi kalıp kullanıldı:
+**Derbi özel kısa · Falsonun fiziği:** `kisa-falso/`. Galatasaray–Fenerbahçe derbisi (26 Ekim 2026) günü için. 0:38, insan sesiyle bitti (kayıt `seslendirme/Falso`, konuşma 31 sn). Ayrıntılı görüntü yüzünden yükleme sürümü CRF 21 ile kodlandı (≈24 MB); düşük bit hızı çimi ve seyirciyi bozar. Kullanıcı "top ve ortam gerçekten gerçekçi olsun" dedi, bu yüzden marka kartları yerine gerçekçi kalıp kullanıldı:
 - gece stadyumu piksel piksel ışın izlemeyle çizilir (çim dokusu ve mip seviyeleri, FIFA ölçülü saha çizgileri, marka yazılı LED panolar, tribünde seyirci hücreleri, projektörler);
 - topun yolu fizikle hesaplanır (`flight()`), "dönmeseydi" yolu aynı vuruşun dönüşsüz hâlidir;
 - vuruş önce vurucunun gözünden, sonra yüksek tekrar kamerasından gösterilir (arkadan bakınca kıvrılma görünmüyordu);
