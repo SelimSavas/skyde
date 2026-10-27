@@ -15,7 +15,8 @@
  *   def.score    (m, hz, api) => {}  sahneye özgü efektler
  *   def.gap, def.breath, def.wipe   tempo: satırlar arası en az boşluk (0,25), satır sonrası nefes (0,35), geçiş süresi (0,6)
  * Son satır her zaman kapanıştır: api.cta(ctx, t, { invite }) logo, el yazısı slogan ve "abone ol" düğmesini çizer;
- * invite verilirse üstte yorum çağrısı kartı çıkar. Kapanışın sesleri otomatik eklenir.
+ * invite verilirse üstte yorum çağrısı kartı çıkar; share: ['satır', 'satır'] verilirse "arkadaşına gönder" kartı
+ * (kâğıt uçak, dört arkadaş, uçak ilkine uçar; def.share: true uçuş sesini ekler). Kapanışın sesleri otomatik eklenir.
  * Örnek: video/kisa-islak-sac/film.js
  */
 (function (root) {
@@ -523,6 +524,76 @@
     ctx.restore();
   }
 
+  // Kâğıt uçak (gönder) simgesi: yuvarlak zemin üstünde
+  function planeIcon(ctx, x, y, s, { a = 1, bg = C.teal, color = '#fff', rot = 0 } = {}) {
+    if (a <= 0.002) return;
+    ctx.save();
+    ctx.globalAlpha *= a;
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.scale(s, s);
+    if (bg) {
+      ctx.fillStyle = bg;
+      dot(ctx, 0, 0, 44);
+    }
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(-24, -2);
+    ctx.lineTo(26, -20);
+    ctx.lineTo(10, 24);
+    ctx.lineTo(2, 6);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = bg ? 'rgba(0,0,0,0.18)' : 'rgba(0,0,0,0.12)';
+    ctx.beginPath();
+    ctx.moveTo(2, 6);
+    ctx.lineTo(26, -20);
+    ctx.lineTo(4, 16);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // Küçük kişi simgesi (paylaşım kartındaki arkadaşlar)
+  function avatar(ctx, x, y, r, p, { a = 1, mood = 1 } = {}) {
+    if (a <= 0.002) return;
+    ctx.save();
+    ctx.globalAlpha *= a;
+    ctx.fillStyle = p.bg;
+    dot(ctx, x, y, r);
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.fillStyle = p.shirt;
+    dot(ctx, x, y + r * 1.05, r * 0.72);
+    ctx.fillStyle = p.skin;
+    dot(ctx, x, y - r * 0.05, r * 0.46);
+    ctx.fillStyle = p.hair;
+    ctx.beginPath();
+    ctx.arc(x, y - r * 0.12, r * 0.48, Math.PI * 1.05, Math.PI * 1.95);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+    ctx.fillStyle = C.ink;
+    dot(ctx, x - r * 0.16, y - r * 0.02, r * 0.055);
+    dot(ctx, x + r * 0.16, y - r * 0.02, r * 0.055);
+    ctx.strokeStyle = C.ink;
+    ctx.lineWidth = r * 0.06;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x - r * 0.15, y + r * 0.16);
+    ctx.quadraticCurveTo(x, y + r * (0.16 + 0.14 * mood), x + r * 0.15, y + r * 0.16);
+    ctx.stroke();
+    ctx.restore();
+  }
+  const PEOPLE = [
+    { bg: C.amberSoft, skin: '#f2c6a0', hair: '#3a2a22', shirt: C.navy },
+    { bg: C.tealSoft, skin: '#c68a5e', hair: '#141414', shirt: C.amber },
+    { bg: C.cyanSoft, skin: '#e8b98f', hair: '#7a4b2a', shirt: C.teal },
+    { bg: C.greenSoft, skin: '#8d5a3b', hair: '#0e0e0e', shirt: '#e5484d' },
+  ];
+
   // Hüküm damgası: büyükten küçülerek basılır
   function stamp(ctx, str, color, x, y, t0, t, { size = 96, rot = -0.1 } = {}) {
     if (t < t0) return;
@@ -626,12 +697,38 @@
       ctx.restore();
     }
 
-    // Kapanış: (yorum çağrısı) + logo + slogan + abone ol
-    function cta(ctx, t, { invite = null } = {}) {
+    // Kapanış: (yorum çağrısı ya da arkadaşına gönder kartı) + logo + slogan + abone ol
+    // share: ['satır 1', 'satır 2'] → kâğıt uçak, dört arkadaş; uçak ilkine uçar, düğmesi "Gönderildi" olur
+    function cta(ctx, t, { invite = null, share = null } = {}) {
       dayBg(ctx, t);
       const s0 = S0(CTA);
       const { fadeIn, pop } = api;
-      const dy = invite ? 120 : 0;
+      const dy = invite || share ? 120 : 0;
+      if (share) {
+        const ia = fadeIn(t, s0 + 0.15, 0.4);
+        const fly = progress(t, s0 + 1.0, s0 + 1.55, ease.inOut);
+        const sent = t > s0 + 1.55;
+        ctx.save();
+        ctx.translate(0, (1 - ease.out(ia)) * -40);
+        card(ctx, 90, 205, 900, 340, { r: 44, a: ia });
+        ctx.globalAlpha *= ia;
+        planeIcon(ctx, 185, 300, 1.15, { a: fly > 0 && fly < 1 ? 0.35 : 1 });
+        (Array.isArray(share) ? share : [share]).forEach((str, i) => T(ctx, str, 262, 280 + i * 52, { size: 44, weight: 900, color: C.ink, align: 'left' }));
+        PEOPLE.forEach((p, i) => {
+          const ax = 205 + i * 180;
+          const ay = 445;
+          const hit = i === 0 ? Math.exp(-(((t - s0 - 1.55) / 0.12) ** 2)) : 0;
+          avatar(ctx, ax, ay, 42 * (1 + 0.15 * hit), p);
+          const done = i === 0 && sent;
+          pill(ctx, done ? 'Gönderildi' : 'Gönder', ax, ay + 66, { size: 20, fill: done ? C.teal : C.cream, color: done ? '#fff' : C.teal, padX: 18 });
+        });
+        if (fly > 0 && fly < 1) {
+          const x = lerp(185, 205, fly);
+          const y = lerp(300, 445, fly) - Math.sin(Math.PI * fly) * 150;
+          planeIcon(ctx, x + Math.sin(Math.PI * fly) * 260, y, 0.75, { bg: null, color: C.teal, rot: lerp(-0.2, 1.4, fly) });
+        }
+        ctx.restore();
+      }
       if (invite) {
         const ia = fadeIn(t, s0 + 0.15, 0.4);
         ctx.save();
@@ -761,6 +858,7 @@
       }
       for (const id of ORDER.slice(1)) if (!cut.has(id)) m.whoosh(S0(id) - 0.05, { dur: 0.6, from: 400, to: 1800, gain: 0.035 });
       if (def.score) def.score(m, hz, api);
+      if (def.share) m.whoosh(S0(CTA) + 1.0, { dur: 0.55, from: 900, to: 3200, gain: 0.05, panFrom: -0.3, panTo: 0.2 });
       // kapanış
       const s8 = S0(CTA);
       const bell = (t, n, g, pan = 0) => m.bell(t, { freq: hz(n), gain: g, decay: 2.4, pan });
@@ -787,7 +885,7 @@
 
   root.YupKisa = {
     SW, SH, C, AMBER, CYAN, T, M,
-    rr, shadowed, card, pill, line, dot, blob, dayBg, appIcon, seriesTag, commentIcon, stamp,
+    rr, shadowed, card, pill, line, dot, blob, dayBg, appIcon, seriesTag, commentIcon, stamp, planeIcon, avatar, PEOPLE,
     sunIcon, moonIcon, star, lockIcon, checkBadge, clockFace, headPath, head, headPt, bellIcon, hand,
     short,
   };
