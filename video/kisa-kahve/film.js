@@ -479,8 +479,9 @@
       }
       if (t > c2) {
         const ia = fadeIn(t, c2, 0.2);
-        hand(ctx, 'sinirlilik', 690, 820, { size: 60, color: P.caramel, alpha: ia, rot: 0.04 });
-        arrow(ctx, 760, 850, 640, 1010, { prog: progress(t, c2 + 0.1, c2 + 0.5), seed: 162, t, color: P.caramel, bend: -0.25 });
+        const io = 1 - fadeIn(t, c3, 0.2);
+        hand(ctx, 'sinirlilik', 690, 820, { size: 60, color: P.caramel, alpha: ia * io, rot: 0.04 });
+        if (io > 0.5) arrow(ctx, 760, 850, 640, 1010, { prog: progress(t, c2 + 0.1, c2 + 0.5), seed: 162, t, color: P.caramel, bend: -0.25 });
         for (let i = 0; i < 4; i++) {
           ctx.save();
           ctx.translate(690, 930);
@@ -491,7 +492,7 @@
       }
       if (t > c3) {
         const za = fadeIn(t, c3, 0.25);
-        hand(ctx, 'uyuşukluk', 640, 1505, { size: 60, color: P.blue, alpha: za, rot: -0.03 });
+        hand(ctx, 'uyuşukluk', 770, 1300, { size: 60, color: P.blue, alpha: za, rot: -0.03 });
         for (let k = 0; k < 3; k++) {
           const q = (t * 0.8 + k / 3) % 1;
           hand(ctx, 'Z', 760 + q * 140 + k * 10, 1000 - q * 260, { size: 70 + k * 20, color: P.blue, alpha: za * Math.sin(Math.PI * q), rot: -0.2 });
@@ -705,7 +706,7 @@
     if (bp > 0) {
       const pts = curvePts(() => YB, X0, lerp(X0, X1, bp));
       for (let i = 0; i < pts.length - 1; i += 2) ink(ctx, [pts[i], pts[i + 1]], { close: false, width: 5, color: 'rgba(42,28,20,0.45)', seed: 230 + i, t });
-      hand(ctx, 'kahve içmeyen', X1 - 10, YB - 24, { size: 40, align: 'right', color: P.ink2, alpha: bp, rot: 0 });
+      hand(ctx, 'kahve içmeyen', X0 + 6, YB - 24, { size: 40, align: 'left', color: P.ink2, alpha: bp, rot: 0 });
     }
     ctx.restore();
     const dp = progress(t, c1, c1 + 1.1, ease.inOut);
@@ -902,7 +903,7 @@
     gap: 0.12,
     breath: 0.2,
     wipe: 0.35,
-    extra: { 'k-hook': 0.35, 'k-lock': 0.45, 'k-crash': 0.4, 'k-morning': 0.45, 'k-twist': 0.8, 'k-cta': 2.0 },
+    extra: { 'k-hook': 0.3, 'k-lock': 0.35, 'k-crash': 0.35, 'k-morning': 0.35, 'k-twist': 0.55, 'k-cta': 1.75 },
     lead: { 'k-hook': 0.1, 'k-lock': 0.15, 'k-crash': 0.2, 'k-morning': 0.15, 'k-twist': 0.15, 'k-cta': 0.3 },
     titles: {
       'k-hook': 'Vaka',

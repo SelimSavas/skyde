@@ -9,12 +9,15 @@ const ctx = new Proxy({}, {
   get(o, k) {
     if (k in o) return o[k];
     if (k === 'measureText') return (s) => ({ width: String(s).length * 18 });
+    if (k === 'createImageData' || k === 'getImageData') return (...a) => { const w = Math.max(1, Math.ceil(a[k === 'getImageData' ? 2 : 0] || 1)); const h = Math.max(1, Math.ceil(a[k === 'getImageData' ? 3 : 1] || 1)); return { width: w, height: h, data: new Uint8ClampedArray(w * h * 4) }; };
     if (k.startsWith('create')) return () => grad;
     if (k === 'canvas') return { width: 1920, height: 1080 };
     return () => {};
   },
   set(o, k, v) { o[k] = v; return true; },
 });
+// Ekran dışı tuvaller (dokular, sprite'lar) de aynı sahte bağlamı kullansın
+global.document.createElement = () => ({ width: 1, height: 1, getContext: () => ctx });
 const F = window.FILM;
 let errs = 0;
 for (let t = 0; t < F.duration; t += step) {

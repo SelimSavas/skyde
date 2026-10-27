@@ -23,7 +23,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | YUP Akademi kısa · Efsane mi, Gerçek mi? #1 — Islak saçla dışarı çıkarsan hasta olur musun? (ortak marka motoru `yup-marka/kisa.js`) | 0:59 (insan sesiyle, `seslendirme/IslakSac`; YouTube bilgisi `youtube.txt`) | `kisa-islak-sac/` |
 | YUP Akademi kısa · Tabağındaki Bilim — Kestane ateşte neden patlar? (hızlı kalıp: çarpıcı ilk kare, ~40 sn, tek çağrı sonda) | 0:41 (insan sesiyle, `seslendirme/Kestane`; YouTube bilgisi `youtube.txt`) | `kisa-kestane/` |
 | YUP Akademi kısa · Derbi özel — Falsonun fiziği: Top havada neden kıvrılır? (gerçekçi kalıp: piksel piksel çizilen gece stadyumu, fizikle hesaplanan top yolu, duman tüneli) | 0:38 (insan sesiyle, `seslendirme/Falso`; YouTube ve Instagram bilgisi `youtube.txt`) | `kisa-falso/` |
-| YUP Akademi kısa · Bu Sensin — Kahvesiz yapamayan arkadaşın (kafein yoksunluğu; gönder kalıbı: tek çağrı "arkadaşına gönder", `kisa.js` share kapanışı) | ~0:38 (kayıt bekleniyor, `seslendirme/Kahve`; YouTube ve Instagram bilgisi `youtube.txt`) | `kisa-kahve/` |
+| YUP Akademi kısa · Bu Sensin — Kahvesiz yapamayan arkadaşın (kafein yoksunluğu; gönder kalıbı: tek çağrı "arkadaşına gönder", `kisa.js` share kapanışı) | 0:40 (insan sesiyle, `seslendirme/Kahve`; el yapımı görsel dil `yup-marka/el.js`; YouTube ve Instagram bilgisi `youtube.txt`) | `kisa-kahve/` |
 
 ## İzlemek
 
