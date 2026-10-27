@@ -138,6 +138,13 @@ Kullanıcı bunları yeniden seslendirmek isteyebilir. O zaman txt'yi, paketi ve
 
 **Biten short:** `kisa-kis-saati` (0:58, yeni marka dili, kayıt `seslendirme/KisSaati`; paket `kisa-kis-saati/youtube.txt`). Dikey short'un dub çıktısı (yaklaşık 650 kbps, 6 MB) doğrudan yüklenebilir, yeniden kodlamaya gerek yok.
 
+**Görsel dil (2026-10-27, kullanıcı geri bildirimi):** Kullanıcı yuvarlak hap etiketleri, ortalanmış büyük harf başlıkları ve kusursuz vektör çizimleri "çok yapay, yapay zekâ gibi" buldu. Yeni short'larda `video/yup-marka/el.js` ("el yapımı" katman) kullanılır:
+- kâğıt dokusu ve kahve lekesi (`paper`);
+- saniyede 12 kez titreyen mürekkep ve kaymış baskı dolgusu (`ink`), tarama gölge (`hatch`);
+- sola yaslı Fraunces başlık ve fosforlu kalem vurgusu (`headline`), IBM Plex Mono şekil notu (`mono`), Patrick Hand kenar notu ve el çizimi ok (`hand`, `arrow`, `ring`, `scratch`);
+- lastik damga (`rubber`), yapışkan not (`sticky`), bant (`tape`), çetele (`tally`).
+Yazı tipleri `el-yazi.js` dosyasında gömülüdür (`build-el.py`); `index.html`'e kisa.js'ten sonra `el-yazi.js` ve `el.js` eklenir, film.js'te `FILM_READY` EL_FONTS_READY ile birleştirilir. Örnek: `kisa-kahve/`.
+
 **Biten short'lar:** `kisa-kahve` ("Bu Sensin" gönder kalıbı: kanca bir insan tipini anlatır, bilim onu haklı çıkarır, kapanış `api.cta(ctx, t, { share: ['satır', 'satır'] })` ve `short({ share: true })`; kurgu: her öbekte görüntü değişir, köşede "Birazdan: …" vaadi sonraki sahnede ödenir, kancadaki karakter sona doğru geri döner; konu listesi `video/kisa/gonder-formati.md`); `kisa-falso` (derbi özel, gerçekçi kalıp: kodla ışın izlenen gece stadyumu, `flight()` ile yer çekimi + hava direnci + Magnus'tan hesaplanan top yolu, kesik ikosahedron top, potansiyel akışla duman tüneli; koyu sahnelerde `darkTag`, 0:38, kayıt `seslendirme/Falso`); `kisa-kestane` (hızlı kalıp, 0:41, kayıt `seslendirme/Kestane`); `kisa-islak-sac` (Efsane mi, Gerçek mi? #1, 0:59, kayıt `seslendirme/IslakSac`, paket `youtube.txt`). Araçlar (`altyazi.cjs`, `bolumler.cjs`, `duman.cjs`) filmi `araclar/yukle.cjs` ile bölümün `index.html` betik sırasına göre yükler, bu yüzden ortak marka modülünü de görürler.
 
 **Sıradaki olası işler:**
