@@ -11,6 +11,7 @@
  *   def.titles   { satır: ad }  sahne adı (bölüm zamanları için)
  *   def.draw     { satır: (ctx, t, api) => {} }  sahne çizimi (zemin dahil)
  *   def.cut      [satır, ...]   bu satırlara daire açılışla değil, kesintisiz geçilir (önceki sahne devam eder)
+ *   def.transition (ctx, p, prev, self) => {}  daire açılış yerine özel geçiş (ör. YupLup.lensWipe, mercek halkası)
  *   def.chords   { satır: [nota, ...] }  sahnenin yatak akoru
  *   def.score    (m, hz, api) => {}  sahneye özgü efektler
  *   def.gap, def.breath, def.wipe   tempo: satırlar arası en az boşluk (0,25), satır sonrası nefes (0,35), geçiş süresi (0,6)
@@ -675,6 +676,7 @@
       const self = () => def.draw[id](ctx, t, api);
       const p = progress(t, S0(id), S0(id) + WIPE, ease.inOut);
       if (i === 0 || cut.has(id) || p >= 1) return self();
+      if (def.transition) return def.transition(ctx, p, () => drawScene(ORDER[i - 1], ctx, t), self);
       drawScene(ORDER[i - 1], ctx, t);
       const R = p * 2300;
       ctx.save();

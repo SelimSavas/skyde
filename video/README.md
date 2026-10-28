@@ -24,6 +24,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | YUP Akademi kısa · Tabağındaki Bilim — Kestane ateşte neden patlar? (hızlı kalıp: çarpıcı ilk kare, ~40 sn, tek çağrı sonda) | 0:41 (insan sesiyle, `seslendirme/Kestane`; YouTube bilgisi `youtube.txt`) | `kisa-kestane/` |
 | YUP Akademi kısa · Derbi özel — Falsonun fiziği: Top havada neden kıvrılır? (gerçekçi kalıp: piksel piksel çizilen gece stadyumu, fizikle hesaplanan top yolu, duman tüneli) | 0:38 (insan sesiyle, `seslendirme/Falso`; YouTube ve Instagram bilgisi `youtube.txt`) | `kisa-falso/` |
 | YUP Akademi kısa · Bu Sensin — Kahvesiz yapamayan arkadaşın (kafein yoksunluğu; gönder kalıbı: tek çağrı "arkadaşına gönder", `kisa.js` share kapanışı) | 0:40 (insan sesiyle, `seslendirme/Kahve`; el yapımı görsel dil `yup-marka/el.js`; YouTube ve Instagram bilgisi `youtube.txt`) | `kisa-kahve/` |
+| YUP Akademi kısa · Lup · Yakın Plan — Havai fişeğin renkleri (Lup'un ilk filmi: kodla oynatılan karakter `yup-marka/lup.js`, Mercek Açılışı girişi, mercek geçişi, "Lup'la bak" kapanışı, sese uyan ağız `dudak.js`) | 0:44 (insan sesiyle, `seslendirme/HavaiFisek`; görseller `lup/gorseller`, parçalar `lup/araclar/parcala.py`; YouTube ve Instagram bilgisi `youtube.txt`) | `kisa-havaifisek/` |
 
 ## İzlemek
 
