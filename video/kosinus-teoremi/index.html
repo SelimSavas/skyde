@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Kosinüs Teoremi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="wrap"><div id="stage"><div id="sub"><span></span></div></div></div>
+<div id="ctl">
+  <button id="play">▶</button>
+  <div id="bar"><div id="fill"></div></div>
+  <span id="clock">0:00</span>
+  <span id="hint">Boşluk: oynat/durdur · ←/→: 5 sn · [ / ]: önceki/sonraki bölüm · S: altyazı</span>
+</div>
+<script>window.AUDIO_MANIFEST = {};</script>
+<script src="ses/manifest.js" onerror="void 0"></script>
+<script src="engine.js"></script>
+<script src="script.js"></script>
+<script>VIDEO.boot();</script>
+</body>
+</html>
