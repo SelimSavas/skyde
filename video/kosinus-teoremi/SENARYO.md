@@ -15,7 +15,7 @@
 
 - Her replik ayrı dosya olarak kaydedilir; dosya adı tablodaki **Kod** olur: `01-01.mp3`, `01-02.mp3`, … (wav/m4a/ogg da olur).
 - Dosyalar `video/kosinus-teoremi/ses/` klasörüne konur. Video, her repliği kendi sesinin uzunluğuna göre yeniden zamanlar; görseller otomatik kayar.
-- Tek parça uzun kayıt da olur: repliklerin arasında ~1 sn sessizlik bırakılırsa kayıt sessizliklerden replik replik bölünür.
+- Tek parça uzun kayıt da olur: `seslendirme_metni.txt` içindeki her `[pause]` bir replik sonudur; o noktalarda ~1 sn sessizlik bırakılırsa kayıt sessizliklerden replik replik bölünür.
 - Okuma tonu: sakin, samimi, acele etmeden. Formüller robot gibi değil, cümle gibi okunur ("ce kare eşittir a kare artı be kare…").
 - Düşünme beklemeleri (⏸) için kayıt **yapılmaz**; video o 5 saniyeyi kendisi bekler.
 

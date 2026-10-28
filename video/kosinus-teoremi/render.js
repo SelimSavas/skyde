@@ -65,7 +65,7 @@ function writeDocs(d, audio) {
   L.push('## Ses kaydı nasıl yapılacak?', '');
   L.push('- Her replik ayrı dosya olarak kaydedilir; dosya adı tablodaki **Kod** olur: `01-01.mp3`, `01-02.mp3`, … (wav/m4a/ogg da olur).');
   L.push('- Dosyalar `video/kosinus-teoremi/ses/` klasörüne konur. Video, her repliği kendi sesinin uzunluğuna göre yeniden zamanlar; görseller otomatik kayar.');
-  L.push('- Tek parça uzun kayıt da olur: repliklerin arasında ~1 sn sessizlik bırakılırsa kayıt sessizliklerden replik replik bölünür.');
+  L.push('- Tek parça uzun kayıt da olur: `seslendirme_metni.txt` içindeki her `[pause]` bir replik sonudur; o noktalarda ~1 sn sessizlik bırakılırsa kayıt sessizliklerden replik replik bölünür.');
   L.push('- Okuma tonu: sakin, samimi, acele etmeden. Formüller robot gibi değil, cümle gibi okunur ("ce kare eşittir a kare artı be kare…").');
   L.push('- Düşünme beklemeleri (⏸) için kayıt **yapılmaz**; video o 5 saniyeyi kendisi bekler.', '');
   L.push('## Akış', '', '| Bölüm | Başlık | Başlangıç | Süre | Hedef |', '|---|---|---|---|---|');
@@ -92,14 +92,14 @@ function writeDocs(d, audio) {
   L.push('- Hesap makinesi derece (DEG) modunda olmalıdır.', '');
   fs.writeFileSync(path.join(DIR, 'SENARYO.md'), L.join('\n'));
 
-  // kayıt listesi (okuyucu / TTS için)
-  const R = ['KOSİNÜS TEOREMİ — SESLENDİRME METNİ', 'Her satır ayrı dosya: <kod>.mp3', ''];
-  for (const s of d.scenes) {
-    R.push(`=== ${s.label} — ${s.title} ===`);
-    for (const b of s.beats) R.push(b.wait ? `   (5 saniye sessizlik — kayıt yok)` : `${b.id}  ${b.text}`);
-    R.push('');
+  // seslendirme metni (okuyucu / TTS için): yalnızca konuşulacak metin, replikler arası [pause]
+  const R = [];
+  for (const b of beats) {
+    if (b.wait) continue;
+    if (R.length) R.push('[pause]');
+    R.push(b.text.replace(/^\.\.\.\s*/, '').replace(/\s*\.\.\.$/, '.'));
   }
-  fs.writeFileSync(path.join(DIR, 'seslendirme_metni.txt'), R.join('\n'));
+  fs.writeFileSync(path.join(DIR, 'seslendirme_metni.txt'), R.join('\n\n') + '\n');
 
   const S = d.subs.map((x, i) => `${i + 1}\n${srtT(x.t0)} --> ${srtT(x.t1)}\n${x.text}\n`);
   fs.writeFileSync(path.join(OUT, 'kosinus-teoremi.srt'), S.join('\n'));

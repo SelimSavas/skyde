@@ -5,7 +5,7 @@ Meslek lisesi 10. sınıf için "Kosinüs Teoremini Sıfırdan Öğreniyorum" vi
 | Dosya | Ne işe yarar |
 |---|---|
 | `SENARYO.md` | Sahne sahne senaryo: seslendirme metni, görsel yönergeler, ekrandaki formüller, zamanlama, matematik kontrolü (otomatik üretilir) |
-| `seslendirme_metni.txt` | Kayıt için sade liste: her satır bir ses dosyası (`01-01`, `01-02`, …) |
+| `seslendirme_metni.txt` | Kayıt / TTS için yalnızca konuşulacak metin; replikler arasında `[pause]` |
 | `script.js` | **Tek kaynak**: replikler + görseller + zamanlama. Metin/görsel değişikliği burada yapılır |
 | `engine.js`, `style.css`, `index.html` | Animasyon motoru ve görünüm |
 | `render.js` | Video, altyazı ve dokümanları üretir |

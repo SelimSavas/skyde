@@ -1,119 +1,381 @@
-KOSİNÜS TEOREMİ — SESLENDİRME METNİ
-Her satır ayrı dosya: <kod>.mp3
+Merhaba arkadaşlar! Bugün birlikte kosinüs teoremini sıfırdan öğreneceğiz. Hiç merak etmeyin; adım adım, yavaş yavaş ilerleyeceğiz.
 
-=== BÖLÜM 1 — Üçgeni Hatırlayalım ===
-01-01  Merhaba arkadaşlar! Bugün birlikte kosinüs teoremini sıfırdan öğreneceğiz. Hiç merak etmeyin; adım adım, yavaş yavaş ilerleyeceğiz.
-01-02  Önce küçük bir ısınma yapalım. Bir üçgenin kaç kenarı vardır?
-01-03  Evet, üç kenarı vardır. Peki kaç açısı vardır? Yine üç!
-01-04  Şimdi biraz düşündürecek bir soru: Bir üçgenin iki kenarını biliyorsak, üçüncü kenarını her zaman bulabilir miyiz?
-01-05  Dik üçgenlerde bunun cevabını zaten biliyorsunuz: Pisagor bağıntısı. Dik kenarların karelerinin toplamı, hipotenüsün karesine eşittir.
-01-06  Ama dikkat! Pisagor bağıntısı, yalnızca dik üçgenlerde doğrudan kullanılır.
-01-07  Peki, üçgenimiz dik üçgen değilse ve iki kenarıyla aralarındaki açıyı biliyorsak, üçüncü kenarı nasıl bulabiliriz?
-01-08  İşte bugün bu sorunun cevabını öğreneceğiz.
+[pause]
 
-=== BÖLÜM 2 — Kosinüs Teoremi Nedir? ===
-02-01  Önce üçgenimizi isimlendirelim. Köşelere A, B ve C diyelim.
-02-02  Şimdi kenarlara isim vereceğiz. Burada çok basit bir kural var: Her kenar, karşısındaki köşenin küçük harfini alır.
-02-03  A köşesinin karşısındaki kenar, küçük a. B köşesinin karşısındaki kenar, küçük b. C köşesinin karşısındaki kenar da küçük c.
-02-04  Kosinüs teoremi bize şunu söyler: Bir üçgende iki kenarı ve bu iki kenarın arasındaki açıyı biliyorsak, üçüncü kenarı bulabiliriz.
-02-05  Bakın, a ve b kenarları C köşesinde birleşiyor. Yani a ile b arasındaki açı, C açısıdır.
-02-06  Formülümüz şöyle: c kare eşittir, a kare artı b kare, eksi iki a b çarpı kosinüs C.
-02-07  Hemen korkmayın, bu formülü parça parça inceleyelim.
-02-08  a kare, birinci kenarın karesi. b kare de ikinci kenarın karesi.
-02-09  İki a b ise, bu iki kenarın çarpımının iki katı.
-02-10  Kosinüs C ise, C açısının kosinüs değeri. Yani iki kenarın arasındaki açının kosinüsü.
-02-11  Sol taraftaki c kare de aradığımız kenarın karesi; yani C açısının tam karşısındaki kenar.
-02-12  Bizim işimiz aslında çok basit: Bildiğimiz sayıları formülde yerine koyacağız, sonra da işlemleri sırayla yapacağız.
-02-13  Şimdi çok önemli bir noktaya geldik. Bir açının karşısındaki kenarı arıyorsak, formülde o kenarın harfini tek başına bırakacak şekilde düşünmeliyiz.
-02-14  Harflerin yerlerini ezberlemek yerine, üçgeni doğru isimlendirmeyi öğrenmeliyiz. Üçgen doğru isimlendirilirse formül kendiliğinden yerine oturur.
+Önce küçük bir ısınma yapalım. Bir üçgenin kaç kenarı vardır?
 
-=== BÖLÜM 3 — Kosinüs Değeri Nasıl Bulunur? ===
-03-01  Formülde bir de kosinüs değeri var. Peki bu değeri nereden bulacağız?
-03-02  Bazı açıların kosinüs değerlerini bu küçük tabloda görüyorsunuz.
-03-03  Ama hepsini şimdi ezberlemenize hiç gerek yok. Şimdilik 60 derecenin kosinüsünün yarım olduğunu ve 90 derecenin kosinüsünün sıfır olduğunu bilmen yeterli.
-03-04  Önce soruları çözmeyi öğrenelim. Diğer değerlere, ihtiyaç duyduğumuzda tekrar bakarız.
-03-05  Bir de küçük bir ipucu: Hesap makinesi kullanacaksanız, ekranda DEG yazdığından, yani derece modunda olduğundan emin olun.
-03-06  Derece modunda değilse, işlemi doğru yapsanız bile yanlış sonuç alırsınız.
+[pause]
 
-=== BÖLÜM 4 — Birinci Örnek: En Kolay Soru ===
-04-01  Hadi ilk sorumuza geçelim. En kolay sorudan başlıyoruz.
-04-02  Elimizde bir dik üçgen var. İki kenarı 3 santimetre ve 4 santimetre; bu iki kenarın arasındaki açı da 90 derece.
-04-03  Üçüncü kenara x diyelim. Soru şu: x kaç santimetredir?
-04-04  Önce formülümüzü yazalım. Aradığımız kenar x; bu yüzden x kareyi eşittirin solunda tek başına bırakıyoruz.
-04-05  Bildiğimiz kenarlar 3 ve 4. Bunları yerine koyuyoruz: x kare eşittir 3 kare artı 4 kare...
-04-06  ...eksi 2 çarpı 3 çarpı 4 çarpı kosinüs 90.
-04-07  Kosinüs 90 derecenin değeri neydi? Sıfır!
-04-08  3 kare 9 eder, 4 kare 16 eder. 2 çarpı 3 çarpı 4 de 24 eder.
-04-09  Sıfırla çarpılan her şey sıfır olur. Yani 24 çarpı 0, sıfırdır. Bu kısım tamamen gidiyor.
-04-10  Geriye 9 artı 16 kalıyor. Bu da 25 eder.
-04-11  x kare 25 ise, x'i bulmak için karekök alırız. Hangi sayının karesi 25 eder? 5'in!
-04-12  Yani x, 5 santimetre. Tebrikler, ilk soruyu birlikte çözdük!
-04-13  Dikkat ederseniz, kosinüs teoremi burada Pisagor bağıntısıyla aynı sonucu verdi. Çünkü dik üçgende kosinüs 90 sıfırdır ve o kısım tamamen kaybolur.
-04-14  Yani Pisagor bağıntısı, aslında kosinüs teoreminin özel bir hâlidir. Kosinüs teoremi ise her türlü üçgende çalışır.
+Evet, üç kenarı vardır. Peki kaç açısı vardır? Yine üç!
 
-=== BÖLÜM 5 — İkinci Örnek: 60 Dereceli Üçgen ===
-05-01  Şimdi bir adım daha ileri gidelim. Bu kez üçgenimiz dik üçgen değil.
-05-02  İki kenarı 5 santimetre ve 7 santimetre; bu kenarların arasındaki açı ise 60 derece.
-05-03  Üçüncü kenar x kaç santimetredir?
-05-04  Önce sayıları formüle yerleştiriyoruz: x kare eşittir 5 kare artı 7 kare, eksi 2 çarpı 5 çarpı 7 çarpı kosinüs 60.
-05-05  Kosinüs 60'ın değeri neydi? Yarım, yani bir bölü iki.
-05-06  5 kare 25, 7 kare 49 eder. 2 çarpı 5 çarpı 7 de 70 eder.
-05-07  25 artı 49, 74 eder. 70'in yarısı da 35.
-05-08  74'ten 35 çıkarınca 39 kalır. Yani x kare 39.
-05-09  Şimdi karekök alacağız. Ama 39; 36 ya da 49 gibi tam kare bir sayı değil.
-05-10  Bu hiç sorun değil! Karekök her zaman tam sayı çıkmak zorunda değildir. Cevabı kök 39 olarak da bırakabiliriz.
-05-11  Hesap makinesiyle bakarsak, kök 39 yaklaşık 6 virgül 24 eder. Yani x, yaklaşık 6 virgül 24 santimetre.
-05-12  Sonuç mantıklı mı? 36'nın kökü 6, 49'un kökü 7. 39 bu ikisinin arasında; sonucumuz da 6 ile 7 arasında çıktı. Harika!
-05-13  Sırayı unutmayalım: Önce sayıları formüle yerleştiriyoruz. Sonra kosinüs değerini kullanıyoruz. En son karekök alıyoruz.
+[pause]
 
-=== BÖLÜM 6 — Üçüncü Örnek: Günlük Hayat Problemi ===
-06-01  Şimdi matematiği gerçek hayata taşıyalım.
-06-02  Bir inşaat alanında iki yol bir noktada birleşiyor. Birinci yolun uzunluğu 6 metre, ikinci yolun uzunluğu 8 metre.
-06-03  Yolların birleştiği noktadaki açı 60 derece.
-06-04  Biz, iki yolun uç noktaları arasındaki kuş uçuşu mesafeyi bulmak istiyoruz. Kuş uçuşu demek, iki nokta arasındaki dümdüz mesafe demek.
-06-05  Şekle dikkat edin: İki yol ve bu mesafe bir üçgen oluşturuyor. Bildiklerimiz: iki kenar, 6 ve 8; aralarındaki açı da 60 derece.
-06-06  Formüle yerleştirelim: x kare eşittir 6 kare artı 8 kare, eksi 2 çarpı 6 çarpı 8 çarpı kosinüs 60.
-06-07  6 kare 36, 8 kare 64 eder. 2 çarpı 6 çarpı 8 de 96. Kosinüs 60 da yarım.
-06-08  36 artı 64, 100 eder. 96'nın yarısı da 48.
-06-09  100'den 48 çıkarınca 52 kalır. Yani x kare 52.
-06-10  Karekök alıyoruz: kök 52, yaklaşık 7 virgül 21 eder. Yani iki uç arasındaki mesafe, yaklaşık 7 virgül 21 metre.
-06-11  Bir şeye dikkat edin: İki yolun uzunluğunu doğrudan toplamadık. Toplasaydık 14 metre bulurduk; ama bu yanlış olurdu.
-06-12  Çünkü yollar aynı doğrultuda değil. Aralarındaki açıyı da kullanarak, iki uç arasındaki mesafeyi hesapladık.
+Şimdi biraz düşündürecek bir soru: Bir üçgenin iki kenarını biliyorsak, üçüncü kenarını her zaman bulabilir miyiz?
 
-=== BÖLÜM 7 — Dördüncü Örnek: Eksik Açıyı Bulma ===
-07-01  Şimdi işi tersine çevirelim. Bu kez üçgenin üç kenarı da belli, ama bir açısı bilinmiyor.
-07-02  a eşittir 5, b eşittir 7, c eşittir kök 39 santimetre. Tanıdık geldi mi? Bu, ikinci örnekteki üçgenin ta kendisi!
-07-03  C açısını bulmak istiyoruz. Yine aynı formülle başlıyoruz.
-07-04  Bu kez kosinüs C'yi yalnız bırakacağız. Formülü düzenlersek şunu elde ederiz: kosinüs C eşittir, a kare artı b kare eksi c kare, bölü iki a b.
-07-05  Değerleri yerleştirelim. a kare 25, b kare 49, c kare de 39. Çünkü kök 39'un karesi, 39'dur.
-07-06  Üst taraf: 25 artı 49 eksi 39, yani 35. Alt taraf: 2 çarpı 5 çarpı 7, yani 70.
-07-07  35 bölü 70, yarım eder. Kosinüsü yarım olan açı hangisiydi? Tablomuzdan hatırlayalım: 60 derece!
-07-08  Hesap makinesinde bu işlem için kosinüs üzeri eksi bir, yani ark kosinüs kullanılır. Genelde SHIFT ve cos tuşlarına basarak açılır.
-07-09  Küçük bir uyarı: Buradaki eksi bir, bir bölü kosinüs anlamına gelmez. Sadece, kosinüsü bu olan açı hangisi, demektir.
+[pause]
 
-=== BÖLÜM 8 — Öğrenciyle Birlikte Çözelim ===
-08-01  Şimdi sıra sizde! Üç kısa soru soracağım. Her sorudan sonra düşünmeniz için 5 saniye bekleyeceğim. Kalem kâğıt hazır mı?
-08-02  Birinci soru: İki kenarı 4 santimetre ve 6 santimetre olan bir üçgende, bu kenarlar arasındaki açı 90 derece. Üçüncü kenar kaç santimetredir?
-   (5 saniye sessizlik — kayıt yok)
-08-03  Hadi birlikte bakalım. x kare eşittir 4 kare artı 6 kare, eksi 2 çarpı 4 çarpı 6 çarpı kosinüs 90.
-08-04  Kosinüs 90 sıfır olduğu için son kısım gidiyor. 16 artı 36, 52 eder.
-08-05  Yani x eşittir kök 52, yaklaşık 7 virgül 21 santimetre. Bulduysanız tebrikler!
-08-06  İkinci soru: İki kenarı 4 santimetre ve 4 santimetre olan bir üçgende, aralarındaki açı 60 derece. Üçüncü kenar kaç santimetredir?
-   (5 saniye sessizlik — kayıt yok)
-08-07  Hadi bakalım. x kare eşittir 16 artı 16, eksi 2 çarpı 4 çarpı 4 çarpı yarım.
-08-08  2 çarpı 4 çarpı 4, 32 eder; yarısı da 16. 32 eksi 16, 16 eder.
-08-09  x kare 16 ise, x 4 santimetre. İlginç değil mi? Üç kenarın üçü de 4 çıktı. Bu bir eşkenar üçgen!
-08-10  Üçüncü soru: Bir üçgende a eşittir 3 santimetre, b eşittir 4 santimetre ve C açısı 60 derece. c kenarını bulun.
-   (5 saniye sessizlik — kayıt yok)
-08-11  c kare eşittir 9 artı 16, eksi 2 çarpı 3 çarpı 4 çarpı yarım.
-08-12  2 çarpı 3 çarpı 4, 24 eder; yarısı da 12. 25 eksi 12, 13 eder.
-08-13  Yani c eşittir kök 13, yaklaşık 3 virgül 61 santimetre.
-08-14  Yanlış yaptıysanız hiç dert etmeyin. Videoyu durdurup adımlara yeniden bakabilirsiniz. Hata yapmak, öğrenmenin bir parçasıdır.
+Dik üçgenlerde bunun cevabını zaten biliyorsunuz: Pisagor bağıntısı. Dik kenarların karelerinin toplamı, hipotenüsün karesine eşittir.
 
-=== BÖLÜM 9 — Konu Özeti ===
-09-01  Harika bir iş çıkardınız! Şimdi bugün öğrendiklerimizi özetleyelim.
-09-02  Kosinüs teoremini kullanırken: Bir, üçgeni çiz. İki, bilinen iki kenarı belirle. Üç, bu iki kenarın arasındaki açıyı bul.
-09-03  Dört, doğru formülü yaz. Beş, sayıları ve kosinüs değerini yerine koy. Altı, işlemleri yap ve gerekiyorsa karekök al.
-09-04  Kenar bulmak için formülümüz: c kare eşittir, a kare artı b kare, eksi iki a b kosinüs C.
-09-05  Açı bulmak için de: kosinüs C eşittir, a kare artı b kare eksi c kare, bölü iki a b.
-09-06  Kosinüs teoremi zor görünse de, aslında adım adım uyguladığımız bir yöntemdir. Üçgeni doğru çiz, verilenleri yerleştir ve işlemleri sırayla yap!
+[pause]
+
+Ama dikkat! Pisagor bağıntısı, yalnızca dik üçgenlerde doğrudan kullanılır.
+
+[pause]
+
+Peki, üçgenimiz dik üçgen değilse ve iki kenarıyla aralarındaki açıyı biliyorsak, üçüncü kenarı nasıl bulabiliriz?
+
+[pause]
+
+İşte bugün bu sorunun cevabını öğreneceğiz.
+
+[pause]
+
+Önce üçgenimizi isimlendirelim. Köşelere A, B ve C diyelim.
+
+[pause]
+
+Şimdi kenarlara isim vereceğiz. Burada çok basit bir kural var: Her kenar, karşısındaki köşenin küçük harfini alır.
+
+[pause]
+
+A köşesinin karşısındaki kenar, küçük a. B köşesinin karşısındaki kenar, küçük b. C köşesinin karşısındaki kenar da küçük c.
+
+[pause]
+
+Kosinüs teoremi bize şunu söyler: Bir üçgende iki kenarı ve bu iki kenarın arasındaki açıyı biliyorsak, üçüncü kenarı bulabiliriz.
+
+[pause]
+
+Bakın, a ve b kenarları C köşesinde birleşiyor. Yani a ile b arasındaki açı, C açısıdır.
+
+[pause]
+
+Formülümüz şöyle: c kare eşittir, a kare artı b kare, eksi iki a b çarpı kosinüs C.
+
+[pause]
+
+Hemen korkmayın, bu formülü parça parça inceleyelim.
+
+[pause]
+
+a kare, birinci kenarın karesi. b kare de ikinci kenarın karesi.
+
+[pause]
+
+İki a b ise, bu iki kenarın çarpımının iki katı.
+
+[pause]
+
+Kosinüs C ise, C açısının kosinüs değeri. Yani iki kenarın arasındaki açının kosinüsü.
+
+[pause]
+
+Sol taraftaki c kare de aradığımız kenarın karesi; yani C açısının tam karşısındaki kenar.
+
+[pause]
+
+Bizim işimiz aslında çok basit: Bildiğimiz sayıları formülde yerine koyacağız, sonra da işlemleri sırayla yapacağız.
+
+[pause]
+
+Şimdi çok önemli bir noktaya geldik. Bir açının karşısındaki kenarı arıyorsak, formülde o kenarın harfini tek başına bırakacak şekilde düşünmeliyiz.
+
+[pause]
+
+Harflerin yerlerini ezberlemek yerine, üçgeni doğru isimlendirmeyi öğrenmeliyiz. Üçgen doğru isimlendirilirse formül kendiliğinden yerine oturur.
+
+[pause]
+
+Formülde bir de kosinüs değeri var. Peki bu değeri nereden bulacağız?
+
+[pause]
+
+Bazı açıların kosinüs değerlerini bu küçük tabloda görüyorsunuz.
+
+[pause]
+
+Ama hepsini şimdi ezberlemenize hiç gerek yok. Şimdilik 60 derecenin kosinüsünün yarım olduğunu ve 90 derecenin kosinüsünün sıfır olduğunu bilmen yeterli.
+
+[pause]
+
+Önce soruları çözmeyi öğrenelim. Diğer değerlere, ihtiyaç duyduğumuzda tekrar bakarız.
+
+[pause]
+
+Bir de küçük bir ipucu: Hesap makinesi kullanacaksanız, ekranda DEG yazdığından, yani derece modunda olduğundan emin olun.
+
+[pause]
+
+Derece modunda değilse, işlemi doğru yapsanız bile yanlış sonuç alırsınız.
+
+[pause]
+
+Hadi ilk sorumuza geçelim. En kolay sorudan başlıyoruz.
+
+[pause]
+
+Elimizde bir dik üçgen var. İki kenarı 3 santimetre ve 4 santimetre; bu iki kenarın arasındaki açı da 90 derece.
+
+[pause]
+
+Üçüncü kenara x diyelim. Soru şu: x kaç santimetredir?
+
+[pause]
+
+Önce formülümüzü yazalım. Aradığımız kenar x; bu yüzden x kareyi eşittirin solunda tek başına bırakıyoruz.
+
+[pause]
+
+Bildiğimiz kenarlar 3 ve 4. Bunları yerine koyuyoruz: x kare eşittir 3 kare artı 4 kare.
+
+[pause]
+
+eksi 2 çarpı 3 çarpı 4 çarpı kosinüs 90.
+
+[pause]
+
+Kosinüs 90 derecenin değeri neydi? Sıfır!
+
+[pause]
+
+3 kare 9 eder, 4 kare 16 eder. 2 çarpı 3 çarpı 4 de 24 eder.
+
+[pause]
+
+Sıfırla çarpılan her şey sıfır olur. Yani 24 çarpı 0, sıfırdır. Bu kısım tamamen gidiyor.
+
+[pause]
+
+Geriye 9 artı 16 kalıyor. Bu da 25 eder.
+
+[pause]
+
+x kare 25 ise, x'i bulmak için karekök alırız. Hangi sayının karesi 25 eder? 5'in!
+
+[pause]
+
+Yani x, 5 santimetre. Tebrikler, ilk soruyu birlikte çözdük!
+
+[pause]
+
+Dikkat ederseniz, kosinüs teoremi burada Pisagor bağıntısıyla aynı sonucu verdi. Çünkü dik üçgende kosinüs 90 sıfırdır ve o kısım tamamen kaybolur.
+
+[pause]
+
+Yani Pisagor bağıntısı, aslında kosinüs teoreminin özel bir hâlidir. Kosinüs teoremi ise her türlü üçgende çalışır.
+
+[pause]
+
+Şimdi bir adım daha ileri gidelim. Bu kez üçgenimiz dik üçgen değil.
+
+[pause]
+
+İki kenarı 5 santimetre ve 7 santimetre; bu kenarların arasındaki açı ise 60 derece.
+
+[pause]
+
+Üçüncü kenar x kaç santimetredir?
+
+[pause]
+
+Önce sayıları formüle yerleştiriyoruz: x kare eşittir 5 kare artı 7 kare, eksi 2 çarpı 5 çarpı 7 çarpı kosinüs 60.
+
+[pause]
+
+Kosinüs 60'ın değeri neydi? Yarım, yani bir bölü iki.
+
+[pause]
+
+5 kare 25, 7 kare 49 eder. 2 çarpı 5 çarpı 7 de 70 eder.
+
+[pause]
+
+25 artı 49, 74 eder. 70'in yarısı da 35.
+
+[pause]
+
+74'ten 35 çıkarınca 39 kalır. Yani x kare 39.
+
+[pause]
+
+Şimdi karekök alacağız. Ama 39; 36 ya da 49 gibi tam kare bir sayı değil.
+
+[pause]
+
+Bu hiç sorun değil! Karekök her zaman tam sayı çıkmak zorunda değildir. Cevabı kök 39 olarak da bırakabiliriz.
+
+[pause]
+
+Hesap makinesiyle bakarsak, kök 39 yaklaşık 6 virgül 24 eder. Yani x, yaklaşık 6 virgül 24 santimetre.
+
+[pause]
+
+Sonuç mantıklı mı? 36'nın kökü 6, 49'un kökü 7. 39 bu ikisinin arasında; sonucumuz da 6 ile 7 arasında çıktı. Harika!
+
+[pause]
+
+Sırayı unutmayalım: Önce sayıları formüle yerleştiriyoruz. Sonra kosinüs değerini kullanıyoruz. En son karekök alıyoruz.
+
+[pause]
+
+Şimdi matematiği gerçek hayata taşıyalım.
+
+[pause]
+
+Bir inşaat alanında iki yol bir noktada birleşiyor. Birinci yolun uzunluğu 6 metre, ikinci yolun uzunluğu 8 metre.
+
+[pause]
+
+Yolların birleştiği noktadaki açı 60 derece.
+
+[pause]
+
+Biz, iki yolun uç noktaları arasındaki kuş uçuşu mesafeyi bulmak istiyoruz. Kuş uçuşu demek, iki nokta arasındaki dümdüz mesafe demek.
+
+[pause]
+
+Şekle dikkat edin: İki yol ve bu mesafe bir üçgen oluşturuyor. Bildiklerimiz: iki kenar, 6 ve 8; aralarındaki açı da 60 derece.
+
+[pause]
+
+Formüle yerleştirelim: x kare eşittir 6 kare artı 8 kare, eksi 2 çarpı 6 çarpı 8 çarpı kosinüs 60.
+
+[pause]
+
+6 kare 36, 8 kare 64 eder. 2 çarpı 6 çarpı 8 de 96. Kosinüs 60 da yarım.
+
+[pause]
+
+36 artı 64, 100 eder. 96'nın yarısı da 48.
+
+[pause]
+
+100'den 48 çıkarınca 52 kalır. Yani x kare 52.
+
+[pause]
+
+Karekök alıyoruz: kök 52, yaklaşık 7 virgül 21 eder. Yani iki uç arasındaki mesafe, yaklaşık 7 virgül 21 metre.
+
+[pause]
+
+Bir şeye dikkat edin: İki yolun uzunluğunu doğrudan toplamadık. Toplasaydık 14 metre bulurduk; ama bu yanlış olurdu.
+
+[pause]
+
+Çünkü yollar aynı doğrultuda değil. Aralarındaki açıyı da kullanarak, iki uç arasındaki mesafeyi hesapladık.
+
+[pause]
+
+Şimdi işi tersine çevirelim. Bu kez üçgenin üç kenarı da belli, ama bir açısı bilinmiyor.
+
+[pause]
+
+a eşittir 5, b eşittir 7, c eşittir kök 39 santimetre. Tanıdık geldi mi? Bu, ikinci örnekteki üçgenin ta kendisi!
+
+[pause]
+
+C açısını bulmak istiyoruz. Yine aynı formülle başlıyoruz.
+
+[pause]
+
+Bu kez kosinüs C'yi yalnız bırakacağız. Formülü düzenlersek şunu elde ederiz: kosinüs C eşittir, a kare artı b kare eksi c kare, bölü iki a b.
+
+[pause]
+
+Değerleri yerleştirelim. a kare 25, b kare 49, c kare de 39. Çünkü kök 39'un karesi, 39'dur.
+
+[pause]
+
+Üst taraf: 25 artı 49 eksi 39, yani 35. Alt taraf: 2 çarpı 5 çarpı 7, yani 70.
+
+[pause]
+
+35 bölü 70, yarım eder. Kosinüsü yarım olan açı hangisiydi? Tablomuzdan hatırlayalım: 60 derece!
+
+[pause]
+
+Hesap makinesinde bu işlem için kosinüs üzeri eksi bir, yani ark kosinüs kullanılır. Genelde SHIFT ve cos tuşlarına basarak açılır.
+
+[pause]
+
+Küçük bir uyarı: Buradaki eksi bir, bir bölü kosinüs anlamına gelmez. Sadece, kosinüsü bu olan açı hangisi, demektir.
+
+[pause]
+
+Şimdi sıra sizde! Üç kısa soru soracağım. Her sorudan sonra düşünmeniz için 5 saniye bekleyeceğim. Kalem kâğıt hazır mı?
+
+[pause]
+
+Birinci soru: İki kenarı 4 santimetre ve 6 santimetre olan bir üçgende, bu kenarlar arasındaki açı 90 derece. Üçüncü kenar kaç santimetredir?
+
+[pause]
+
+Hadi birlikte bakalım. x kare eşittir 4 kare artı 6 kare, eksi 2 çarpı 4 çarpı 6 çarpı kosinüs 90.
+
+[pause]
+
+Kosinüs 90 sıfır olduğu için son kısım gidiyor. 16 artı 36, 52 eder.
+
+[pause]
+
+Yani x eşittir kök 52, yaklaşık 7 virgül 21 santimetre. Bulduysanız tebrikler!
+
+[pause]
+
+İkinci soru: İki kenarı 4 santimetre ve 4 santimetre olan bir üçgende, aralarındaki açı 60 derece. Üçüncü kenar kaç santimetredir?
+
+[pause]
+
+Hadi bakalım. x kare eşittir 16 artı 16, eksi 2 çarpı 4 çarpı 4 çarpı yarım.
+
+[pause]
+
+2 çarpı 4 çarpı 4, 32 eder; yarısı da 16. 32 eksi 16, 16 eder.
+
+[pause]
+
+x kare 16 ise, x 4 santimetre. İlginç değil mi? Üç kenarın üçü de 4 çıktı. Bu bir eşkenar üçgen!
+
+[pause]
+
+Üçüncü soru: Bir üçgende a eşittir 3 santimetre, b eşittir 4 santimetre ve C açısı 60 derece. c kenarını bulun.
+
+[pause]
+
+c kare eşittir 9 artı 16, eksi 2 çarpı 3 çarpı 4 çarpı yarım.
+
+[pause]
+
+2 çarpı 3 çarpı 4, 24 eder; yarısı da 12. 25 eksi 12, 13 eder.
+
+[pause]
+
+Yani c eşittir kök 13, yaklaşık 3 virgül 61 santimetre.
+
+[pause]
+
+Yanlış yaptıysanız hiç dert etmeyin. Videoyu durdurup adımlara yeniden bakabilirsiniz. Hata yapmak, öğrenmenin bir parçasıdır.
+
+[pause]
+
+Harika bir iş çıkardınız! Şimdi bugün öğrendiklerimizi özetleyelim.
+
+[pause]
+
+Kosinüs teoremini kullanırken: Bir, üçgeni çiz. İki, bilinen iki kenarı belirle. Üç, bu iki kenarın arasındaki açıyı bul.
+
+[pause]
+
+Dört, doğru formülü yaz. Beş, sayıları ve kosinüs değerini yerine koy. Altı, işlemleri yap ve gerekiyorsa karekök al.
+
+[pause]
+
+Kenar bulmak için formülümüz: c kare eşittir, a kare artı b kare, eksi iki a b kosinüs C.
+
+[pause]
+
+Açı bulmak için de: kosinüs C eşittir, a kare artı b kare eksi c kare, bölü iki a b.
+
+[pause]
+
+Kosinüs teoremi zor görünse de, aslında adım adım uyguladığımız bir yöntemdir. Üçgeni doğru çiz, verilenleri yerleştir ve işlemleri sırayla yap!
