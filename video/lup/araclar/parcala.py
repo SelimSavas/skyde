@@ -125,10 +125,21 @@ def havaifisek():
     P['gece'] = enc(load('lup-7e-bayram-gecesi').convert('RGB'), 1.0, q=88)
     return P
 
+def yagmur():
+    P = {}
+    es = load('lup-esya-yagmur')
+    bx = rows(comps(es, dil=3, minarea=3000), tol=150)
+    for name, box in zip(['kol_yuru', 'kol_zipla', 'kol_spor', 'zarf_acik', 'zarf', 'pirinc', 'toprak'], bx):
+        P[name] = enc(tight(es, box), 0.8)
+    P['havuz'] = enc(load('lup-7f-havuz').convert('RGB'), 1.0, q=86)
+    P['pencere'] = enc(load('lup-7g-yagmur-pencere').convert('RGB'), 1.0, q=86)
+    P['makro'] = enc(load('lup-7c-makro-toprak').convert('RGB'), 1.0, q=86)
+    return P
+
 if __name__ == '__main__':
     if '--bolum' in sys.argv:
         b = sys.argv[sys.argv.index('--bolum') + 1]
-        P = {'kisa-havaifisek': havaifisek}[b]()
+        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur}[b]()
         out = os.path.join(R, b, 'assets.js')
         head = '/* %s görselleri: video/lup/araclar/parcala.py --bolum %s üretir (kaynak video/lup/gorseller). Elle düzenlemeyin. */\nwindow.ASSETS = ' % (b, b)
     else:
