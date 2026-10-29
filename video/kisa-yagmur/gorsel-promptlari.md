@@ -35,7 +35,7 @@ Vertical 1024×1536 extreme macro view of moist dark soil seen through a magnify
 
 **4 · Eşyalar** → `lup-esya-yagmur.png`
 ```
-A clean prop sheet for a science video, each object separate with generous spacing, transparent background, same ink style: (1) a whole red beetroot with its leaves; (2) a beetroot cut in half showing its rings; (3) three cute, friendly springtails (tiny soil arthropods, collembola) in different poses: walking, jumping with their spring-tail, and carrying a few tiny round spores on their backs, each drawn large and simple; (4) a small cream envelope with a wax seal, slightly open, no writing; (5) a single grain of white rice drawn large; (6) a small mound of dark wet soil with a few pebbles.
+A clean prop sheet for a science video, each object separate with generous spacing, transparent background, same ink style: (1) three cute, friendly springtails (tiny soil arthropods, collembola) in different poses: walking, jumping with their spring-tail, and carrying a few tiny round spores on their backs, each drawn large and simple; (2) a small cream envelope with a wax seal, slightly open, no writing; (3) the same envelope closed, seen at a slight angle as if flying; (4) a single grain of white rice drawn large; (5) a small mound of dark wet soil with a few pebbles.
 {STYLE}
 ```
 
@@ -57,4 +57,4 @@ Use the attached image as the exact character reference. Vertical 1024×1536 thu
 | y-damla | Defterde ağır çekim: damla toprağa çarpar, krater açılır, kabarcıklar yükselip patlar, küçük koku tanecikleri havalanır. Yanında iki küçük pano: "çisenti: çok" / "sağanak: az". |
 | y-davet | Bakteri ipliğinden bir zarf (`esya`) çıkar ve kollemblere uçar. Kollembol zıplar, sırtında sporlarla uzaklaşır. Etiket: "kollembol". |
 | y-nefes | Duygusal merkez: yağmurlu pencere, Lup pencereyi aralar. "Derin bir nefes" sözünde Lup şişer, gözünü kapatır, koku kıvrımları merceğine akar. El yazısıyla: "toprağın davetiyesi". Müzik yumuşar. |
-| y-cta | Kâğıtta pancar (`esya`) "=" yağmur bulutu çizimi, altında "aynı madde: jeosmin" ve "pancar onu kendisi üretiyor" notu. Lup kâğıt uçağı atar, logo, "Lup'la bak.", abone ol. |
+| y-cta | Kâğıtta "arkadaşına gönder" başlığı. Davetiye zarfı (`esya`) toprak yığınından havalanır, kâğıt uçağa dönüşür ve arkadaşın fotoğrafına uçar: "gönderildi ✓". Fotoğrafta yağmurlu pencere, üstünde damlalar. Lup şemsiyesiyle el sallar; ardından logo, "Lup'la bak.", abone ol. |

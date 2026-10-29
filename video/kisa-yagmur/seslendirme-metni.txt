@@ -1,10 +1,10 @@
-YUP Akademi · Lup · Vücudun Gizli Ayarları · Yağmur kokusu · seslendirme metni (6 satır, 87 kelime)
+YUP Akademi · Lup · Vücudun Gizli Ayarları · Yağmur kokusu · seslendirme metni (6 satır, 84 kelime)
 (Samimi, sakin, gülümseyerek; bir arkadaşa pencerenin önünde anlatır gibi. İlk cümlede "yine de" vurgulu.
-5. satır yavaş ve yumuşak, "derin bir nefes" sözünden önce küçük bir durak; son cümle göz kırpar gibi. Köşeli parantezdeki kimlikler okunmaz.)
+5. satır yavaş ve yumuşak, "derin bir nefes" sözünden önce küçük bir durak; son cümle sıcak bir gülümsemeyle. Köşeli parantezdeki kimlikler okunmaz.)
 
   [y-hook]    Olimpik bir havuza bir pirinç tanesi kadar bir madde atsan, burnun yine de fark eder.
   [y-ad]      O madde, yağmur kokusu. Adı jeosmin; toprakta yaşayan minik bakteriler yapıyor.
   [y-damla]   İlk damlalar toprağa çarpınca minicik kabarcıklar patlar ve kokuyu havaya savurur. En güzel koku bu yüzden çiselerken gelir.
   [y-davet]   Bakteriler bu kokuyu böcekleri çağırmak için yapıyor: Gelin, sporlarımı taşıyın.
   [y-nefes]   Yani yağmurda pencereyi açıp derin bir nefes aldığında, toprağın böceklere yazdığı bir davetiyeyi kokluyorsun.
-  [y-cta]     Pancarı sevmeyip yağmur kokusuna bayılan arkadaşına gönder: Pancarın toprak tadı da aynı madde.
+  [y-cta]     Yağmur kokusuna bayılan arkadaşına gönder: Bir sonraki yağmurda davetiyeyi o da koklasın.

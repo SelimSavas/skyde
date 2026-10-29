@@ -7,7 +7,6 @@
 | Jeosmini (C₁₂H₂₂O) topraktaki Streptomyces bakterileri (ve siyanobakteriler) üretir; adı Yunanca "toprak kokusu"dur. Yağmur kokusunun adı petrikor (Bear ve Thomas, Nature 1964). | [Wikipedia, Petrichor](https://en.wikipedia.org/wiki/Petrichor) |
 | Damla gözenekli toprağa çarpınca hava kabarcıkları oluşur, yüzeye çıkıp patlar ve aerosol saçar; hafif ve orta yağmur, sağanaktan çok daha fazla aerosol üretir. 28 yüzeyde yaklaşık 600 deney. | Joung ve Buie, Nature Communications (2015); [MIT News](https://news.mit.edu/2015/rainfall-can-release-aerosols-0114) |
 | Streptomyces jeosmini spor üretirken yapar; koku kollembolleri (minik eklembacaklılar) çeker, bunlar sporları gövdelerinde ve bağırsaklarında taşıyıp yayar. | Becher ve ark., Nature Microbiology 5:821–829 (2020); [Lund Üniversitesi](https://www.lunduniversity.lu.se/article/story-behind-earthy-smell-spring) |
-| Pancarın toprak tadı jeosminden gelir; pancar jeosmini mikropsuz ortamda da kendisi üretir. Çeşide göre miktar değişir. | Goldman ve Maher, ASHS 2018 ve J. Amer. Soc. Hort. Sci. 144(6):429 (2019); [PBS Wisconsin](https://pbswisconsin.org/news-item/learning-to-love-the-earthy-flavors-of-table-beets/) |
 
 ## Metinde sadeleştirilenler
 - **"Bakteriler … yapıyor":** Toprak kokusu yalnız jeosmin değildir; bitki yağları ve 2-metilizoborneol de katkı yapar. Metin baskın ve en bilinen bileşeni anlatır.
