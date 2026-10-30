@@ -398,11 +398,32 @@
     const pokeB = W(api, id, 3); // "vurdum"
     const allT = W(api, id, 8); // "Herkes"
     const lightT = W(api, id, 12); // "hafif"
-    cover(ctx, 'oda', { zoom: lerp(1.06, 1, progress(t, s0, s0 + 2, ease.out)) });
+    // Yakın plan: aynı odanın duvarı (raf, çerçeveler) ve halısı; kanepe yalnız kardeşlerin kendi kanepesi
+    const z = lerp(1.05, 1, progress(t, s0, s0 + 2, ease.out));
+    ctx.save();
+    ctx.translate(540, 1100);
+    ctx.scale(z, z);
+    ctx.translate(-540, -1100);
+    ctx.drawImage(IMG.oda, 0, 0, 532, 755, -20, -20, 1120, 1590);
+    ctx.fillStyle = '#5e4129';
+    ctx.fillRect(-20, 1552, 1120, 24);
+    // halı: odanın masa ayakları olmayan halı parçası, aynalanarak döşenir (dikiş görünmesin)
+    const tw = 336 * 1.6;
+    const th = 171 * 1.6;
+    for (let row = 0; row < 2; row++) {
+      for (let col = 0; col < 3; col++) {
+        ctx.save();
+        ctx.translate(-20 + col * tw + (col % 2 ? tw : 0), 1574 + row * th + (row % 2 ? th : 0));
+        ctx.scale(col % 2 ? -1 : 1, row % 2 ? -1 : 1);
+        ctx.drawImage(IMG.oda, 320, 1365, 336, 171, 0, 0, tw, th);
+        ctx.restore();
+      }
+    }
+    ctx.restore();
     const bump = (t0) => Math.exp(-(((t - t0) / 0.09) ** 2));
     const bA = bump(pokeA) + bump(pokeA + 1.6);
     const bB = bump(pokeB) + bump(pokeB + 1.6);
-    pic(ctx, 'kardesler', 520, 1640, 940, { ax: 0.5, ay: 1, sx: 1 + 0.02 * (bA + bB), sy: 1 - 0.02 * (bA + bB) });
+    pic(ctx, 'kardesler', 540, 1655, 1000, { ax: 0.5, ay: 1, sx: 1 + 0.02 * (bA + bB), sy: 1 - 0.02 * (bA + bB) });
     // dürtme kıvılcımları
     const spark = (x, y, k) => {
       if (k < 0.05) return;
@@ -420,17 +441,18 @@
       }
       ctx.restore();
     };
-    spark(590, 1030, bA);
-    spark(430, 1030, bB);
+    spark(610, 1095, bA);
+    spark(495, 1090, bB);
     // ölçekler: kendi vuruşum hafif, onunki sert (iki kardeş için aynı)
     const ma = progress(t, allT - 0.1, allT + 0.3);
     const fill = progress(t, allT, lightT + 0.3, ease.out);
-    meter(ctx, 250, 620, 0.25 * fill, 'kendi vuruşum', '#8fc1a9', t, ma);
-    meter(ctx, 830, 620, 0.9 * fill, 'onunki', P.red, t, ma);
+    meter(ctx, 250, 540, 0.25 * fill, 'kendi vuruşum', '#8fc1a9', t, ma);
+    meter(ctx, 830, 540, 0.9 * fill, 'onunki', P.red, t, ma);
     if (ma > 0) {
-      hand(ctx, 'hafif', 200, 760, { size: 44, color: P.teal, alpha: progress(t, lightT, lightT + 0.3) });
-      hand(ctx, 'sert!', 790, 760, { size: 44, color: P.red, alpha: progress(t, lightT, lightT + 0.3) });
-      mono(ctx, 'Science · 2003: her tur biraz daha sert', 540, 1780, { size: 22, align: 'center', color: P.ink });
+      hand(ctx, 'hafif', 330, 660, { size: 44, color: P.teal, alpha: progress(t, lightT, lightT + 0.3) });
+      hand(ctx, 'sert!', 900, 660, { size: 44, color: P.red, alpha: progress(t, lightT, lightT + 0.3) });
+      card(ctx, 470, 1770, 640, 60, { rot: 0, a: ma });
+      mono(ctx, 'Science · 2003: her tur biraz daha sert', 470, 1778, { size: 22, align: 'center', color: P.ink });
     }
     strip(ctx, 380, 1, 100);
     headline(ctx, [[{ s: '"Ben ' }, { s: 'yavaş', mark: P.marker }, { s: ' vurdum!"' }]], 80, 380, { size: 92, prog: progress(t, s0 + 0.05, s0 + 0.5), markProg: progress(t, W(api, id, 2), W(api, id, 2) + 0.4) });
