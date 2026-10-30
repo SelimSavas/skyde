@@ -1,0 +1,10 @@
+YUP AKADEMİ · YOUTUBE KANAL AYARLARI
+
+ANAHTAR KELİMELER
+Yer: YouTube Studio > Ayarlar > Kanal > Temel bilgiler > Anahtar kelimeler
+Kural: Studio bu alanda virgülle ayırmayı istiyor (tırnak gerekmez); sınır 500 karakter (aşağıdaki 426).
+Etkisi küçüktür: asıl sinyal video başlıkları, açıklamaları ve izleyici davranışı. Başka kanal adları yazılmaz.
+
+YUP Akademi, YUP Stüdyo, bilim, popüler bilim, bilim videoları, eğitici video, Tabağındaki Bilim, mutfak bilimi, mutfak kimyası, Uykunun Bilimi, uyku, uyku düzeni, sirkadiyen ritim, Bilişim Teknolojileri Yetkinliği, bilişim, bilgisayar nasıl çalışır, mantık kapıları, yapay zeka, efsane mi gerçek mi, bilimsel gerçekler, günlük hayatta bilim, sağlık efsaneleri, animasyonlu anlatım, Türkçe bilim, merak, kimya, fizik, biyoloji
+
+Yeni bir seri açılınca adını ekle; artık yapılmayan bir konu varsa çıkar.

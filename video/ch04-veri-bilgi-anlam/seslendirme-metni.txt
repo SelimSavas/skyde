@@ -1,0 +1,65 @@
+Birinci Kapı, 4. Bölüm — Veri, Bilgi, Anlam: Üç Basamaklı Merdiven — seslendirme metni
+
+Her satır videoda ayrı bir yerde okunur. En iyisi her satırı ayrı bir dosya olarak kaydetmek (dosya adı = köşeli parantezdeki kimlik, ör. thermo-alone.mp3).
+Videoda bu satırların yerinde görüntü bekler; kayıtlar dub.mjs ile videoya yerleştirilir. Sakin, belgesel anlatıcısı temposu yeterli.
+Virgül ve noktalarda kısa duraklamak, sesin animasyondaki olaylarla örtüşmesini kolaylaştırır.
+Okunuş notları: “tırnak içindeki beş” ve “beş yazısı” ekrandaki “5” (metin olan beş) için; “sıfır altı” Ankara plaka kodu 06; “Yedi B” sınıf adı (7-B); “bir sıfır bir” ikilik sayı, rakam rakam okunur.
+
+[open-title]  Birinci kapı, dördüncü bölüm: veri, bilgi, anlam. Üç basamaklı merdiven.
+[recap-path]  Buraya kadar hep fiziği konuştuk: elektriğin nasıl sayıya, sayının nasıl mantığa, mantığın nasıl hesaba dönüştüğünü.
+[recap-step]  Şimdi bir adım geri çekilip, başka bir soru soralım. Bu soru, bundan sonra anlatacağımız her şeyi taşıyacak.
+[recap-question]  Elimizdeki bu sayılar, ne anlama geliyor?
+[thermo-alone]  Bir termometre, otuz sekiz virgül beş gösteriyor. Bu sayı, tek başına hiçbir şey söylemez.
+[thermo-room]  Bir odanın sıcaklığıysa, boğucu bir yaz gününden bahsediyoruzdur.
+[thermo-child]  Bir çocuğun ateşiyse, geceyi uykusuz geçireceğiz demektir.
+[thermo-oven]  Bir fırının sıcaklığıysa, fırın çok soğuk kalmıştır: kek pişirmek için, yüz seksen derece kadar gerekir.
+[thermo-three]  Aynı sayı. Üç farklı dünya.
+[thermo-rule]  Bu örnek, bilişimin en temel ama en çok atlanan ayrımını gösterir: veri, bilgi ve anlam, asla aynı şey değildir.
+[data-def]  Basamak bir: veri. Veri, işlenmemiş ham ölçümdür. Tek başına bir yargı taşımaz; yani bize ne yapmamız gerektiğini söylemez.
+[data-examples]  Otuz sekiz virgül beş: veri. Sıfır beş yüz otuz iki diye başlayan bir dizi rakam: veri. Bir tarih: veri. Bir renk adı, kırmızı: veri.
+[data-source]  Veriyi çoğu zaman bir ölçüm aracı üretir: bir termometre, bir saat, bir kamera. Bazen de form dolduran bir insan. İlk bölümde gördüğümüz gibi, ölçülebilen her şey sayıya çevrilebilir.
+[data-innocent]  Verinin en önemli özelliği, masumiyetidir. Veri, iyi ya da kötü değildir; ama doğru ya da yanlış olabilir.
+[data-broken]  Bir termometre ya doğru ölçmüştür, ya da bozuktur. Bozuk bir termometre, tamamen sağlıklı bir çocuğa, otuz sekiz virgül beş diyebilir. Veri yanlışsa, üzerine kurulan her şey de yanlış olur.
+[info-def]  Basamak iki: bilgi. Bilgi, verinin bağlamına oturtulmuş hâlidir.
+[info-context]  Bağlam, bir şeyin içinde durduğu çevredir. On iki sayısını düşünün: bir saatin üzerinde, öğle vaktidir. Bir doğum günü pastasının üzerinde, bir yaştır. Bir formanın sırtında, bir oyuncudur. Sayı hiç değişmedi; değişen, çevresiydi.
+[info-questions]  Veriye üç sorunun yanıtı eklendiğinde, bilgi doğar. Neyin ölçüsü? Vücut sıcaklığı. Kimin? Ayşe’nin. Ne zaman? Bu sabah.
+[info-sentence]  Ayşe’nin bu sabahki ateşi, otuz sekiz virgül beş. İşte bu, bilgidir. Artık bir şey söylüyor.
+[info-compare]  Şimdi karşılaştırma yapılabilir: dün sabah otuz sekiz virgül ikiydi; demek ki yükseliyor. Bir eşikle de kıyaslanabilir: vücut sıcaklığı otuz sekiz dereceye ulaşınca, genellikle ateş sayılır.
+[judge-def]  Basamak üç: anlam ve karar. Anlam, bilgiye insanın kendi deneyimi ve yargısı katıldığında ortaya çıkar.
+[judge-days]  Ertesi gün de ateş ölçülüyor. Ayşe’nin ailesi, üç günün ölçümlerini yan yana koyuyor. Deneyimleri ve yargıları devreye girince, şu cümle doğuyor: Ayşe’nin ateşi üçüncü gün de düşmedi; onu doktora götürmeliyiz.
+[judge-verdict]  Bu artık veri değildir; bilgi bile değildir. Bir yargıdır. Ve yargı, her zaman, sorumluluk taşıyan bir insana aittir.
+[ladder-three]  Üç basamağı birlikte görelim. Otuz sekiz virgül beş: veri. Ayşe’nin bu sabahki ateşi otuz sekiz virgül beş: bilgi. Onu doktora götürmeliyiz: anlam ve karar.
+[ladder-machine]  Makinelerin asıl işi, bu ilk iki basamaktır. Ölçerler, kaydederler, etiketlerler, karşılaştırırlar; hem de bizden milyonlarca kat hızlı.
+[ladder-help]  Üçüncü basamakta ise makineler yalnızca yardımcı olabilir; asla kesin karar veremez. Akıllı bir termometre, ateş üç gündür yüksek diye uyarabilir; ama Ayşe’yi doktora götürme kararı, ailesinindir.
+[ladder-gray]  Yapay zekânın bugün en çok tartışılan o gri bölgesi de, tam olarak burasıdır: makinenin yardımı nerede biter, insanın kararı nerede başlar? Onuncu kapıda, bu konuya uzun uzun döneceğiz.
+[motto-say]  Şimdilik akılda kalması gereken tek şey, şu usta sözü: Veri masumdur. Yorum sorumluluktur.
+[hidden-report]  Bir raporda, verilere göre diye başlayan her cümlede, aslında birinin yaptığı gizli bir yorum saklıdır.
+[hidden-four]  Hangi verinin toplandığı. Neyin ölçülmediği. Hangi zaman aralığının seçildiği. Sonucun nasıl çizildiği. Bunların hepsi, birer insan kararıdır.
+[hidden-survey]  Birincisi, hangi verinin toplandığı. Kütüphane kapısında, çıkan öğrencilere soralım: kitap okumayı seviyor musun? Neredeyse hepsi evet der. Rapor yazılır: öğrencilerin yüzde doksanı okumayı seviyor. Oysa yalnızca kütüphaneye gelenlere sorduk.
+[hidden-missing]  İkincisi, neyin ölçülmediği. Bir okul yalnızca sınav notlarını ölçerse, raporda öğrencilerin ne kadar mutlu olduğu hiç görünmez. Ölçülmeyen şey, yok sayılır.
+[hidden-window]  Üçüncüsü, zaman aralığı. Bir kasabanın bir yıllık sıcaklık ölçümlerini düşünün. Yalnızca mart ayını seçen biri, hava ısınıyor der. Yalnızca ekim ayını seçen biri, hava soğuyor der. Veri aynı; seçilen zaman aralığı farklı.
+[hidden-axis]  Dördüncüsü, çizim. İki sınıfın not ortalaması: yetmiş iki ve yetmiş beş. Grafiğin kenarındaki sayı çizgisine eksen denir. Eksen sıfırdan başlarsa, iki çubuk neredeyse aynı boydadır. Eksen yetmişten başlarsa, biri ötekinin iki buçuk katı görünür. Fark aynı; çizim onu büyütür.
+[hidden-myth]  Sık duyulan bir söz vardır: rakamlar yalan söylemez. Rakamlar gerçekten yalan söylemez; ama onları seçen ve çizen insan, yanıltabilir.
+[hidden-end]  Veriler konuşuyor diye bir şey yoktur. Veriyi birileri konuşturur.
+[types-why]  Bir veriyi bilgisayara emanet edeceksek, ona ne tür bir şey verdiğimizi en baştan söylemek zorundayız. Çünkü makine, beş sayısıyla tırnak içindeki beş yazısı arasındaki o devasa farkı, kendiliğinden anlamaz.
+[types-bits]  Bellekte ikisi de yalnızca bitlerdir. Beş sayısı, ikilik düzende bir sıfır bir olarak saklanır. Beş yazısı ise, ilk bölümdeki karakter kodlamasına göre, kendi numarasıyla saklanır: elli üç. Peki elli üç sayısı nasıl saklanır? Tıpatıp aynı lambalarla. Lambalar, sayı mı yazı mı olduklarını söylemez; bunu, verinin türü söyler.
+[types-plus]  Farkı en iyi toplama gösterir. Beş artı beş, on eder. Ama iki tane beş yazısını toplamaya kalkarsanız, birçok programlama dili onları yan yana koyar: elli beş yazısı.
+[types-intro]  Temel türler, her programlama dilinde şaşırtıcı ölçüde benzerdir.
+[types-int]  Tam sayı: kırk iki, eksi yedi gibi kesirsiz sayılar. Toplanır, çarpılır.
+[types-float]  Ondalıklı sayı: otuz sekiz virgül beş gibi kesirli sayılar. Onlar da toplanır, çarpılır.
+[types-text]  Metin: Ayşe gibi bir harf dizisi; tırnak içindeki beş de bir metindir. Birleştirilir, içinde arama yapılır.
+[types-bool]  Mantıksal: iki durumdan biri; doğru ya da yanlış. İkinci bölümdeki Boole’u hatırlayın. Karar verdirir: ateş otuz sekizden yüksek mi? Doğru.
+[types-date]  Tarih ve saat: zamanda bir nokta, on beş ağustos iki bin yirmi altı gibi. Birbirinden çıkarılır, karşılaştırılır: iki tarih arasında kaç gün var?
+[types-phone]  Bu ayrımın neden önemli olduğunu bir örnek anlatır. Telefon numarasını sayı olarak saklarsanız, başındaki sıfır kaybolur. Çünkü sayılarda baştaki sıfırın bir anlamı yoktur: sıfır yedi ile yedi, aynı sayıdır.
+[types-plate]  Ankara’nın plaka kodu da öyle: sıfır altı, sayı olarak saklanırsa, altıya döner.
+[types-rule]  Telefon numarası bir sayı değil, bir metindir. Üzerinde hiç toplama yapmayız; yalnızca yazarız ve ararız. Akılda tutulacak küçük bir kural: üzerinde hesap yapmayacaksanız, rakamlardan oluşsa bile, o veri bir metindir.
+[struct-list]  Şimdi bir öğrenci listesini düşünün. Her satırda ad, soyad, numara ve sınıf var. Her satır, aynı biçimde.
+[struct-name]  Buna yapılandırılmış, yani düzenli veri denir. Tabloya kolayca yerleşir; sorgulanır, sıralanır.
+[struct-query]  Yedi B’deki öğrenciler kimler? Bilgisayar, binlerce satırlık bir tabloda bile, bu soruyu göz açıp kapayıncaya kadar yanıtlar. Beşinci kapının ana konusu, tam olarak budur.
+[messy-notes]  Şimdi bir veli toplantısında kâğıda tutulan serbest notları düşünün: birbirini tutmayan uzun cümleler, kenara çizilmiş oklar, yarım kalmış bir liste.
+[messy-name]  Buna yapılandırılmamış, yani düzensiz veri denir. Fotoğraflar, sesler, videolar ve serbest metinler, hep bu karmaşık kümededir. Bir fotoğraf da sayılardan oluşur; ama hiçbir sütun, içinde kimin olduğunu söylemez.
+[messy-ask]  Farkı bir soruyla görelim: Ali’nin matematik notu kaç? Tabloda yanıt, bir satır ile bir sütunun kesiştiği yerdedir. Toplantı kâğıdında ise bir cümlenin içinde saklıdır: Ali matematikte biraz zorlanıyor, son sınavda altmış civarı almış galiba. Sıradan bir program, bunu kendiliğinden bulamaz.
+[messy-iceberg]  Dünyadaki verinin ezici bir çoğunluğu, işte bu düzensiz kümededir. Tıpkı bir buzdağı gibi: düzenli tablolar görünen ucudur; asıl kütle, suyun altındaki düzensiz yığındır.
+[messy-ai]  Ve son yılların en büyük teknolojik atılımı, yapay zekânın o büyük yükselişi, tam da bu düzensiz yığından anlam çıkarabilmesiyle ilgilidir. Ama, sırası gelince.
+[sum-ladder]  Özetleyelim. Veri, ham ölçümdür. Bilgi, bağlamına oturtulmuş veridir. Anlam ise, bilgiye insanın yargısı katıldığında doğar. Makineler ilk iki basamakta ustadır; üçüncü basamağın sorumluluğu, bizdedir.
+[close-end]  Veri, bilgi, anlam.

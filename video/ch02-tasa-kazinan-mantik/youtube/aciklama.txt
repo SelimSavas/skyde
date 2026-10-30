@@ -1,0 +1,104 @@
+BAŞLIK
+Taşa Kazınan Mantık: Elektrik Nasıl Düşünür? | Bilişim Teknolojileri Yetkinliği · 2. Bölüm
+
+Alternatifler:
+• Bilgisayar Nasıl Düşünür? Mantık Kapıları | Bilişim Teknolojileri Yetkinliği · 2. Bölüm
+• Bir Lamba, İki Anahtar: Bilgisayarın Düşünme Sırrı | Bilişim Teknolojileri Yetkinliği · 2. Bölüm
+
+AÇIKLAMA  (1.990 karakter / 2.215 bayt; sınır 5.000)
+Video: ch02-tasa-kazinan-mantik-youtube.mp4 (9:41) · Altyazı: altyazi-tr.srt
+----------------------------------------
+Bir lamba, iki anahtar. Bu kadar basit bir düzenek nasıl olur da "düşünür"? Telefonundaki işlemcinin içinde Türkiye nüfusunun yüz katından fazla anahtar var ve hepsi aynı üç basit kuralla çalışıyor.
+
+Bu bölümde elektriğin nasıl karar verdiğini, bir insan cümlesinin nasıl devreye dönüştüğünü ve mantığın sözün gerçek anlamıyla taşa nasıl kazındığını adım adım görüyoruz:
+• VE, VEYA, DEĞİL: bilişimin bütün mantığını kuran üç kapı
+• Buzdolabının ışığı ve merdiven lambası hangi kapıyla çalışır?
+• "Kapı açıksa VE alarm kuruluysa sireni çal": bir cümle nasıl devreye dönüşür?
+• George Boole kâğıt üzerinde kurdu, Claude Shannon yaklaşık yüz yıl sonra elektriğe taşıdı
+• Doğruluk tablosu nedir, VE tablosu neden bir çarpım tablosudur?
+• İki kapı yan yana gelince nasıl toplama yapar?
+• Transistör: yirminci yüzyılın belki de en önemli icadı
+• Vakum tüplerinden, 30 tona yaklaşan ENIAC'tan silisyum çipe
+• Birkaç binden on milyarlarca transistöre: insanlık tarihinin en hızlı büyüme eğrilerinden biri
+
+Ön bilgi gerekmez. Bir önceki bölümü (Var ve Yok) izlediysen her şey yerine oturacak.
+
+BÖLÜMLER
+0:00 Elektrik nasıl düşünür?
+0:28 Devre, anahtar, bir ve sıfır
+1:02 VE kapısı
+1:45 VEYA kapısı
+2:07 DEĞİL kapısı: buzdolabının ışığı
+2:44 Bir cümleyi elektriğe çevirmek
+3:33 George Boole ve Claude Shannon
+4:18 Doğruluk tablosu
+5:14 Özel veya: merdiven lambası
+5:46 Kapılar nasıl toplama yapar?
+6:42 Anahtarı kim çevirir? Transistör
+7:24 Vakum tüpleri ve ENIAC
+7:53 Çip: mantık taşa kazınır
+8:27 En hızlı büyüme eğrisi
+8:55 Cebindeki milyarlarca anahtar
+9:29 Kapanış
+
+SERİDE
+◀ Önceki: Var ve Yok: Bilgisayar Neden Sadece 0 ve 1 Bilir? (Birinci Kapı, 1. Bölüm) [VAR VE YOK BAĞLANTISI]
+▶ Sıradaki: Sayılardan Devreye (Birinci Kapı, 3. Bölüm)
+Oynatma listesi: [OYNATMA LİSTESİ BAĞLANTISI]
+
+YUP (Yükselen Ufuklar Platformu): merak edenler için bir akademi. Bilişimden psikolojiye, matematikten kişisel gelişime; karmaşık konular sade, adım adım ve animasyonlarla.
+
+#bilişim #mantıkkapıları #transistör
+----------------------------------------
+
+
+ETİKETLER (Ayrıntılar > Daha fazla göster > Etiketler; virgülle yapıştır)
+mantık kapıları, VE kapısı, VEYA kapısı, DEĞİL kapısı, XOR, özel veya, doğruluk tablosu, Boole cebri, George Boole, Claude Shannon, transistör, transistör nedir, çip nasıl yapılır, entegre devre, silisyum, ENIAC, Moore yasası, işlemci nasıl çalışır, bilgisayar nasıl çalışır, bilgisayar nasıl düşünür, ikili sistem, toplayıcı devre, bilişim teknolojileri, bilgisayar bilimi, bilişim dersi, YUP Stüdyo
+
+
+YÜKLEME AYARLARI
+Küçük resim       : Aşağıdaki öneriye bak (1280×720, 2 MB altı).
+Oynatma listesi   : "Bilişim Teknolojileri Yetkinliği | Dijital Dünyayı Baştan Sona Anlamak" (Var ve Yok'tan hemen sonra, 3. sıra).
+İzleyiciler       : Hayır, çocuklara özel değil.
+Yaş kısıtlaması   : Yok.
+Ücretli tanıtım   : İşaretleme.
+Değiştirilmiş/yapay içerik: EVET. Yeni seslendirme ElevenLabs'te senin sesinden üretiliyor; YouTube gerçek bir kişinin
+                    sesini yapay olarak üretmeyi beyan gerektiren örnekler arasında sayıyor. Cezası yok, açıklamaya küçük bir etiket eklenir.
+Dil               : Türkçe. Altyazı: Altyazılar > Ekle > Dosya yükle > "Zamanlamalı" > altyazi-tr.srt
+Kategori          : Eğitim
+Lisans            : Standart YouTube Lisansı
+Yorumlar          : Açık; sıralama "En popüler".
+
+BİTİŞ EKRANI (son 20 saniye: 9:21 – 9:41)
+• Video öğesi: "Belirli bir video" > Sayılardan Devreye (yayınlandıysa); yoksa "Oynatma listesi".
+• Abone ol öğesi: kanal logosu.
+• Son saniyelerde ortadaki "Taşa kazınan mantık." yazısı boş kalmalı; öğeleri sol alt ve sağ alta yerleştir.
+
+BİLGİ KARTLARI
+• 0:10 – Video: Var ve Yok (1. Bölüm) — "Önce bunu izle"
+• 4:18 – Oynatma listesi: serinin tamamı
+• 9:15 – Video: Sayılardan Devreye (yayınlandıysa)
+
+SABİTLENMİŞ YORUM
+Merdiven boşluğundaki lamba hem aşağıdan hem yukarıdan nasıl açılıp kapanıyor? Videoyu izlemeden tahminini yaz,
+sonra 5:14'ten itibaren kontrol et. 💡 Sıradaki bölümde kapılar sayılarla buluşuyor: Sayılardan Devreye.
+
+KÜÇÜK RESİM (Gemini; 16:9, 1280×720, 2 MB altı)
+Önerilen prompt (yazı görselin içinde):
+  YouTube thumbnail, 16:9, 1280x720. Cinematic digital illustration on a deep navy (#0f1730) background.
+  On the right half, a single large glowing light bulb with a warm orange-gold filament, wired to two brass toggle
+  switches labeled with small engraved letters A and B. The wires turn into glowing golden circuit traces that flow
+  down into an ancient grey stone tablet; the circuit lines are carved deep into the stone and glow from inside,
+  as if logic is engraved in stone. Tiny 1 and 0 digits float faintly in the dark. Dramatic warm light on the bulb,
+  soft glow, high contrast, one strong focal point, minimal, clean.
+  On the left half, a large bold headline in Turkish, in a heavy geometric sans-serif font (like Montserrat Black),
+  all caps, left-aligned, on two lines, exact spelling:
+  "ELEKTRİK"
+  "DÜŞÜNÜR MÜ?"
+  "ELEKTRİK" in cream white (#F3EDE1); "DÜŞÜNÜR MÜ?" larger, in warm golden yellow (#FFB547) with a soft golden glow.
+  Perfectly sharp and legible, correct Turkish characters (dotted İ in "ELEKTRİK", Ü and Ş in "DÜŞÜNÜR", Ü in "MÜ").
+  Bottom-left corner: a small rounded dark label with the text "2. BÖLÜM" in small white bold capital letters.
+  Keep the bottom-right corner empty. No other text, no watermark.
+Alternatif yazı (aynı prompt, iki satırı değiştir): "VE · VEYA" / "DEĞİL"
+Türkçe harf bozulursa aynı sohbette: "Fix the text only, keep everything else exactly the same. The headline must read exactly: ELEKTRİK / DÜŞÜNÜR MÜ?"
+Yine olmazsa "No text at all" ekleyip yazısız üret; yazıyı ve YUP logosunu Canva'da önceki bölümlerdeki yere ekle.

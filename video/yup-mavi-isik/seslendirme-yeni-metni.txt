@@ -1,0 +1,25 @@
+YUP Akademi — Gecenin Mavi Işığı: YENİ ve DEĞİŞEN satırlar (22 satır)
+(Kayıtlı diğer 43 satır aynen kullanılıyor. Kimlikler yalnızca dosya adı içindir, okunmaz.)
+
+[h-know]  Belki sen de tanıyorsun: pazar gecesi bir türlü gelmeyen uyku, sabah beş kez ertelenen alarm, öğleden sonra çöken enerji.
+[h-plan]  Bu videoda o saatin nasıl çalıştığını, ışığın onu nasıl kandırdığını ve en önemlisi, bu akşamdan itibaren neyi farklı yapabileceğini göreceğiz.
+[c-jetlag]  Bu kaymayı hepimiz yaşarız. Hafta sonu geç yatıp öğlene kadar uyuduğunda, sabah ışığını kaçırırsın ve iç saatin ileri kayar. Pazartesi sabahı alarm çaldığında vücudun, sanki başka bir saat diliminden yeni dönmüş gibidir. Buna sosyal jet lag denir.
+[e-every]  Bu dedektif hiç mesai bitirmez: gece banyoda yaktığın parlak tavan lambasını da, yatakta yüzüne tuttuğun ekranı da not eder.
+[d-meter]  Peki gün içinde gözümüze gerçekte ne kadar ışık giriyor? Işığı ölçen bir aletle, sıradan bir günü takip edelim. Işığın birimi lükstür.
+[d-out]  Bulutlu bir günde bile dışarıda ışık birkaç bin lükse çıkar; güneşli bir öğlede ise on binleri aşar.
+[d-in]  Evin ya da ofisin içi ise çoğu zaman birkaç yüz lükstür; pencereden uzaklaştıkça daha da azalır. Yani gününü içeride geçiren birinin beyni için gündüz, olması gerekenden çok daha loştur.
+[d-evening]  Akşam ise tam tersi olur: tavan lambaları ve ekranlar, iç saate hâlâ gündüz sinyali verir. Kısacası, gündüzlerimiz fazla karanlık, gecelerimiz fazla aydınlık.
+[d-camp]  Bunu en güzel bir kamp deneyi gösterdi. Bir hafta boyunca elektrik ışığı olmadan, yalnızca güneş ve kamp ateşiyle yaşayan gönüllülerin iç saati, yaklaşık iki saat erkene kaydı.
+[d-sunset]  Melatoninleri gün batımıyla birlikte yükselmeye başladı; sabah da biyolojik gecenin ortasında değil, sonunda uyandılar.
+[d-weekend]  Üstelik bir hafta sonu kampı bile, bu saati bir buçuk saate yakın erkene çekmeye yetti.
+[x-friend]  Yani arkadaşın gece telefona bakıp rahatça uyuyabiliyorsa, bu senin için de aynı olacak demek değil.
+[p-morning]  Pratikte bu şu demek: uyanınca perdeyi sonuna kadar aç. Kahvaltını pencerenin önünde yap; mümkünse işe ya da okula giderken bir durak önce in ve yürü.
+[p-desk]  Gün içinde masanı pencereye yaklaştır; öğle arasında birkaç dakikalığına da olsa dışarı çık. Bulutlu bir gün bile, evin içinden kat kat aydınlıktır.
+[p-lamp]  Bunun en kolay yolu, akşam yemeğinden sonra tavan lambasını kapatıp küçük, sarı ışıklı bir lamba yakmak. Ampul alırken kutusundaki kelvin değerine bak: iki bin yedi yüz gibi düşük bir sayı, sıcak ve sarı bir ışık demektir.
+[p-distance]  Telefonu kullanman gerekiyorsa, ekranı yüzüne yaklaştırma. Ekranı iki kat uzağa tuttuğunda, gözüne ulaşan ışık kabaca dörtte birine iner.
+[p-sleeplight]  Bu yalnızca uyku için değil. Bir deneyde, tavan lambası açıkken tek bir gece uyuyan sağlıklı gençlerin, uyku boyunca kalp atışı hızlandı; ertesi sabah da kan şekerini düzenleyen insüline verdikleri yanıt zayıfladı.
+[p-dark]  Karartma perde ya da bir uyku bandı; şarj aletlerinin küçük ışıklarına bir parça bant. Gece kalkarsan da tavan lambasını değil, yere yakın, kısık ve sarı bir gece lambasını yak.
+[p-alarm]  Alarm için basit bir masa saati yeter. Yatakta ekran kaydırmak yerine kitap oku, müzik dinle ya da yarının listesini bir kâğıda yaz.
+[p-weekend]  Hafta sonları da kalkış saatini çok kaydırma; farkı bir saat civarında tutmak, pazartesi sabahlarını kolaylaştırır.
+[p-days]  İç saat bir gecede değil, her gün biraz kayar. Bu yüzden bu alışkanlıkları en az bir hafta dene; sonucu tek gecede değil, günler içinde görürsün.
+[p-doctor]  Ama haftalardır uyuyamıyorsan ya da gün boyu sürekli yorgunsan, bu ipuçlarıyla yetinme; bir hekime danış.

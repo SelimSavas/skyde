@@ -1,0 +1,151 @@
+YUP AKADEMİ · TABAĞINDAKİ BİLİM · ANİMASYONA HAZIR GEMINI PROMPTLARI
+Gemini tek kare görsel üretir. Bu promptlar o kareleri hareket ettirilebilir parçalar hâlinde istiyor:
+katmanlar, kukla parçaları, ağız şekilleri, aşama kareleri, efektler. Sondaki H bölümü Gemini'nin
+video özelliği (Veo) için hareket promptlarıdır.
+
+GENEL KURALLAR
+- Kesilip ayrılacak her parça düz MACENTA (#FF00FF) zemin üzerinde istenir. Paletimizde macenta yok,
+  bu yüzden "arka planı kaldır" araçları (Canva, CapCut, remove.bg) parçaları temiz ayırır. Krem zemin,
+  krem pantolon ve buzdolabıyla karışır.
+- Aşama karelerini (E bölümü) tek görselde şerit olarak değil, AYNI SOHBETTE art arda düzenleme olarak
+  iste: önce 1. kareyi üret, sonra her adımda "keep everything identical, only change ..." de. Böylece
+  kadraj sabit kalır ve kareler arasında yumuşak geçiş (crossfade) yapılabilir.
+- Karakterli her promptta karakter görselini yükle.
+- Stil son ekini hiç değiştirme.
+
+STİL SON EKİ (aşağıdaki promptların hepsinde zaten var)
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+════════════════════════════════════════
+A · KATMANLI MUTFAK (parallax: kamera kayarken katmanlar farklı hızda akar)
+════════════════════════════════════════
+Mutfak görseli yüklüyken, aynı sohbette sırayla:
+
+A1 · Arka katman (duvar)
+Using the attached kitchen, create only the back wall layer: remove the countertop, stove, sink, fridge and everything standing in front of the wall. Keep the wall, window, tiles, shelves with jars, hanging peppers, garlic and onion bag, clock and chalkboard exactly as they are, and fill the gaps naturally with the same wall and tiles. Same size and framing, 16:9.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+A2 · Orta katman (tezgâh)
+Using the attached kitchen, keep only the countertop, stove, sink, fridge and every object standing on them, exactly as they are, in the same position and size. Replace everything else (wall, window, shelves, floor) with a plain solid flat magenta (#FF00FF) color. 16:9.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+A3 · Ön katman (kameraya çok yakın, hafif bulanık)
+Foreground overlay layer for a 16:9 kitchen animation: a few large, softly blurred objects very close to the camera along the bottom and side edges: basil leaves in the bottom-left corner, the rim of a ceramic bowl in the bottom-right, a hanging copper ladle entering from the top-right edge. The whole center of the image is empty plain solid flat magenta (#FF00FF), and so is everything around the objects.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+════════════════════════════════════════
+B · KARAKTER KUKLASI (cut-out animasyon)
+════════════════════════════════════════
+B1 · Kukla parçaları (eklemli karakter)
+Using the exact same character from the attached image, create a cut-out puppet parts sheet for 2D rigging, front three-quarter view, on a plain solid flat magenta (#FF00FF) background. Every body part drawn separately with clear empty space between them, nothing overlapping: head without neck (hair and glasses included), neck, torso with apron, left upper arm, left forearm, right upper arm, right forearm, left thigh, left lower leg with sneaker, right thigh, right lower leg with sneaker. Joints are rounded at the ends so they overlap cleanly when assembled. Below them, six separate hands: open palm, relaxed, fist, pointing finger, thumbs up, hand holding the brass magnifying glass. Same scale for all parts.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no labels, no logos, no watermark.
+
+B2 · Ağız şekilleri (konuşma eşlemesi)
+Using the exact same character from the attached image, create a lip-sync sheet: nine head close-ups of the character, identical head angle, size, hair, glasses and eyes in every one, only the mouth changes, arranged in a 3x3 grid on a plain solid flat magenta (#FF00FF) background: 1) closed relaxed mouth; 2) wide open for "A"; 3) wide smile showing teeth for "E" and "İ"; 4) round open "O"; 5) small round pursed "U"; 6) lips pressed together for "M", "B", "P"; 7) upper teeth on the lower lip for "F" and "V"; 8) tongue touching the upper teeth for "L"; 9) slightly open, teeth together for "S" and "Z".
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no labels, no logos, no watermark.
+
+B3 · Gözler ve kırpma
+Using the exact same character from the attached image, create an eyes sheet: eight head close-ups of the character, identical head angle and size, only the eyes and eyebrows change, in a 4x2 grid on a plain solid flat magenta (#FF00FF) background: eyes open; half closed; fully closed (blink); looking left; looking right; looking up, thinking; surprised with raised eyebrows; happy closed crescent eyes.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no labels, no logos, no watermark.
+
+B4 · Yürüme döngüsü (Gemini burada zorlanabilir; tutmazsa kukla parçalarıyla yürütürüz)
+Using the exact same character from the attached image, create a walk cycle sprite sheet: eight full-body frames of the character walking to the right in pure side view, one complete step cycle (contact, down, passing, up for each leg), all frames the same size, evenly spaced in one row, feet on the same ground line, on a plain solid flat magenta (#FF00FF) background.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no labels, no logos, no watermark.
+
+════════════════════════════════════════
+C · EFEKT SAYFASI (her bölümde tekrar kullanılır)
+════════════════════════════════════════
+A sheet of separate 2D animation effects, each one isolated with clear space around it, in a neat grid on a plain solid flat magenta (#FF00FF) background, 16:9: three white steam puffs of different sizes; a wavy rising steam curl; small oil splatter droplets; three gas flames (small, medium, large) in blue and orange; a soft grey smoke cloud; three teardrops; two sweat drops; a golden aroma swirl made of wavy lines; a burst star shape for a popping moment; a cluster of small golden sparkles; speed lines; a small round water droplet; a glowing soft golden orb.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no labels, no logos, no watermark.
+
+════════════════════════════════════════
+D · BÜYÜTEÇ GEÇİŞİ (seri imzası)
+════════════════════════════════════════
+D1 · Büyüteç çerçevesi (maske olarak kullanılır)
+A single large brass magnifying glass seen straight from the front, centered, with a thick polished brass ring and a wooden handle pointing to the bottom-right, a soft golden glint on the ring. The inside of the lens is completely empty: plain solid flat magenta (#FF00FF), and so is the whole background. 16:9.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+D2 · Mikro dünya arka planı (moleküller sonradan, doğru hâliyle eklenir)
+An empty microscopic world background, 16:9: a deep navy space with a soft golden glow in the center, gently blurred round bokeh light spots, faint translucent cell-like bubbles at the edges, a feeling of depth. No molecules, no objects in the center, calm and open so animated molecules can be placed on top later.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+════════════════════════════════════════
+E · AŞAMA KARELERİ (bölüm başına; aynı sohbette art arda)
+════════════════════════════════════════
+Önce 1. kareyi tam prompt olarak yaz. Sonraki her kare için aynı sohbette şunu yaz:
+"Keep everything identical: same framing, same objects, same colors, same lighting. Only change: ..."
+
+E1 · Soğan Neden Ağlatır?
+Kare 1: Close-up 16:9 shot of a whole onion on a wooden cutting board with a chef's knife beside it, kitchen softly blurred behind. + STİL SON EKİ
+  → the onion is cut in half, showing its rings
+  → a faint pale-yellow mist starts rising from the cut surface
+  → the mist rises higher and drifts toward the top of the image
+  → the mist has spread across the top, small tear drops fall from above at the top edge
+
+E2 · Acı Biber Ağzını Neden Gerçekten "Yakar"?
+Kare 1: Close-up 16:9 shot of a whole fresh red chili pepper on a wooden board, kitchen softly blurred behind. + STİL SON EKİ
+  → the chili is sliced open lengthwise, showing pale inner ribs and seeds
+  → the pale inner ribs glow softly orange
+  → a small glass of milk appears next to the chili
+  → the orange glow fades as a little milk splashes beside the pepper
+
+E3 · Ekmek Neden Bayatlar?
+Kare 1: Close-up 16:9 shot of a slice of fresh soft Turkish bread on a board, fluffy white crumb, golden crust. + STİL SON EKİ
+  → the same slice one day later: the crumb a little paler and firmer, crust less shiny
+  → three days later: the crumb dry, pale and cracked, crust hard and dull
+  → the same old slice warming inside a glowing oven, soft heat waves around it
+  → after warming: the crumb looks soft again, a little steam rises (it softens when warm, but goes stale again even faster after cooling)
+
+E4 · Patlamış Mısır Nasıl Patlar?
+Kare 1: Large close-up 16:9 cross-section of a single corn kernel on a deep navy background: a hard golden outer shell, a pale starchy inside dotted with tiny water droplets. + STİL SON EKİ
+  → the kernel glows orange with heat, the tiny water droplets turn into small steam bubbles
+  → the shell bulges and small cracks appear
+  → the shell bursts open with a star-shaped flash, white foamy starch puffing out
+  → a fully popped fluffy white popcorn with pieces of the golden shell attached
+
+E5 · Kızaran Etin O Güzel Kokusu Nereden Gelir?
+Kare 1: Top-down 16:9 view of a raw pink steak in a dark cast-iron pan, before cooking. + STİL SON EKİ
+  → the edges turn grey, a little steam rises
+  → golden brown patches appear, oil sizzles
+  → a deep brown crust, golden aroma swirls rising
+  → too far: black burnt patches and grey smoke (the "stop here" moment)
+
+════════════════════════════════════════
+F · BAŞLIK KARTI, BİTİŞ EKRANI VE TEZGÂH ÜSTÜ
+════════════════════════════════════════
+F1 · Başlık kartı arka planı (yazıyı biz ekleriz)
+Top-down 16:9 view of a wooden kitchen table: around the edges a halved onion, a red chili, a slice of bread, a handful of popcorn, a small pan with a steak, a wooden spoon, a brass magnifying glass and a few spice jars; the center of the table is completely empty and calm, leaving large space for a title. Soft warm light.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+F2 · Boş tezgâh üstü (malzemeler ayrı ayrı kayarak gelir)
+Top-down 16:9 view of an empty wooden kitchen countertop with visible wood grain and a folded checkered tea towel in one corner, nothing else, soft warm light.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+F3 · Bitiş ekranı arka planı (son 20 saniye: abone ol ve video kutuları)
+Wide 16:9 end-screen background: the same cozy kitchen softly blurred and slightly darkened with a warm evening glow. The left half is calm and empty for two video thumbnails; on the right, the host character from the attached image waves goodbye, holding the magnifying glass.
+Style: flat 2D vector, clean geometric shapes, soft rounded corners, no black outlines, flat colors with gentle shading, light paper grain. Palette: navy #1B2440, golden yellow #FFB547, cream #F3EDE1, terracotta #D9653B, sage green #8DB596, tomato red #E5484D, copper #C27C4E. No text, no letters, no numbers, no logos, no watermark.
+
+════════════════════════════════════════
+H · GEMINI VİDEO (Veo): GÖRSELİ HAREKETLENDİRME
+════════════════════════════════════════
+Görseli yükle, video seçeneğini aç, aşağıdakinden birini yaz. Klipler kısa (yaklaşık 8 saniye).
+Hareketleri küçük tut, yoksa 2D stil bozulur. Üretilen sesi kapat; anlatımı ve müziği biz ekliyoruz.
+Video hakkı sınırlı olabilir; en önemli sahnelere sakla.
+
+H1 · Canlı mutfak (arka plan döngüsü)
+Static camera. Bring the kitchen gently to life: steam rises slowly from the pot and the teapot, the small blue flames flicker, the oil in the pan sizzles with tiny droplets, dust sparkles float in the sunbeam, the basil leaves sway slightly. Nothing else moves. Keep the flat 2D vector style, colors and every object exactly the same. No people, no text, no speech, no music.
+
+H2 · Sunucu selam veriyor
+Static camera. The character smiles, blinks once and waves hello with her free hand, then lifts the magnifying glass to her eye so her eye looks big through the lens. Smooth, simple 2D animation movement. Keep the flat 2D vector style and the character exactly the same. Plain background stays still. No text, no speech, no music.
+
+H3 · Büyüteç geçişi
+The camera pushes slowly and smoothly into the magnifying glass lens until the golden glowing lens fills the whole frame, revealing a deep navy microscopic space with soft golden light particles drifting. Keep the flat 2D vector style. No text, no speech, no music.
+
+H4 · Mısır patlıyor (ağır çekim)
+Static camera, slow motion. The corn kernels at the bottom of the pot shake, then one by one burst open into fluffy white popcorn that jumps up and falls back softly. Keep the flat 2D vector style and colors. No text, no speech, no music.
+
+H5 · Tava cızırdıyor
+Static camera, top-down. The steak sizzles in the pan, tiny oil droplets jump, golden aroma swirls rise and curl upward, the crust slowly deepens in color. Keep the flat 2D vector style and colors. No text, no speech, no music.
+
+H6 · Soğan kesiliyor
+Static close-up. The knife slowly cuts through the onion, the two halves fall apart showing the rings, and a faint pale-yellow mist begins rising from the cut surface. Keep the flat 2D vector style and colors. No hands, no people, no text, no speech, no music.

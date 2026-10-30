@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YUP Akademi — Gecenin Mavi Işığı</title>
+  <link rel="stylesheet" href="../shared/player.css">
+</head>
+<body>
+  <main class="stage">
+    <canvas id="film" aria-label="Animasyon: Gecenin Mavi Işığı"></canvas>
+    <button class="big-play" id="bigPlay" aria-label="Oynat">▶</button>
+    <div class="status" id="status">Ses sentezleniyor…</div>
+  </main>
+  <div class="controls">
+    <button id="play" aria-label="Oynat">▶</button>
+    <span id="time">0:00 / 8:00</span>
+    <input id="seek" type="range" min="0" max="600" step="0.01" value="0" aria-label="Zaman">
+    <span id="scene"></span>
+    <button id="fs" aria-label="Tam ekran">⛶</button>
+  </div>
+  <script src="../shared/engine.js"></script>
+  <script src="../shared/synth.js"></script>
+  <script src="narration.js"></script>
+  <script src="voice.js"></script>
+  <script src="film.js"></script>
+  <script src="../shared/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+Birinci Kapı, 2. Bölüm — Taşa Kazınan Mantık: seslendirme metni
+
+Her satır videoda ayrı bir yerde okunur. En iyisi her satırı ayrı bir dosya olarak kaydetmek (dosya adı = köşeli parantezdeki kimlik, ör. circuit-loop.mp3).
+Videoda bu satırların yerinde görüntü bekler; kayıtlar dub.mjs ile videoya yerleştirilir. Sakin, belgesel anlatıcısı temposu yeterli.
+Virgül ve noktalarda kısa duraklamak, sesin animasyondaki olaylarla örtüşmesini kolaylaştırır.
+
+[open-title]  Birinci kapı, ikinci bölüm: taşa kazınan mantık.
+[recap-numbers]  Bir önceki bölümde, makinenin sayıları nasıl tuttuğunu konuştuk: her şey, var ile yok, bir ile sıfır dizileridir.
+[recap-question]  Şimdi çok daha şaşırtıcı bir soruya geliyoruz: elektrik nasıl olur da düşünür?
+[recap-bell]  Yanıt, bir kapı zilinden bile basittir.
+[circuit-loop]  Önce küçük bir hatırlatma. Elektriğin bir lambayı yakabilmesi için, pilden çıkıp yeniden pile dönen, kesintisiz bir yol gerekir; buna devre denir.
+[circuit-break]  Yol bir yerinden koptuğunda, akım durur ve lamba söner.
+[circuit-switch]  Anahtar, bu yolu isteğimizle açıp kapatan küçük bir köprüdür. Işığı açmak der gibi, anahtar açık dediğimizde, akımın geçtiği konumu kastedeceğiz.
+[circuit-bits]  Açık, bir; kapalı, sıfır. Lamba yanıyorsa bir, sönükse sıfır.
+[and-setup]  Şimdi bir odada bir lamba ve iki anahtar olsun; adları A ile B. Anahtarları arka arkaya, tek bir hat üzerine bağlayalım.
+[and-cases]  İkisi de kapalı: lamba sönük. Yalnız A açık: yine sönük. Yalnız B açık: yine sönük. İkisi de açık: lamba yanar.
+[and-why]  Çünkü akımın tek bir yolu var, ve o yol iki anahtarın da içinden geçer; biri bile kapalıysa, yol kopar.
+[and-name]  Bu düzeneğin adı, VE kapısıdır: A VE B açıksa, lamba yanar.
+[and-gate]  Kapı denmesinin nedeni de şu: bu düzenekler, akımın geçip geçmeyeceğine karar verir; tıpkı açılıp kapanan bir kapı gibi.
+[or-setup]  Şimdi aynı iki anahtarı yan yana, ayrı hatlara bağlayalım. Artık akımın iki yolu var.
+[or-cases]  İkisi de kapalıyken lamba sönük. A açılınca yanar; B açılınca da yanar; ikisi birden açıkken de yanar.
+[or-name]  Herhangi biri açıksa, lamba yanar. Bunun adı da VEYA kapısıdır.
+[not-fridge]  Üçüncü bir düzenek daha kurabiliriz: girişi tersine çeviren bir düzenek. Buzdolabının içindeki ışığı düşünün. Kapı kapanırken küçük bir düğmeye bastırır, ve ışık söner; kapıyı açtığınızda düğme bırakılır, ışık yanar.
+[not-name]  Anahtar açıkken lamba söner, kapalıyken yanar. Buna DEĞİL kapısı denir: bir girerse sıfır çıkar, sıfır girerse bir.
+[not-three]  Hepsi bu kadar. VE, VEYA, DEĞİL. Bilişim dünyasının bütün mantığı, bu üç düzenekten kuruludur. Mühendisler onları, işte bu simgelerle çizer.
+[why-pause]  Bir an durup düşünelim. Kurduğumuz şey, yalnızca elektrikle çalışan bir devre değildi; bir cümleyi elektriğe çevirmiş olduk.
+[why-alarm]  Kapı açıksa VE alarm kuruluysa, sireni çal. Bu bir insan cümlesidir. Ama artık ona karşılık gelen bir devre kurabiliyoruz: iki anahtar, arka arkaya, ucunda siren.
+[why-fire]  Yangın algılandıysa VEYA düğmeye basıldıysa, kapıları aç. Bu da bir insan cümlesidir; onun da devresi var: iki anahtar, yan yana.
+[why-bridge]  İşte bilişimin sırrı burada yatar: mantıksal düşünme ile elektrik devresi arasında, birebir bir karşılık vardır. Bir kez bu köprü kurulunca, insanın kurabildiği her mantıklı cümle, elektrikle çalışan bir düzeneğe çevrilebilir.
+[boole-who]  Bu köprünün matematiğini, on dokuzuncu yüzyılda İngiliz matematikçi George Boole kurmuştu; hiçbir makine yokken, tamamen kâğıt üzerinde.
+[boole-algebra]  Cebir, harflerle hesap yapmak demektir. Boole bu hesabı sayılarla değil, doğru ile yanlışla yaptı: doğruya bir, yanlışa sıfır dedi. VE, onun için bir çarpmaydı; DEĞİL ise, birden çıkarmak.
+[boole-shannon]  Yaklaşık yüz yıl sonra, bin dokuz yüz otuz yedide, Claude Shannon adında genç bir mühendis, Boole’un cebrinin elektrik anahtarlarıyla birebir örtüştüğünü fark etti.
+[boole-lesson]  Kuramın, uygulamayı yüz yıl önceden beklediği bu hikâye, bunu ne zaman kullanacağım diye soran her öğrenciye anlatılmaya değer.
+[table-intro]  Bir mantık kapısının davranışını göstermenin en açık yolu, bütün olasılıkları bir tabloya dökmektir. Buna doğruluk tablosu denir.
+[table-read]  Solda girişler, sağda sonuç durur; her satır, bir durumdur. İki giriş varsa dört satır olur; ilk bölümdeki iki lambayı hatırlayın.
+[table-and]  VE kapısında ikisi de gerekir: dört satırdan yalnızca birinde, ikisi de bir olduğunda, sonuç birdir.
+[table-or]  VEYA kapısında biri yeter: sonuç, yalnızca ikisi de sıfırken sıfırdır.
+[table-not]  DEĞİL kapısının tek girişi vardır; ne girerse, tersi çıkar.
+[table-mult]  Bu tablolara mantığın çarpım tablosu demek yanlış olmaz. Hatta VE tablosu, gerçekten de bir çarpım tablosudur: sıfırla biri çarpın, aynı sonuçları bulursunuz. Ezberlenmesi gerekmez; bir kez kavranınca, zaten unutulmaz.
+[xor-intro]  Bir kapı daha var, ve gündelik hayatta çok işe yarar: ÖZEL VEYA. İkisinden biri, ama ikisi birden değil, anlamına gelir.
+[xor-stairs]  Bir merdiven boşluğundaki lambayı düşünün: aşağıdan da, yukarıdan da açılıp kapanır. Aşağıdaki anahtarı çevirin, lamba yanar. Yukarı çıkıp oradaki anahtarı çevirin, lamba söner.
+[xor-rule]  Anahtarlar farklı konumdaysa lamba yanar, aynı konumdaysa söner. İşte bu, özel veya kapısıdır.
+[adder-intro]  Özel veya, toplama işleminde de karşımıza çıkar. İlk bölümde gördüğümüz gibi makine sayıları bir ve sıfırla yazar; şimdi iki biti toplayalım.
+[adder-cases]  Sıfır artı sıfır, sıfır. Sıfır artı bir, bir. Bir artı sıfır, bir. Bir artı bir ise iki eder; ikili sayılarla yazınca, bir sıfır.
+[adder-carry]  Yani basamağa sıfır yazılır, bir de elde kalır; tıpkı dokuz artı birde, sıfır yazıp bir elde tuttuğumuz gibi.
+[adder-gates]  Şimdi sütunlara bakın. Basamağa yazılan, özel veyanın tablosudur; elde ise, VE’nin tablosu. Bir özel veya ile bir VE kapısı yan yana konunca, iki biti toplayan bir makine olur.
+[adder-chain]  Bu küçük toplayıcıları arka arkaya dizince, ne kadar büyük olursa olsun iki sayı toplanabilir. Altı artı yedi, on üç. Her hesap makinesinin kalbinde, bu düzenek atar.
+[turn-hand]  Şimdiye kadar anahtarları elle çevirdik. Ama bir makinenin, saniyede milyarlarca kez anahtar çevirmesi gerekir; hiçbir el buna yetişemez.
+[turn-chain]  Çözüm, elle değil, elektrikle çevrilen bir anahtar bulmaktı. Böylece bir kapının çıkışı, bir sonraki kapının anahtarını çevirebilecekti; zincirleme düşünme mümkün olacaktı.
+[turn-transistor]  Bu buluşun adı transistördür, ve muhtemelen yirminci yüzyılın en önemli icadıdır. Yaptığı iş kulağa sıradan gelir: küçük bir elektrik akımıyla, daha büyük bir akımı açıp kapatır.
+[turn-faucet]  Bir musluğun kolu gibidir; ama kolu çeviren el değil, elektriktir.
+[tubes-before]  Transistörden önce bu işi vakumlu tüpler yapıyordu: ampul boyutunda, sıcak, kırılgan, ve çok elektrik yiyen düzenekler.
+[tubes-eniac]  İlk bilgisayarlardan ENIAC, on yedi bin tüple koca bir odayı doldururdu; ağırlığı otuz tona yaklaşırdı. Gücü ise, bugünkü bir cep hesap makinesinin altındaydı.
+[tubes-small]  Transistör ise küçüktü, ısınmıyordu, kırılmıyordu. Ve daha da önemlisi: küçültülebiliyordu.
+[chip-print]  Bir sonraki adım, transistörleri tek tek üretip birbirine lehimlemek yerine, hepsini aynı silisyum parçasının üzerine birlikte basmaktı.
+[chip-silicon]  Silisyum, kumun ve taşın içinde bol bulunan bir elementtir. Kumdan arıtılır, ince dilimlere kesilir; devre ise, ışıkla bir şablondan geçirilerek, fotoğraf basar gibi bu dilimin üzerine basılır.
+[chip-name]  Buna tümleşik devre, halk arasındaki adıyla çip denir. Bölümün adı da buradan gelir: mantık, sözün gerçek anlamıyla taşa kazınır.
+[growth-intro]  Sonrası, insanlık tarihindeki en hızlı büyüme eğrilerinden biridir.
+[growth-list]  Bin dokuz yüz yetmişlerin bir işlemcisinde, birkaç bin transistör vardı. İki binlerin bir işlemcisinde, birkaç yüz milyon. Bugünün bir telefon işlemcisinde ise, on milyarlarca.
+[growth-doubling]  Bu sayı, kabaca her iki yılda bir ikiye katlandı. İlk bölümdeki lambalarda gördüğümüz gibi, katlamalar birikince, sezgimiz yine yanılır.
+[scale-people]  Bu sayıyı somutlaştırmak zordur; şöyle deneyelim. Türkiye’nin nüfusu, seksen beş milyon civarındadır.
+[scale-phone]  Cebinizdeki telefonun işlemcisinde, Türkiye nüfusunun yüzden fazla katı sayıda anahtar vardır; ve hepsi, bir tırnak büyüklüğündeki alana sığmıştır.
+[scale-speed]  Her biri, saniyede milyarlarca kez açılıp kapanır. Bu, insan elinin yaptığı en yoğun yapıdır.
+[scale-mosque]  Süleymaniye’nin taşları sayılabilir; bir işlemcinin transistörleri sayılamaz.
+[end-quote]  Bir şeyin nasıl çalıştığını bilmek, ona duyulan hayranlığı azaltmaz; hak edilmiş kılar.
+[close-end]  Taşa kazınan mantık.

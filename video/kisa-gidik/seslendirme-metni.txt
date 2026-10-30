@@ -1,0 +1,10 @@
+YUP Akademi · Lup · Vücudun Gizli Ayarları · Kendini gıdıklayamamak · seslendirme metni (6 satır, 86 kelime)
+(Sıcak, oyunbaz, gülümseyerek; bir sırrı fısıldar gibi başla. 2. satırda "Birazdan şuraya dokunacağım" sözünü beynin iç sesi gibi, biraz alçak oku.
+3. satırın sonundaki "Gıdıklanmadılar." kuru ve komik; 4. satırda "şaşırdı"dan sonra hızlan. 5. satır gülerek; son cümle göz kırpar gibi. Köşeli parantezdeki kimlikler okunmaz.)
+
+  [g-hook]    Kendini gıdıklayamazsın, çünkü beynin hamleni senden önce biliyor.
+  [g-kopya]   Elin daha kalkmadan beynin bir kopya çıkarıyor: Birazdan şuraya dokunacağım. Bildiği dokunuşun da sesini kısıyor.
+  [g-robot]   Bilim insanları bunu bir robotla denedi: Robotu kendi elinle oynatıp avucunu gıdıklattılar. Gıdıklanmadılar.
+  [g-gecikme] Ama robota çok kısa bir gecikme ekleyince beyin şaşırdı. Yeniden gıdıklamaya başladı.
+  [g-kardes]  Kardeşinle "ben yavaş vurdum" kavgası da buradan çıkıyor: Herkes kendi vuruşunu olduğundan hafif hisseder.
+  [g-cta]     Gıdıklanmaya dayanamayan arkadaşına gönder: Onu bir tek kendi eli gıdıklayamıyor.

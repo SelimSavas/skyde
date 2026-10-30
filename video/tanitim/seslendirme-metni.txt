@@ -1,0 +1,19 @@
+Bilişim Teknolojileri Yetkinliği — Udemy tanıtım videosu — seslendirme metni
+
+Her satır videoda ayrı bir yerde okunur. En iyisi her satırı ayrı bir dosya olarak kaydetmek (dosya adı = köşeli parantezdeki kimlik, ör. fire-chain.mp3).
+Videoda bu satırların yerinde görüntü bekler; kayıtlar dub.mjs ile videoya yerleştirilir. Sakin, sıcak, davet eden bir anlatıcı temposu yeterli.
+Virgül, noktalı virgül, iki nokta ve noktalarda kısa duraklamak önemli: görüntüdeki öğeler (yanan ateşler, beliren kartlar, ekrandaki bölüm görüntüleri) bu duraklara göre değişir.
+Okunuş notları: zekâ (ince k, uzun â); web [veb]; mobile [mo-bil-e]. [gates] ile [gates-list] tek cümledir: [gates] satırının sonunda ses asılı kalsın (iki nokta), [gates-list] küçük harfle sürer; isterseniz ikisini tek nefeste kaydedip iki noktadaki durakta ikiye bölün.
+
+[fire-chain]  Bir zamanlar önemli bir haber, tepeden tepeye yakılan ateşlerle taşınırdı.
+[fire-bit]  Ateş ya yanar ya yanmaz: var ya da yok. Bugün cebinizdeki telefon da, aynı iki simgeyle konuşuyor.
+[question]  Peki, harfler, fotoğraflar, oyunlar, hatta yapay zekâ, yalnızca iki simgeden nasıl doğuyor?
+[title]  Bilişim Teknolojileri Yetkinliği, bu sorunun peşine düşen bir yolculuk.
+[style]  Konular, adım adım animasyonlarla anlatılıyor. Gerektiğinde önce kısa bir ön öğrenme, sonra asıl konu.
+[example]  Bir harfin sayıya dönüşmesini, aynı sayının üç ayrı anlam taşımasını; hepsini gözünüzün önünde kuruyoruz.
+[gates]  Bu yolculuk on iki kapıdan geçecek:
+[gates-list]  bitten işlemciye; algoritmadan yazılıma; veri tabanından internete; siber güvenlikten web ve mobile; robotlardan yapay zekâya; atölyeden mesleğe kadar.
+[now]  Şimdilik birinci kapı açık, dört bölümüyle. Diğer kapılar da, birer birer açılacak; açıldıkça sizin de olacak.
+[book]  İlk bölümün ders kitabı ve etkinlikleri de hazır: öğrendiklerinizi kalem elde pekiştiriyorsunuz.
+[who]  Ön bilgi gerekmez. Bilişim alanını düşünen öğrenciler, perde arkasını merak eden yetişkinler, öğretmenler ve veliler; herkes buradan başlayabilir.
+[close]  İlk ateşi birlikte yakalım. Birinci Kapı sizi bekliyor.

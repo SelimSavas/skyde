@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="tr">
+<head><meta charset="utf-8"><title>YUP Akademi · YouTube banner</title></head>
+<body style="margin:0;background:#ddd">
+<canvas id="c" width="2560" height="1440" style="width:100%"></canvas>
+<script src="marka.js"></script>
+<script>
+// YouTube kanal banner'ı: 2560×1440. Masaüstünde ortadaki 2560×423 şerit, telefonda 1546×423 güvenli alan görünür.
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const C = { teal: '#0f766e', tealDeep: '#0b5a54', green: '#2e7d5b', cyan: '#6ec1c9', amber: '#f59e0b', navy: '#1e3a8a', cream: '#f7f3ea', ink: '#123b3a', muted: '#5f7471' };
+const W = 2560, H = 1440, SY = 508, SH = 423, SX = 507, SW = 1546, CY = SY + SH / 2;
+const font = (w, s, f = 'Nunito') => `${w} ${s}px ${f}, sans-serif`;
+function blob(cx, cy, r, color, seed) {
+  ctx.fillStyle = color; ctx.beginPath();
+  const N = 40, pts = [];
+  for (let i = 0; i < N; i++) { const th = i / N * Math.PI * 2; const k = 1 + 0.07 * Math.sin(3 * th + seed) + 0.05 * Math.sin(5 * th - seed * 2); pts.push([cx + Math.cos(th) * r * k, cy + Math.sin(th) * r * k]); }
+  for (let i = 0; i <= N; i++) { const p = pts[i % N], q = pts[(i + 1) % N]; const mx = (p[0] + q[0]) / 2, my = (p[1] + q[1]) / 2; if (!i) ctx.moveTo(mx, my); else ctx.quadraticCurveTo(p[0], p[1], mx, my); }
+  ctx.fill();
+}
+function rr(x, y, w, h, r) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); }
+function appIcon(cx, cy, size, logo) {
+  const L = window.YUP_LOGO, k = size / 2000, x = cx - size / 2, y = cy - size / 2;
+  ctx.save(); ctx.shadowColor = 'rgba(11,90,84,0.28)'; ctx.shadowBlur = size * 0.12; ctx.shadowOffsetY = size * 0.05;
+  rr(x, y, size, size, size * 0.16); ctx.fillStyle = C.teal; ctx.fill(); ctx.restore();
+  ctx.drawImage(logo, x + L.box[0] * k, y + L.box[1] * k, L.w * k, L.h * k);
+}
+// kenar süsleri: çizgi simgeler (yalnız geniş ekranda görünür)
+function icon(kind, x, y, s, col) {
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 7; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.beginPath();
+  if (kind === 'clock') { ctx.arc(0, 0, 48, 0, 7); ctx.moveTo(0, 0); ctx.lineTo(0, -28); ctx.moveTo(0, 0); ctx.lineTo(20, 10); }
+  if (kind === 'moon') { ctx.arc(0, 0, 44, 0.9, 5.4); ctx.quadraticCurveTo(-6, -2, 28, 34); }
+  if (kind === 'atom') { for (const r of [0, 1.05, 2.1]) { ctx.save(); ctx.rotate(r); ctx.ellipse(0, 0, 56, 20, 0, 0, 7); ctx.restore(); } }
+  if (kind === 'lens') { ctx.arc(-10, -10, 34, 0, 7); ctx.moveTo(15, 15); ctx.lineTo(48, 48); }
+  if (kind === 'chip') { ctx.roundRect(-36, -36, 72, 72, 12); for (const d of [-18, 0, 18]) { ctx.moveTo(d, -36); ctx.lineTo(d, -52); ctx.moveTo(d, 36); ctx.lineTo(d, 52); ctx.moveTo(-36, d); ctx.lineTo(-52, d); ctx.moveTo(36, d); ctx.lineTo(52, d); } }
+  if (kind === 'leaf') { ctx.moveTo(-40, 40); ctx.bezierCurveTo(-40, -30, 10, -50, 44, -44); ctx.bezierCurveTo(50, 10, 20, 46, -40, 40); ctx.moveTo(-40, 40); ctx.lineTo(18, -18); }
+  if (kind === 'chestnut') { ctx.moveTo(0, -46); ctx.bezierCurveTo(14, -44, 48, -26, 48, 6); ctx.bezierCurveTo(48, 30, 36, 40, 18, 40); ctx.lineTo(-18, 40); ctx.bezierCurveTo(-36, 40, -48, 30, -48, 6); ctx.bezierCurveTo(-48, -26, -14, -44, 0, -46); ctx.moveTo(-44, 22); ctx.quadraticCurveTo(0, 30, 44, 22); }
+  if (kind === 'bulb') { ctx.arc(0, -10, 34, 2.6, 0.54 + 6.28 - 6.28); ctx.moveTo(-16, 22); ctx.lineTo(16, 22); ctx.moveTo(-12, 36); ctx.lineTo(12, 36); }
+  ctx.stroke(); ctx.restore();
+}
+function fitFont(str, w, size, maxW, fam = 'Nunito') {
+  ctx.font = font(w, size, fam);
+  const m = ctx.measureText(str).width;
+  return m > maxW ? size * maxW / m : size;
+}
+function draw(logo) {
+  // zemin
+  ctx.fillStyle = C.cream; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = 'rgba(18,59,58,0.03)';
+  for (let i = 0; i < 900; i++) { const x = (Math.sin(i * 12.9898) * 43758.5453 % 1 + 1) % 1 * W, y = (Math.sin(i * 78.233) * 12543.123 % 1 + 1) % 1 * H; ctx.beginPath(); ctx.arc(x, y, 2 + (i % 4), 0, 7); ctx.fill(); }
+  // lekeler: TV'de tamamı, masaüstü şeridinde yalnız köşeler görünür
+  blob(60, 260, 380, C.teal, 1);
+  blob(2500, 1180, 380, C.teal, 3);
+  blob(2430, 520, 150, C.amber, 2);
+  blob(180, 1130, 120, C.amber, 4);
+  ctx.strokeStyle = C.amber; ctx.lineWidth = 9; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.arc(60, 260, 470, 0.3, 1.0); ctx.stroke();
+  ctx.beginPath(); ctx.arc(2500, 1180, 470, 3.45, 4.1); ctx.stroke();
+  // şeridin iki yanında simgeler (telefonda kırpılır)
+  [['clock', 150, 800, C.teal], ['chestnut', 330, 870, C.amber], ['atom', 420, 700, C.green]].forEach(([k, x, y, c]) => icon(k, x, y, 0.9, c));
+  [['chip', 2150, 640, C.navy], ['lens', 2260, 780, C.teal], ['moon', 2120, 870, C.navy]].forEach(([k, x, y, c]) => icon(k, x, y, 0.9, c));
+  // güvenli alan (1546×423): simge + yazı markası | slogan ve seriler
+  appIcon(SX + 125, CY, 230, logo);
+  ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+  ctx.fillStyle = C.teal; ctx.font = font(900, 150); ctx.letterSpacing = '5px'; ctx.fillText('YUP', SX + 265, CY + 2);
+  ctx.letterSpacing = '0px'; ctx.fillStyle = C.tealDeep; ctx.font = font(600, 92); ctx.fillText('Akademi', SX + 267, CY + 102);
+  const RX = SX + 770, RW = SW - 770 - 10;
+  ctx.strokeStyle = 'rgba(15,118,110,0.35)'; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(SX + 725, CY - 140); ctx.lineTo(SX + 725, CY + 140); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.font = font(700, fitFont('Merak et  •  Keşfet  •  Öğren', 700, 46, RW)); ctx.fillText('Merak et  •  Keşfet  •  Öğren', RX, CY - 112);
+  const tag = 'Küçük bir merak, büyük bir keşif.';
+  const ts = fitFont(tag, 700, 66, RW - 20, 'Caveat');
+  ctx.save(); ctx.translate(RX, CY - 30); ctx.rotate(-0.03);
+  ctx.fillStyle = C.teal; ctx.font = font(700, ts, 'Caveat'); ctx.fillText(tag, 0, 0);
+  const tw = ctx.measureText(tag).width;
+  ctx.strokeStyle = C.amber; ctx.lineWidth = 7; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(tw * 0.42, 24); ctx.quadraticCurveTo(tw * 0.72, 38, tw, 16); ctx.stroke();
+  ctx.restore();
+  // seriler: iki satır
+  const rows = [[['Tabağındaki Bilim', C.amber], ['Uykunun Bilimi', C.navy]], [['Bilişim', C.teal], ['Efsane mi, Gerçek mi?', C.green]]];
+  ctx.font = font(800, 30); let maxX = 0;
+  rows.forEach((row, ri) => {
+    let x = RX; const y = CY + 52 + ri * 70;
+    for (const [s, c] of row) {
+      const w = ctx.measureText(s).width + 60;
+      rr(x, y - 27, w, 54, 27); ctx.fillStyle = '#fffdf8'; ctx.fill(); ctx.strokeStyle = c; ctx.lineWidth = 4; ctx.stroke();
+      ctx.fillStyle = c; ctx.beginPath(); ctx.arc(x + 24, y, 8, 0, 7); ctx.fill();
+      ctx.fillStyle = C.ink; ctx.fillText(s, x + 40, y + 11);
+      x += w + 14;
+    }
+    maxX = Math.max(maxX, x);
+  });
+  window.__chipsEnd = maxX;
+}
+window.BANNER_READY = (async () => {
+  await window.YUP_FONTS_READY;
+  const logo = new Image(); logo.src = window.YUP_LOGO.src; await logo.decode();
+  draw(logo);
+  return cv.toDataURL('image/png');
+})();
+</script>
+</body>
+</html>
