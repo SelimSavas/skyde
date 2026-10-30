@@ -136,10 +136,26 @@ def yagmur():
     P['makro'] = enc(load('lup-7c-makro-toprak').convert('RGB'), 1.0, q=86)
     return P
 
+def gidik():
+    P = {}
+    es = load('lup-esya-gidik')
+    bx = rows(comps(es, dil=6, minarea=3000), tol=200)
+    for name, box in zip(['tuy', 'saat', 'robot', 'kumanda', 'dugme', 'beyin'], bx):
+        P[name] = enc(tight(es, box), 0.8)
+    pz = load('lup-4f-gidik')
+    cuts = [0, 463, 870, 1322, pz.width]
+    for i, name in enumerate(['poz_bos', 'poz_gulme', 'poz_saat', 'poz_omuz']):
+        P[name] = enc(tight(pz, (cuts[i], 0, cuts[i + 1], pz.height)), 0.8)
+    P['kardesler'] = enc(tight(load('kardesler-8d'), (0, 0, 1254, 1254)), 0.8)
+    P['lab'] = enc(load('lup-7j-lab').convert('RGB'), 1.0, q=86)
+    P['beyinodasi'] = enc(load('lup-7i-beyin-odasi').convert('RGB'), 1.0, q=86)
+    P['oda'] = enc(load('lup-7h-oturma-odasi').convert('RGB'), 1.0, q=86)
+    return P
+
 if __name__ == '__main__':
     if '--bolum' in sys.argv:
         b = sys.argv[sys.argv.index('--bolum') + 1]
-        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur}[b]()
+        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur, 'kisa-gidik': gidik}[b]()
         out = os.path.join(R, b, 'assets.js')
         head = '/* %s görselleri: video/lup/araclar/parcala.py --bolum %s üretir (kaynak video/lup/gorseller). Elle düzenlemeyin. */\nwindow.ASSETS = ' % (b, b)
     else:

@@ -10,7 +10,7 @@ window.NARRATION = {
     { id: 'g-hook', say: 'Kendini gıdıklayamazsın, çünkü beynin hamleni senden önce biliyor.' },
     { id: 'g-kopya', say: 'Elin daha kalkmadan beynin bir kopya çıkarıyor: Birazdan şuraya dokunacağım. Bildiği dokunuşun da sesini kısıyor.' },
     { id: 'g-robot', say: 'Bilim insanları bunu bir robotla denedi: Robotu kendi elinle oynatıp avucunu gıdıklattılar. Gıdıklanmadılar.' },
-    { id: 'g-gecikme', say: 'Ama robota çok kısa bir gecikme ekleyince beyin şaşırdı ve kendi el, yeniden gıdıklamaya başladı.' },
+    { id: 'g-gecikme', say: 'Ama robota çok kısa bir gecikme ekleyince beyin şaşırdı. Yeniden gıdıklamaya başladı.' },
     { id: 'g-kardes', say: 'Kardeşinle "ben yavaş vurdum" kavgası da buradan çıkıyor: Herkes kendi vuruşunu olduğundan hafif hisseder.' },
     { id: 'g-cta', say: 'Gıdıklanmaya dayanamayan arkadaşına gönder: Onu bir tek kendi eli gıdıklayamıyor.' },
   ],

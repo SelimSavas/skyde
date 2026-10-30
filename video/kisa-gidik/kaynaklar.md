@@ -9,7 +9,7 @@
 ## Metinde sadeleştirilenler
 - **"Bir kopya çıkarıyor":** Eferent kopya ve ileri model kavramlarının günlük dildeki karşılığı.
 - **"Sesini kısıyor":** Duyusal bastırmanın benzetmesi.
-- **"Kendi el, yeniden gıdıklamaya başladı":** Deneyde gıdıklama puanı arttı. Başkasının dokunuşu kadar gıdıklayıcı olup olmadığı metinde iddia edilmez.
+- **"Yeniden gıdıklamaya başladı":** (Kayıtta "ve kendi el" sözü okunmadı; metin kayda göre düzeltildi.) Deneyde gıdıklama puanı arttı. Başkasının dokunuşu kadar gıdıklayıcı olup olmadığı metinde iddia edilmez.
 - **Kardeş kavgası:** Shergill 2003 deneyinin gündelik hayata uyarlamasıdır. Deney yetişkin çiftlerle yapıldı.
 
 ## Bilerek metne alınmayanlar

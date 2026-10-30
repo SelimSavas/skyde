@@ -5,6 +5,6 @@ YUP Akademi · Lup · Vücudun Gizli Ayarları · Kendini gıdıklayamamak · se
   [g-hook]    Kendini gıdıklayamazsın, çünkü beynin hamleni senden önce biliyor.
   [g-kopya]   Elin daha kalkmadan beynin bir kopya çıkarıyor: Birazdan şuraya dokunacağım. Bildiği dokunuşun da sesini kısıyor.
   [g-robot]   Bilim insanları bunu bir robotla denedi: Robotu kendi elinle oynatıp avucunu gıdıklattılar. Gıdıklanmadılar.
-  [g-gecikme] Ama robota çok kısa bir gecikme ekleyince beyin şaşırdı ve kendi el, yeniden gıdıklamaya başladı.
+  [g-gecikme] Ama robota çok kısa bir gecikme ekleyince beyin şaşırdı. Yeniden gıdıklamaya başladı.
   [g-kardes]  Kardeşinle "ben yavaş vurdum" kavgası da buradan çıkıyor: Herkes kendi vuruşunu olduğundan hafif hisseder.
   [g-cta]     Gıdıklanmaya dayanamayan arkadaşına gönder: Onu bir tek kendi eli gıdıklayamıyor.

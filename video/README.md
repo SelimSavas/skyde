@@ -26,6 +26,7 @@ Alt yazı yoktur; anlatıcı tempoyu belirler ve anlatılan öğeler, anlatıcı
 | YUP Akademi kısa · Bu Sensin — Kahvesiz yapamayan arkadaşın (kafein yoksunluğu; gönder kalıbı: tek çağrı "arkadaşına gönder", `kisa.js` share kapanışı) | 0:40 (insan sesiyle, `seslendirme/Kahve`; el yapımı görsel dil `yup-marka/el.js`; YouTube ve Instagram bilgisi `youtube.txt`) | `kisa-kahve/` |
 | YUP Akademi kısa · Lup · Yakın Plan — Havai fişeğin renkleri (Lup'un ilk filmi: kodla oynatılan karakter `yup-marka/lup.js`, Mercek Açılışı girişi, mercek geçişi, "Lup'la bak" kapanışı, sese uyan ağız `dudak.js`) | 0:44 (insan sesiyle, `seslendirme/HavaiFisek`; görseller `lup/gorseller`, parçalar `lup/araclar/parcala.py`; YouTube ve Instagram bilgisi `youtube.txt`) | `kisa-havaifisek/` |
 | YUP Akademi kısa · Lup · Vücudun Gizli Ayarları — Yağmur kokusu (jeosmin: havuzda bir pirinç tanesi, damla ve kabarcıklar, kollembollere davetiye, pencerede derin nefes) | 0:42 (insan sesiyle, `seslendirme/Yagmur`; görseller `lup/gorseller`, parçalar `parcala.py --bolum kisa-yagmur`; YouTube ve Instagram bilgisi `youtube.txt`) | `kisa-yagmur/` |
+| YUP Akademi kısa · Lup · Vücudun Gizli Ayarları — Kendini gıdıklayamamak (beynin kopyası ve ses düğmesi, robot deneyi ve gecikme, "ben yavaş vurdum" kavgası; resimli arka planlar) | 0:40 (insan sesiyle, `seslendirme/Gidik`; parçalar `parcala.py --bolum kisa-gidik`; YouTube ve Instagram bilgisi `youtube.txt`) | `kisa-gidik/` |
 
 ## İzlemek
 

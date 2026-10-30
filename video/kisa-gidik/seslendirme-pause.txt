@@ -4,7 +4,7 @@ Elin daha kalkmadan beynin bir kopya çıkarıyor: Birazdan şuraya dokunacağı
 [pause]
 Bilim insanları bunu bir robotla denedi: Robotu kendi elinle oynatıp avucunu gıdıklattılar. Gıdıklanmadılar.
 [pause]
-Ama robota çok kısa bir gecikme ekleyince beyin şaşırdı ve kendi el, yeniden gıdıklamaya başladı.
+Ama robota çok kısa bir gecikme ekleyince beyin şaşırdı. Yeniden gıdıklamaya başladı.
 [pause]
 Kardeşinle "ben yavaş vurdum" kavgası da buradan çıkıyor: Herkes kendi vuruşunu olduğundan hafif hisseder.
 [pause]
