@@ -44,8 +44,8 @@ Use the attached image as the exact character reference: same proportions, color
 **2 · Arkadaşın: bağdaş ve kalkış** → `arkadasin-uyusma.png` (önce `lup-gorsel-promptlari.md` 8A ile `arkadasin-ana.png`'yi üret, sonra onu ekle)
 ```
 Use the attached image as the exact character reference: same face, hair, clothes, colors and proportions. Create 2 full-body poses of ARKADAŞIN side by side, same scale, transparent background:
-(1) sitting cross-legged on a round Turkish floor cushion (yer minderi, red and cream pattern), relaxed, holding a TV remote, a bowl of popcorn beside him, looking at a screen off to the right;
-(2) trying to stand up after sitting: one leg straight, the other foot limp and floppy, arms stretched out for balance, comically wincing face with gritted teeth, a few small zigzag tingle marks around the floppy foot. The floor cushion is behind his feet.
+(1) sitting cross-legged on a round Turkish floor cushion (yer minderi, red and cream pattern), relaxed and cozy, holding a TV remote, a bowl of popcorn beside her, looking at a screen off to the right with a small smile;
+(2) trying to stand up after sitting: one leg straight, the other foot limp and floppy, arms stretched out gracefully for balance, a comically wincing face with a scrunched nose, a few small zigzag tingle marks around the floppy foot. The floor cushion is behind her feet.
 No sofa, no furniture other than the cushion, no text.
 {ARKADAŞIN}
 {STYLE}
@@ -82,7 +82,7 @@ Use the attached image as the exact character reference. Vertical 1024×1536 thu
 
 | Satır | Arka plan | Görüntü ve yazı |
 |---|---|---|
-| u-hook | Film akşamı (`7k`) | **Mercek Açılışı:** merceğin içinde Arkadaşın minderde bağdaş kurmuş (`arkadasin-1`), ayağı soluk griye dönmüş. Başlık ilk karede hazır: "Karıncalanma, bir telefon hattı." "Telefon hattı" titrer, altında minik karıncalar yürür. Lup köşede kulaklıkla belirir (`4g-1`). |
+| u-hook | Film akşamı (`7k`) | **Mercek Açılışı:** merceğin içinde Arkadaşın minderde bağdaş kurmuş (`arkadasin-1`), çoraplı ayağı soluk griye dönmüş. Başlık ilk karede hazır: "Karıncalanma, bir telefon hattı." "Telefon hattı" titrer, altında minik karıncalar yürür. Lup köşede kulaklıkla belirir (`4g-1`). |
 | u-sikis | Film akşamı | Bacağın yandan çizimi (`esya-1`) karta iliştirilir. "Sıkışıyor" sözünde dev mandal (`esya-6`) sarı sinire kapanır, kablo incelir. Dymo etiketler: SİNİR · BASKI. |
 | u-sessiz | Santral (`7l`) | Santralde Lup operatör. "Ayak" hattının lambası söner, telgraf bandı geçer: "· · · HAT KESİK · · ·". "Duymuyor" sözü soluk, kesik çizgili yazılır (uyuşmuş yazı). Lup kulağını camına dayar (`4g-4`), ses yok. |
 | u-hat | Santral, sonra film akşamı | Lup fişi takar (`4g-1`), lamba yanar, kablo boyunca kıvılcım; telgraf: "HAT AÇILDI: SİNYAL KARIŞIK". "İşte o karıncalar"da Arkadaşın kalkmaya çalışır (`arkadasin-2`), ayağından yukarı karıncalar (`esya-5`) yürür, başlık harfleri titrer. |

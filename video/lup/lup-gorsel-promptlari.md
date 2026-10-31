@@ -217,19 +217,19 @@ Konuşmaz; derdi o yaşar, Lup açıklar. "Bu Sensin" videolarının yüzü.
 
 ### ARKADAŞIN bloğu (bu bölümdeki promptların sonuna)
 ```
-ARKADAŞIN: a relatable Turkish man in his late twenties, the viewer's friend. Messy dark-brown hair sticking up, light stubble, warm brown eyes with faint eye bags, a slightly crooked friendly smile. Navy hoodie with white drawstrings, comfortable grey sweatpants, and colorful striped socks (teal and amber) at home; white sneakers when outside. Medium build, natural proportions (about 7 heads tall), expressive hands. Often holding a white mug with a teal stripe. An expressive everyman, not a scientist, not a cartoon hero. Same hand-drawn ink style as LUP so they look like they belong in the same world.
+ARKADAŞIN: a relatable, naturally attractive Turkish woman in her late twenties, the viewer's friend. Long wavy dark-brown hair loosely clipped up with a few strands falling around her face, warm brown eyes with a playful spark, soft natural makeup with a hint of rosy lip color, a small mole near her lip, a confident half-smile. At home: a fitted ribbed cream top under a loose, slightly oversized teal cardigan that slips a little off one shoulder, high-waisted grey wide-leg lounge pants, and colorful striped socks (teal and amber); white sneakers when outside. Slim, natural adult proportions (about 7 heads tall), graceful expressive hands, small gold hoop earrings. Stylish and quietly charming rather than revealing; tasteful and fully clothed. Often holding a white mug with a teal stripe. An expressive everywoman, not a scientist, not a cartoon heroine. Same hand-drawn ink style as LUP so they look like they belong in the same world.
 ```
 
 **8A · Ana tasarım** → `arkadasin-ana.png` (bundan sonra Arkadaşın'ın referansı bu)
 ```
-Create the master character design of ARKADAŞIN. Full body from head to socks, front view, standing relaxed, hands in his hoodie pocket, neutral friendly-tired expression, feet clearly visible in striped socks. Centered with generous margins, nothing else in the image. Square 1024×1024, transparent background.
+Create the master character design of ARKADAŞIN. Full body from head to socks, front view, standing relaxed, one hand tucking a strand of hair behind her ear, relaxed friendly expression, feet clearly visible in striped socks. Centered with generous margins, nothing else in the image. Square 1024×1024, transparent background.
 {ARKADAŞIN}
 {STYLE}
 ```
 
 **8A2 · Dönüş sayfası** → `arkadasin-8a2-donus.png` (arkadasin-ana.png ekle)
 ```
-Use the attached image as the exact character reference: same face, hair, clothes, colors and proportions. A full-body turnaround sheet of ARKADAŞIN in one row, evenly spaced, same height, neutral expression: (1) front, (2) three-quarter left, (3) side profile, (4) three-quarter right, (5) back. Feet in striped socks visible in every view. Transparent background.
+Use the attached image as the exact character reference: same face, hair, clothes, colors and proportions. A full-body turnaround sheet of ARKADAŞIN in one row, evenly spaced, same height, neutral expression: (1) front, (2) three-quarter left, (3) side profile, (4) three-quarter right, (5) back. Feet in striped socks visible in every view; same hair clip and earrings in every view. Transparent background.
 {ARKADAŞIN}
 {STYLE}
 ```
@@ -243,7 +243,7 @@ Use the attached image as the exact character reference. 8 head-and-shoulders ex
 
 **8C · İkisi birlikte** → `ikili-8c.png`
 ```
-Use both attached images as exact character references (LUP and ARKADAŞIN). 3 panels in a row, transparent background: (1) LUP sitting on ARKADAŞIN's shoulder, both looking at the viewer; (2) LUP holding himself up to ARKADAŞIN's tired face, inspecting him through the glass, ARKADAŞIN annoyed; (3) both laughing, ARKADAŞIN raising his coffee mug, LUP giving a thumbs up.
+Use both attached images as exact character references (LUP and ARKADAŞIN). 3 panels in a row, transparent background: (1) LUP sitting on ARKADAŞIN's shoulder, both looking at the viewer; (2) LUP holding himself up to ARKADAŞIN's tired face, inspecting him through the glass, ARKADAŞIN annoyed; (3) both laughing, ARKADAŞIN raising her coffee mug, LUP giving a thumbs up.
 {LUP}
 {ARKADAŞIN}
 {STYLE}
