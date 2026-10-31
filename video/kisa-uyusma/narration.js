@@ -7,11 +7,11 @@
  */
 window.NARRATION = {
   lines: [
-    { id: 'u-hook', say: 'Ayağın uyuştuğunda gelen karıncalanma, sinirlerin yeniden açılan telefon hattı.' },
-    { id: 'u-sikis', say: 'Bağdaş kurunca ya da ayağının üstüne oturunca, bacağındaki bir sinir sıkışıyor.' },
-    { id: 'u-sessiz', say: 'Sıkışan sinir beyne mesaj taşıyamıyor: Ayağın orada, ama beynin onu duymuyor.' },
-    { id: 'u-hat', say: 'Kalkınca baskı kalkıyor, hat yeniden açılıyor; ama sinir bir süre karışık sinyal yolluyor. İşte o karıncalar.' },
+    { id: 'u-hook', say: 'Ayağın uyuşunca gelen o karıncalanma, kopan bir telefon hattının yeniden bağlanırken çıkardığı cızırtı.' },
+    { id: 'u-sikis', say: 'Bağdaş kurduğunda ya da ayağının üstüne oturduğunda, bacağındaki sinir, üstüne basılmış bir kablo gibi eziliyor.' },
+    { id: 'u-sessiz', say: 'Hat kesiliyor: Ayağın yerinde duruyor, ama beynin onu duymuyor. O yüzden ilk adımda sendeliyorsun.' },
+    { id: 'u-hat', say: 'Baskı kalkınca hat yeniden açılıyor; ama sinir bir süre karmakarışık sinyal yolluyor. Beynin bunu karınca diye duyuyor.' },
     { id: 'u-karinca', say: 'Fransızlar da Almanlar da buna karınca diyor; demek ki hepimiz aynı hattı dinliyoruz.' },
-    { id: 'u-cta', say: 'Bağdaş kurup film izleyen arkadaşına gönder: Kalkmadan önce ayağına haber versin.' },
+    { id: 'u-cta', say: 'Film izlerken bağdaş kuran arkadaşına gönder: Kalkmadan önce ayağına haber versin.' },
   ],
 };

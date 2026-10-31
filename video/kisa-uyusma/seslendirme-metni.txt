@@ -1,11 +1,12 @@
-YUP Akademi · Lup · Vücudun Gizli Ayarları · Ayağın uyuşması · seslendirme metni (6 satır, 78 kelime)
-(Sıcak, gülümseyen, bir arkadaşa anlatır gibi. İlk cümlede "telefon hattı" vurgulu.
-3. satırda "duymuyor"u yavaş ve hafif alçak oku; 4. satırda "İşte o karıncalar"ı küçük bir duraktan sonra, gülerek.
-5. satır yumuşak ve sıcak: "hepimiz aynı hattı dinliyoruz". Son cümle göz kırpar gibi. Köşeli parantezdeki kimlikler okunmaz.)
+YUP Akademi · Lup · Vücudun Gizli Ayarları · Ayağın uyuşması · seslendirme metni (6 satır, 83 kelime)
+(Sıcak, gülümseyen, bir arkadaşa anlatır gibi. İlk cümlede "cızırtı" sözünü hafifçe uzat.
+2. satırda "kablo gibi eziliyor"u biraz yavaşlatarak oku. 3. satırda "duymuyor"dan sonra kısa bir durak, "sendeliyorsun"u gülerek.
+4. satırda "karmakarışık" hızlı ve oyunbaz, "karınca diye duyuyor" yumuşak. 5. satır sıcak: "hepimiz aynı hattı dinliyoruz".
+Son cümle göz kırpar gibi. Köşeli parantezdeki kimlikler okunmaz.)
 
-  [u-hook]    Ayağın uyuştuğunda gelen karıncalanma, sinirlerin yeniden açılan telefon hattı.
-  [u-sikis]   Bağdaş kurunca ya da ayağının üstüne oturunca, bacağındaki bir sinir sıkışıyor.
-  [u-sessiz]  Sıkışan sinir beyne mesaj taşıyamıyor: Ayağın orada, ama beynin onu duymuyor.
-  [u-hat]     Kalkınca baskı kalkıyor, hat yeniden açılıyor; ama sinir bir süre karışık sinyal yolluyor. İşte o karıncalar.
-  [u-karinca] Fransızlar da Almanlar da buna karınca diyor; demek ki hepimiz aynı hattı dinliyoruz.
-  [u-cta]     Bağdaş kurup film izleyen arkadaşına gönder: Kalkmadan önce ayağına haber versin.
+  [u-hook]     Ayağın uyuşunca gelen o karıncalanma, kopan bir telefon hattının yeniden bağlanırken çıkardığı cızırtı.
+  [u-sikis]    Bağdaş kurduğunda ya da ayağının üstüne oturduğunda, bacağındaki sinir, üstüne basılmış bir kablo gibi eziliyor.
+  [u-sessiz]   Hat kesiliyor: Ayağın yerinde duruyor, ama beynin onu duymuyor. O yüzden ilk adımda sendeliyorsun.
+  [u-hat]      Baskı kalkınca hat yeniden açılıyor; ama sinir bir süre karmakarışık sinyal yolluyor. Beynin bunu karınca diye duyuyor.
+  [u-karinca]  Fransızlar da Almanlar da buna karınca diyor; demek ki hepimiz aynı hattı dinliyoruz.
+  [u-cta]      Film izlerken bağdaş kuran arkadaşına gönder: Kalkmadan önce ayağına haber versin.
