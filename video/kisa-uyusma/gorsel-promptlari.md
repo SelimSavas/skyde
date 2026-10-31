@@ -78,13 +78,13 @@ Use the attached image as the exact character reference. Vertical 1024×1536 thu
 
 ---
 
-## Sahne planı
+## Sahne planı (videoda uygulanan)
 
 | Satır | Arka plan | Görüntü ve yazı |
 |---|---|---|
-| u-hook | Film akşamı (`7k`) | **Mercek Açılışı:** merceğin içinde Arkadaşın minderde bağdaş kurmuş (`arkadasin-1`), çoraplı ayağı soluk griye dönmüş. Başlık ilk karede hazır: "Karıncalanma: hattın cızırtısı." "Cızırtı" sözcüğü titrer. "Telefon hattı" titrer, altında minik karıncalar yürür. Lup köşede kulaklıkla belirir (`4g-1`). |
-| u-sikis | Film akşamı | Bacağın yandan çizimi (`esya-1`) karta iliştirilir. "Sıkışıyor" sözünde dev mandal (`esya-6`) sarı sinire kapanır, kablo incelir. Dymo etiketler: SİNİR · BASKI. |
-| u-sessiz | Santral (`7l`) | Santralde Lup operatör. "Ayak" hattının lambası söner, telgraf bandı geçer: "· · · HAT KESİK · · ·". "Duymuyor" sözü soluk, kesik çizgili yazılır (uyuşmuş yazı); Lup kulağını camına dayar (`4g-4`). "Sendeliyorsun"da kısa kesme: film akşamında Arkadaşın kalkmaya çalışıp sendeler (`arkadasin-2`). |
-| u-hat | Santral, sonra film akşamı | Lup fişi takar (`4g-1`), lamba yanar, kablo boyunca kıvılcım; telgraf: "HAT AÇILDI: SİNYAL KARIŞIK". "Karınca diye duyuyor"da Arkadaşın'ın ayağından yukarı karıncalar (`esya-5`) yürür, başlık harfleri titrer, Lup zıplayıp sallanır (`4g-3`). |
-| u-karinca | Kâğıt üstünde üç Dymo bandı | "fourmis" (Fransızca), "Ameisen" (Almanca), "karınca" bantları yan yana; karıncalar üçünün üstünden yürür. El yazısı: "aynı hat". Sıcak an: Lup gülümser, ses yumuşar. |
-| u-cta | Defter kâğıdı | "Bağdaş kurup film izleyen arkadaşına gönder." Lup fişi fotoğrafa uzatır (kâğıt uçak yerine kablo), "bağlandı ✓"; ardından logo, "Lup'la bak.", abone ol. |
+| u-hook | Film akşamı (`7k`) | **Mercek Açılışı:** merceğin içinde Lup uyuşmuş gri ayağına bakıyor (`4g-2`). Başlık ilk karede hazır: "Karıncalanma: hattın cızırtısı." "Karıncalanma"da Lup zıplar (`4g-3`), başlığın altından karıncalar yürür. "Telefon"da yerde telefon (`esya-2`) belirir, kablosu Lup'un ayağına uzanır; "cızırtı"da kablo kıvılcımlanır, "cızırtısı" sözcüğü titrer. |
+| u-sikis | Film akşamı | Arkadaşın minderde bağdaş kurmuş (`arkadasin-1`); "ayağının üstüne"de altta kalan ayak kırmızı halkayla işaretlenir. Bacak şeması (`esya-1`) karta iliştirilir; "sinir"de Dymo "SİNİR" ve Kalam "peroneal sinir". "Basılmış"ta mandal (`esya-6`) sinire kapanır, başlıktaki "ezilir" basıklaşır; Dymo "BASKI", çorap grileşir. |
+| u-sessiz | Santral (`7l`) | Lup kodla çizilen operatör kulaklığıyla masada. "Kesiliyor"da fiş "AYAK" jakından fırlar, lamba söner, telgraf bandı: "· · · HAT KESİK · · · BAĞLANTI YOK · · ·". "Duymuyor" sözcüğü soluk, kesik çizgili olur; Lup kulak verir. "O yüzden"de kesme: Arkadaşın kalkmaya çalışıp sendeler (`arkadasin-2`), gri ayak, Dymo "SİNYAL YOK". |
+| u-hat | Santral | Lup asılı fişi alıp jaka takar ("açılıyor"), lamba yanar. Telgraf: "HAT AÇILDI · SİNYAL KARIŞIK · ÇITIRTI". "Karmakarışık"ta lambalar rastgele yanıp söner, kablo cızırdar, "karışık" titrer. "Beynin bunu"da telefondan karıncalar (`esya-5`) dökülür, Lup'un ayağı karıncalanır, zıplar; Kalam "karınca?!". |
+| u-karinca | Santral | Üç Dymo bant: FOURMIS (Fransızca), AMEISEN (Almanca), KARINCA (Türkçe); her biri söylenirken zımbalanır, lambası yanar, bantların üstünden karıncalar geçer. "Hepimiz"de bütün lambalar sıcak ışıkla yanar; Lup gülümser. Başlık: "Aynı hat, aynı karınca." |
+| u-cta | Defter kâğıdı | "Film izlerken bağdaş kuran arkadaşına gönder." Lup fişi film gecesi fotoğrafının jakına fırlatır, "bağlandı ✓"; logo, "Lup'la bak.", Dymo "ABONE OL" bandına basar → "ABONE OLUNDU ✓". |

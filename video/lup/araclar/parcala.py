@@ -152,10 +152,30 @@ def gidik():
     P['oda'] = enc(load('lup-7h-oturma-odasi').convert('RGB'), 1.0, q=86)
     return P
 
+def uyusma():
+    P = {}
+    es = load('uyusma-esya')
+    bx = rows(comps(es, dil=3, minarea=3000), tol=200)
+    for name, box in zip(['bacak', 'telefon', 'spiral', 'kablo', 'karinca1', 'karinca2', 'karinca3', 'mandal'], bx):
+        P[name] = enc(tight(es, box), 0.8)
+    for name, img in zip(['poz_santral', 'poz_uyku', 'poz_zipla', 'poz_dinle'], columns(load('lup-4g-uyusma'), 4)):
+        P[name] = enc(img, 0.8)
+    ar = load('arkadasin-uyusma')
+    for name, box in zip(['ark_bagdas', 'ark_kalk'], rows(comps(ar, dil=4, minarea=20000), tol=400)):
+        P[name] = enc(tight(ar, box), 0.85)
+    P['ark_ana'] = enc(tight(load('arkadasin-ana'), (0, 0, 1254, 1254)), 0.8)
+    yz = load('arkadasin-8b-ifadeler')
+    yb = rows(comps(yz, dil=4, minarea=20000), tol=200)
+    for i, name in [(4, 'yuz_saskin'), (5, 'yuz_gulme'), (6, 'yuz_mahcup'), (7, 'yuz_kahve')]:
+        P[name] = enc(tight(yz, yb[i]), 0.8)
+    P['santral'] = enc(load('lup-7l-santral').convert('RGB'), 1.0, q=86)
+    P['film'] = enc(load('lup-7k-film-aksami').convert('RGB'), 1.0, q=86)
+    return P
+
 if __name__ == '__main__':
     if '--bolum' in sys.argv:
         b = sys.argv[sys.argv.index('--bolum') + 1]
-        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur, 'kisa-gidik': gidik}[b]()
+        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur, 'kisa-gidik': gidik, 'kisa-uyusma': uyusma}[b]()
         out = os.path.join(R, b, 'assets.js')
         head = '/* %s görselleri: video/lup/araclar/parcala.py --bolum %s üretir (kaynak video/lup/gorseller). Elle düzenlemeyin. */\nwindow.ASSETS = ' % (b, b)
     else:
