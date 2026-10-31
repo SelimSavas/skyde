@@ -1,0 +1,11 @@
+YUP Akademi · Lup · Vücudun Gizli Ayarları · Ayağın uyuşması · seslendirme metni (6 satır, 78 kelime)
+(Sıcak, gülümseyen, bir arkadaşa anlatır gibi. İlk cümlede "telefon hattı" vurgulu.
+3. satırda "duymuyor"u yavaş ve hafif alçak oku; 4. satırda "İşte o karıncalar"ı küçük bir duraktan sonra, gülerek.
+5. satır yumuşak ve sıcak: "hepimiz aynı hattı dinliyoruz". Son cümle göz kırpar gibi. Köşeli parantezdeki kimlikler okunmaz.)
+
+  [u-hook]    Ayağın uyuştuğunda gelen karıncalanma, sinirlerin yeniden açılan telefon hattı.
+  [u-sikis]   Bağdaş kurunca ya da ayağının üstüne oturunca, bacağındaki bir sinir sıkışıyor.
+  [u-sessiz]  Sıkışan sinir beyne mesaj taşıyamıyor: Ayağın orada, ama beynin onu duymuyor.
+  [u-hat]     Kalkınca baskı kalkıyor, hat yeniden açılıyor; ama sinir bir süre karışık sinyal yolluyor. İşte o karıncalar.
+  [u-karinca] Fransızlar da Almanlar da buna karınca diyor; demek ki hepimiz aynı hattı dinliyoruz.
+  [u-cta]     Bağdaş kurup film izleyen arkadaşına gönder: Kalkmadan önce ayağına haber versin.
