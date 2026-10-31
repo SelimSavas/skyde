@@ -41,9 +41,9 @@ Use the attached image as the exact character reference: same proportions, color
 {STYLE}
 ```
 
-**2 · Arkadaşın: bağdaş ve kalkış** → `arkadasin-uyusma.png` (Arkadaşın yoksa önce lup-gorsel-promptlari.md 8A'yı üret, sonra onu da ekle)
+**2 · Arkadaşın: bağdaş ve kalkış** → `arkadasin-uyusma.png` (önce `lup-gorsel-promptlari.md` 8A ile `arkadasin-ana.png`'yi üret, sonra onu ekle)
 ```
-Create 2 full-body poses of ARKADAŞIN side by side, same scale, transparent background:
+Use the attached image as the exact character reference: same face, hair, clothes, colors and proportions. Create 2 full-body poses of ARKADAŞIN side by side, same scale, transparent background:
 (1) sitting cross-legged on a round Turkish floor cushion (yer minderi, red and cream pattern), relaxed, holding a TV remote, a bowl of popcorn beside him, looking at a screen off to the right;
 (2) trying to stand up after sitting: one leg straight, the other foot limp and floppy, arms stretched out for balance, comically wincing face with gritted teeth, a few small zigzag tingle marks around the floppy foot. The floor cushion is behind his feet.
 No sofa, no furniture other than the cushion, no text.

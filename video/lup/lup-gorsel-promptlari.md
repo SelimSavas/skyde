@@ -217,17 +217,24 @@ Konuşmaz; derdi o yaşar, Lup açıklar. "Bu Sensin" videolarının yüzü.
 
 ### ARKADAŞIN bloğu (bu bölümdeki promptların sonuna)
 ```
-ARKADAŞIN: a relatable Turkish man in his late twenties, the viewer's friend. Messy dark-brown hair sticking up, light stubble, tired eyes with faint eye bags, a navy hoodie with white drawstrings, often holding a white mug with a teal stripe. An expressive everyman, not a scientist, not a cartoon hero.
+ARKADAŞIN: a relatable Turkish man in his late twenties, the viewer's friend. Messy dark-brown hair sticking up, light stubble, warm brown eyes with faint eye bags, a slightly crooked friendly smile. Navy hoodie with white drawstrings, comfortable grey sweatpants, and colorful striped socks (teal and amber) at home; white sneakers when outside. Medium build, natural proportions (about 7 heads tall), expressive hands. Often holding a white mug with a teal stripe. An expressive everyman, not a scientist, not a cartoon hero. Same hand-drawn ink style as LUP so they look like they belong in the same world.
 ```
 
-**8A · Ana tasarım ve dönüş** → `arkadasin-8a.png`
+**8A · Ana tasarım** → `arkadasin-ana.png` (bundan sonra Arkadaşın'ın referansı bu)
 ```
-Create the master design of ARKADAŞIN as a turnaround sheet: front, three-quarter, side, back, upper body to mid-thigh (feet out of frame), neutral tired expression. Transparent background.
+Create the master character design of ARKADAŞIN. Full body from head to socks, front view, standing relaxed, hands in his hoodie pocket, neutral friendly-tired expression, feet clearly visible in striped socks. Centered with generous margins, nothing else in the image. Square 1024×1024, transparent background.
 {ARKADAŞIN}
 {STYLE}
 ```
 
-**8B · İfadeler** → `arkadasin-8b-ifadeler.png`
+**8A2 · Dönüş sayfası** → `arkadasin-8a2-donus.png` (arkadasin-ana.png ekle)
+```
+Use the attached image as the exact character reference: same face, hair, clothes, colors and proportions. A full-body turnaround sheet of ARKADAŞIN in one row, evenly spaced, same height, neutral expression: (1) front, (2) three-quarter left, (3) side profile, (4) three-quarter right, (5) back. Feet in striped socks visible in every view. Transparent background.
+{ARKADAŞIN}
+{STYLE}
+```
+
+**8B · İfadeler** → `arkadasin-8b-ifadeler.png` (arkadasin-ana.png ekle)
 ```
 Use the attached image as the exact character reference. 8 head-and-shoulders expressions in a 4×2 grid, transparent background: grumpy morning (storm-cloud mood), sleepy, angry, headache (hand on temple), surprised, laughing, guilty smile, happy and awake holding a steaming mug.
 {ARKADAŞIN}
