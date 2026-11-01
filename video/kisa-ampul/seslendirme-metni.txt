@@ -1,0 +1,15 @@
+YUP Akademi · Lup · Vücudun Gizli Ayarları · Ampule bakınca gelen renkli leke · seslendirme metni (6 satır, 75 kelime)
+(Merakla, bir sır verir gibi. İlk cümlede "ampulün değil" sözünü vurgula, küçük bir durak bırak.
+2. satır sakin ve açıklayıcı; "renkten renge" hafifçe oyunbaz. 3. satırda "kırmızı kalır" yumuşak.
+4. satır yavaş ve net bir yönerge: "noktaya", "on saniye", "hiç kıpırdatma" tek tek otursun; sonunda sus.
+5. satır fısıltıya yakın, heyecanlı: "Şimdi bak" sonrası kısa durak, "senin gözün boyuyor" gülümseyerek.
+Son cümle meydan okur gibi, göz kırparak. Köşeli parantezdeki kimlikler okunmaz.)
+
+  [a-hook]   Ampule bakıp gözünü kapattığında gördüğün o renkli leke, ampulün değil, yorulmuş göz hücrelerinin rengi.
+  [a-solma]  Işık, gözünün arkasındaki hücrelerin boyasını bir anlığına soldurur. Solan hücreler toparlanırken leke renkten renge geçer.
+  [a-kapak]  Arkadaki kırmızılık da gözkapağın: Işık kapaktan geçerken kanın maviyi ve yeşili yutar, geriye kırmızı kalır.
+  [a-dene]   Şimdi dene: Lup'un camındaki noktaya on saniye bak, gözünü hiç kıpırdatma.
+  [a-bak]    Şimdi bak: Ekrandaki Lup siyah beyaz. Renkleri senin gözün boyuyor.
+  [a-cta]    Gözünün asla kanmayacağını söyleyen arkadaşına gönder: On saniye yeter.
+
+Videoda 4. satırdan sonra 10 saniyelik sessiz geri sayım var (yalnız tik sesleri); kayıtta ayrıca bir şey okunmaz.
