@@ -172,10 +172,78 @@ def uyusma():
     P['film'] = enc(load('lup-7k-film-aksami').convert('RGB'), 1.0, q=86)
     return P
 
+def _lab(rgb):
+    # sRGB (0..1) → CIE Lab (D65)
+    c = np.where(rgb <= 0.04045, rgb / 12.92, ((rgb + 0.055) / 1.055) ** 2.4)
+    M = np.array([[0.4124, 0.3576, 0.1805], [0.2126, 0.7152, 0.0722], [0.0193, 0.1192, 0.9505]])
+    xyz = c @ M.T / np.array([0.95047, 1.0, 1.08883])
+    f = np.where(xyz > 0.008856, np.cbrt(xyz), 7.787 * xyz + 16 / 116)
+    return np.stack([116 * f[..., 1] - 16, 500 * (f[..., 0] - f[..., 1]), 200 * (f[..., 1] - f[..., 2])], -1)
+
+def _rgb(lab):
+    fy = (lab[..., 0] + 16) / 116
+    fx = fy + lab[..., 1] / 500
+    fz = fy - lab[..., 2] / 200
+    f = np.stack([fx, fy, fz], -1)
+    xyz = np.where(f ** 3 > 0.008856, f ** 3, (f - 16 / 116) / 7.787) * np.array([0.95047, 1.0, 1.08883])
+    M = np.array([[3.2406, -1.5372, -0.4986], [-0.9689, 1.8758, 0.0415], [0.0557, -0.2040, 1.0570]])
+    c = xyz @ M.T
+    c = np.where(c <= 0.0031308, 12.92 * c, 1.055 * np.clip(c, 0, None) ** (1 / 2.4) - 0.055)
+    return np.clip(c, 0, 1)
+
+def yanilsama(img, boost=1.7):
+    # Ardıl görüntü deneyi: renk tonları ters, parlaklık aynı (Lab'de a ve b eksi, L sabit) ve aynı resmin gri hâli.
+    # Ters resme bakan izleyici gri resmi asıl renkleriyle görür; parlaklık aynı olduğu için kenarlar üst üste oturur.
+    a = np.array(img).astype(float) / 255
+    lab = _lab(a[..., :3])
+    inv = lab.copy()
+    inv[..., 1:] *= -boost
+    gray = lab.copy()
+    gray[..., 1:] = 0
+    al = (a[..., 3:] * 255).astype(np.uint8)
+    mk = lambda l: Image.fromarray(np.concatenate([(_rgb(l) * 255).astype(np.uint8), al], -1), 'RGBA')
+    return mk(inv), mk(gray)
+
+def ampul():
+    P = {}
+    es = load('ampul-esya')
+    bx = rows(comps(es, dil=3, minarea=3000), tol=250)
+    for name, box in zip(['ampul_acik', 'ampul_kapali', 'goz_kesit', 'koniler', 'koniler_yorgun', 'goz_kapak'], bx):
+        P[name] = enc(tight(es, box), 0.8)
+    # koniler tek tek (kırmızı, yeşil, mavi): grup üçe bölünür
+    for grp, key in [(bx[3], 'koni'), (bx[4], 'koniy')]:
+        x0, y0, x1, y1 = grp[:4]
+        w = (x1 - x0) / 3
+        for i, c in enumerate(['k', 'y', 'm']):
+            P[f'{key}_{c}'] = enc(tight(es, (int(x0 + i * w), y0, int(x0 + (i + 1) * w), y1)), 0.8)
+    for name, img in zip(['poz_siper', 'poz_kapali', 'poz_ovus', 'poz_tada'], columns(load('lup-4h-ampul'), 4)):
+        P[name] = enc(img, 0.8)
+    ar = load('arkadasin-ampul')
+    for name, box in zip(['ark_bakis', 'ark_kapali'], rows(comps(ar, dil=4, minarea=20000), tol=400)):
+        P[name] = enc(tight(ar, box), 0.85)
+    yz = load('arkadasin-8b-ifadeler')
+    P['yuz_saskin'] = enc(tight(yz, rows(comps(yz, dil=4, minarea=20000), tol=200)[4]), 0.8)
+    # deney: ters renkli ve gri Lup (lup-ana); odak noktası göz bebeğinin ortası
+    la = load('lup-ana')
+    la = la.crop(la.getchannel('A').point(lambda v: 255 if v > 20 else 0).getbbox())
+    inv, gray = yanilsama(la)
+    a = np.array(la).astype(int)
+    dark = (a[..., :3].max(2) < 40) & (a[..., 3] > 200)
+    ys, xs = np.nonzero(dark[: la.height // 2])
+    lab, n = nd.label(dark[: la.height // 2])
+    sizes = nd.sum(dark[: la.height // 2], lab, range(1, n + 1))
+    k = np.argmax(sizes) + 1
+    py, px = nd.center_of_mass(lab == k)
+    for name, img in [('lup_ters', inv), ('lup_gri', gray), ('lup_renkli', la)]:
+        P[name] = {**enc(img, 0.9), 'fx': px / la.width, 'fy': py / la.height}
+    P['oda'] = enc(load('lup-7m-ampul-odasi').convert('RGB'), 1.0, q=86)
+    P['gozici'] = enc(load('lup-7n-goz-ici').convert('RGB'), 1.0, q=86)
+    return P
+
 if __name__ == '__main__':
     if '--bolum' in sys.argv:
         b = sys.argv[sys.argv.index('--bolum') + 1]
-        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur, 'kisa-gidik': gidik, 'kisa-uyusma': uyusma}[b]()
+        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur, 'kisa-gidik': gidik, 'kisa-uyusma': uyusma, 'kisa-ampul': ampul}[b]()
         out = os.path.join(R, b, 'assets.js')
         head = '/* %s görselleri: video/lup/araclar/parcala.py --bolum %s üretir (kaynak video/lup/gorseller). Elle düzenlemeyin. */\nwindow.ASSETS = ' % (b, b)
     else:

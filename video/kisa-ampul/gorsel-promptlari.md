@@ -87,7 +87,7 @@ Use the attached image as the exact character reference. Vertical 1024×1536 thu
 
 | Satır | Arka plan | Görüntü |
 |---|---|---|
-| a-hook | Ampullü oda (`7m`) | **Mercek Açılışı:** merceğin içinde ampul parlıyor. Arkadaşın ampule bakıyor (`arkadasin-1`), gözünü kapatıyor (`arkadasin-2`); ekran kısa bir an kırmızılaşıyor, ortasında renkli bir leke yüzüyor. Başlık ilk karede hazır (göz muayene panosu dizilişi): "Bu leke ampulün değil." "Yorulmuş" sözünde Lup gözünü ovuşturur (`4h-3`). |
+| a-hook | Ampullü oda (`7m`) | **Mercek Açılışı:** merceğin içinde ampul parlıyor. Arkadaşın ampule bakıyor (`arkadasin-1`), "kapatınca"da gözünü kapatıyor (`arkadasin-2`); ekran kızıl perdeye dönüyor, ampulün yerinde renk değiştiren bir leke yüzüyor (sarı → turkuaz → mavi → mor). Başlık ilk karede hazır (göz muayene panosu): "BU LEKE / AMPULDEN DEĞİL, / GÖZÜNDEN." Lup ampule bakar (`4h-1`), "senin gözünden"de gözünü ovuşturur (`4h-3`). |
 | a-solma | Gözün içi (`7n`) | Işık ışınları girer, üç koni (`esya-4`) ışıkla parlar ve solar (`esya-5`). "Renkten renge"de leke turuncu → pembe → yeşil geçer; koniler tek tek toparlanır. |
 | a-kapak | Ampullü oda, yakın | Kapalı göz (`esya-6`) yakın plan; ampul ışığı kapaktan süzülür, mavi ve yeşil ışınlar kapakta "yutulur", kırmızı geçer. Lup gözü kapalı, rüyada gibi (`4h-2`). |
 | a-dene | Düz, nötr kâğıt | Ters renkli Lup ortada, camında odak noktası. "On saniye" sözünden sonra 10 → 1 geri sayım (yazı yok, yalnız rakam ve halka), tik sesleri. |
