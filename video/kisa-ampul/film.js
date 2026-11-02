@@ -687,10 +687,7 @@
     const bell = (t, n, g = 0.06, pan = 0) => m.bell(t, { freq: hz(n), gain: g, decay: 2.2, pan });
     // 1 kanca: cam tıngı, ampul vızıltısı, göz kapanınca boğuk "vuuş"
     const h = 'a-hook';
-    const s1 = S0(h);
-    bell(s1 + 0.15, 'E7', 0.07, 0.2);
-    bell(s1 + 0.17, 'B7', 0.025, -0.2);
-    m.whoosh(s1 + 0.45, { dur: 0.6, from: 700, to: 2600, gain: 0.05 });
+    const s1 = S0(h); // açılış tıngısı ve mercek hışırtısı: def.ses.kanca (ses.js)
     m.hum(s1 + 0.3, W(api, h, 3) - s1 - 0.3, { gain: 0.035 });
     m.whoosh(W(api, h, 3), { dur: 0.7, from: 1800, to: 250, gain: 0.06 });
     m.blip(W(api, h, 3) + 0.2, { freq: 520, dur: 1.6, slide: 0.6, gain: 0.03 });
@@ -728,6 +725,14 @@
     wipe: 0.45,
     transition: LUP.lensWipe,
     cut: ['a-bak'],
+    // YUP ses kimliği (yup-marka/ses.js): merak müziği; deney ve gri Lup'ta müzik susar (yalnız saniye tikleri)
+    ses: {
+      muzik: 'merak',
+      kanca: 'mercek',
+      sus: ['a-dene', 'a-bak'],
+      ortam: { 'a-hook': 'oda', 'a-kapak': 'oda' },
+      gecisler: { 'a-bak': null },
+    },
     extra: { 'a-hook': 0.35, 'a-solma': 0.4, 'a-kapak': 0.4, 'a-dene': 7.8, 'a-bak': 0.5, 'a-cta': 1.75 },
     lead: { 'a-hook': 0.1, 'a-solma': 0.2, 'a-kapak': 0.2, 'a-dene': 0.25, 'a-bak': 0.0, 'a-cta': 0.3 },
     titles: {

@@ -14,6 +14,9 @@
  *   def.transition (ctx, p, prev, self) => {}  daire açılış yerine özel geçiş (ör. YupLup.lensWipe, mercek halkası)
  *   def.chords   { satır: [nota, ...] }  sahnenin yatak akoru
  *   def.score    (m, hz, api) => {}  sahneye özgü efektler
+ *   def.ses      { muzik: 'merak'|{ruh, bpm, gain}, kanca, gecis, gecisler: {satır: tür|null}, sus: [satır], ortam: {satır: tür} }
+ *                YUP ses kimliği (yup-marka/ses.js; index.html'de synth.js'ten sonra yüklenir). Verilirse akorların yerine
+ *                müzik yatağı çalar; kanca, geçiş ve kapanış sesleri ses.js'ten gelir. Rehber: video/ses/ses-rehberi.md
  *   def.gap, def.breath, def.wipe   tempo: satırlar arası en az boşluk (0,25), satır sonrası nefes (0,35), geçiş süresi (0,6)
  * Son satır her zaman kapanıştır: api.cta(ctx, t, { invite }) logo, el yazısı slogan ve "abone ol" düğmesini çizer;
  * invite verilirse üstte yorum çağrısı kartı çıkar; share: ['satır', 'satır'] verilirse "arkadaşına gönder" kartı
@@ -852,21 +855,43 @@
     function score(m, hz) {
       hz = hz ?? root.Synth.hz;
       const dur = TL.duration;
-      for (const id of ORDER) {
-        const a = S0(id);
-        const b = id === CTA ? dur : S1(id);
-        const notes = def.chords?.[id] ?? ['D3', 'A3', 'F#4', 'A4'];
-        m.pad(Math.max(0, a - 0.2), b - a + 0.4, notes, { gain: 0.11, attack: 0.5, release: 1.2, cutoff: 1100 });
+      const ses = def.ses && root.YupSes ? def.ses : null;
+      const Y = root.YupSes;
+      if (ses) {
+        // YUP ses kimliği (yup-marka/ses.js): müzik yatağı, ortam, kanca, geçişler
+        const span = (id) => [S0(id), id === CTA ? dur : S1(id)];
+        const muz = typeof ses.muzik === 'string' ? { ruh: ses.muzik } : ses.muzik;
+        if (muz) Y.muzik(m, 0, S0(CTA) + 0.4, { ...muz, sus: (ses.sus ?? []).map(span) });
+        for (const [id, tur] of Object.entries(ses.ortam ?? {})) {
+          const [a, b] = span(id);
+          Y.ortam(m, a, b - a, tur);
+        }
+        if (ses.kanca !== null) Y.kanca(m, 0.05, ses.kanca ?? 'mercek');
+        for (const id of ORDER.slice(1)) {
+          const tur = ses.gecisler && id in ses.gecisler ? ses.gecisler[id] : cut.has(id) ? 'kesme' : ses.gecis ?? 'mercek';
+          if (tur) Y.gecis(m, S0(id), tur);
+        }
+      } else {
+        for (const id of ORDER) {
+          const a = S0(id);
+          const b = id === CTA ? dur : S1(id);
+          const notes = def.chords?.[id] ?? ['D3', 'A3', 'F#4', 'A4'];
+          m.pad(Math.max(0, a - 0.2), b - a + 0.4, notes, { gain: 0.11, attack: 0.5, release: 1.2, cutoff: 1100 });
+        }
+        for (const id of ORDER.slice(1)) if (!cut.has(id)) m.whoosh(S0(id) - 0.05, { dur: 0.6, from: 400, to: 1800, gain: 0.035 });
       }
-      for (const id of ORDER.slice(1)) if (!cut.has(id)) m.whoosh(S0(id) - 0.05, { dur: 0.6, from: 400, to: 1800, gain: 0.035 });
       if (def.score) def.score(m, hz, api);
       if (def.share) m.whoosh(S0(CTA) + 1.0, { dur: 0.55, from: 900, to: 3200, gain: 0.05, panFrom: -0.3, panTo: 0.2 });
       // kapanış
       const s8 = S0(CTA);
+      const tap = end(CTA) + 0.35;
+      if (ses) {
+        Y.kapanis(m, s8, tap);
+        return;
+      }
       const bell = (t, n, g, pan = 0) => m.bell(t, { freq: hz(n), gain: g, decay: 2.4, pan });
       m.boom(s8 + 0.25, { gain: 0.16, freq: 70 });
       ['D5', 'F#5', 'A5', 'D6'].forEach((n, i) => bell(s8 + 0.5 + i * 0.16, n, 0.06, -0.3 + i * 0.2));
-      const tap = end(CTA) + 0.35;
       m.click(tap, { gain: 0.25, tone: 2600 });
       bell(tap + 0.05, 'A5', 0.08, 0.2);
       bell(tap + 0.2, 'D6', 0.06, -0.2);

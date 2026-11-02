@@ -30,6 +30,7 @@ Bunların her biri kullanıcının açıkça söylediği ya da düzelttiği şey
   2. 30–40 sn, yaklaşık 70–80 kelime. Satır arası boşluk az tutulur: `YupKisa.short({ gap: 0.15, breath: 0.25, wipe: 0.4 })`, `extra` değerleri 0,4–1,2 sn.
   3. Tek çağrı, yalnızca sonda: "Hangi … merak ediyorsun? Yorumlara yaz, sıradaki video o olsun." Ortada oy ya da yorum çağrısı olmaz. Abone daveti görseldir (logo ve "abone ol" düğmesi).
   Örnek: `video/kisa-kestane/`.
+- **Ses kimliği (Kasım 2026).** Yeni shortlarda `YupKisa.short({ ses: { muzik, kanca, sus, ortam, gecisler } })` kullanılır (`video/yup-marka/ses.js`; `index.html`'de synth.js'ten sonra yüklenir): ilk karede kanca sesi, tek ruhlu müzik yatağı (merak, gizem, sicak, komik, enerjik; konuşmanın ~20 dB altında), doruğa sessizlik, kapanışta Lup motifi (La–Re–Fa#). Telifli müzik ya da hazır ses dosyası kullanılmaz. Yayın sürümü `bash video/araclar/yayin.sh <bolum>` ile −14 LUFS'e ayarlanır. Rehber: `video/ses/ses-rehberi.md`.
 - **Gemini promptları İngilizce yazılır.** Görselde yer alacak Türkçe yazı tırnak içinde, birebir yazımıyla verilir. Prompta harf düzeltme talimatı ve yazısız yedek yol eklenir.
 - **Yeni dosyalar commit edilip push edilir.** Oturum sonunda takip edilmeyen dosya kalırsa uyarı geliyor.
 
@@ -55,6 +56,7 @@ Kanal kimliği, renkler, oynatma listeleri ve bölüm bölüm ayrıntılı durum
 | "Videoyu üret", animasyon düzeltmesi | `film.js` sahneleri, önizleme kareleri, render | `references/motor-ve-animasyon.md` |
 | YouTube başlık, açıklama, etiketler | Şablonu doldur, sınırları say | `references/youtube-paketi.md` |
 | Kapak, karakter, ortam ya da animasyon görseli | Gemini promptu (İngilizce, STYLE bloğuyla) | `references/gemini-promptlari.md` |
+| Ses, müzik, efekt, kanca sesi, geçiş sesi | `ses.js` kütüphanesini kullan; kit `node video/araclar/ses-kiti.mjs` | `video/ses/ses-rehberi.md` |
 | "Diğer bölümü at", "tekrar gönder" | Bitmiş videoyu `video/out/` içinde bul ve gönder (gerekirse yeniden üret) | §7 |
 
 ## 5. Kayıttan bitmiş videoya (en sık iş, repo gerekir)

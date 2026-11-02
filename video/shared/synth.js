@@ -508,6 +508,188 @@
     }
   }
 
+  // ---------- YUP ses kiti enstrümanları (yup-marka/ses.js bunları birleştirir) ----------
+  Object.assign(Mixer.prototype, {
+    // Mızraplı/vurmalı nota. tone: 'marimba' | 'celesta' | 'piano' | 'pizz'
+    pluck(t, { freq = 440, gain = 0.1, decay = 0.6, pan = 0, wet = 0.25, tone = 'marimba' } = {}) {
+      const P = {
+        marimba: [[1, 1, 1], [3.93, 0.25, 0.22], [9.2, 0.06, 0.08]],
+        celesta: [[1, 1, 1], [2, 0.32, 0.55], [3.01, 0.1, 0.3], [4.12, 0.05, 0.2]],
+        piano: [[1, 1, 1], [2, 0.42, 0.7], [3, 0.18, 0.5], [4, 0.08, 0.35], [5.02, 0.04, 0.25]],
+        pizz: [[1, 1, 1], [2, 0.45, 0.45], [3, 0.22, 0.3], [4, 0.1, 0.2]],
+      }[tone] ?? [[1, 1, 1]];
+      const sum = this.ctx.createGain();
+      for (const [r, a, dk] of P) {
+        const o = this.osc('sine', freq * r, t, decay * dk + 0.06);
+        const e = this.env(t, tone === 'pizz' ? 0.006 : 0.002, Math.max(0.03, decay * dk), a);
+        o.connect(e).connect(sum);
+      }
+      const out = tone === 'pizz' ? sum.connect(this.filter('lowpass', Math.min(5000, freq * 6), 0.6)) : sum;
+      this.route(out, { gain, pan, wet });
+    },
+    // Yumuşak bas notası. tone: 'yumusak' (üçgen) | 'kamis' (fagot gibi, kare)
+    bass(t, { freq = 73.4, dur = 0.4, gain = 0.12, tone = 'yumusak' } = {}) {
+      const o = this.osc(tone === 'kamis' ? 'square' : 'triangle', freq, t, dur + 0.3);
+      const e = this.ctx.createGain();
+      e.gain.value = 0;
+      e.gain.setValueAtTime(0, t);
+      e.gain.linearRampToValueAtTime(1, t + 0.015);
+      e.gain.setTargetAtTime(0, t + dur * 0.7, dur * 0.2);
+      o.connect(this.filter('lowpass', tone === 'kamis' ? 650 : 420, 0.7)).connect(e);
+      this.route(e, { gain, wet: 0.04 });
+    },
+    // Yumuşak bas davul
+    kick(t, { gain = 0.2 } = {}) {
+      const o = this.osc('sine', 125, t, 0.35);
+      o.frequency.setValueAtTime(125, t);
+      o.frequency.exponentialRampToValueAtTime(46, t + 0.13);
+      const e = this.env(t, 0.002, 0.26);
+      o.connect(e);
+      this.route(e, { gain, wet: 0.02 });
+    },
+    // Hışırtılı ritim (shaker)
+    shaker(t, { gain = 0.03, pan = 0.2 } = {}) {
+      const n = this.noise('white', t, 0.08);
+      const e = this.env(t, 0.014, 0.05);
+      n.connect(this.filter('highpass', 6800, 0.7)).connect(e);
+      this.route(e, { gain, pan, wet: 0.04 });
+    },
+    // Parmak şıklatma / el çırpma
+    snap(t, { gain = 0.1, pan = 0 } = {}) {
+      [0, 0.009, 0.019].forEach((dt, i) => {
+        const n = this.noise('white', t + dt, 0.05);
+        const e = this.env(t + dt, 0.0006, 0.028 + i * 0.01, 1 - i * 0.25);
+        n.connect(this.filter('bandpass', 1900, 1.3)).connect(e);
+        this.route(e, { gain, pan, wet: 0.18 });
+      });
+    },
+    // Ters sönüm: darbeden önce "emilen" ses (t+dur'da kesilir)
+    swell(t, dur, { gain = 0.12 } = {}) {
+      const n = this.noise('pink', t, dur);
+      const f = this.filter('bandpass', 500, 0.7);
+      f.frequency.setValueAtTime(500, t);
+      f.frequency.exponentialRampToValueAtTime(5000, t + dur);
+      const e = this.ctx.createGain();
+      e.gain.value = 0.0001;
+      e.gain.setValueAtTime(0.0001, t);
+      e.gain.exponentialRampToValueAtTime(1, t + dur);
+      e.gain.setValueAtTime(0, t + dur + 0.005);
+      n.connect(f).connect(e);
+      this.route(e, { gain, wet: 0.35 });
+    },
+    // Sinematik darbe: bas davul + alt bas + kısa parlak patlama
+    hit(t, { gain = 0.35 } = {}) {
+      this.kick(t, { gain: gain * 0.9 });
+      this.boom(t, { gain: gain * 0.5, freq: 52 });
+      const n = this.noise('white', t, 0.4);
+      const e = this.env(t, 0.002, 0.3, 0.7);
+      n.connect(this.filter('highpass', 1800, 0.6)).connect(e);
+      this.route(e, { gain: gain * 0.22, wet: 0.5 });
+    },
+    // Parıltı: dağınık, tiz çan tıngırtıları (pentatonik)
+    sparkle(t, { gain = 0.04, dur = 0.6, base = 1568 } = {}) {
+      const steps = [0, 2, 4, 7, 9, 12, 14, 16];
+      for (let i = 0; i < 8; i++) {
+        const f = base * Math.pow(2, steps[Math.floor(this.rand() * steps.length)] / 12);
+        this.bell(t + (i / 8) * dur + this.rand() * 0.04, { freq: f, gain: gain * (0.6 + this.rand() * 0.4), decay: 0.7, pan: this.rand() * 1.2 - 0.6, wet: 0.5 });
+      }
+    },
+    // Kâğıt hışırtısı (sayfa çevirme)
+    paper(t, { gain = 0.1 } = {}) {
+      [0, 0.06, 0.13].forEach((dt, i) => {
+        const n = this.noise('white', t + dt, 0.09);
+        const e = this.env(t + dt, 0.01, 0.06 + i * 0.02, 1 - i * 0.2);
+        n.connect(this.filter('bandpass', 3200 + i * 700, 0.9)).connect(e);
+        this.route(e, { gain, pan: -0.2 + i * 0.2, wet: 0.12 });
+      });
+    },
+    // Bant yırtma
+    tapeRip(t, { gain = 0.1, dur = 0.32 } = {}) {
+      const src = this.ctx.createBufferSource();
+      src.buffer = this.sparks(dur, 900, 8, 40, 1.2);
+      src.start(t);
+      const f = this.filter('bandpass', 3800, 1.1);
+      f.frequency.setValueAtTime(3800, t);
+      f.frequency.exponentialRampToValueAtTime(1300, t + dur);
+      const e = this.hold(t, dur, 0.02, 0.08);
+      src.connect(f).connect(e);
+      this.route(e, { gain, wet: 0.08 });
+    },
+    // Keçeli kalem çizgisi
+    marker(t, { gain = 0.05, dur = 0.4 } = {}) {
+      const n = this.noise('white', t, dur);
+      const f = this.filter('bandpass', 3400, 4);
+      const am = this.ctx.createGain();
+      am.gain.value = 0.6;
+      const lfo = this.osc('sine', 17, t, dur);
+      const d = this.ctx.createGain();
+      d.gain.value = 0.4;
+      lfo.connect(d).connect(am.gain);
+      const e = this.hold(t, dur, 0.03, 0.06);
+      n.connect(f).connect(am).connect(e);
+      this.route(e, { gain, wet: 0.06 });
+    },
+    // Yaylı "boing" (komik vurgu)
+    boing(t, { gain = 0.1, freq = 196 } = {}) {
+      const o = this.osc('sine', freq, t, 0.7);
+      o.frequency.setValueAtTime(freq * 0.7, t);
+      o.frequency.exponentialRampToValueAtTime(freq * 1.5, t + 0.08);
+      o.frequency.exponentialRampToValueAtTime(freq, t + 0.6);
+      const lfo = this.osc('sine', 13, t, 0.7);
+      const d = this.ctx.createGain();
+      d.gain.setValueAtTime(freq * 0.18, t);
+      d.gain.exponentialRampToValueAtTime(1, t + 0.6);
+      lfo.connect(d).connect(o.frequency);
+      const e = this.env(t, 0.005, 0.6);
+      o.connect(e);
+      this.route(e, { gain, wet: 0.2 });
+    },
+    // Gece cırcır böcekleri
+    crickets(t, dur, { gain = 0.02 } = {}) {
+      for (let s = t + 0.2; s < t + dur - 0.3; s += 0.55 + this.rand() * 0.5) {
+        const f = 4300 + this.rand() * 500;
+        const pan = this.rand() * 1.4 - 0.7;
+        for (let k = 0; k < 3; k++) {
+          const o = this.osc('sine', f, s + k * 0.045, 0.04);
+          const e = this.env(s + k * 0.045, 0.004, 0.028);
+          o.connect(e);
+          this.route(e, { gain, pan, wet: 0.3 });
+        }
+      }
+    },
+    // Fokurdama (kaynayan su, laboratuvar)
+    bubbles(t, dur, { gain = 0.05, rate = 7 } = {}) {
+      for (let s = t; s < t + dur; s += (0.4 + this.rand()) / rate) this.pop(s, { freq: 180 + this.rand() * 420, gain: gain * (0.4 + this.rand() * 0.6), pan: this.rand() - 0.5 });
+    },
+    // Oda tonu: çok alçak, sıcak hışırtı (sessizliğin "dolu" duyulması için)
+    roomTone(t, dur, { gain = 0.03 } = {}) {
+      const n = this.noise('brown', t, dur);
+      const e = this.hold(t, dur, 0.8, 0.8);
+      n.connect(this.filter('lowpass', 520, 0.5)).connect(e);
+      this.route(e, { gain, wet: 0.05 });
+    },
+    // Uzay ve gizem: yavaş dalgalanan alçak tonlar + tiz parıltı
+    drone(t, dur, { gain = 0.05, notes = ['D2', 'A2', 'D3'] } = {}) {
+      const sum = this.ctx.createGain();
+      for (const n of notes) {
+        for (const det of [-5, 5]) {
+          const o = this.osc('sine', hz(n), t, dur);
+          o.detune.value = det;
+          o.connect(sum);
+        }
+      }
+      const am = this.ctx.createGain();
+      am.gain.value = 0.7;
+      const lfo = this.osc('sine', 0.13, t, dur);
+      const d = this.ctx.createGain();
+      d.gain.value = 0.3;
+      lfo.connect(d).connect(am.gain);
+      const e = this.hold(t, dur, Math.min(2, dur * 0.3), Math.min(2, dur * 0.3));
+      sum.connect(am).connect(e);
+      this.route(e, { gain: gain / notes.length, wet: 0.6 });
+    },
+  });
+
   // Seslendirme sırasında bed kanalını kısar; yakın satırlar arasında kanalı geri açmaz.
   function duck(param, lines, level = 0.3, attack = 0.25, release = 0.6) {
     const spans = [];
@@ -534,7 +716,8 @@
   }
 
   // voice: { audio: base64 (mp3), lines: [{ at, dur }], gain } — narrate.mjs'in ürettiği seslendirme izi
-  async function render(score, duration, sampleRate = 48000, voice = null) {
+  // opts.normalize: false → tepe normalizasyonu yapılmaz (ses kiti ve seviye ölçümü için)
+  async function render(score, duration, sampleRate = 48000, voice = null, opts = {}) {
     const ctx = new OfflineAudioContext(2, Math.ceil(duration * sampleRate), sampleRate);
     const mix = new Mixer(ctx);
     if (voice) {
@@ -575,7 +758,7 @@
       const d = buf.getChannelData(c);
       for (let i = 0; i < d.length; i++) peak = Math.max(peak, Math.abs(d[i]));
     }
-    if (peak > 0) {
+    if (peak > 0 && opts.normalize !== false) {
       const k = 0.89 / peak;
       for (let c = 0; c < buf.numberOfChannels; c++) {
         const d = buf.getChannelData(c);

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <title>YUP ses kiti</title>
+</head>
+<body>
+  <!-- video/araclar/ses-kiti.mjs bu sayfayı açar ve KIT'teki her sesi WAV olarak döker. -->
+  <script src="../shared/synth.js"></script>
+  <script src="../yup-marka/ses.js"></script>
+  <script>
+    const Y = window.YupSes;
+    const KIT = [];
+    const add = (grup, ad, sure, fn) => KIT.push({ grup, ad, sure, fn });
+    // imza ve kancalar
+    add('sfx', '01-imza', 2.6, (m) => Y.imza(m, 0.1));
+    for (const k of ['mercek', 'darbe', 'gizem', 'komik']) add('sfx', `02-kanca-${k}`, k === 'gizem' ? 3.6 : 2.2, (m) => Y.kanca(m, 0.05, k));
+    // geçişler
+    for (const k of ['mercek', 'kesme', 'sayfa', 'zoom', 'karanlik']) add('sfx', `03-gecis-${k}`, 1.8, (m) => Y.gecis(m, 0.5, k));
+    // vurgular
+    for (const k of Object.keys(Y.VURGULAR)) add('sfx', `04-vurgu-${k}`, k === 'saat' ? 2.4 : 1.8, (m) => Y.vurgu(m, 0.1, k));
+    // kapanış
+    add('sfx', '05-kapanis', 4.5, (m) => Y.kapanis(m, 0, 2.6));
+    // ortamlar
+    for (const k of ['oda', 'gece', 'yagmur', 'mutfak', 'lab', 'uzay']) add('ortam', `06-ortam-${k}`, 8, (m) => Y.ortam(m, 0, 8, k));
+    // müzik yatakları
+    for (const k of Object.keys(Y.RUH)) add('muzik', `07-muzik-${k}`, 20, (m) => Y.muzik(m, 0, 20, { ruh: k }));
+    window.KIT = KIT.map(({ grup, ad, sure }) => ({ grup, ad, sure }));
+    // Bir grubu (ya da tek sesi) hesaplar; grup içi göreli seviyeler korunur, grubun tepesi −1 dBFS olur.
+    // tek: true → her ses kendi tepesine göre (dinleme kolaylığı için; videoda seviyeler ses.js'teki gibidir)
+    window.renderGroup = async (grup, raw = false, tek = false) => {
+      const items = KIT.filter((k) => k.grup === grup);
+      const bufs = [];
+      for (const k of items) bufs.push(await Synth.render(k.fn, k.sure, 48000, null, { normalize: false }));
+      let peak = 0;
+      for (const b of bufs) for (let c = 0; c < b.numberOfChannels; c++) for (const v of b.getChannelData(c)) peak = Math.max(peak, Math.abs(v));
+      const gAll = raw ? 1 : 0.89 / (peak || 1);
+      const out = {};
+      items.forEach((k, i) => {
+        const b = bufs[i];
+        let g = gAll;
+        if (tek && !raw) {
+          let pk = 0;
+          for (let c = 0; c < b.numberOfChannels; c++) for (const v of b.getChannelData(c)) pk = Math.max(pk, Math.abs(v));
+          g = 0.7 / (pk || 1);
+        }
+        for (let c = 0; c < b.numberOfChannels; c++) {
+          const d = b.getChannelData(c);
+          for (let j = 0; j < d.length; j++) d[j] *= g;
+        }
+        const w = Synth.toWav(b);
+        let s = '';
+        for (let j = 0; j < w.length; j += 0x8000) s += String.fromCharCode.apply(null, w.subarray(j, j + 0x8000));
+        out[k.ad] = btoa(s);
+      });
+      return { gain: gAll, peak, files: out };
+    };
+    document.title = 'hazir';
+  </script>
+</body>
+</html>
