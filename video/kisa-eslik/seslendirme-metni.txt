@@ -1,26 +1,25 @@
-YUP Akademi · Lup · Vücudun Gizli Ayarları · Bilmediğin şarkıya eşlik etmek · seslendirme metni (6 satır, yaklaşık 75 kelime)
-Üslup: YouTuber gibi, sır verir gibi; kısa cümleler, konuşma dili.
-Video melodiyle açılır (ilk 7 sn sen konuşmazsın; ekranda "Son notayı sen söyle"). Kayıt, melodi durduktan sonraki ilk sözle başlar.
+YUP Akademi · Lup · Vücudun Gizli Ayarları · Bilmediğin şarkıya eşlik etmek · seslendirme metni (6 satır, yaklaşık 85 kelime)
+Konu: Hiç bilmediğin bir şarkı çalarken, sözlerini bilmesen de bir süre sonra mırıldanmaya, eşlik etmeye başlarsın.
+Video bunu izleyiciye yaşatır: melodiyi bir kez dinler, ikincisinde eşlik eder, sonunu kendisi tamamlar.
+Üslup: arkadaşına anlatır gibi, YouTuber gibi; kısa cümleler. Ses etiketi yok, ton noktalamayla verilir.
 
 Okuma notları:
-- 1. satır: fısıltı; "Durdu..." sonrası bir nefes; "değil mi?" gülümseyerek; "İşte o nota:" yükselerek ve askıda biter (ardından videoda nota çalar).
-- 2. satır: muzip, kısa bir davet. Sonrasında videoda yanlış biten melodi çalar.
-- 3. satır: kısa bir gülme, sonra "bu yanlış" sözü başka birinin sesi gibi. "hiç almamış" vurgulu.
-- 4. satır: sakin, açıklayıcı; "tahmin ediyor" vurgulu; "eve döndüğünü" yumuşak.
-- 5. satır: heyecanlı; "daha o an gelmeden" hızlanarak; son cümle sıcak.
-- 6. satır: muzip, meydan okur gibi; tırnaklı söz taklit eder gibi.
+- 1. satır: Merakla ve kendinden emin; "eşlik etmeye başlarsın" sonrası kısa durak; "Dene;" ile bir davet. (Ardından videoda melodi bir kez çalar.)
+- 2. satır: Sıcak, cesaret veren; "sen de içinden eşlik et" yavaş. (Ardından melodinin ikinci yarısı çalar ve son notadan önce durur.)
+- 3. satır: Alçak, gülümseyen; "Sonunu çalmadım..." sonrası nefes; "değil mi?" göz kırpar gibi. (Ardından videoda son nota çalar.)
+- 4. satır: Sakin, açıklayıcı; "tahmin ediyor" vurgulu; "çoktan kaydetmişti" gülümseyerek.
+- 5. satır: Sıcak; "yabancıları hızla yakınlaştırıyor" yumuşak; düğün kısmı keyifli.
+- 6. satır: Muzip; "Bu videoya da eşlik etti." göz kırpar gibi.
 Köşeli parantezdeki kimlikler okunmaz.
 
-  [e-durak]    Durdu... ama kafanda son nota hâlâ çalıyor, değil mi? İşte o nota:
-  [e-yanlis]   Şimdi bir de yanlış biteni dinle.
-  [e-alarm]    Yüzünü buruşturan o his, beyninin "bu yanlış" alarmı. Bu alarm, müzik eğitimi hiç almamış insanların beyninde bile ölçülüyor.
-  [e-tahmin]   Çünkü beynin müziği dinlemiyor, tahmin ediyor. Duyduğun binlerce şarkıdan, hangi notanın eve döndüğünü kendi kendine öğrendi.
-  [e-dopamin]  Tahminin tuttukça beynin seni ödüllendiriyor; en sevdiğin anı beklerken, daha o an gelmeden dopamin salgılıyor. Hiç bilmediğin şarkıya eşlik etmenin keyfi bu.
-  [e-cta]      "Müzik kulağım yok" diyen arkadaşına gönder: Beyni bu testi çoktan geçti.
+  [e-hook]    Hiç duymadığın bir şarkıya, ikinci nakarata gelmeden eşlik etmeye başlarsın. Dene; bu melodiyi ilk kez duyuyorsun.
+  [e-tekrar]  Şimdi bir kez daha. Bu sefer sen de içinden eşlik et.
+  [e-tamam]   Sonunu çalmadım... ama sen tamamladın, değil mi?
+  [e-neden]   Çünkü beynin şarkıyı dinlemiyor, tahmin ediyor. Duyduğun binlerce şarkının kurallarını farkına varmadan ezberledi; nakarat ikinci kez geldiğinde onu çoktan kaydetmişti.
+  [e-keyif]   Tahminin tuttukça beynin seni ödüllendiriyor. Birlikte söylemek de yabancıları hızla yakınlaştırıyor; düğünde herkesin aynı şarkıya katılmasının bir sebebi de bu.
+  [e-cta]     Sözleri bilmeden her şarkıya eşlik eden arkadaşına gönder: Bu videoya da eşlik etti.
 
 ElevenLabs için:
-- seslendirme-pause.txt'yi olduğu gibi yapıştır. Köşeli parantezli ses etiketleri okunmaz, yalnız tonu değiştirir:
-  [whispers] fısıltı · [laughs] kısa gülme · [excited] heyecan · [mischievously] muzip · [pause] satır arası durak.
-  Ses bir etiketi yüksek sesle okursa o etiketi sil; [pause] kalsın.
-- Ayar önerisi: kararlılık 35–40, hız 1.05, benzerlik 75. 2–3 kayıt üretip en doğalını seç.
-- Melodi, doğru ve yanlış son nota videoda kodla çalar; kayıtta müzik ya da sayım okunmaz.
+- seslendirme-pause.txt'yi olduğu gibi yapıştır; satır aralarında yalnız [pause] var, başka kod yok.
+- Ayar: kararlılık 40–45 (doğal ama dengeli), benzerlik 75, hız 1.0–1.05. 2–3 kayıt üretip en doğalını seç.
+- Melodi videoda kodla çalar; kayıtta müzik, sayım ya da "la la" okunmaz.

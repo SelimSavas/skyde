@@ -1,17 +1,18 @@
 /*
- * YUP Akademi · Lup · Vücudun Gizli Ayarları — Bilmediğin şarkıya eşlik etmek (müzikte tahmin, yanlış nota alarmı, dopamin)
- * Video sözle değil melodiyle açılır: özgün melodi (melodi.js) son notadan önce durur, ekranda "Son notayı sen söyle".
- * İlk satır melodiden sonra gelir (lead), "İşte o nota:"dan sonra doğru son, 2. satırdan sonra yanlış son çalar.
- * YouTuber üslubu; ses etiketleri ([whispers] vb.) yalnız seslendirme-pause.txt'de. Tek çağrı sonda. Kaynaklar: kaynaklar.md.
+ * YUP Akademi · Lup · Vücudun Gizli Ayarları — Bilmediğin şarkıya eşlik etmek
+ * Konu: Hiç bilmediğin bir şarkıya, sözlerini bilmesen de kısa sürede eşlik edersin. Video bunu izleyiciye yaşatır:
+ * özgün melodi (melodi.js) bir kez tam çalar; ikinci kez yalnız cevap cümlesi çalar ve son notadan önce durur;
+ * izleyici sonu kendisi tamamlar, ardından son nota gelir. Sonra neden: tahmin eden beyin, tekrar, ödül, birlikte söylemek.
+ * Ses etiketi yok; tek çağrı sonda. Kaynaklar: kaynaklar.md. Çalışma: calisma.md.
  * Kayıt gelince: bash video/araclar/kaydi-bol.sh kisa-eslik <kayit.mp3> Eslik && python3 video/araclar/dudak.py kisa-eslik
  */
 window.NARRATION = {
   lines: [
-    { id: 'e-durak', say: 'Durdu... ama kafanda son nota hâlâ çalıyor, değil mi? İşte o nota:' },
-    { id: 'e-yanlis', say: 'Şimdi bir de yanlış biteni dinle.' },
-    { id: 'e-alarm', say: 'Yüzünü buruşturan o his, beyninin "bu yanlış" alarmı. Bu alarm, müzik eğitimi hiç almamış insanların beyninde bile ölçülüyor.' },
-    { id: 'e-tahmin', say: 'Çünkü beynin müziği dinlemiyor, tahmin ediyor. Duyduğun binlerce şarkıdan, hangi notanın eve döndüğünü kendi kendine öğrendi.' },
-    { id: 'e-dopamin', say: 'Tahminin tuttukça beynin seni ödüllendiriyor; en sevdiğin anı beklerken, daha o an gelmeden dopamin salgılıyor. Hiç bilmediğin şarkıya eşlik etmenin keyfi bu.' },
-    { id: 'e-cta', say: '"Müzik kulağım yok" diyen arkadaşına gönder: Beyni bu testi çoktan geçti.' },
+    { id: 'e-hook', say: 'Hiç duymadığın bir şarkıya, ikinci nakarata gelmeden eşlik etmeye başlarsın. Dene; bu melodiyi ilk kez duyuyorsun.' },
+    { id: 'e-tekrar', say: 'Şimdi bir kez daha. Bu sefer sen de içinden eşlik et.' },
+    { id: 'e-tamam', say: 'Sonunu çalmadım... ama sen tamamladın, değil mi?' },
+    { id: 'e-neden', say: 'Çünkü beynin şarkıyı dinlemiyor, tahmin ediyor. Duyduğun binlerce şarkının kurallarını farkına varmadan ezberledi; nakarat ikinci kez geldiğinde onu çoktan kaydetmişti.' },
+    { id: 'e-keyif', say: 'Tahminin tuttukça beynin seni ödüllendiriyor. Birlikte söylemek de yabancıları hızla yakınlaştırıyor; düğünde herkesin aynı şarkıya katılmasının bir sebebi de bu.' },
+    { id: 'e-cta', say: 'Sözleri bilmeden her şarkıya eşlik eden arkadaşına gönder: Bu videoya da eşlik etti.' },
   ],
 };

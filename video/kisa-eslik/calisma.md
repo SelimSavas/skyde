@@ -55,31 +55,25 @@ Her biri ayrı bir beyin becerisine dayanır. Aşağıdaki bölümler bunları s
 
 ---
 
-## 7 · Video: izleyicinin kendi beyniyle yaptığı test
+## 7 · Video: izleyici eşlik etmeyi kendisi yaşıyor
 
-**Tez:** "Müzik kulağım yok" diyen herkes, aslında bu testi geçiyor.
-
-**Akış:** Video sözle değil, özgün bir melodiyle açılır (`melodi.js`, Re majör, 120 BPM).
+**Tez:** Hiç bilmediğin bir şarkıya, sözlerini bilmesen de, ikinci nakarata gelmeden eşlik etmeye başlarsın. Video bunu anlatmakla kalmaz, yaşatır.
 
 | Adım | Ne olur | Neden işe yarar |
 |---|---|---|
-| 1. Soru cümlesi (A) | Melodi "yarı yolda" biter (Mi, La akoru) | Kulağa bir kalıp öğretir |
-| 2. Cevap cümlesi (A') | Aynı başlar; yeden nota Do#'ta, La7 akoruyla **durur** | Tekrar ve tonik çekimi birleşir; izleyicinin kafasında Re "çalar" |
-| 3. "İşte o nota:" | Re5 ve Re majör akor | Tahmin doğrulanır, küçük bir ödül anı |
-| 4. "Yanlış biteni dinle" | Son ölçü Re#5 ile biter (yarım ses sürtüşmesi) | İzleyici yüzünü buruşturur: canlı ERAN anı |
-| 5. Açıklama | Tahmin eden beyin, eve dönen nota, dopamin | Neden'i tek nefeste verir |
-| 6. Kapanış | "'Müzik kulağım yok' diyen arkadaşına gönder." | Herkes testi geçtiği için paylaşma isteği yüksek |
+| 1. Kanca | "Hiç duymadığın bir şarkıya, ikinci nakarata gelmeden eşlik etmeye başlarsın." Düğünde mendil sallayan Arkadaşın. | Herkesin yaşadığı an; ilk cümle iddia. |
+| 2. Dinle | Özgün melodi (`melodi.js`) bir kez baştan sona çalar (~8 sn). | Kulak kalıbı ilk kez duyar. |
+| 3. Eşlik et | Melodinin ikinci yarısı tekrar çalar; notalar çalmadan bir an önce soluk belirir. Son notadan önce durur. | Tekrar ve tonal çekim: izleyici içinden mırıldanır, sonu kendisi tamamlar. |
+| 4. Tamamlandı | "Sonunu çalmadım... ama sen tamamladın, değil mi?" ardından son nota. | Tahmin doğrulanır, küçük bir ödül anı. |
+| 5. Neden | Tahmin eden beyin, binlerce şarkının kuralları, nakaratın kaydedilmesi | Tek nefeste açıklama |
+| 6. Keyif | Ödül ve birlikte söylemek (düğünde halay) | Sıcak, paylaşılabilir an |
+| 7. Kapanış | "Sözleri bilmeden her şarkıya eşlik eden arkadaşına gönder: Bu videoya da eşlik etti." | Herkesin böyle bir arkadaşı var. |
 
-- **Melodi özgün:** Bilinen bir şarkı kullanılmadı, telif riski yok. Önizleme: `melodi-testi.mp3`.
-- **Ses tasarımı:**
-  - Melodi çalarken müzik yatağı susar (`ses.sus`).
-  - Kanca sesi melodinin kendisidir; ilk karede müzik var.
-  - Doğru notada parıltı (`vurgu: 'aha'`), yanlış notada çok kısa bir sarsıntı.
-  - Kapanışta Lup motifi; motif aynı tonda (Re majör), melodiyle uyumlu.
-- **Ölçmek için:** Sabitlenmiş yorum: "Son notayı doğru söyledin mi? 🎵 = evet, 🙈 = hayır". Videonun içinde ek çağrı yok.
-- **Süre:** Konuşma ~30 sn, melodi ve testler ~11 sn; toplam ~42 sn.
-- **Hazır olan dosyalar:**
-  - `seslendirme-pause.txt` (ElevenLabs kodlarıyla)
+- **Ses:** Melodi özgün, telif yok; önizleme `melodi-testi.mp3` (bütünü, ara, ikinci yarı durur, ara, son nota). Melodi çalarken müzik yatağı susar.
+- **Ölçmek için:** Sabitlenmiş yorum: "Son notayı içinden söyledin mi? 🎵 = evet, 🙈 = hayır". Video içinde ek çağrı yok.
+- **Süre:** Konuşma ~31 sn, melodi ~11 sn; toplam ~44 sn.
+- **Dosyalar:**
+  - `seslendirme-pause.txt` (yalnız [pause])
   - `seslendirme-metni.txt` (okuma notları)
   - `gorsel-promptlari.md` (6 görsel ve sahne planı)
   - `narration.js`, `kaynaklar.md`

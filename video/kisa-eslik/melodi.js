@@ -1,8 +1,9 @@
 /*
  * Eşlik testi melodisi (özgün beste, Re majör, 120 BPM). İki cümle: soru (A, yarım kadansla biter) ve cevap (A',
- * La7 → Re tam kadans). Testte cevap cümlesi yeden notada (Do#5) durur; izleyicinin beyni son notayı (Re5) tamamlar.
- * Yanlış bitiş: Re5 yerine Re#5 (Re majör akorla yarım ses sürtüşmesi).
+ * La7 → Re tam kadans). Videoda önce bütünü bir kez çalar (cal, son: 'dogru'); ikincide yalnız cevap cümlesi çalar
+ * (cevap) ve yeden notada (Do#5) durur; izleyicinin beyni son notayı (Re5) tamamlar, ardından son nota gelir (son).
  *   MELODI.cal(m, t, { son: 'yok' | 'dogru' | 'yanlis' })  → biten zamanı döndürür
+ *   MELODI.cevap(m, t)                                    → yalnız cevap cümlesi, son notasız (biten zaman)
  *   MELODI.son(m, t, { yanlis })                          → yalnız son nota ve akor
  */
 (function (root) {
@@ -35,6 +36,18 @@
     akor(m, t, ['D3', 'F#3', 'A3', 'D4'], g * 1.1);
     return t + 2 * B;
   }
+  // Yalnız cevap cümlesi (A'), son notadan önce durur
+  function cevap(m, t, { g = 1 } = {}) {
+    akor(m, t, AKOR[2], g);
+    akor(m, t + 2 * B, AKOR[2], g * 0.7);
+    akor(m, t + 4 * B, AKOR[3], g);
+    let x = t;
+    for (const [n, b] of A2) {
+      nota(m, x, n, b, g);
+      x += b * B;
+    }
+    return x;
+  }
   // Son ölçü (yanlış biteni tekrar dinletmek için): Mi5 Do#5 → son
   function sonOlcu(m, t, { yanlis = false, g = 1 } = {}) {
     akor(m, t, AKOR[3], g);
@@ -44,5 +57,5 @@
   }
   // sure: durdurulan melodinin süresi (sn); son notası 2 vuruş
   const sure = [...A, ...A2].reduce((q, [, b]) => q + b, 0) * B;
-  root.MELODI = { BPM, B, A, A2, cal, son: sonNota, sonOlcu, sure };
+  root.MELODI = { BPM, B, A, A2, cal, cevap, son: sonNota, sonOlcu, sure };
 })(typeof window !== 'undefined' ? window : globalThis);
