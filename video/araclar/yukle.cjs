@@ -1,5 +1,5 @@
 // Bir bölümün filmini Node içinde yükler (altyazı, bölüm zamanları, duman testi için).
-// Betikleri bölümün index.html'indeki sırayla yükler (oynatıcı ve ses motoru hariç); index.html yoksa eski sabit liste.
+// Betikleri bölümün index.html'indeki sırayla yükler (oynatıcı hariç; ses.js ve melodi.js için synth.js gerekir); index.html yoksa eski sabit liste.
 // Tarayıcıya özgü nesneler (Image, document.fonts) için küçük taklitler kurar.
 const fs = require('fs'), vm = require('vm'), path = require('path');
 
@@ -10,7 +10,7 @@ module.exports = function yukle(dir) {
   const html = path.join(dir, 'index.html');
   let list = ['../shared/engine.js', 'assets.js', 'narration.js', 'voice.js', 'film.js'];
   if (fs.existsSync(html)) {
-    list = [...fs.readFileSync(html, 'utf8').matchAll(/<script src="([^"]+)"/g)].map((m) => m[1]).filter((f) => !/player\.js|synth\.js/.test(f));
+    list = [...fs.readFileSync(html, 'utf8').matchAll(/<script src="([^"]+)"/g)].map((m) => m[1]).filter((f) => !/player\.js/.test(f));
   }
   for (const f of list) {
     const p = path.join(dir, f);

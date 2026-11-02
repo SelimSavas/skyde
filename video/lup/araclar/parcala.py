@@ -240,10 +240,25 @@ def ampul():
     P['gozici'] = enc(load('lup-7n-goz-ici').convert('RGB'), 1.0, q=86)
     return P
 
+def eslik():
+    P = {}
+    es = load('muzik-esya')
+    bx = rows(comps(es, dil=3, minarea=3000), tol=250)
+    for name, box in zip(['radyo', 'plak', 'kulaklik', 'beyin', 'mendil', 'sehpa'], bx):
+        P[name] = enc(tight(es, box), 0.8)
+    for name, img in zip(['poz_kulaklik', 'poz_islik', 'poz_coskulu', 'poz_dinle'], columns(load('lup-4i-muzik'), 4)):
+        P[name] = enc(img, 0.8)
+    ar = load('arkadasin-muzik')
+    for name, box in zip(['ark_halay', 'ark_soyle'], rows(comps(ar, dil=4, minarea=20000), tol=400)):
+        P[name] = enc(tight(ar, box), 0.85)
+    P['dugun'] = enc(load('lup-7o-dugun').convert('RGB'), 1.0, q=86)
+    P['konser'] = enc(load('lup-7p-beyin-konser').convert('RGB'), 1.0, q=86)
+    return P
+
 if __name__ == '__main__':
     if '--bolum' in sys.argv:
         b = sys.argv[sys.argv.index('--bolum') + 1]
-        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur, 'kisa-gidik': gidik, 'kisa-uyusma': uyusma, 'kisa-ampul': ampul}[b]()
+        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur, 'kisa-gidik': gidik, 'kisa-uyusma': uyusma, 'kisa-ampul': ampul, 'kisa-eslik': eslik}[b]()
         out = os.path.join(R, b, 'assets.js')
         head = '/* %s görselleri: video/lup/araclar/parcala.py --bolum %s üretir (kaynak video/lup/gorseller). Elle düzenlemeyin. */\nwindow.ASSETS = ' % (b, b)
     else:
