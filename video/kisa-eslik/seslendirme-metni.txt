@@ -1,0 +1,26 @@
+YUP Akademi · Lup · Vücudun Gizli Ayarları · Bilmediğin şarkıya eşlik etmek · seslendirme metni (6 satır, yaklaşık 75 kelime)
+Üslup: YouTuber gibi, sır verir gibi; kısa cümleler, konuşma dili.
+Video melodiyle açılır (ilk 7 sn sen konuşmazsın; ekranda "Son notayı sen söyle"). Kayıt, melodi durduktan sonraki ilk sözle başlar.
+
+Okuma notları:
+- 1. satır: fısıltı; "Durdu..." sonrası bir nefes; "değil mi?" gülümseyerek; "İşte o nota:" yükselerek ve askıda biter (ardından videoda nota çalar).
+- 2. satır: muzip, kısa bir davet. Sonrasında videoda yanlış biten melodi çalar.
+- 3. satır: kısa bir gülme, sonra "bu yanlış" sözü başka birinin sesi gibi. "hiç almamış" vurgulu.
+- 4. satır: sakin, açıklayıcı; "tahmin ediyor" vurgulu; "eve döndüğünü" yumuşak.
+- 5. satır: heyecanlı; "daha o an gelmeden" hızlanarak; son cümle sıcak.
+- 6. satır: muzip, meydan okur gibi; tırnaklı söz taklit eder gibi.
+Köşeli parantezdeki kimlikler okunmaz.
+
+  [e-durak]    Durdu... ama kafanda son nota hâlâ çalıyor, değil mi? İşte o nota:
+  [e-yanlis]   Şimdi bir de yanlış biteni dinle.
+  [e-alarm]    Yüzünü buruşturan o his, beyninin "bu yanlış" alarmı. Bu alarm, müzik eğitimi hiç almamış insanların beyninde bile ölçülüyor.
+  [e-tahmin]   Çünkü beynin müziği dinlemiyor, tahmin ediyor. Duyduğun binlerce şarkıdan, hangi notanın eve döndüğünü kendi kendine öğrendi.
+  [e-dopamin]  Tahminin tuttukça beynin seni ödüllendiriyor; en sevdiğin anı beklerken, daha o an gelmeden dopamin salgılıyor. Hiç bilmediğin şarkıya eşlik etmenin keyfi bu.
+  [e-cta]      "Müzik kulağım yok" diyen arkadaşına gönder: Beyni bu testi çoktan geçti.
+
+ElevenLabs için:
+- seslendirme-pause.txt'yi olduğu gibi yapıştır. Köşeli parantezli ses etiketleri okunmaz, yalnız tonu değiştirir:
+  [whispers] fısıltı · [laughs] kısa gülme · [excited] heyecan · [mischievously] muzip · [pause] satır arası durak.
+  Ses bir etiketi yüksek sesle okursa o etiketi sil; [pause] kalsın.
+- Ayar önerisi: kararlılık 35–40, hız 1.05, benzerlik 75. 2–3 kayıt üretip en doğalını seç.
+- Melodi, doğru ve yanlış son nota videoda kodla çalar; kayıtta müzik ya da sayım okunmaz.
