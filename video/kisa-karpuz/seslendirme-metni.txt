@@ -1,21 +1,21 @@
-YUP Akademi · Lup · Tabağındaki Bilim · Karpuz çekirdeğinin proteini · seslendirme metni (6 satır, yaklaşık 90 kelime)
-Üslup: maç akşamı arkadaşına anlatır gibi, samimi ve keyifli; kısa cümleler. İki ses etiketi var: [laughs] (kısa gülme) ve [chuckles] (hafif gülme).
+YUP Akademi · Lup · Tabağındaki Bilim · Karpuz çekirdeğinin proteini · seslendirme metni (6 satır, yaklaşık 100 kelime)
+Üslup: maç ya da dizi akşamı, ekran karşısında arkadaşına anlatır gibi, samimi ve keyifli; kısa cümleler. İki ses etiketi var: [laughs] (kısa gülme) ve [chuckles] (hafif gülme).
 
 Okuma notları:
 - 1. satır: Şaşırtan bir bilgi verir gibi, kendinden emin; "kıymadan daha fazla" vurgulu.
 - 2. satır: Sayıları tane tane: "yirmi sekiz" ile "on dokuz" arasında küçük bir durak (skorbord gibi).
 - 3. satır: Sıcak, sevimli; "karpuz bebeğinin beslenme çantası" gülümseyerek.
-- 4. satır: "Ama bir sorun var." sonrası kısa gülme; "binden fazla" vurgulu; "neredeyse bir maç boyunca" keyifli bir iç çekişle.
-- 5. satır: Sakin ve dürüst; "fren" ile "sohbet ede ede" sıcak; son cümle açık ve net.
+- 4. satır: "Ama bir sorun var." sonrası kısa gülme; "binden fazla" vurgulu; "ya da bir dizi bölümünün yarısı" göz kırpar gibi (Türk dizilerinin uzunluğuna şaka).
+- 5. satır: Sakin ve dürüst; "ekrandan gözünü ayırmadan" gülümseyerek; son cümle açık ve net.
 - 6. satır: Muzip; hafif gülme, sonra tırnaklı söz taklit eder gibi.
 Köşeli parantezdeki kimlikler okunmaz.
 
-  [k-hook]   Maçta çitlediğin karpuz çekirdeğinin içi, gram gram kıymadan daha fazla protein taşıyor.
+  [k-hook]   Maç ya da dizi izlerken çitlediğin karpuz çekirdeğinin içi, gram gram kıymadan daha fazla protein taşıyor.
   [k-sayi]   Yüz gram çekirdekte yirmi sekiz gram protein var; aynı ağırlıkta kıymada on dokuz.
   [k-canta]  Çünkü o minicik çekirdek, bir karpuz bebeğinin beslenme çantası: Filiz büyüsün diye içi protein ve yağla dolu.
-  [k-ama]    Ama bir sorun var. Yüz gram kıymanın proteini için binden fazla çekirdek çitlemen gerekiyor; neredeyse bir maç boyunca.
-  [k-kabuk]  Kabuk adeta bir fren; çekirdeği tek tek, sohbet ede ede yediriyor. Bir de bu proteinde bazı yapı taşları az, yani etin yerini tek başına tutmuyor.
-  [k-cta]    Çekirdeksiz maç izleyemeyen arkadaşına gönder. Bu akşam "protein alıyorum" diyecek.
+  [k-ama]    Ama bir sorun var. Yüz gram kıymanın proteini için binden fazla çekirdek çitlemen gerekiyor; neredeyse bir maç, ya da bir dizi bölümünün yarısı boyunca.
+  [k-kabuk]  Kabuk adeta bir fren; çekirdeği tek tek, ekrandan gözünü ayırmadan yediriyor. Bir de bu proteinde bazı yapı taşları az, yani etin yerini tek başına tutmuyor.
+  [k-cta]    Çekirdeksiz maç da dizi de izleyemeyen arkadaşına gönder. Bu akşam "protein alıyorum" diyecek.
 
 ElevenLabs için:
 - seslendirme-pause.txt'yi olduğu gibi yapıştır. [laughs] ve [chuckles] okunmaz, yalnız tonu değiştirir; biri yüksek sesle
