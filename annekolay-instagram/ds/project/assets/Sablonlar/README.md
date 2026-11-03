@@ -1,0 +1,1 @@
+Örnek gönderilerin 1080 piksellik PNG çıktıları ve ilk 9 gönderinin profil ızgarası (`g01-profil.png`). Canva şablonlarını bunlara bakarak birebir kurun. Dosya adındaki numara takvimdeki sırayla eşleşir: p01 = Gün 1, p02 = Gün 2 … p10 = Gün 9 (p05 bir carousel iç sayfasıdır).

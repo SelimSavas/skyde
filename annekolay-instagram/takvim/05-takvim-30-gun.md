@@ -1,6 +1,6 @@
 # 30 günlük takvim
 
-Başlangıç **Pazartesi 9 Kasım 2026**. Haftada 7 gönderi: 4 Reels, 2 carousel, 1 tek görsel. `Uzman` sütununda ✓ olan gönderiler uzman onayı olmadan yayınlanmaz. Takvimin CSV hali Varlıklar → Takvim'dedir; Google Sheets ya da Notion'a aktarılabilir.
+Başlangıç **Pazartesi 9 Kasım 2026**. Haftada 7 gönderi: 4 Reels, 2 carousel, 1 tek görsel. `Uzman` sütununda ✓ olan gönderiler uzman onayı olmadan yayınlanmaz. Takvimin CSV hali Assets → Takvim'dedir; Google Sheets ya da Notion'a aktarılabilir.
 
 Denge: Ada & Defne 10, Yeni Anne 10, Hamilelik 10 · Eğitim 14, Duygusal 7, Marka 3, Eğlence 3, Topluluk 3 · Reels 17, Carousel 9, Tek görsel 4.
 

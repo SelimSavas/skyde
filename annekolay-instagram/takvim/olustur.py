@@ -55,7 +55,7 @@ with open(ROOT / "takvim-30-gun.csv", "w", newline="", encoding="utf-8-sig") as 
 from collections import Counter
 sut, seg, fmt = Counter(r[5] for r in data), Counter(r[4] for r in data), Counter(r[2] for r in data)
 md = ["# 30 günlük takvim", "",
-      "Başlangıç **Pazartesi 9 Kasım 2026**. Haftada 7 gönderi: 4 Reels, 2 carousel, 1 tek görsel. `Uzman` sütununda ✓ olan gönderiler uzman onayı olmadan yayınlanmaz. Takvimin CSV hali Varlıklar → Takvim'dedir; Google Sheets ya da Notion'a aktarılabilir.", "",
+      "Başlangıç **Pazartesi 9 Kasım 2026**. Haftada 7 gönderi: 4 Reels, 2 carousel, 1 tek görsel. `Uzman` sütununda ✓ olan gönderiler uzman onayı olmadan yayınlanmaz. Takvimin CSV hali Assets → Takvim'dedir; Google Sheets ya da Notion'a aktarılabilir.", "",
       f"Denge: {', '.join(f'{k} {v}' for k, v in seg.most_common())} · " + ", ".join(f"{k} {v}" for k, v in sut.most_common()) + f" · {', '.join(f'{k} {v}' for k, v in fmt.most_common())}.", "",
       "İlk ay eğitim ağırlığı (%47) bilinçli olarak marka kitabındaki %35'in üstündedir. Kaydedilen ve paylaşılan bilgi içerikleri yeni hesabı keşfete taşır. 2. aydan itibaren eğitim %35'e iner, topluluk ve eğlence artar.", ""]
 for wk in range(0, 30, 7):

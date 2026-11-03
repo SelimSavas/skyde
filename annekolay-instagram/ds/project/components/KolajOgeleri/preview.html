@@ -1,0 +1,24 @@
+<!-- @dsCard group="Kolaj öğeleri" height=500 subtitle="bant, polaroid, yırtık kâğıt, not, damga, ok, etiketler" -->
+<div class="ak-stage" data-maxh="460"><div class="post bg-keten" style="height:760px">
+  <div class="tape adacayi" style="left:60px; top:60px; transform:rotate(-6deg)"></div>
+  <div class="tape seftali" style="left:320px; top:60px; transform:rotate(4deg)"></div>
+  <div class="tape altin" style="left:580px; top:60px; transform:rotate(-3deg)"></div>
+  <div class="tape krem" style="left:820px; top:60px; transform:rotate(5deg)"></div>
+  <div class="polaroid" style="left:60px; top:180px; width:300px; height:400px; transform:rotate(-4deg)"><div class="ph adacayi-acik" data-char="ada"></div><div class="cap">polaroid</div></div>
+  <div class="shadowwrap" style="left:420px; top:190px; width:300px; height:190px"><div class="sheet fill-krem" data-torn="41,t,4" style="width:100%; height:100%"></div></div>
+  <div class="hand abs" style="left:450px; top:250px; font-size:48px; color:var(--toprak)">yırtık kâğıt</div>
+  <div class="shadowwrap" style="left:420px; top:420px; width:300px; height:190px; transform:rotate(-2deg)"><div class="sheet lined" data-torn="7,tb,6" style="width:100%; height:100%"></div></div>
+  <div class="hand abs" style="left:450px; top:470px; font-size:48px; line-height:71px; color:var(--toprak); transform:rotate(-2deg)">çizgili not</div>
+  <div class="stamp" style="left:780px; top:170px; width:200px; height:200px" data-char="stamp:#4F5E4B"></div>
+  <div class="stamp" style="left:790px; top:400px; width:200px; height:200px; transform:rotate(8deg)" data-char="stamp:#8A4A33"></div>
+  <div class="abs" style="left:150px; top:600px; width:160px" data-char="arrow"></div>
+  <div class="abs" style="left:420px; top:670px; display:flex; gap:16px"><span class="seg hamile">Hamilelik</span><span class="seg yeni">Yeni Anne</span><span class="seg ortak">Ada &amp; Defne</span><span class="seg gece" style="background:var(--gece); color:var(--seftali)">Gece</span></div>
+</div></div>
+<script>
+(function () {
+  var l = document.createElement("link"); l.rel = "stylesheet"; l.href = "../../kit/kit.css";
+  var q = ["../../kit/chars.js", "../../kit/kit.js", "../../kit/kur.js"];
+  function next() { if (!q.length) return; var s = document.createElement("script"); s.src = q.shift(); s.onload = next; document.head.appendChild(s); }
+  l.onload = next; document.head.appendChild(l);
+})();
+</script>

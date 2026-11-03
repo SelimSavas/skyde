@@ -1,0 +1,1 @@
+`takvim-30-gun.csv`: 30 günlük takvim (9 Kasım - 8 Aralık 2026). Google Sheets ya da Notion'a içe aktarılabilir; UTF-8 kodludur. Sütunlar: gün, tarih, format, seri, segment, sütun, başlık, kanca, uzman onayı, örnek tasarım, Ada'nın haftası, Pamuk'un yaşı.

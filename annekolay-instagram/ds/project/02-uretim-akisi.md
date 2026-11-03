@@ -33,8 +33,8 @@ Haftada 7 gönderi (4 Reels, 2 carousel, 1 tek görsel) ve her gün 3-5 story. T
 
 1. **Marka Kiti** oluşturun. Renk paleti: `krem` #FAF8F5, `keten` #EFE6D8, `toprak` #5A4426, `bronz` #8C6D3B, `altin` #D4AF37, `adacayi` #8A9A86, `adacayi-acik` #DCE3D8, `adacayi-derin` #4F5E4B, `kiremit` #C2785C, `seftali` #F2D3C2, `kil-derin` #8A4A33, `gece` #2E2A26.
 2. Yazı tipleri: Başlık **Cormorant Garamond**, alt başlık ve gövde **Poppins**, el yazısı **Caveat**. Üçü de Canva'da hazırdır.
-3. Logo: AnneKolay amblemi (Varlıklar → Logo).
-4. Bu kitteki örnek gönderileri (Varlıklar → Şablonlar) Canva'ya yükleyip birebir şablon olarak kurun: Carousel kapağı, carousel iç sayfası, Gece Notu, Uzman Masası, Reels kapağı, Story anketi. Her şablon bir kez kurulur, sonra yalnızca metin ve karakter değişir.
+3. Logo: AnneKolay amblemi (Assets → Logo).
+4. Bu kitteki örnek gönderileri (Assets → Şablonlar) Canva'ya yükleyip birebir şablon olarak kurun: Carousel kapağı, carousel iç sayfası, Gece Notu, Uzman Masası, Reels kapağı, Story anketi. Her şablon bir kez kurulur, sonra yalnızca metin ve karakter değişir.
 5. Kolaj parçalarını (bant, yırtık kâğıt, polaroid çerçevesi, damga) ChatGPT'den şeffaf PNG olarak üretip Canva'da "Marka Kiti → Grafikler" klasörüne koyun.
 
 ## Reels üretimi

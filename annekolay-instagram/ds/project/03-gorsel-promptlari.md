@@ -5,7 +5,7 @@ Tüm görseller ChatGPT'nin görsel üretimiyle yapılır. Promptlar İngilizced
 ## Bir kerelik kurulum
 
 1. ChatGPT'de **"AnneKolay Görsel"** adında bir **Proje** açın.
-2. Projeye şu dosyaları yükleyin (Varlıklar sekmesinden indirin): `karakter-karti.png`, `ada.png`, `defne.png`, `pamuk.png`, ayrıca örnek olarak `p01-tanisin.png` ve `p08-gece.png`.
+2. Projeye şu dosyaları yükleyin (Assets bölümünden indirin): `karakter-karti.png`, `ada.png`, `defne.png`, `pamuk.png`, ayrıca örnek olarak `p01-tanisin.png` ve `p08-gece.png`.
 3. Aşağıdaki **Proje talimatını** projenin "Talimatlar" alanına yapıştırın. Bundan sonra bu projede açtığınız her sohbet stili ve karakterleri hatırlar.
 4. Proje kullanmıyorsanız, her promptun başına Proje talimatının tamamını ekleyip karakter kartını görsele iliştirin.
 

@@ -1,0 +1,1 @@
+Ada, Defne ve Pamuk'un şeffaf arka planlı PNG'leri ve karakter kartı. ChatGPT'deki "AnneKolay Görsel" projesine referans olarak yüklenir; Canva'da doğrudan kullanılabilir. Bunlar konsept çizimlerdir: ChatGPT'de üretilen ilk iyi karakter sayfası (Görsel promptları, 1. prompt) geldiğinde ana referans o olur.

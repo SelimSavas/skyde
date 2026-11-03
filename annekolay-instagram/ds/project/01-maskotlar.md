@@ -2,7 +2,7 @@
 
 Hesabın yüzü iki arkadaştır. Takipçi hangi dönemdeyse kendini birinde görür: hamileyse Ada'da, bebeği kucağındaysa Defne'de. İkisi aynı mahallede oturur, sık sık birbirlerine mesaj atar. Ada sorar, Defne deneyimini anlatır, uzman doğrular.
 
-Karakterler her zaman **kâğıt kesik kolaj** stilinde çizilir: mat kâğıt katmanları, lifli doku, el kesimi pürüzlü kenar, katmanlar arasında yumuşak gölge, kontur çizgisi yok. Yüzler sadedir: kapalı kavisli gözler ya da küçük nokta gözler, minik gülümseme, pembe yanaklar. ChatGPT'ye referans olarak **karakter kartını** ve şeffaf arka planlı karakter PNG'lerini (Varlıklar → Maskotlar) yükleyin.
+Karakterler her zaman **kâğıt kesik kolaj** stilinde çizilir: mat kâğıt katmanları, lifli doku, el kesimi pürüzlü kenar, katmanlar arasında yumuşak gölge, kontur çizgisi yok. Yüzler sadedir: kapalı kavisli gözler ya da küçük nokta gözler, minik gülümseme, pembe yanaklar. ChatGPT'ye referans olarak **karakter kartını** ve şeffaf arka planlı karakter PNG'lerini (Assets → Maskotlar) yükleyin.
 
 ## Ada · hamile
 

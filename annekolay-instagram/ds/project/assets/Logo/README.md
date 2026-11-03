@@ -1,0 +1,1 @@
+`amblem.png`: profil fotoğrafı için anne-bebek amblemi, krem zeminli. `logo.png`: marka kitabındaki tam logo (amblem + AnneKolay yazısı). Logo yeniden çizilmez ya da renklendirilmez; koyu zeminde krem bir dairenin içinde kullanılır.

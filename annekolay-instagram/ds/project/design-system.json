@@ -1,0 +1,252 @@
+{
+ "v": 3,
+ "layout": "files",
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-03T04:31:48Z"
+ },
+ "title": "AnneKolay Instagram",
+ "namespace": "AnneKolay",
+ "libraries": [],
+ "sections": {},
+ "groups": [
+  "Maskotlar",
+  "Sablonlar",
+  "OneCikanlar",
+  "Logo",
+  "Takvim"
+ ],
+ "assetGroups": {
+  "Maskotlar": {
+   "name": "Maskotlar",
+   "tile": "l",
+   "order": [
+    "karakter-karti.png",
+    "ada.png",
+    "defne.png",
+    "pamuk.png"
+   ],
+   "files": {
+    "karakter-karti.png": {
+     "name": "karakter-karti.png",
+     "blob": "6598bc38f085062e49496ba70fe8349a",
+     "size": 1250080,
+     "type": "image/png"
+    },
+    "ada.png": {
+     "name": "ada.png",
+     "blob": "568d9b79d34511e273d872939d8fd264",
+     "size": 919261,
+     "type": "image/png"
+    },
+    "defne.png": {
+     "name": "defne.png",
+     "blob": "7bb8b72439716073db7e3c96a373386c",
+     "size": 970944,
+     "type": "image/png"
+    },
+    "pamuk.png": {
+     "name": "pamuk.png",
+     "blob": "015213263569ba77f4dc7b5729f50924",
+     "size": 408320,
+     "type": "image/png"
+    }
+   }
+  },
+  "Sablonlar": {
+   "name": "Sablonlar",
+   "tile": "m",
+   "order": [
+    "p01-tanisin.png",
+    "p02-kimse-yeni.png",
+    "p03-adasorar.png",
+    "p04-hafta20.png",
+    "p05-hafta20-ic.png",
+    "p06-pamuk.png",
+    "p07-test.png",
+    "p08-gece.png",
+    "p09-uzman.png",
+    "p10-kimse-hamile.png",
+    "s01-anket.png",
+    "g01-profil.png"
+   ],
+   "files": {
+    "p01-tanisin.png": {
+     "name": "p01-tanisin.png",
+     "blob": "bc834019b6130094c8b4a707e8fdccad",
+     "size": 1077971,
+     "type": "image/png"
+    },
+    "p02-kimse-yeni.png": {
+     "name": "p02-kimse-yeni.png",
+     "blob": "fdb60197c1a579f71aa7ab59a49824ab",
+     "size": 1042766,
+     "type": "image/png"
+    },
+    "p03-adasorar.png": {
+     "name": "p03-adasorar.png",
+     "blob": "cfc183b62237a134362c512e2a51db6f",
+     "size": 1249493,
+     "type": "image/png"
+    },
+    "p04-hafta20.png": {
+     "name": "p04-hafta20.png",
+     "blob": "a5570bba1fe94d5b61d80a1bc939414f",
+     "size": 972602,
+     "type": "image/png"
+    },
+    "p05-hafta20-ic.png": {
+     "name": "p05-hafta20-ic.png",
+     "blob": "b5da38fcc8f5eb98389151eec10eb0fc",
+     "size": 759430,
+     "type": "image/png"
+    },
+    "p06-pamuk.png": {
+     "name": "p06-pamuk.png",
+     "blob": "e30a899cb96d016f69989e238ae4fadb",
+     "size": 1122080,
+     "type": "image/png"
+    },
+    "p07-test.png": {
+     "name": "p07-test.png",
+     "blob": "f27e25b709d1e69b759ec1e337e32480",
+     "size": 1130206,
+     "type": "image/png"
+    },
+    "p08-gece.png": {
+     "name": "p08-gece.png",
+     "blob": "4a080db9d77c77bbb53245fd61453ca0",
+     "size": 579246,
+     "type": "image/png"
+    },
+    "p09-uzman.png": {
+     "name": "p09-uzman.png",
+     "blob": "e6aa6419653aa2206c472f1766296c10",
+     "size": 841837,
+     "type": "image/png"
+    },
+    "p10-kimse-hamile.png": {
+     "name": "p10-kimse-hamile.png",
+     "blob": "39166d20035310ef78855f3d460fb74e",
+     "size": 1058284,
+     "type": "image/png"
+    },
+    "s01-anket.png": {
+     "name": "s01-anket.png",
+     "blob": "3138300a72478ff0fac5570e5e3a5865",
+     "size": 1153499,
+     "type": "image/png"
+    },
+    "g01-profil.png": {
+     "name": "g01-profil.png",
+     "blob": "3ec7dde3a913dc9c234fd3d293ad941c",
+     "size": 1411544,
+     "type": "image/png"
+    }
+   }
+  },
+  "OneCikanlar": {
+   "name": "OneCikanlar",
+   "tile": "s",
+   "order": [
+    "ada.png",
+    "defne.png",
+    "pamuk.png",
+    "haftalar.png",
+    "listeler.png",
+    "gece.png",
+    "uzman.png",
+    "topluluk.png"
+   ],
+   "files": {
+    "ada.png": {
+     "name": "ada.png",
+     "blob": "30a5b36dbd77eb0b6c6f5e2175450a02",
+     "size": 50407,
+     "type": "image/png"
+    },
+    "defne.png": {
+     "name": "defne.png",
+     "blob": "e9401b1f1341fee441c8fcce913c4077",
+     "size": 52501,
+     "type": "image/png"
+    },
+    "pamuk.png": {
+     "name": "pamuk.png",
+     "blob": "33f2100d0deb4b9e264796d187308822",
+     "size": 37078,
+     "type": "image/png"
+    },
+    "haftalar.png": {
+     "name": "haftalar.png",
+     "blob": "da5341db33b03ef72328094de7117df4",
+     "size": 9405,
+     "type": "image/png"
+    },
+    "listeler.png": {
+     "name": "listeler.png",
+     "blob": "b955c8b6bc6c3d9f0c83b8ea6fd795a8",
+     "size": 30585,
+     "type": "image/png"
+    },
+    "gece.png": {
+     "name": "gece.png",
+     "blob": "25a3bc21f3e4d7214c19f499a88d7658",
+     "size": 24425,
+     "type": "image/png"
+    },
+    "uzman.png": {
+     "name": "uzman.png",
+     "blob": "580a73b50e1844b0b04d195880d1857b",
+     "size": 37186,
+     "type": "image/png"
+    },
+    "topluluk.png": {
+     "name": "topluluk.png",
+     "blob": "b924335b7b9ac319096d6e4f33f29ca1",
+     "size": 7124,
+     "type": "image/png"
+    }
+   }
+  },
+  "Logo": {
+   "name": "Logo",
+   "tile": "m",
+   "order": [
+    "amblem.png",
+    "logo.png"
+   ],
+   "files": {
+    "amblem.png": {
+     "name": "amblem.png",
+     "blob": "7fd5ed2a5919d7a2ceb235ea6cfc1b5a",
+     "size": 363922,
+     "type": "image/png"
+    },
+    "logo.png": {
+     "name": "logo.png",
+     "blob": "33fdd3a92e2be025e318be62a85a0313",
+     "size": 190333,
+     "type": "image/png"
+    }
+   }
+  },
+  "Takvim": {
+   "name": "Takvim",
+   "tile": "s",
+   "order": [],
+   "files": {}
+  }
+ },
+ "blobs": {},
+ "docs": {
+  "readme": "project/README.md",
+  "sections": []
+ },
+ "lastChange": {
+  "by": "Claude",
+  "at": "2026-11-03T04:31:48Z",
+  "via": "Claude Code",
+  "note": "İlk sürüm: Anne Defteri stil sistemi, maskotlar, şablonlar, promptlar ve 30 günlük takvim."
+ }
+}
