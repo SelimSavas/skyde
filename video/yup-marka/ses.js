@@ -5,7 +5,7 @@
  * Kullanım (film.js'in score(m, hz, api) işlevi içinde):
  *   YupSes.vurgu(m, t, 'pop')            // vurgu sesleri: VURGULAR listesine bak
  *   YupSes.gecis(m, t, 'kesme')          // geçişler: mercek | kesme | sayfa | zoom | karanlik
- *   YupSes.ortam(m, t, sure, 'gece')     // ortam: oda | gece | yagmur | mutfak | lab | uzay
+ *   YupSes.ortam(m, t, sure, 'gece')     // ortam: oda | gece | yagmur | mutfak | lab | uzay | mac
  * kisa.js'te def.ses verilince müzik yatağı, kanca, geçişler ve kapanış kendiliğinden kurulur:
  *   ses: { muzik: 'merak', kanca: 'mercek', sus: ['a-dene'], ortam: { 'a-hook': 'oda' }, gecisler: { 'a-bak': null } }
  *
@@ -126,6 +126,12 @@
     sihir: (m, t, g) => m.sparkle(t, { gain: 0.035 * g, dur: 0.7 }),
     boing: (m, t, g) => m.boing(t, { gain: 0.08 * g }),
     kalp: (m, t, g) => m.heartbeat(t, { gain: 0.35 * g }),
+    citla: (m, t, g) => {
+      // çekirdek çitleme: kabuğun kırılışı (sert tık, tiz çatırtı, ikinci yarının açılışı)
+      m.click(t, { gain: 0.13 * g, tone: 4200 });
+      m.tick(t + 0.012, { gain: 0.07 * g, tone: 6200 });
+      m.click(t + 0.038, { gain: 0.05 * g, tone: 2500 });
+    },
     saat: (m, t, g) => {
       for (let i = 0; i < 4; i++) m.tick(t + i * 0.5, { gain: 0.05 * g, tone: 3000 + (i % 2) * 600 });
     },
@@ -170,6 +176,10 @@
         break;
       case 'uzay':
         m.drone(t, dur, { gain: 0.012 * g, notes: ['D2', 'A2', 'E3'] });
+        break;
+      case 'mac': // televizyonda maç: uzak tribün uğultusu ve oda
+        m.roomTone(t, dur, { gain: 0.02 * g });
+        m.crowd(t, dur, { gain: 0.016 * g });
         break;
       default: // oda
         m.roomTone(t, dur, { gain: 0.03 * g });
