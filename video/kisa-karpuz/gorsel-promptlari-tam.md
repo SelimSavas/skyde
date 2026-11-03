@@ -1,0 +1,47 @@
+# Karpuz çekirdeğinin proteini · görsel promptları (bloklar yerleştirilmiş, olduğu gibi yapıştır)
+
+Lup geçenlerde `lup-ana.png`'yi, Arkadaşın geçende `arkadasin-ana.png`'yi ekle. PNG'yi verilen adla Drive'daki **LUP** klasörüne koy. Arka planlar için yeni görsel gerekmez (film akşamı, mutfak ve toprak makrosu yeniden kullanılıyor).
+
+
+**1 · Lup'un çekirdek pozları** → `lup-4j-cekirdek.png` (lup-ana.png ekle)
+```
+Use the attached image as the exact character reference: same proportions, colors, line weight and details. 4 key poses of LUP in a row, same scale, isolated on a plain flat white background (no checkerboard):
+(1) cracking a black watermelon seed between his two gloved hands, a tiny crack line and a small spark at the seed, eye focused, tongue slightly out in concentration;
+(2) proudly holding up a single tiny pale kernel between thumb and finger like a precious gem, eye wide and sparkling, a small glint on the kernel;
+(3) sitting exhausted and half buried in a big pile of empty split black seed shells, arms hanging over the pile, eye half closed, tired funny smile, a few shells stuck on his rim;
+(4) cheering at a football match on TV: one arm up holding a paper cone full of black seeds, a teal and amber striped scarf around his rim, mouth wide open shouting happily.
+LUP: a living magnifying glass, the mascot of a Turkish science channel. A round lens (about 60% of his total height) in a thick aged-brass rim with small engraved tick marks along the rim and one tiny dent at the top right. Behind the glass, magnified, is his face: ONE big round eye (white, warm amber-brown iris, large black pupil) slightly above the center, one thick espresso eyebrow above it, and a small simple ink mouth below it. The glass has a pale blue-cream tint, two short diagonal white glare streaks at the top left and a few faint scratches. Handle: teal leather-wrapped grip with visible stitching and a brass collar where it meets the rim; the handle is his single leg and ends in a small rounded amber rubber cap (his foot). Two thin noodle arms come out of the left and right sides of the rim, ending in small cream mitten-like hands with three fingers and a thumb. A short yellow pencil is tucked behind the rim on the right side. Personality: curious, warm, slightly nerdy, dry sense of humor; an adult character, not babyish. Compact proportions that stay readable at small sizes.
+STYLE: hand-drawn ink illustration for an educational science channel, made to look like the work of a human illustrator, not 3D, not vector-perfect. Slightly wobbly dark espresso-brown ink outlines (#2A1C14) with natural line-weight variation, flat colors printed slightly off-register (color fills shifted 2–3 px from the outlines, like a risograph print), light cross-hatching for shadows, subtle paper grain. Limited palette: teal #0F766E, amber #F2A516, aged brass #C8963E, espresso #2A1C14, cream #F2EADC, soft red #D2452F, muted blue #4A73B8, pale glass blue #DDEBEF. No gradients, no glossy plastic, no glow, no lens flare, no text, no letters, no watermark.
+```
+
+**2 · Arkadaşın: maç gecesi çekirdek** → `arkadasin-cekirdek.png` (arkadasin-ana.png ekle)
+```
+Use the attached image as the exact character reference: same face, hair, clothes, colors and proportions. 2 upper-body poses of ARKADAŞIN side by side, same scale, isolated on a plain flat white background (no checkerboard), at home on a match night, wearing a teal and amber striped scarf over her teal cardigan:
+(1) cracking a black watermelon seed between her front teeth with a skillful little smile, eyes looking to the side at a TV off-frame, holding a paper cone full of black seeds in one hand, a few empty shells in her other palm;
+(2) looking down in comic disbelief at a single tiny pale kernel on her fingertip, one eyebrow raised, lips pursed, a small pile of empty shells in her other hand.
+No furniture, no TV in the picture, no text.
+ARKADAŞIN: a relatable, naturally attractive Turkish woman in her late twenties, the viewer's friend. Long wavy dark-brown hair loosely clipped up with a few strands falling around her face, warm brown eyes with a playful spark, soft natural makeup with a hint of rosy lip color, a small mole near her lip, a confident half-smile. At home: a fitted ribbed cream top under a loose, slightly oversized teal cardigan that slips a little off one shoulder, high-waisted grey wide-leg lounge pants, and colorful striped socks (teal and amber); white sneakers when outside. Slim, natural adult proportions (about 7 heads tall), graceful expressive hands, small gold hoop earrings. Stylish and quietly charming rather than revealing; tasteful and fully clothed. Often holding a white mug with a teal stripe. An expressive everywoman, not a scientist, not a cartoon heroine. Same hand-drawn ink style as LUP so they look like they belong in the same world.
+STYLE: hand-drawn ink illustration for an educational science channel, made to look like the work of a human illustrator, not 3D, not vector-perfect. Slightly wobbly dark espresso-brown ink outlines (#2A1C14) with natural line-weight variation, flat colors printed slightly off-register (color fills shifted 2–3 px from the outlines, like a risograph print), light cross-hatching for shadows, subtle paper grain. Limited palette: teal #0F766E, amber #F2A516, aged brass #C8963E, espresso #2A1C14, cream #F2EADC, soft red #D2452F, muted blue #4A73B8, pale glass blue #DDEBEF. No gradients, no glossy plastic, no glow, no lens flare, no text, no letters, no watermark.
+```
+
+**3 · Eşyalar** → `karpuz-esya.png`
+```
+A clean prop sheet for a food science video, each object separate with generous spacing, isolated on a plain flat white background (no checkerboard), same ink style:
+(1) a juicy triangular slice of watermelon with black seeds;
+(2) a small heap of roasted black watermelon seeds in their shells;
+(3) one big watermelon seed cracked open, the split black shell beside the pale cream kernel;
+(4) a small bowl full of shelled pale watermelon seed kernels;
+(5) a portion of raw minced beef on a sheet of butcher paper;
+(6) a vintage brass kitchen balance scale with two empty round pans, level;
+(7) a paper cone full of black roasted watermelon seeds;
+(8) a watermelon seed sprouting: the split shell on the soil, a tiny seedling rising with two round fleshy seed leaves (cotyledons);
+(9) a tiny vintage tin lunch box, open, empty inside.
+STYLE: hand-drawn ink illustration for an educational science channel, made to look like the work of a human illustrator, not 3D, not vector-perfect. Slightly wobbly dark espresso-brown ink outlines (#2A1C14) with natural line-weight variation, flat colors printed slightly off-register (color fills shifted 2–3 px from the outlines, like a risograph print), light cross-hatching for shadows, subtle paper grain. Limited palette: teal #0F766E, amber #F2A516, aged brass #C8963E, espresso #2A1C14, cream #F2EADC, soft red #D2452F, muted blue #4A73B8, pale glass blue #DDEBEF. No gradients, no glossy plastic, no glow, no lens flare, no text, no letters, no watermark.
+```
+
+**4 · Kapak** → `lup-10a-kapak-karpuz.png` (lup-ana.png ekle)
+```
+Use the attached image as the exact character reference. Vertical 1024×1536 thumbnail: LUP in the lower right third holding up a single tiny pale watermelon seed kernel like a trophy, eye wide and proud; next to him a vintage brass balance scale where one pan holds a small heap of black watermelon seeds and the other pan holds raw minced meat, the seed pan sitting lower as if heavier; a juicy watermelon slice in the lower left corner. Warm paper background with a faint dotted grid. The upper half is calm, left free for the title. High contrast, readable at small size, no text, no letters, no numbers.
+LUP: a living magnifying glass, the mascot of a Turkish science channel. A round lens (about 60% of his total height) in a thick aged-brass rim with small engraved tick marks along the rim and one tiny dent at the top right. Behind the glass, magnified, is his face: ONE big round eye (white, warm amber-brown iris, large black pupil) slightly above the center, one thick espresso eyebrow above it, and a small simple ink mouth below it. The glass has a pale blue-cream tint, two short diagonal white glare streaks at the top left and a few faint scratches. Handle: teal leather-wrapped grip with visible stitching and a brass collar where it meets the rim; the handle is his single leg and ends in a small rounded amber rubber cap (his foot). Two thin noodle arms come out of the left and right sides of the rim, ending in small cream mitten-like hands with three fingers and a thumb. A short yellow pencil is tucked behind the rim on the right side. Personality: curious, warm, slightly nerdy, dry sense of humor; an adult character, not babyish. Compact proportions that stay readable at small sizes.
+STYLE: hand-drawn ink illustration for an educational science channel, made to look like the work of a human illustrator, not 3D, not vector-perfect. Slightly wobbly dark espresso-brown ink outlines (#2A1C14) with natural line-weight variation, flat colors printed slightly off-register (color fills shifted 2–3 px from the outlines, like a risograph print), light cross-hatching for shadows, subtle paper grain. Limited palette: teal #0F766E, amber #F2A516, aged brass #C8963E, espresso #2A1C14, cream #F2EADC, soft red #D2452F, muted blue #4A73B8, pale glass blue #DDEBEF. No gradients, no glossy plastic, no glow, no lens flare, no text, no letters, no watermark.
+```
