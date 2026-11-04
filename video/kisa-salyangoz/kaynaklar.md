@@ -11,7 +11,7 @@
 
 ## Metinde sadeleştirilenler
 - **"Kaygan jöle":** Bilimsel adı mukus (sümüksü salgı); metinde "sümük" yerine sevimli ve anlaşılır bir karşılık.
-- **"Gişesiz bir otoyol":** Islak ve nemli zeminde salyangoz daha az su kaybeder (şakacı benzetme; sümük üretimi yine gerekir).
+- **"Gişesiz bir otoyol":** Islak ve nemli zeminde salyangoz daha az su kaybeder (şakacı benzetme; jöle üretimi yine gerekir).
 - **"Suya konunca":** Kaynaklar, müze çalışanlarının salyangozu ılık suya koyduğunu anlatır; hikâye 19. yüzyıl kayıtlarına dayanır.
 
 ## Bilerek metne alınmayanlar
