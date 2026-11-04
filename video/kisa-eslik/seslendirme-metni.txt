@@ -1,0 +1,26 @@
+YUP Akademi · Lup · Vücudun Gizli Ayarları · Bilmediğin şarkıya eşlik etmek · seslendirme metni (6 satır, yaklaşık 90 kelime)
+Konu: Hiç bilmediğin bir şarkı çalarken, sözlerini bilmesen de bir süre sonra mırıldanmaya, eşlik etmeye başlarsın.
+Video bunu izleyiciye yaşatır: melodiyi bir kez dinler, ikincisinde eşlik eder, sonunu kendisi tamamlar.
+Üslup: konuşma dili, arkadaşına anlatır gibi; kısa cümleler. İki ses etiketi var: [whispers] (fısıltı) ve [chuckles] (kısa, hafif gülme).
+
+Okuma notları:
+- 1. satır: Kendinden emin, gülümseyerek; "bile" vurgulu; "İnanmıyorsan dene" meydan okur gibi. (Ardından videoda melodi bir kez çalar.)
+- 2. satır: Sıcak, cesaret veren; "sen de içinden eşlik et" yavaş. (Ardından melodinin ikinci yarısı çalar ve son notadan önce durur.)
+- 3. satır: Fısıltı; "Sonunu çalmadım..." sonrası nefes; "değil mi?" göz kırpar gibi. (Ardından videoda son nota çalar.)
+- 4. satır: Sakin, açıklayıcı; "sadece dinlemiyor, tahmin ediyor" vurgulu; "çoktan kaydetmiş oluyor" gülümseyerek.
+- 5. satır: Sıcak; düğün kısmı keyifli, "boşuna değil" bilmiş bir tonla.
+- 6. satır: Muzip; kısa bir gülme, sonra "Bu videoya da eşlik etti, eminim."
+Köşeli parantezdeki kimlikler okunmaz.
+
+  [e-hook]    Hiç duymadığın bir şarkıya bile, ikinci nakarata gelmeden eşlik etmeye başlıyorsun. İnanmıyorsan dene; bu melodiyi ilk kez duyacaksın.
+  [e-tekrar]  Şimdi bir daha çalıyorum. Bu sefer sen de içinden eşlik et.
+  [e-tamam]   Sonunu çalmadım... ama sen tamamladın, değil mi?
+  [e-neden]   Çünkü beynin şarkıyı sadece dinlemiyor, tahmin ediyor. Duyduğun binlerce şarkının kurallarını sen fark etmeden ezberledi; nakarat ikinci kez gelince onu çoktan kaydetmiş oluyor.
+  [e-keyif]   Tahminin tuttukça beynin seni ödüllendiriyor. Birlikte söylemek de yabancıları bile hızla yakınlaştırıyor; düğünde herkesin aynı şarkıya katılması boşuna değil.
+  [e-cta]     Sözleri bilmeden her şarkıya eşlik eden arkadaşına gönder. Bu videoya da eşlik etti, eminim.
+
+ElevenLabs için:
+- seslendirme-pause.txt'yi olduğu gibi yapıştır. [whispers] ve [chuckles] okunmaz, yalnız tonu değiştirir; ses bir etiketi
+  yüksek sesle okursa ya da gülme yapay gelirse o etiketi sil. [pause] kalsın.
+- Ayar: kararlılık 40–45 (doğal ama dengeli), benzerlik 75, hız 1.0–1.05. 2–3 kayıt üretip en doğalını seç.
+- Melodi videoda kodla çalar; kayıtta müzik, sayım ya da "la la" okunmaz.

@@ -1,0 +1,11 @@
+YUP Akademi · Efsane mi, Gerçek mi? #1 (kısa) · Islak saçla dışarı çıkarsan hasta olur musun? · seslendirme metni (8 satır, 101 kelime)
+(Samimi, meraklı, hafif muzip bir anlatıcı; ilk cümle bir annenin uyarısı gibi canlı. Hüküm cümlesinde kısa bir durak. Köşeli parantezdeki kimlikler okunmaz.)
+
+  [e-hook]  Islak saçla dışarı çıkma, hasta olursun! Bunu kaç kez duydun?
+  [e-vote]  Sence efsane mi, gerçek mi? Cevabı görmeden yorumlara yaz.
+  [e-virus]  Önce şunu bilelim: nezleyi ve gribi soğuk değil, virüsler yapar.
+  [e-nose]  Ama iki bin yirmi ikide yapılan bir çalışma, burnun içi birkaç derece soğuyunca, virüslere karşı savunmasının yüzde kırktan fazla zayıfladığını gördü.
+  [e-feet]  İngiltere'de ayaklarını yirmi dakika soğuk suda tutanlar da, sonraki günlerde iki kattan fazla nezle oldu.
+  [e-verdict]  Yani ıslak saç tek başına hasta etmez; ama üşümek, virüse kapıyı aralayabilir. Hükmümüz: şüpheli.
+  [e-tip]  Bu kış saçını kurutup çık, burnunu sıcak tut, ellerini de sık yıka.
+  [e-cta]  Sıradaki efsaneyi sen seç: yorumlara yaz, YUP Akademi'ye abone ol.

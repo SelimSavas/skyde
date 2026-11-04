@@ -1,0 +1,26 @@
+ÖNSÖZ SHORTS — SESLENDİRME METNİ
+(Her short yaklaşık 23 saniye. Önsöz'den biraz daha canlı ve hızlı okuyun; ilk cümle merak uyandıran bir soru gibi.)
+(Satır başındaki kimlikler yalnızca dosya adı içindir, okunmaz.)
+
+=== SHORT 1 · Mesajın görünmez yolculuğu ===
+a-hook    Gönder’e bastığın o an, mesajın nereye gidiyor?
+a-bits    Önce harfler, var ve yok’a dönüşüyor.
+a-light   Sonra görünmez dalgalara biniyor; ışık olup denizleri aşıyor.
+a-lock    Yolda kim görürse görsün, okuyamıyor.
+a-fast    Ve bütün bunlar, saniyenin onda birinde oluyor.
+a-cta     Bu görünmez yolculuğun tamamı, kanalımızda.
+
+=== SHORT 2 · Sekiz yüz yıllık köprünün sırrı ===
+b-hook    Sekiz yüz yıllık bu köprüyü, ne ayakta tutuyor?
+b-force   Görünmeyen bir güç: taşları birbirine kilitleyen basınç.
+b-second  Bugün insanlık, ikinci bir köprü kuruyor. Bu kez taştan değil:
+b-parts   cam liflerden, uydulardan, yazılımdan.
+b-life    Ve hepimiz, her gün onun içinde yaşıyoruz.
+b-cta     Bu görünmez köprünün hikâyesi, kanalımızda.
+
+=== SHORT 3 · Ekranın hangi tarafındasın? ===
+c-hook    Sen, ekranın hangi tarafındasın?
+c-two     İki çocuk, aynı uygulamayı kullanıyor. Biri yalnızca kullanıyor.
+c-ask     Diğeri soruyor: Bu neden böyle çalışıyor? Bunu kim, ne için tasarladı?
+c-maker   İkinci çocuk, birincinin dünyasını kuran kişidir.
+c-cta     Arkasına geçmek için, videonun tamamı kanalımızda.

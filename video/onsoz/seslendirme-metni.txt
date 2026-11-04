@@ -1,0 +1,67 @@
+Önsöz — Gece Yarısı Dokunulan Cam (kursa hoş geldiniz videosu) — seslendirme metni
+
+Her satır videoda ayrı bir yerde okunur. En iyisi her satırı ayrı bir dosya olarak kaydetmek (dosya adı = köşeli parantezdeki kimlik, ör. night-elif.mp3).
+Videoda bu satırların yerinde görüntü bekler; kayıtlar dub.mjs ile videoya yerleştirilir. Sakin, sıcak, belgesel anlatıcısı temposu yeterli.
+Virgül, noktalı virgül, iki nokta ve noktalarda kısa duraklamak önemli: ekrandaki öğeler (mesaj baloncukları, yolculuğun durakları, köprünün kuvvetleri, ustalar) bu duraklara göre belirir.
+Okunuş notları: Malabadi [ma-la-ba-di]; Ahilik [a-hi-lik]; tezgâh (ince g, uzun â); kâğıt; Berk’in [ber-kin]; Elif’in [e-li-fin].
+[night-type] satırında iki noktadan sonra mesaj okunur gibi, hafifçe değişen bir tonla: “Yarın birlikte çalışalım.”
+
+[open-title]  Önsöz. Gece yarısı dokunulan cam.
+[night-elif]  Gece yarısı. On altı yaşındaki Elif, elindeki telefonun camına dokunuyor.
+[night-berk]  Yarın matematik sınavı var. Ama asıl korkan Elif değil; sınıf arkadaşı Berk.
+[night-type]  Elif ekrana üç kelime yazıyor: Yarın birlikte çalışalım.
+[night-send]  Gönder tuşuna dokunuyor. Saniyenin onda biri geçmeden, mesaj karşı tarafta.
+[night-simple]  Elif için olan biten bundan ibaret: dokundu ve gitti.
+[night-hidden]  Oysa o kısacık aralıkta, insanlığın kurduğu en büyük ortak yapıtlardan biri, sessizce çalışıyor.
+[jr-switch]  Camın hemen altında, saniyede milyarlarca kez açılıp kapanan minicik anahtarlar var. Yazılan her harf, yalnızca iki simgeye dönüşüyor: var ve yok.
+[jr-program]  Bunların hepsi, bir insanın önceden yazdığı bir programın adımlarını izleyerek oluyor.
+[jr-memory]  İleti, önce telefonun belleğinde şekilleniyor.
+[jr-wifi]  Sonra görünmez dalgalara binip, evin köşesindeki küçük kutuya ulaşıyor.
+[jr-fiber]  Oradan sokağın altındaki ince cam liflere giriyor. Işık olup; şehirleri, ovaları, denizleri aşıyor.
+[jr-routers]  Yol boyunca onlarca aygıt, tıpkı haritaya bakan bir yolcu gibi, iletinin nereye gideceğine saniyenin binde biri içinde karar veriyor.
+[jr-db]  Bir yerde, bir veri tabanına kaydediliyor.
+[jr-lock]  Bir güvenlik katmanı onu şifreliyor; yolda onu kim görürse görsün, yalnızca anlamsız bir karmaşa görüyor.
+[jr-arrive]  Berk’in telefonuna ulaştığında, bu uzun yolculuğun bütün izleri siliniyor.
+[jr-left]  Geriye yalnızca, ekranda beliren o küçük ve sıcak cümle kalıyor.
+[jr-course]  Bu kurs, işte o silinen izin peşine düşüyor.
+[br-intro]  Silvan yakınlarında, Batman Çayı’nın üzerinde, sekiz yüz yılı aşkın süredir ayakta duran bir köprü var: Malabadi.
+[br-see]  Uzaktan bakan biri, yalnızca koca bir taş kemer görür.
+[br-forces]  Oysa kemeri ayakta tutan güç görünmez: taşları birbirine kilitleyen basınç, tepedeki kilit taşının yükü dağıtması, suyun altında yüzyıllardır kıpırdamayan temel.
+[br-master]  Ustanın asıl hüneri taşı yontmak değil; hangi taşın hangi yükü taşıyacağını bilmektir.
+[br-team]  Üstelik bu köprüyü tek bir kişi kurmadı. Taşçısı, kalıpçısı, harççısı, dülgeri, iskele kurucusu; her biri kendi işinin ustasıydı.
+[br-harmony]  Yapıyı ayakta tutan, ustaların toplamı değil; aralarındaki uyumdur.
+[br-cross]  Ve bir köprünün asıl işi yük taşımak değil, karşıya geçirmektir. İki yakayı birbirine bağlar.
+[inv-second]  Bugün insanlık, benzer bir yapıyı ikinci kez kuruyor. Ama bu kez taştan değil.
+[inv-parts]  Okyanusların dibinden geçen cam liflerle, gökteki uydularla, şehirlerin kıyısındaki veri merkezleriyle; milyarlarca satır yazılımla.
+[inv-unseen]  Bu yapının ne ayağı görünüyor, ne kemeri.
+[inv-life]  Yine de her gün onun içinde yaşıyoruz: sabah çalan alarm, hastanedeki kayıt, kartla ödeme, tarladaki sulama, uçağın rotası. Hepsi onun içinden geçiyor.
+[bd-surface]  Görünmediği için, çoğumuz ona yalnızca yüzeyden dokunuyoruz. Düğmeye basıyoruz, ışık yanıyor. Uygulamayı açıyoruz, yemek kapıya geliyor.
+[bd-belief]  Ve yavaş yavaş şuna inanmaya başlıyoruz: teknoloji, kullanılan bir şeydir.
+[bd-claim]  Bu kurs, bu inancı nazikçe ama kararlılıkla değiştirmek için var. Teknoloji kullanılan bir şey değil; kurulan bir şeydir.
+[bd-decide]  Ve onu kuranlar, başkalarının ondan nasıl yararlanacağına da en baştan karar verir.
+[ch-split]  Okullarda konular çoğu zaman ayrı kutulara konur: bir yanda donanım, bir yanda programlama, bir yanda ağlar, bir yanda tasarım.
+[ch-real]  Bu ayrım öğrenmeyi kolaylaştırır; ama gerçekte hiçbir teknoloji tek başına ayakta durmaz.
+[ch-links]  Veri tabanı olmayan bir uygulama, hafızasız bir zihindir. Ağa bağlanmayan bir veri tabanı, kapısı örülmüş bir kütüphanedir. Güvenliği olmayan bir ağ, kapısı açık bırakılmış bir evdir.
+[ch-links2]  Algoritması olmayan bir güvenlik, düşünmeyen bir bekçidir. Donanımı olmayan bir algoritma, kâğıtta kalmış bir niyettir. Tasarımı olmayan bütün bu güç ise, insana ulaşamaz.
+[ch-revisit]  Bu yüzden bu kursta konular, kopuk adalar gibi işlenmeyecek. Elif’in o gece gönderdiği iletiye, her kapıda yeniden döneceğiz; her seferinde biraz daha derine inerek.
+[ch-whole]  Ta ki o tek dokunuşun ardındaki bütün katmanları, aynı anda görene dek. Buna bütüncül bakış diyoruz: parçaları değil, parçalar arasındaki görünmez bağları görmek.
+[who-everyone]  Bu yolculuk kimin için? Teknolojinin perde arkasını merak eden herkes için.
+[who-learner]  Bilişime yeni adım atıyorsanız, şunu bilin: öğreneceğiniz bazı araçlar, on yıl sonra kullanılmıyor olabilir. Bu korkulacak değil; sevinilecek bir haber.
+[who-thinking]  Çünkü asıl kazanacağınız şey araçlar değil, bir düşünme biçimi: sorunu parçalara ayırmak, kalıpları görmek, çözümü adım adım kurmak, onu başkasına anlatabilmek. Bu beceri hiç eskimez.
+[who-side]  Bu alan size, bir meslekten önce bir konum sunuyor: ekranın hangi tarafında duracağınızı seçme hakkı.
+[who-parent]  Çocuğunun ekran başında geçirdiği zamandan endişe eden bir veliyseniz: ekranın karşısında olmakla, ekranın arkasında olmak, bambaşka şeylerdir.
+[who-two]  Bir çocuk, bir uygulamayı saatlerce kullanabilir. Bir başkası ise sorar: bu neden böyle çalışıyor, verim nereye gidiyor, bunu kim, ne amaçla tasarladı? İkinci çocuk, birincinin dünyasını kuran kişidir.
+[who-all]  Öğretmen, yönetici ya da yalnızca meraklı bir yetişkin olun; bugün üretimden sağlığa, tarımdan hukuka, her alan yazılımla yeniden kuruluyor. Bu dönüşümü anlamak, artık hepimizin işi.
+[cr-old]  Bu topraklarda bir zanaatı öğrenmenin, çok eski ve bilge bir düzeni vardır.
+[cr-cirak]  Çırak izler: bakmayı, tezgâhı temiz bırakmayı, sabretmeyi öğrenir.
+[cr-kalfa]  Kalfa yapar: ustanın gözü üzerindeyken üretir, hata yapar, hatasından döner.
+[cr-usta]  Usta ise yalnızca üretmez: öğretir, sorumluluk taşır, yaptığı işin arkasında durur.
+[cr-ahi]  Bu düzenin adı Ahilikti. En dikkat çekici yanı da şuydu: usta, çırağına önce sanatını değil, ahlakını öğretirdi.
+[cr-today]  Bugünün atölyesinde tezgâhın yerini bilgisayar, eğenin yerini kod düzenleyici aldı. Ama düzen aynı: önce başkasının kodunu okursunuz, sonra küçük bir parçasını yazarsınız, en sonunda bir bütünün sorumluluğunu taşırsınız.
+[cr-ethics]  Bu yüzden bu kursta etik, ayrı bir başlığa kapatılmayacak. Bir sistemi nasıl kuracağımızı konuşurken, neden öyle kurmamız gerektiğini de konuşacağız. Bir veriyi saklarken, onun bir insana ait olduğunu unutmayacağız.
+[cr-motto]  Çünkü yeteneğin karakterden hızlı büyüdüğü her yerde, tehlike vardır.
+[st-masons]  Bir köprüyü ören taş ustalarının çoğu, karşı yakaya ilk geçen kişiyi göremeden öldü. Yine de her biri kendi taşını, tamamını hiç göremeyeceği bir bütünün parçası olacağını bilerek yonttu.
+[st-today]  Bugün bilişime adım atan herkes, aynı yapının içinde. Yazılan birkaç satır kod, tasarlanan tek bir ekran, kurulan küçük bir ağ; tek başına küçük görünür.
+[st-bridge]  Oysa hepsi, insanlığın kurmakta olduğu o görünmez köprünün, birer taşıdır.
+[st-welcome]  Bu kurs, kendi taşını yontmadan önce, bütünü bir kez olsun görmek isteyenler için. Hoş geldiniz.
+[st-next]  İlk kapıda, en küçük taşla başlıyoruz: var ve yok.

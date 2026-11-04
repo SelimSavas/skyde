@@ -1,0 +1,30 @@
+VAR VE YOK SHORTS — SESLENDİRME METNİ
+(Her short yaklaşık 35 saniye. Öğretmen gibi: ilk cümle merak uyandıran bir soru, sonra sakin ve net anlatım.)
+(Satır başındaki kimlikler yalnızca dosya adı içindir, okunmaz.)
+
+=== SHORT 1 · Bilgisayar neden sadece 0 ve 1 ile sayar? ===
+e-hook    Bilgisayar neden sıfırdan dokuza kadar değil de, yalnızca sıfır ve birle sayar?
+e-volt    Çünkü makinenin içinde her şey, teldeki elektrik gerilimiyle tutulur.
+e-wobble  Ama bu gerilim hiç sabit durmaz: ısı ve parazit onu sürekli oynatır.
+e-ten     On ayrı seviye kullansaydık, küçük bir oynama yediyi sekize çevirirdi.
+e-two     Bu yüzden makine tek bir çizgi çeker: eşik. Üstündeyse bir, altındaysa sıfır.
+e-safe    Gerilim biraz oynasa da cevap değişmez; iki durum arasında yanılmak çok zordur.
+e-cta     Videonun devamı, kanalımızda.
+
+=== SHORT 2 · 32 lambayla kaç farklı durum kurulur? ===
+l-hook    Otuz iki lambayla kaç farklı durum kurabilirsin? Tahminin muhtemelen çok düşük.
+l-one     Tek lamba iki durum verir: sönük ya da yanık. Yani sıfır ya da bir.
+l-two     İki lamba, dört durum: kapalı kapalı, kapalı açık, açık kapalı, açık açık.
+l-double  Her yeni lamba, durum sayısını ikiye katlar: sekiz, on altı, otuz iki.
+l-byte    Sekiz lambada iki yüz elli altı durum olur; buna bir bayt denir.
+l-big     Otuz iki lambada ise, dört milyarı geçer. Sezgimiz en çok burada yanılır.
+l-cta     Videonun devamı, kanalımızda.
+
+=== SHORT 3 · Eskiden "ğ" neden bozuk görünürdü? ===
+t-hook    Eskiden yumuşak ge yazınca, karşıda neden bambaşka bir harf çıkardı?
+t-num     Çünkü yola harf değil, sayı çıkar. Her harfin bir numarası vardır.
+t-ascii   İlk liste İngilizce için yapıldı; Türkçe harfler o listede yoktu.
+t-half    Her ülke, boş yerlere kendi harflerini koydu; ama herkes farklı yere.
+t-240     Sende iki yüz kırk, yumuşak ge demekti; karşıdaki listede ise bambaşka bir harf.
+t-uni     Çözüm Unicode oldu: bütün dünyanın harfleri, tek bir listede. Yumuşak ge artık her yerde, iki yüz seksen yedi.
+t-cta     Videonun devamı, kanalımızda.

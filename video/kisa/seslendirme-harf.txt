@@ -1,0 +1,11 @@
+ÖĞRETİCİ SHORT — "A harfi aslında bir sayı" (Birinci Kapı: Var ve Yok'tan)
+(Yaklaşık 28 saniye. Sakin ama canlı, öğretmen gibi; ilk cümle şaşırtıcı bir bilgi gibi.)
+(Satır başındaki kimlikler yalnızca dosya adı içindir, okunmaz.)
+
+h-hook    Bilgisayarın içinde, tek bir harf bile yoktur.
+h-bits    Çünkü makine yalnızca bir ve sıfır bilir.
+h-code    Bu yüzden her harfe bir numara verildi. A harfi, altmış beş.
+h-byte    Bu sayı sekiz bitle saklanır. Bitlerin değeri, sağdan sola ikiye katlanır.
+h-sum     Altmış dört ve bir açık: toplam altmış beş. İşte A.
+h-msg     Yazdığın her mesaj da, böyle bitlerden oluşur.
+h-cta     Videonun devamı, kanalımızda.
