@@ -271,10 +271,26 @@ def karpuz():
     P['toprak'] = enc(load('lup-7c-makro-toprak').convert('RGB'), 1.0, q=86)
     return P
 
+def salyangoz():
+    P = {}
+    es = load('salyangoz-esya')
+    bx = rows(comps(es, dil=3, minarea=3000), tol=250)
+    for name, box in zip(['sal_yuru', 'sal_kapi', 'sal_alt', 'iz', 'kart', 'kap_su', 'damla', 'damla_tek', 'toprak_kuru'], bx):
+        P[name] = enc(tight(es, box), 0.8)
+    for name, img in zip(['poz_semsiye', 'poz_goster', 'poz_parmak', 'poz_yagmur'], columns(load('lup-4k-salyangoz'), 4)):
+        P[name] = enc(img, 0.8)
+    ar = load('arkadasin-yagmur')
+    for name, box in zip(['ark_parmak', 'ark_comel'], rows(comps(ar, dil=4, minarea=20000), tol=400)):
+        P[name] = enc(tight(ar, box), 0.85)
+    P['kaldirim'] = enc(load('lup-7q-yagmur-kaldirim').convert('RGB'), 1.0, q=86)
+    P['bahce'] = enc(load('lup-7r-kuru-bahce').convert('RGB'), 1.0, q=86)
+    P['muze'] = enc(load('lup-7s-muze').convert('RGB'), 1.0, q=86)
+    return P
+
 if __name__ == '__main__':
     if '--bolum' in sys.argv:
         b = sys.argv[sys.argv.index('--bolum') + 1]
-        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur, 'kisa-gidik': gidik, 'kisa-uyusma': uyusma, 'kisa-ampul': ampul, 'kisa-eslik': eslik, 'kisa-karpuz': karpuz}[b]()
+        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur, 'kisa-gidik': gidik, 'kisa-uyusma': uyusma, 'kisa-ampul': ampul, 'kisa-eslik': eslik, 'kisa-karpuz': karpuz, 'kisa-salyangoz': salyangoz}[b]()
         out = os.path.join(R, b, 'assets.js')
         head = '/* %s görselleri: video/lup/araclar/parcala.py --bolum %s üretir (kaynak video/lup/gorseller). Elle düzenlemeyin. */\nwindow.ASSETS = ' % (b, b)
     else:

@@ -48,7 +48,14 @@ def saydam(src, dama=False, delik=False, doldur=False):
         if n5:
             boy5 = nd.sum(geri, lab5, range(1, n5 + 1))
             geri = np.isin(lab5, np.nonzero(boy5 > 3000)[0] + 1)
-            geri = nd.binary_fill_holes(nd.binary_closing(geri, iterations=3))
+            # yalnız küçük boşlukları doldur (camdaki parlamalar); büyük kapalı beyazlar (şemsiye sapıyla kol arası) zemin kalır
+            kap = nd.binary_closing(geri, iterations=3)
+            del_ = nd.binary_fill_holes(kap) & ~kap
+            lab6, n6 = nd.label(del_)
+            if n6:
+                boy6 = nd.sum(del_, lab6, range(1, n6 + 1))
+                kap |= np.isin(lab6, np.nonzero(boy6 < 2500)[0] + 1)
+            geri = kap
         bg &= ~geri
     bg = ~nd.binary_opening(~bg, iterations=1)
     bg = nd.binary_dilation(bg, iterations=1)
