@@ -1,21 +1,24 @@
 YUP Akademi · Lup · Yakın Plan · Salyangozlar neden yağmurda ortaya çıkar? · seslendirme metni (6 satır, yaklaşık 95 kelime)
 Üslup: yağmurdan sonra kaldırımda yürürken arkadaşına anlatır gibi; meraklı, sıcak, kısa cümleler.
+Konuşma dili: kayıt metninde -yor yerine -yo (yürümüyo, kayıyo, bekliyo, bekliyodu); ekranda akan metin yazım kuralına göre -yor.
+"Sümük" yerine "kaygan jöle" deniyor.
 İki ses etiketi var: [chuckles] (hafif gülme) ve [excited] (heyecan).
 Bu videoda metin ekranın üstünde sözcük sözcük akacak; bu yüzden metni olduğu gibi oku, sözcük ekleme ya da çıkarma.
+Bir -yo kelimesi kulağa garip gelirse (ör. "bekliyodu") onu -yor ile yaz; ekrandaki metin zaten -yor.
 
 Okuma notları:
 - 1. satır: Merakla; "aslında" sonrası küçük bir durak; "bu anı bekliyordu" gülümseyerek.
-- 2. satır: "yürümüyor" ile "kayıyor" arasındaki zıtlığı vurgula; "neredeyse tamamı su" yavaş ve net.
+- 2. satır: "yürümüyo" ile "kayıyo" arasındaki zıtlığı vurgula; "kaygan bir jöle" sevimli; "neredeyse tamamı su" yavaş ve net.
 - 3. satır: Sakin, açıklayıcı; "bir kapıyla mühürleyip" tane tane.
 - 4. satır: Rahatlamış bir ton; hafif gülme, sonra "gişesiz bir otoyol" esprili.
 - 5. satır: Heyecanlı, hikâye anlatır gibi; "dört yıl sonra" vurgulu; "uyanıp yürümüş" şaşkın bir gülümsemeyle.
 - 6. satır: Sıcak ve muzip; "parmak ucunda" hafif uzatarak.
 Köşeli parantezdeki kimlikler okunmaz.
 
-  [s-hook]    Yağmur yağınca kaldırımı dolduran salyangozlar, aslında günlerdir kabuklarının içinde bu anı bekliyordu.
-  [s-sumuk]   Çünkü salyangoz yürümüyor, kendi ürettiği sümüğün üstünde kayıyor. Ve o sümüğün neredeyse tamamı su.
-  [s-kapi]    Kuru havada attığı her adım, vücudundan su götürüyor. O yüzden kabuğunun ağzını, kuruyan sümükten bir kapıyla mühürleyip bekliyor.
-  [s-yagmur]  Yağmur yağınca hava nemli, yer ıslak; kaybettiği su azalıyor. Salyangoz için yağmur, gişesiz bir otoyol.
+  [s-hook]    Yağmur yağınca kaldırımı dolduran salyangozlar, aslında günlerdir kabuklarının içinde bu anı bekliyodu.
+  [s-sumuk]   Çünkü salyangoz yürümüyo, kendi ürettiği kaygan bir jölenin üstünde kayıyo. Ve o jölenin neredeyse tamamı su.
+  [s-kapi]    Kuru havada attığı her adım, vücudundan su götürüyo. O yüzden kabuğunun ağzını, kuruyan jöleden bir kapıyla mühürleyip bekliyo.
+  [s-yagmur]  Yağmur yağınca hava nemli, yer ıslak; kaybettiği su azalıyo. Salyangoz için yağmur, gişesiz bir otoyol.
   [s-muze]    Beklemekte de ustalar: Bir müzede, ölü sanılıp kartona yapıştırılan bir çöl salyangozu, dört yıl sonra suya konunca uyanıp yürümüş.
   [s-cta]     Yağmurdan sonra salyangozlara basmamak için parmak ucunda yürüyen arkadaşına gönder.
 

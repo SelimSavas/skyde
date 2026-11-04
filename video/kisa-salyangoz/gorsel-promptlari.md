@@ -1,7 +1,7 @@
 # Salyangozlar neden yağmurda ortaya çıkar? · akan seslendirme, görsel planı ve promptlar (ChatGPT)
 
 **Konu:** Yağmurdan sonra kaldırımı dolduran salyangozlar günlerdir bu anı bekliyordu.
-- **Neden:** Salyangoz yürümez, kendi sümüğünün üstünde kayar; o sümüğün neredeyse tamamı sudur. Kuru havada her adım vücudundan su götürür, o yüzden kabuğunu kuruyan sümükten bir kapıyla mühürleyip bekler.
+- **Neden:** Salyangoz yürümez, kendi ürettiği kaygan bir jölenin üstünde kayar; o jölenin neredeyse tamamı sudur. Kuru havada her adım vücudundan su götürür, o yüzden kabuğunu kuruyan jöleden bir kapıyla mühürleyip bekler.
 - **Yağmur:** Hava nemli, yer ıslak olunca kaybettiği su azalır: gişesiz bir otoyol.
 - **Hikâye:** Müzede kartona yapıştırılan bir çöl salyangozu dört yıl sonra suya konunca uyandı.
 
@@ -18,8 +18,9 @@ Bu videoda üstte başlık şeridi yok; yerinde seslendirme sözcük sözcük ak
 
 - **Konum:** Ekranın üst bandı (y ≈ 170–560), buğulu ıslak cam gibi yarı saydam bir panelin üstünde. Panelden yer yer yağmur damlası süzülür.
 - **Akış:** Sözcükler söylendiği anda belirir (dudak zamanları, `dudak.js`). En fazla 3 satır görünür; satır dolunca metin yukarı kayar.
-- **Söylenen sözcük:** Teal renkte, altında sümük izi gibi parlayan bir çizgi uzar (salyangoz izi). Önceki sözcükler koyu kahve kalır.
-- **Önemli sözcükler:** Amber vurgu alır. Bunlar: "su", "kapıyla", "otoyol", "dört yıl", "uyanıp".
+- **Söylenen sözcük:** Teal renkte, altında salyangoz izi gibi parlayan bir çizgi uzar. Önceki sözcükler koyu kahve kalır.
+- **Önemli sözcükler:** Amber vurgu alır. Bunlar: "jöle", "su", "kapıyla", "otoyol", "dört yıl", "uyanıp".
+- **Yazım:** Ses konuşma dilinde (yürümüyo, kayıyo); ekranda akan metin yazım kuralına göre (yürümüyor, kayıyor).
 - **Yazı tipi:** **Baloo 2 ExtraBold**, okunaklı ve yuvarlak, Türkçe harfler tam. El yazısı notlar Kalam (Lup'un el yazısı).
 - **Seri etiketi:** Sol üstte küçük kalır; paneli kapatmaz.
 - **Neden:** Sessiz izleyen de anlatımı takip eder. Metin, sahne görüntüsünü kapatmadan üstte durur.
@@ -95,7 +96,7 @@ Use the attached image as the exact character reference. Vertical 1024×1536 thu
 | Satır | Arka plan | Görüntü (üstte seslendirme akar) |
 |---|---|---|
 | s-hook | Yağmurdan sonra kaldırım (`7q`) | **Mercek Açılışı:** ıslak kaldırımda salyangozlar (`esya-1`) birer birer belirir, parlak izler bırakır. Çiseleyen yağmur kodla. Arkadaşın parmak ucunda yürür (`ark-1`). Lup şemsiyeyle eğilip bakar (`4k-1`). |
-| s-sumuk | Kaldırım, yakın plan | Salyangozun altı (`esya-3`) camdan görünür; ayağında dalgalar kodla akar. "Neredeyse tamamı su" sözünde damla kadeh gibi dolar, Kalam not: "%97–99 su". Sümük izi (`esya-4`) parlar. |
+| s-sumuk | Kaldırım, yakın plan | Salyangozun altı (`esya-3`) camdan görünür; ayağında dalgalar kodla akar. "Neredeyse tamamı su" sözünde damla kadeh gibi dolar, Kalam not: "%97–99 su". Jöle izi (`esya-4`) parlar. |
 | s-kapi | Kuru, sıcak bahçe (`7r`) | Güneş yakar, ısı titreşir. Salyangoz kabuğuna çekilir ve kapı (`esya-2`) mühürlenir (beyaz zar kodla örülür), "kapıyla" amber. Bir su göstergesi damla damla azalır. Kuru toprak (`esya-8`). |
 | s-yagmur | Kaldırım | Yağmur başlar (`esya-7` sıçramaları). Kapı yumuşar, salyangoz çıkar. Islak kaldırımda parlayan bir "otoyol" izi; bir gişe bariyeri kalkar (kodla). Lup yağmurda sevinir (`4k-4`). |
 | s-muze | Eski müze deposu (`7s`) | Masada kartona yapıştırılmış çöl salyangozu (`esya-5`). Takvim yaprakları uçar: 1846 → 1850. Su kabı (`esya-6`), salyangoz uyanır ve karttan yürüyüp gider. Lup şaşkınlıkla gösterir (`4k-2`). |
