@@ -177,6 +177,16 @@
       case 'uzay':
         m.drone(t, dur, { gain: 0.012 * g, notes: ['D2', 'A2', 'E3'] });
         break;
+      case 'kis': // kış sabahı dışarıda: hafif rüzgâr, ara ara uzak kuş cıvıltısı
+        m.wind(t, dur, { gain: 0.03 * g });
+        for (let k = 0; t + 0.9 + k * 2.6 < t + dur - 0.4; k++) {
+          const tt = t + 0.9 + k * 2.6 + ((k * 0.618) % 1) * 0.8;
+          const f = 3300 + (k % 3) * 380;
+          const pan = ((k % 4) - 1.5) * 0.35;
+          m.blip(tt, { freq: f, dur: 0.05, slide: 1.25, gain: 0.006 * g, pan, wet: 0.4 });
+          m.blip(tt + 0.09, { freq: f * 1.08, dur: 0.05, slide: 1.2, gain: 0.005 * g, pan, wet: 0.4 });
+        }
+        break;
       case 'mac': // televizyonda maç: uzak tribün uğultusu ve oda
         m.roomTone(t, dur, { gain: 0.02 * g });
         m.crowd(t, dur, { gain: 0.016 * g });

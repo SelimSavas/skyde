@@ -2,8 +2,9 @@
  * YUP Akademi · Lup · Vücudun Gizli Ayarları — Soğukta ağzımızdan neden duman çıkar? (nefes su buharıyla dolu, 0 °C hava
  * bunun ancak sekizde birini taşır, fazlası damlacığa dönüşür: minicik bir bulut; kuru havada yeniden buhar olur;
  * günde 1,5–2 su bardağı suyu nefesle veririz, kış onu görünür yapar). Tek çağrı sonda.
- * Bu videoda da üstte başlık yok: seslendirme sözcük sözcük akar (kisa-salyangoz ile aynı akış). Kayıt metni konuşma
- * dilinde (-yo: taşıyabiliyo, dönüşüyo), ekranda akan metin yazım kuralına göre (-yor); sözcükler birebir aynı.
+ * Altyazı yeni biçimde: ortanın biraz altında, kutusuz, ekranda en fazla 3 sözcük; yeni sözcük sağdan gelir, öbek
+ * sola akar, önemli sözcükler renkli (film.js, VURGU). Kayıt metni konuşma dilinde (-yo: taşıyabiliyo, dönüşüyo),
+ * ekranda akan metin yazım kuralına göre (-yor); sözcükler birebir aynı.
  * Ses etiketleri ([excited], [chuckles]) yalnız seslendirme-pause.txt'de. Kaynaklar: kaynaklar.md.
  * Kayıt gelince: bash video/araclar/kaydi-bol.sh kisa-nefes <kayit.mp3> Nefes && python3 video/araclar/dudak.py kisa-nefes
  */

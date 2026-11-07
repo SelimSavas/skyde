@@ -14,12 +14,13 @@
 
 ---
 
-## Akan seslendirme (salyangoz videosundaki gibi)
+## Altyazı (yeni biçim, bu videoda kuruldu)
 
-- **Panel:** Üstte buğulu cam panel. Bu kez panelin kenarlarında kırağı (buz çiçeği) desenleri olur, sıcak nefes değdikçe kırağı erir.
-- **Söylenen sözcük:** Teal renkte; altında küçük bir buğu çizgisi uzar.
-- **Önemli sözcükler:** Buz mavisi vurgu alır: "bulut", "sekizde biri", "damlacıklara", "buhara", "iki su bardağı", "ejderha".
-- **Yazı tipi:** Baloo 2 ExtraBold (akan metin), Kalam (Lup'un notları).
+- **Konum:** Ortanın biraz altı (taban çizgisi y ≈ 1150), arkasında kutu ya da panel yok; beyaz yazı, kalın koyu kontur ve gölgeyle her zeminde okunur.
+- **Akış:** Ekranda en fazla 3 sözcük. Yeni sözcük söylendiği anda sağdan "pop" ile gelir, öbek yumuşakça sola kayar, en eski sözcük solda söner. Uzun sözcüklerde öbek 2 ya da 1 sözcüğe iner.
+- **Vurgu:** Önemli sözcükler renkli ve gelişlerinde buz parıltısı: buz mavisi ("bulut", "su buharıyla", "soğuk", "damlacıklara", "görünmez", "buhara", "kış", "bardağı", "görünür"), amber ("sıfır", "sekizde biri", "kuru", "yaz", "bir buçuk, iki", "arkadaşına gönder"), mercan ("duman"), ateş turuncusu ("ejderha"). Her vurguda sahne hafifçe yakınlaşır.
+- **Yazı tipi:** Baloo 2 ExtraBold (altyazı), Kalam (Lup'un notları).
+- **Yerleşim:** Görseller üstte (y 150–1000), karakterler altta; yüzler altyazının altında kalır.
 - **Yazım:** Ses konuşma dilinde (dönüşüyo); ekranda yazım kuralına göre (dönüşüyor).
 
 ---
@@ -90,7 +91,7 @@ Use the attached image as the exact character reference. Vertical 1024×1536 thu
 
 ## Sahne planı
 
-| Satır | Arka plan | Görüntü (üstte seslendirme akar) |
+| Satır | Arka plan | Görüntü (altyazı ortanın biraz altında akar) |
 |---|---|---|
 | n-hook | Kış sabahı durak (`7t`) | **Mercek Açılışı:** Arkadaşın uzun bir nefes verir (`ark-1`), ağzından kodla buğu bulutu çıkar, büyür, yukarıda küçük bir buluta dönüşür. Lup atkısıyla üşür (`4l-3`). Kırağı, uçuşan buz zerrecikleri. |
 | n-buhar | Kış göğü (`7v`) | Ciğerler (`esya-1`) nefes alır verir. İki cam küp (`esya-2`) yan yana: "nefes ~35 °C" küpü su damlacıklarıyla dolar, "hava 0 °C" küpü ancak sekizde biri kadar; "sekizde biri" sözünde 8 damladan 1'i kalır. Termometre (`esya-5`). |
@@ -101,4 +102,4 @@ Use the attached image as the exact character reference. Vertical 1024×1536 thu
 
 **Ses:** YUP ses kimliği: mercek kancası, `sicak` müzik yatağı, kış sabahı ortamı (hafif rüzgâr, uzak kuşlar), her nefeste yumuşak bir hışırtı (`whoosh`), damlacık oluşurken `sihir`, sayaçta `pop`, kapanışta ejderha için `boing` ve Lup motifi.
 
-**Süre:** Konuşma ~40 sn, toplam ~46 sn.
+**Süre:** Konuşma 40 sn, toplam 0:47.
