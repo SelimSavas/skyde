@@ -304,10 +304,63 @@ def nefes():
     P['gok'] = enc(load('lup-7v-kis-gok').convert('RGB'), 1.0, q=86)
     return P
 
+def kedi():
+    P = {}
+    kp = load('kedi-pozlar')
+    bx = sorted(comps(kp, dil=4, minarea=20000), key=lambda b: b[0])
+    print('kedi parça', len(bx))
+    names = ['kedi_otur', 'kedi_kirp', 'kedi_uyku', 'kedi_terapist', 'kedi_surt']
+    # 5. pozdaki duvarı kes: kutunun sağında neredeyse tam boy dolu sütunlar
+    x0, y0, x1, y1 = bx[4][:4]
+    al = np.array(kp.getchannel('A'))[y0:y1, x0:x1] > 40
+    cov = al.mean(0)
+    wall = [i for i in range(al.shape[1]) if cov[i] > 0.7 and i > al.shape[1] * 0.7]
+    if wall:
+        bx[4] = (x0, y0, x0 + min(wall) - 4, y1)
+    for i, name in enumerate(names):
+        if i == 1:
+            continue
+        P[name] = enc(tight(kp, bx[i]), 1.0)
+    # yavaş göz kırpma: 2. poz 1. pozla aynı boyda ve yüzleri üst üste gelecek biçimde kesilir
+    a0 = tight(kp, bx[0])
+    ox0, oy0 = bx[0][0], bx[0][1]
+    g = np.array(kp.convert('L')).astype(float)
+    w, h = a0.size
+    ref = g[oy0:oy0 + int(h * 0.42), ox0:ox0 + w]
+    bx1 = bx[1]
+    best = None
+    for dy in range(-30, 31, 1):
+        for dx in range(-40, 41, 1):
+            X = bx1[0] + dx
+            Yy = bx1[1] + dy
+            cand = g[Yy:Yy + ref.shape[0], X:X + ref.shape[1]]
+            if cand.shape != ref.shape:
+                continue
+            e = np.abs(cand - ref).mean()
+            if best is None or e < best[0]:
+                best = (e, X, Yy)
+    print('göz kırpma hizası hata', round(best[0], 1))
+    _, X, Yy = best
+    P['kedi_kirp'] = enc(kp.crop((X, Yy, X + w, Yy + h)), 1.0)
+    P['kedi_otur'] = enc(kp.crop((ox0, oy0, ox0 + w, oy0 + h)), 1.0)
+    ar = load('arkadasin-kedi')
+    for name, box in zip(['ark_stres', 'ark_anlat', 'ark_saril', 'ark_kirp'], sorted(comps(ar, dil=4, minarea=20000), key=lambda b: b[0])):
+        P[name] = enc(tight(ar, box), 1.0)
+    for name, img in zip(['poz_psiko', 'poz_tup', 'poz_kirp', 'poz_gul'], columns(load('lup-4n-kedi'), 4)):
+        P[name] = enc(img, 0.8)
+    es = load('kedi-esya')
+    bx = rows(comps(es, dil=3, minarea=3000), tol=250)
+    print('kedi-esya parça', len(bx))
+    for name, box in zip(['tup', 'kronometre', 'mama', 'yumak', 'defter', 'tasma', 'kitaplar', 'balik'], bx):
+        P[name] = enc(tight(es, box), 0.8)
+    P['terapi'] = enc(load('lup-7z-terapi-odasi').convert('RGB'), 1.0, q=86)
+    P['ev'] = enc(load('lup-7za-kedili-ev').convert('RGB'), 1.0, q=86)
+    return P
+
 if __name__ == '__main__':
     if '--bolum' in sys.argv:
         b = sys.argv[sys.argv.index('--bolum') + 1]
-        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur, 'kisa-gidik': gidik, 'kisa-uyusma': uyusma, 'kisa-ampul': ampul, 'kisa-eslik': eslik, 'kisa-karpuz': karpuz, 'kisa-salyangoz': salyangoz, 'kisa-nefes': nefes}[b]()
+        P = {'kisa-havaifisek': havaifisek, 'kisa-yagmur': yagmur, 'kisa-gidik': gidik, 'kisa-uyusma': uyusma, 'kisa-ampul': ampul, 'kisa-eslik': eslik, 'kisa-karpuz': karpuz, 'kisa-salyangoz': salyangoz, 'kisa-nefes': nefes, 'kisa-kedi': kedi}[b]()
         out = os.path.join(R, b, 'assets.js')
         head = '/* %s görselleri: video/lup/araclar/parcala.py --bolum %s üretir (kaynak video/lup/gorseller). Elle düzenlemeyin. */\nwindow.ASSETS = ' % (b, b)
     else:

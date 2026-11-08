@@ -124,7 +124,9 @@ Hepsini birlikte kısmak ya da açmak için `YupSes.LV` kullanılır (`muzik`, `
 | `zzz` | Uyku, yorgunluk, sersemlik |
 | `yukselis` | Doruğa hazırlık |
 
-**Ortam** · `YupSes.ortam(m, t, süre, tür)`: `oda`, `gece`, `yagmur`, `mutfak`, `lab`, `uzay`.
+**Ortam** · `YupSes.ortam(m, t, süre, tür)`: `oda`, `gece`, `yagmur`, `mutfak`, `lab`, `uzay`, `mac` (uzak tribün), `kis` (hafif rüzgâr, uzak kuşlar).
+
+**Özel sesler** (synth.js, doğrudan `m.` ile): `m.purr(t, süre, { gain })` kedi mırıltısı (saniyede ~25 titreşim, nefes ritminde); `m.kibble(t, { gain, n })` kaba dökülen mama taneleri; `m.whoosh` ile alçak frekanslı (260→1300 Hz) yumuşak bir hışırtı nefes sesi olarak kullanılır.
 
 **Müzik** · `YupSes.muzik(m, a, b, { ruh, bpm, gain, sus: [[t0, t1]] })`
 

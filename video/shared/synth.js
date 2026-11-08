@@ -661,6 +661,43 @@
     bubbles(t, dur, { gain = 0.05, rate = 7 } = {}) {
       for (let s = t; s < t + dur; s += (0.4 + this.rand()) / rate) this.pop(s, { freq: 180 + this.rand() * 420, gain: gain * (0.4 + this.rand() * 0.6), pan: this.rand() - 0.5 });
     },
+    // Kedi mırıltısı: alçak gürültü saniyede ~25 kez titreşir; nefes verirken güçlü, alırken hafif (döngü ~1,8 sn)
+    purr(t, dur, { gain = 0.06, rate = 25, pan = 0 } = {}) {
+      const n = this.noise('brown', t, dur);
+      const lp = this.filter('lowpass', 520, 0.8);
+      const hp = this.filter('highpass', 70, 0.7);
+      const am = this.ctx.createGain();
+      am.gain.value = 0.55;
+      const lfo = this.osc('triangle', rate, t, dur);
+      const dep = this.ctx.createGain();
+      dep.gain.value = 0.45;
+      lfo.connect(dep).connect(am.gain);
+      // ses tellerinin tınısı: hafif bir temel ton
+      const o = this.osc('sawtooth', rate * 2, t, dur);
+      const og = this.ctx.createGain();
+      og.gain.value = 0.18;
+      o.connect(this.filter('lowpass', 260, 0.7)).connect(og).connect(am);
+      const br = this.ctx.createGain();
+      br.gain.value = 0;
+      br.gain.setValueAtTime(0, t);
+      const cyc = 1.8 + this.rand() * 0.2;
+      for (let s = t; s < t + dur; s += cyc) {
+        br.gain.linearRampToValueAtTime(1, s + 0.25);
+        br.gain.linearRampToValueAtTime(0.85, s + 0.95);
+        br.gain.linearRampToValueAtTime(0.35, s + 1.1);
+        br.gain.linearRampToValueAtTime(0.4, s + cyc - 0.1);
+      }
+      const e = this.hold(t, dur, 0.4, 0.6);
+      n.connect(hp).connect(lp).connect(am).connect(br).connect(e);
+      this.route(e, { gain, pan, wet: 0.08 });
+    },
+    // Mama taneleri: kaba dökülen kuru tanelerin tıkırtısı
+    kibble(t, { gain = 0.08, n = 14, dur = 0.5 } = {}) {
+      for (let i = 0; i < n; i++) {
+        const s = t + Math.pow(this.rand(), 1.6) * dur;
+        this.click(s, { gain: gain * (0.4 + this.rand() * 0.6), tone: 1800 + this.rand() * 2400, pan: this.rand() * 0.6 - 0.3 });
+      }
+    },
     // Oda tonu: çok alçak, sıcak hışırtı (sessizliğin "dolu" duyulması için)
     roomTone(t, dur, { gain = 0.03 } = {}) {
       const n = this.noise('brown', t, dur);
