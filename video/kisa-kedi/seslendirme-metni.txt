@@ -1,0 +1,30 @@
+YUP Akademi · Lup · Kediler insanların psikoloğu · seslendirme metni (7 satır, yaklaşık 100 kelime, ~44 sn)
+Üslup: kucağında kedisi olan bir arkadaşına takılır gibi; sıcak, eğlenceli, kısa cümleler. Bilgi verirken de gülümse.
+Konuşma dili: kayıtta -yor yerine -yo (istemiyo, yargılamıyo, okuyabiliyo); ekranda akan metin yazım kuralına göre -yor.
+İki ses etiketi var: [whispers] (fısıltı) ve [chuckles] (hafif gülme).
+Altyazı ekranda sözcük sözcük akacak; metni olduğu gibi oku, sözcük ekleme ya da çıkarma.
+
+Okuma notları:
+- 1. satır: Kendinden emin, göz kırpar gibi; "evdeki psikoloğun" vurgulu. Üç kısa parça ritimli: istemiyo · yargılamıyo · ölçülebiliyo.
+- 2. satır: Haber verir gibi; "sadece on dakika" tane tane, şaşırtıcı.
+- 3. satır: "Geçen ay Japonya'da" merakla; "birlikte inip çıkıyo" yumuşak, gülümseyerek.
+- 4. satır: "seni okuyabiliyo" sır gibi; "Ama yorum yapmıyo" sonrası kısa durak; "sadece yanında kalıyo" çok sıcak.
+- 5. satır: Fısıltıyla, izleyiciye bir deney yaptırır gibi; "yavaşça" kelimesini de yavaş söyle.
+- 6. satır: Hafif gülme, sonra şakacı; "bir kap mama" en son ve keyifli.
+- 7. satır: Samimi, muzip.
+Köşeli parantezdeki kimlikler okunmaz.
+
+  [k-hook]     Kedin, evdeki psikoloğun: Randevu istemiyo, seni yargılamıyo, üstelik etkisi ölçülebiliyo.
+  [k-stres]    Bir araştırmada, kedi ve köpekleri sadece on dakika okşayan öğrencilerin stres hormonu düştü.
+  [k-japon]    Geçen ay Japonya'da da şu görüldü: Kedisi yanında daha çok vakit geçiren insanların keyfi daha yerinde. Bağ hormonu oksitosin de insanla kedide birlikte inip çıkıyo.
+  [k-okur]     Kedin seni okuyabiliyo da: Yüzünden ve sesinden mutlu mu kızgın mı olduğunu anlıyo. Ama yorum yapmıyo, sadece yanında kalıyo.
+  [k-goz]      Şimdi şunu dene: Kedine bakıp gözlerini yavaşça kırp. O da yavaşça kırparsa, sana kedi dilinde gülümsedi demektir.
+  [k-kapanis]  Yani psikoloğun dört ayaklı, seans ücreti de bir kap mama.
+  [k-cta]      Kedisiyle terapiye giren arkadaşına gönder.
+
+ElevenLabs için:
+- seslendirme-pause.txt'yi olduğu gibi yapıştır. [whispers] ve [chuckles] okunmaz, yalnız tonu değiştirir; biri yüksek sesle
+  okunursa o etiketi sil. [pause] kalsın.
+- Kyoto araştırması Ekim 2026'da yayımlandı. Kaydı Kasım'dan sonra alırsan "Geçen ay" yerine "Bu yıl" de (ekran metnini ben düzeltirim).
+- Bir -yo kelimesi kulağa garip gelirse yalnız onu -yor ile yaz; ekrandaki metin zaten -yor.
+- Ayar: kararlılık 40–45, benzerlik 75, hız 1.0–1.05. 2–3 kayıt üretip en doğalını seç.
