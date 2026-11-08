@@ -1,0 +1,23 @@
+YUP Akademi · Lup · Vücudun Gizli Ayarları · Ampule bakınca gelen renkli leke · seslendirme metni (6 satır, yaklaşık 80 kelime)
+Üslup: YouTuber gibi, arkadaşına bir sır anlatır gibi; kısa cümleler, konuşma dili ("var ya", "değil mi?").
+Okuma notları:
+- 1. satır: "var ya..." sonrası küçük bir durak; "Senin gözünden geliyor" yavaş ve vurgulu (sırrı açıklıyorsun).
+- 2. satır: akıcı; "bir turuncu, bir mor, bir yeşil" hızlanarak, oyunbaz.
+- 3. satır: "Arkadaki kırmızılık mı?" kendine soru soran ses; "Geriye kırmızısı kalıyor" yumuşak.
+- 4. satır: yönerge, tane tane: "On saniye." "Gözünü hiç oynatma." Sonra sus (videoda 10 sn sessiz geri sayım).
+- 5. satır: fısıltı; "Şimdi... bak." arasında nefes; "değil mi?" gülümseyerek; son cümle 1. satırı hatırlatır.
+- 6. satır: meydan okur gibi, muzip; tırnaklı söz başka birinin sesini taklit eder gibi.
+Köşeli parantezdeki kimlikler okunmaz.
+
+  [a-hook]   Ampule bakıp gözünü kapatınca gördüğün o renkli leke var ya... ampulden gelmiyor. Senin gözünden geliyor.
+  [a-solma]  Işık, gözünün arkasındaki hücreleri bir anlığına yoruyor. Onlar toparlanırken leke renk değiştiriyor: bir turuncu, bir mor, bir yeşil.
+  [a-kapak]  Arkadaki kırmızılık mı? O da göz kapağın. Kapaktaki kan, ışığın mavisini, yeşilini yutuyor. Geriye kırmızısı kalıyor.
+  [a-dene]   Hadi dene: Lup'un camındaki noktaya bak. On saniye. Gözünü hiç oynatma.
+  [a-bak]    Şimdi... bak. Lup siyah beyaz. Ama renkli görüyorsun, değil mi? O renkler senin gözünden.
+  [a-cta]    Bunu "benim gözüm kanmaz" diyen arkadaşına gönder. On saniye yeter.
+
+ElevenLabs için:
+- seslendirme-pause.txt'yi olduğu gibi yapıştır. İçindeki [whispers] (fısılda) ve [mischievously] (muzip) ses etiketleridir, okunmaz.
+  Ses bunları yüksek sesle okursa iki etiketi sil; [pause] kalsın.
+- Daha doğal ses için ayar önerisi (şu anki: hız 1.00, kararlılık 50, benzerlik 75):
+  kararlılık 35–40 (daha canlı tonlama), hız 1.05, benzerlik 75 kalsın. 2–3 kayıt üretip en doğalını seç.

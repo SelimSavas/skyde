@@ -1,0 +1,31 @@
+YUP Akademi · Lup · Öğrenmeyi öğrenmek · seslendirme metni (7 satır, yaklaşık 105 kelime, ~45 sn)
+Üslup: işe ya da üniversiteye yeni başlayan bir arkadaşına samimi bir sır verir gibi; enerjik ama telaşsız, kısa cümleler.
+Konuşma dili: kayıtta -yor yerine -yo (söylüyo, eskimiyo); ekranda akan metin yazım kuralına göre -yor.
+İki ses etiketi var: [whispers] (fısıltı) ve [excited] (heyecan).
+Altyazı ekranda sözcük sözcük akacak; metni olduğu gibi oku, sözcük ekleme ya da çıkarma.
+
+Okuma notları:
+- 1. satır: Kendinden emin, haber verir gibi; "beşte ikisi" ve "iki bin otuza kadar" tane tane. İkinci cümle hafif tebessümle.
+- 2. satır: "Yani" sonrası sakin; "Ama" sonrası kısa durak; "öğrenmeyi öğrenmek" yavaş ve vurgulu.
+- 3. satır: Tanım cümlesi net; "İş ararken de, ticaret yaparken de, uzmanlaşırken de" ritmik, her "de" ile biraz yükselerek.
+- 4. satır: "Şaşırtıcı kısmı şu" fısıltıyla, sır verir gibi; cümlenin geri kalanı normal sesle, hafif şaşkın.
+- 5. satır: Öğretici ve sıcak, üç kısa komut gibi: kapat, anlat, tekrar dene. "Tıkandığın yer, eksiğin olan yer" yavaş.
+- 6. satır: Heyecanlı, doruk cümlesi; "hep seninle kalır" gülümseyerek.
+- 7. satır: Samimi, hafif muzip.
+Köşeli parantezdeki kimlikler okunmaz.
+
+  [o-hook]     Şu an iş hayatında aranan becerilerin neredeyse beşte ikisi, iki bin otuza kadar değişecek. Bunu işverenlerin kendisi söylüyo.
+  [o-beceri]   Yani bugün ezberlediğin bilgi yarın eskiyebilir. Ama bir beceri hiç eskimiyo: öğrenmeyi öğrenmek.
+  [o-kapi]     Bir konuyu kimse sana anlatmadan, kendi başına araştırıp kavrayabilmek. İş ararken de, ticaret yaparken de, bir alanda uzmanlaşırken de seni öne geçiren şey bu.
+  [o-yanilgi]  Şaşırtıcı kısmı şu: Altını çizip tekrar tekrar okumak, en az işe yarayan yöntemlerden biri.
+  [o-yontem]   Onun yerine kitabı kapat, öğrendiğini kendine anlat. Tıkandığın yer, eksiğin olan yer. Ertesi gün ve bir hafta sonra bir daha dene.
+  [o-kalici]   Çünkü bilgi değişir, ama öğrenme becerin hep seninle kalır.
+  [o-cta]      Kendi kendine bir şey öğrenmeye çalışan arkadaşına gönder.
+
+ElevenLabs için:
+- seslendirme-pause.txt'yi olduğu gibi yapıştır. [whispers] ve [excited] okunmaz, yalnız tonu değiştirir; biri yüksek sesle
+  okunursa o etiketi sil. [pause] kalsın.
+- [whispers] bütün 4. satırı fısıltıya çevirirse "Şaşırtıcı kısmı şu:" yazıp [pause] koy, cümlenin kalanını etiketsiz yeni satıra al.
+- "iki bin otuza" yazıyla kalsın (rakamla yazılırsa yanlış okunabiliyor); ekranda 2030'a yazacak.
+- Bir -yo kelimesi kulağa garip gelirse yalnız onu -yor ile yaz; ekrandaki metin zaten -yor.
+- Ayar: kararlılık 40–45, benzerlik 75, hız 1.0–1.05. 2–3 kayıt üretip en doğalını seç.

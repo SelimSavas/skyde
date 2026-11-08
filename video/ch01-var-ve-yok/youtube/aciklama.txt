@@ -1,0 +1,83 @@
+BAŞLIK
+Var ve Yok: Bilgisayar Neden Sadece 0 ve 1 Bilir? | Bilişim Teknolojileri Yetkinliği · 1. Bölüm
+
+AÇIKLAMA
+Dağın tepesinde bir ateş yanıyor. Tek bir şey söylüyor: oldu. Yüzyıllar önce nöbetçilerin haber taşıdığı bu fikir, bugün telefonunun, bilgisayarının ve banka hesabının temelinde duruyor: var ve yok, yani bir ve sıfır.
+
+Bu bölümde makinelerin neden yalnızca iki durumla çalıştığını, birkaç bitin nasıl harflere, renklere, seslere ve fotoğraflara dönüştüğünü adım adım görüyoruz:
+• Bilgisayar neden ondalık değil de ikili sistem kullanır? (eşik fikri)
+• Bit nedir, bayt nedir; sekiz lamba neden 256 farklı sayı tutar?
+• Kilobayt, megabayt, gigabayt gerçekte ne kadar?
+• A harfi makinenin içinde neden 65 sayısıdır?
+• Türkçe karakterler neden bozulurdu, Unicode bu sorunu nasıl çözdü?
+• Web'deki #FF0000 gibi renk kodları ne anlama gelir?
+• Fotoğraf, ses ve video nasıl sayıya dönüşür?
+
+Ön bilgi gerekmez. Teknolojinin perde arkasını merak eden herkes buradan başlayabilir.
+
+BÖLÜMLER
+0:00 Tepeden tepeye ateş
+0:40 İki durum, elli durum
+1:24 Neden sadece iki? Elektrik ve eşik
+2:23 Bit ve bayt: yan yana dizmenin bereketi
+3:58 Kilobayt, megabayt, gigabayt
+4:20 Harf nasıl sayı olur?
+5:13 Türkçenin kayıp harfleri ve Unicode
+6:33 On altılık düzen ve renk kodları
+7:51 Her şey sayıya dönüşebilir mi?
+
+SERİDE
+◀ Önceki: Dijital Dünyayı Anlamak (Giriş Bölümü) [ÖNSÖZ BAĞLANTISI]
+▶ Sıradaki: Taşa Kazınan Mantık (Birinci Kapı, 2. Bölüm)
+Oynatma listesi: [OYNATMA LİSTESİ BAĞLANTISI]
+
+YUP (Yükselen Ufuklar Platformu): merak edenler için bir akademi. Bilişimden psikolojiye, matematikten kişisel gelişime; karmaşık konular sade, adım adım ve animasyonlarla.
+
+#bilişim #ikilisistem #bilgisayar
+
+
+ETİKETLER (Ayrıntılar > Daha fazla göster > Etiketler; virgülle yapıştır)
+bit nedir, bayt nedir, ikili sistem, binary, 0 ve 1, bilgisayar nasıl çalışır, bilişim teknolojileri, karakter kodlaması, ASCII, Unicode, Türkçe karakter sorunu, onaltılık sistem, hexadecimal, renk kodları, RGB, piksel, kilobayt megabayt gigabayt, dijital veri, bilgisayar bilimi, bilişim dersi, YUP Stüdyo
+
+
+YÜKLEME AYARLARI
+Küçük resim       : Aşağıdaki küçük resim önerisine bak (1280×720, 2 MB altı).
+Oynatma listesi   : "Bilişim Teknolojileri Yetkinliği | Dijital Dünyayı Baştan Sona Anlamak" (Önsöz'den hemen sonra, 2. sıra).
+İzleyiciler       : Hayır, çocuklara özel değil. (Genel izleyici için eğitim içeriği.)
+Yaş kısıtlaması   : Yok.
+Ücretli tanıtım   : İşaretleme.
+Değiştirilmiş/yapay içerik: Seslendirme yapay zekâ sesi ama gerçek bir kişiyi taklit etmiyor ve video animasyon;
+                    YouTube'un kuralına göre açıklama gerekmez, "Hayır" yeterli. Kanalında hepsini açık tutmak istersen "Evet" seç.
+Otomatik bölümler : Açık kalabilir; açıklamadaki BÖLÜMLER listesi önceliklidir.
+Dil               : Türkçe. Altyazı dili: Türkçe.
+Altyazı           : Altyazılar > Ekle > Dosya yükle > "Zamanlamalı" > altyazi-tr.srt
+Kategori          : Eğitim
+Lisans            : Standart YouTube Lisansı
+Yorumlar          : Açık; sıralama "En popüler".
+Kayıt tarihi/konum: Boş bırakılabilir.
+
+BİTİŞ EKRANI (son 20 saniye; video 9:18'de bitiyor)
+• Video öğesi: "Belirli bir video" > Taşa Kazınan Mantık (yayınlandıysa); yoksa "Oynatma listesi".
+• Abone ol öğesi: kanal logosu.
+• Son 20 saniyede ekranın ortası ("Ölçmek, güçtür." ve "Var ve yok." yazıları) boş kalmalı;
+  öğeleri sol alt ve sağ alta yerleştir.
+
+BİLGİ KARTLARI
+• 0:05 – Video: Dijital Dünyayı Anlamak (Önsöz) — "Seriye baştan başla"
+• 4:20 – Kısa video: "Bilgisayar A harfini nasıl saklar?" (yayınlandıysa)
+• 8:50 – Oynatma listesi: serinin tamamı
+
+SABİTLENMİŞ YORUM
+Sence 32 lamba kaç farklı durum kurar? Videoyu izlemeden tahminini yaz, sonra 2:23'ten itibaren kontrol et. 💡
+Bir sonraki bölümde mantık kapıları var: Taşa Kazınan Mantık.
+
+KÜÇÜK RESİM (yapay zekâ ile üret, yazıyı Canva'da ekle; 16:9, 1280×720)
+Önerilen prompt:
+  A row of eight glowing light bulbs on a dark navy background, some lit warm orange and some dark,
+  forming a binary pattern; a faint mountain-top signal fire in the distance. Cinematic, high contrast,
+  minimal, one strong focal point, empty space on the left for a headline. 16:9
+Alternatif prompt:
+  A single giant glowing letter A made of tiny orange and dark squares (bits) on a deep navy background,
+  soft glow, cinematic, minimal, space for text. 16:9
+Üstüne yazı (en fazla 3–4 kelime):  "SADECE 0 VE 1?"  ya da  "A = 65"
+Köşe rozeti: "1. BÖLÜM" + YUP logosu (Önsöz'deki şablonla aynı yerde).

@@ -1,0 +1,68 @@
+Birinci Kapı — Var ve Yok: seslendirme metni
+
+Her satır videoda ayrı bir yerde okunur. En iyisi her satırı ayrı bir dosya olarak kaydetmek (dosya adı = köşeli parantezdeki kimlik, ör. fires-one.mp3).
+Tek parça kaydedilecekse satırlar arasında yaklaşık bir saniye durulsun.
+
+[open-title]  Birinci kapı. Var ve yok: iki simgeli bir evren.
+[fires-one]  Dağın tepesinde bir ateş yanıyor.
+[fires-meaning]  Ne anlama geldiği önceden kararlaştırılmıştı: düşman sınırı geçti.
+[fires-relay]  Karşı tepedeki nöbetçi, ateşi görür görmez kendi ateşini yakardı; ondan ötekisi, ondan berikisi.
+[fires-race]  Böylece haber, atlının günlerce süren yolculuğunu saatlere indirirdi.
+[fires-question]  Peki, ateş tam olarak ne söylüyordu?
+[fires-answer]  Aslında tek bir şey: oldu.
+[two-split]  Yanıyorsa oldu, yanmazsa olmadı. İki durum: var ve yok.
+[two-levels]  Peki ateşle elli ayrı haber verilseydi? Biraz yanarsa asker, yarı yanarsa gemi, gürül gürül yanarsa savaş.
+[two-weather]  Şimdi bir de yağmur yağsın, sis çöksün. Yorgun bir nöbetçi, ateşin biraz mı, yarı mı yandığını kestiremez. Ama yanıyor mu, yanmıyor mu; bunu her zaman görür.
+[two-quote]  İki durum arasında yanılmak, elli durum arasında yanılmaktan çok daha güçtür.
+[two-icons]  Bu tek cümle, telefonun, televizyonun, bankadaki hesabın ve bu kitabın temelidir.
+[why-volt]  Bugünün makineleri de ateş yerine elektrik kullanır. Bir teldeki elektriğin ne kadar güçlü ittiğini, volt denen birimle ölçeriz.
+[why-wobble]  Ama bu değer hiç yerinde durmaz: sıcaklık değişir, kablonun direnci artar, komşu devreden parazit gelir. Tam üç virgül yetmiş dört volt dersiniz, bir saniye sonra yanılırsınız.
+[why-threshold]  Ama şu soruyu sormak kolay: elektrik var mı, yok mu? Makine ortaya bir çizgi çeker; buna eşik denir. Üstündeyse var, altındaysa yok; değeri biraz oynasa bile, cevap değişmez.
+[why-code]  Elektrik var, bir. Elektrik yok, sıfır.
+[why-bit]  Bu iki değerin her birine bit denir. Bit, bilişimin atomudur: bölünemeyen en küçük bilgi parçası.
+[why-pairs]  Tek başına çok az şey anlatır: evet ya da hayır, açık ya da kapalı.
+[lamps-one]  Bir lamba kadar: sönükse sıfır, yanıyorsa bir. İki durum. Ama bitleri yan yana dizince, bir şey olur.
+[lamps-two]  İki lamba düşünün. Kaç farklı durum kurabilirsiniz? Kapalı kapalı, kapalı açık, açık kapalı, açık açık. Dört.
+[lamps-three]  Üç lamba? Sekiz durum. Çünkü yeni lamba sönükken, eski dört durum aynen kurulur; yanarken, aynı dört durum bir kez daha. Dört artı dört, sekiz.
+[lamps-four]  Dört lamba? On altı. Her yeni lamba, olasılıkları ikiye katlar.
+[lamps-table]  Katlamayı sürdürün: otuz iki, altmış dört, yüz yirmi sekiz, iki yüz elli altı. Sekiz lamba, iki yüz elli altı durum.
+[lamps-big]  Otuz iki lambada durum sayısı dört milyarı aşar. Sezgimiz en çok burada yanılır.
+[lamps-byte]  Sekiz bit yan yana gelince, buna bayt denir.
+[lamps-values]  Her lambanın bir değeri vardır: sağdan sola bir, iki, dört, sekiz, böyle ikiye katlanarak, yüz yirmi sekize kadar. Yanan lambaların değerleri toplanır.
+[lamps-range]  Hepsi kapalıysa sıfır, hepsi açıksa, iki yüz elli beş. Bir bayt, sıfırla birlikte iki yüz elli altı ayrı sayı tutar.
+[lamps-letters]  Bu, bir alfabenin bütün harflerine, rakamlara ve işaretlere yeter. Bir bayt, kabaca bir harftir.
+[glossary-rows]  Kilo, kilogramdaki gibi bin demektir; her basamak bin kat büyür. Kilobayt kısa bir mektup, megabayt bir şarkı, gigabayt bir film, terabayt bir kütüphane.
+[glossary-compare]  Otuz bin harflik bir metin, otuz kilobayttır. Tek bir fotoğraf ise, yüz kat daha fazla yer kaplar.
+[letters-question]  Makine yalnızca sıfır ile bir biliyorsa, ekranda gördüğümüz A harfi nedir?
+[letters-answer]  Makinenin içinde A harfi diye bir şey yoktur; altmış beş sayısı vardır.
+[letters-encoding]  İnsanlar anlaştı: her harfe bir numara. Buna karakter kodlaması denir.
+[letters-cards]  A harfi altmış beş, be altmış altı, küçük a doksan yedi, boşluk bile otuz iki.
+[letters-merhaba]  Makinenin belleğinde merhaba yazmaz; şu yazar: yetmiş yedi, altmış dokuz, seksen iki, yetmiş iki, altmış beş, altmış altı, altmış beş.
+[letters-bits]  Onlar da lambalardaki gibi, var yok dizileri olarak durur: altmış beş, altmış dört artı bir.
+[letters-fonts]  Harfin şeklini yazı tipi çizer; makine yalnızca numarasını bilir.
+[turkish-grid]  İlk anlaşmayı İngilizce konuşanlar yaptı. Yirmi altı harflik alfabeleri için, yüz yirmi sekiz yer ayırdılar; içine sığdı, arttı bile.
+[turkish-half]  Oysa bir bayt iki yüz elli altı yer sunar; öteki yarı boş kaldı.
+[turkish-letters]  Türkçenin çe, yumuşak ge, noktasız ı, büyük noktalı i, ö, şe, ü; bu yedi harf o listede yoktu.
+[turkish-place]  Her ülke, boş yarıya kendi harflerini koydu; ama herkes, farklı yere.
+[turkish-mojibake]  Belge gönderince yola harf değil, sayı çıkar. Sizde iki yüz kırk, yumuşak ge harfidir; karşıdaki sözlükte ise bambaşka bir harf.
+[turkish-agreement]  Kimse art niyetli değildi; yalnızca sözlükler farklıydı.
+[turkish-unicode]  Çözüm, bütün yazıları tek bir dev listede toplamaktı: Yunikod. Türk harfleri de, Çin yazısı da, emojiler de orada.
+[turkish-codepoint]  Artık yumuşak ge, her yerde aynı numaradır: iki yüz seksen yedi. Bu sayı için tek bayt yetmez; iki bayt gerekir.
+[turkish-master]  Teknolojideki sorunların çoğu, teknik değil, anlaşma sorunudur. İki taraf aynı sözlüğe bakmıyorsa, kabloların hiçbir suçu yoktur.
+[hex-blur]  Uzun bit dizilerini okumak göze işkencedir. Bu yüzden bir kısaltma kullanılır: onaltılık düzen.
+[hex-digits]  Dört lambanın on altı durumu vardı; her birine tek bir simge gerekir. Rakamlarımız ise on tane, sıfırdan dokuza; kalan altısı için harfler kullanılır: A on, be on bir, böyle sırayla, fe on beşe kadar.
+[hex-split]  Diziyi dörderli gruplara bölün. Dört lambanın değerleri sekiz, dört, iki, bir. İlk grupta sekiz, dört ve bir yanıyor: on üç, yani de. İkinci grupta dört ile iki: altı. Kısaca, de altı.
+[hex-colors]  Web sayfalarında renkler böyle yazılır. Ekrandaki her renk, kırmızı, yeşil ve mavi ışığın karışımıdır; koddaki üç çift, bu üç ışığın miktarıdır.
+[hex-red]  Fe fe en çok, yani iki yüz elli beş; sıfır sıfır, hiç. Kırmızı sonuna kadar açık, öbürleri kapalı: katıksız kırmızı. Hepsi kapalı siyah, hepsi açık beyaz.
+[hex-phone]  Yeni bir bilgi değil, aynı bilginin kolay okunan kılığıdır; tıpkı telefon numarasını bölerek yazmak gibi.
+[numbers-photo]  Bir fotoğraf, sık dokunmuş bir kumaş gibidir: yakından bakınca minicik kareler görürsünüz, pikseller.
+[numbers-pixel]  Her pikselin üç sayısı vardır: kırmızının, yeşilin ve mavinin miktarı. Milyonlarca piksel, milyonlarca üçlü sayı.
+[numbers-sound]  Ses, havadaki basınç dalgasıdır. Saniyede on binlerce kez ölçülür; her ölçüm bir sayıdır. Bu sayılar aynı hızla hoparlöre verilince, kulak aynı sesi yeniden duyar.
+[numbers-video]  Videoda ise, her saniyede yirmi beş kadar fotoğraf vardır; göz onları akan bir hareket olarak görür.
+[numbers-sensors]  Sıcaklık, nem, mesafe, kalp atışı; bunların hepsi, sensörler sayesinde sayıya dönüşür.
+[numbers-statement]  Ortak nokta şudur: ölçülebilen her şey sayıya çevrilebilir; sayıya çevrilen her şey, işlenebilir, saklanabilir, iletilebilir.
+[numbers-danger]  Bilişim çağının bütün gücü de, bütün tehlikesi de, bu tek cümlede saklıdır.
+[numbers-watched]  Çünkü bu cümle, insan için de geçerlidir: nerede olduğunuz, kiminle konuştuğunuz, neye baktığınız, neyi kaç saniye izlediğiniz.
+[numbers-power]  Ölçmek, güçtür.
+[numbers-question]  Ve her güç gibi, kimin elinde olduğu sorusunu doğurur.
+[close-end]  Var ve yok.

@@ -1,0 +1,27 @@
+YUP Akademi · Lup · Vücudun Gizli Ayarları · Soğukta ağzımızdan neden duman çıkar? · seslendirme metni (6 satır, yaklaşık 90 kelime)
+Üslup: kış sabahı otobüs durağında arkadaşına anlatır gibi; meraklı, sıcak, kısa cümleler.
+Konuşma dili: kayıtta -yor yerine -yo (taşıyabiliyo, bulamıyo, dönüşüyo, veriyosun); ekranda akan metin yazım kuralına göre -yor.
+İki ses etiketi var: [excited] (heyecan) ve [chuckles] (hafif gülme).
+Metin ekranın üstünde sözcük sözcük akacak; metni olduğu gibi oku, sözcük ekleme ya da çıkarma.
+
+Okuma notları:
+- 1. satır: Merakla, sır verir gibi; "aslında duman değil" sonrası küçük bir durak; "minicik bir bulut" gülümseyerek.
+- 2. satır: Açıklayıcı; "sekizde biri" vurgulu ve tane tane.
+- 3. satır: Akıcı; "sığacak yer bulamıyo" oyunbaz; son cümle sakin ve net.
+- 4. satır: Yumuşak, biraz yavaş (bulutun kaybolması gibi); "görünmez buhara" alçak sesle.
+- 5. satır: Heyecanlı; "yaz kış" vurgulu; "bir buçuk, iki su bardağı" şaşırtıcı bir bilgi verir gibi; son cümle sıcak.
+- 6. satır: Hafif gülme, sonra muzip; "ejderha gibi" keyifli.
+Köşeli parantezdeki kimlikler okunmaz.
+
+  [n-hook]    Soğukta ağzından çıkan o duman, aslında duman değil; az önce kendi yaptığın minicik bir bulut.
+  [n-buhar]   Ciğerlerinden çıkan nefes ılık ve su buharıyla dolu. Sıfır derecedeki hava ise bunun ancak sekizde biri kadar suyu taşıyabiliyo.
+  [n-damla]   Nefesin soğuk havaya çarpınca, fazla su sığacak yer bulamıyo ve minicik damlacıklara dönüşüyo. Gökteki bulutlar da böyle oluşuyo.
+  [n-kayip]   Birkaç saniye sonra kaybolması da bundan: Damlacıklar etraftaki kuru havaya karışıp yeniden görünmez buhara dönüyo.
+  [n-bardak]  Üstelik sen bu suyu yaz kış veriyosun: Günde bir buçuk, iki su bardağı kadar. Kış sadece onu görünür yapıyo.
+  [n-cta]     Kışın ejderha gibi duman üfleyen arkadaşına gönder.
+
+ElevenLabs için:
+- seslendirme-pause.txt'yi olduğu gibi yapıştır. [excited] ve [chuckles] okunmaz, yalnız tonu değiştirir; biri yüksek sesle
+  okunursa o etiketi sil. [pause] kalsın.
+- Bir -yo kelimesi kulağa garip gelirse yalnız onu -yor ile yaz; ekrandaki metin zaten -yor.
+- Ayar: kararlılık 40–45, benzerlik 75, hız 1.0–1.05. 2–3 kayıt üretip en doğalını seç.

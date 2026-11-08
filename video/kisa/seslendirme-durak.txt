@@ -1,0 +1,12 @@
+ÖĞRETİCİ SHORT — "Mesajın beş durağı" (Önsöz'den)
+(Yaklaşık 28 saniye. Sakin ama canlı, öğretmen gibi. Durak numaralarını belirgin söyleyin: "Bir:", "İki:"...)
+(Satır başındaki kimlikler yalnızca dosya adı içindir, okunmaz.)
+
+d-hook    Gönder’e bastığında, mesajın beş duraktan geçer.
+d-1       Bir: Harfler, bir ve sıfırlara dönüşür.
+d-2       İki: Radyo dalgasıyla evdeki modeme gider.
+d-3       Üç: Cam liflerde, ışık olarak yol alır.
+d-4       Dört: Yönlendiriciler, ona en uygun yolu seçer.
+d-5       Beş: Yol boyunca şifrelidir; araya giren biri okuyamaz.
+d-fast    Ve hepsi, saniyenin onda birinden kısa sürer.
+d-cta     Videonun devamı, kanalımızda.

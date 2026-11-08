@@ -1,0 +1,37 @@
+YUP AKADEMİ · GECENİN MAVİ IŞIĞI · KAPAK PROMPTLARI (yazılar görselin içinde)
+Gemini / Nano Banana için. Türkçe harfler (İ, Â, Ü, I) bozulursa aynı sohbette şunu yaz:
+"Fix the text only, keep everything else: the headline must read exactly: ..."
+
+────────────────────────────────────────
+PROMPT 1 · Telefon ışığındaki yatak odası (önerilen)
+────────────────────────────────────────
+YouTube thumbnail, 16:9, 1280x720. Flat vector illustration, cinematic night scene. A young person lying in bed in a dark bedroom at 1:30 am, holding a smartphone above their face. The face is clearly visible and expressive: eyes wide open, tired and restless expression. The cold blue glow of the screen lights only the face and the pillow; the rest of the room is deep navy. Through the window: a city skyline with a few warm lit windows and a crescent moon. Above the bed floats a translucent glowing brain outline with a small bright golden sun shining inside it, as if the brain still thinks it is daytime. Deep navy and electric blue palette with one single warm golden accent (the sun). Cinematic lighting, volumetric glow, subtle film grain, soft gradients, clean shapes. Fewer objects, more empty space, minimal composition. The illustration fills the left 60% of the image; the right 40% is dark navy.
+On the right side, a large bold headline in Turkish, in a heavy geometric sans-serif font (like Inter Display ExtraBold or Montserrat Black), all caps, left-aligned, stacked on three lines, vertically centered, exact spelling:
+"BEYNİN"
+"HÂLÂ"
+"GÜNDÜZ"
+The first line "BEYNİN" in cream white (#F3EDE1); the lines "HÂLÂ" and "GÜNDÜZ" in warm golden yellow (#FFC24D) with a soft golden glow. Letters very large, filling about half of the image height, tight line spacing, perfectly sharp and legible, correct Turkish characters (İ with a dot, Â with a circumflex, Ü with two dots).
+Bottom-left corner: a small rounded dark semi-transparent label with the text "YUP AKADEMİ" in small white spaced capital letters and a tiny glowing golden dot before it.
+Keep the bottom-right corner empty. No other text, no watermark.
+
+────────────────────────────────────────
+PROMPT 2 · İçinde güneş yanan beyin
+────────────────────────────────────────
+YouTube thumbnail, 16:9, 1280x720. Flat vector illustration. Side profile of a human head drawn as a translucent glowing blue outline on a deep navy background, like an x-ray. The face profile is clearly visible and expressive: the eye wide open, tired and restless. Inside the brain, near the eyes, a tiny bright golden sun glows intensely and casts warm light inside the head. A thin beam of cold blue light enters the eye from the right side, coming from a small glowing smartphone. Cinematic lighting, volumetric glow, subtle film grain, high contrast: deep navy, electric blue lines, one warm golden accent. Fewer objects, more empty space, minimal composition. The head is on the right half of the image.
+On the left half, a large bold headline in Turkish, in a heavy geometric sans-serif font (like Inter Display ExtraBold or Montserrat Black), all caps, left-aligned, on two lines, exact spelling:
+"NEDEN"
+"UYUYAMIYORSUN?"
+"NEDEN" in cream white (#F3EDE1), very large; "UYUYAMIYORSUN?" in bright electric blue (#5AA9FF) with a soft blue glow, slightly smaller so that it fits on one line. Perfectly sharp and legible, correct Turkish characters (dotless I in "UYUYAMIYORSUN").
+Below the headline, a small digital alarm-clock display showing "01:47" in glowing red digits on a black rounded rectangle.
+Bottom-left corner: a small rounded dark semi-transparent label with the text "YUP AKADEMİ" in small white spaced capital letters and a tiny glowing golden dot before it.
+Keep the bottom-right corner empty. No other text, no watermark.
+
+────────────────────────────────────────
+PROMPT 3 · Yarısı gündüz, yarısı gece
+────────────────────────────────────────
+YouTube thumbnail, 16:9, 1280x720. Flat vector illustration, split composition. The left half is a bright sunny morning outdoors: golden sunlight, blue sky, a person walking on a street with a coffee in hand. The right half is a dark bedroom at night: the same person in bed, face lit by the cold blue glow of a phone. In both halves the face is clearly visible and expressive; at night the eyes are wide open with a tired, restless expression. The two halves blend softly in the middle through a gradient from warm gold to deep navy. Cinematic lighting, volumetric glow, subtle film grain, soft gradients, clean shapes. Fewer objects, more empty space, minimal composition. A dark navy band across the top of the image.
+In the top band, a large bold headline in Turkish, in a heavy geometric sans-serif font (like Inter Display ExtraBold or Montserrat Black), all caps, centered, on one line, exact spelling:
+"GÜNDÜZ KARANLIK, GECE AYDINLIK"
+"GÜNDÜZ KARANLIK," in warm golden yellow (#FFC24D) above the sunny half; "GECE AYDINLIK" in electric blue (#5AA9FF) above the night half; both with a soft glow. Perfectly sharp and legible, correct Turkish characters (Ü with two dots, dotless I in "KARANLIK" and "AYDINLIK").
+Bottom-left corner: a small rounded dark semi-transparent label with the text "YUP AKADEMİ" in small white spaced capital letters and a tiny glowing golden dot before it.
+Keep the bottom-right corner empty. No other text, no watermark.

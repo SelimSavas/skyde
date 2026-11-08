@@ -1,0 +1,9 @@
+YUP Akademi · Tabağındaki Bilim kısa · Kestane ateşte neden patlar? · seslendirme metni (6 satır, 71 kelime)
+(Enerjik ve hızlı; ilk cümle güçlü ve net, "patlar" sözünde vurgu. Köşeli parantezdeki kimlikler okunmaz.)
+
+  [c-hook]  Ateşteki kestane, küçük bir buhar bombasıdır.
+  [c-water]  İçinin neredeyse yarısı su. Isınınca bu su buhara dönüşür ve hacmi bin yedi yüz kat büyür.
+  [c-press]  Sert kabuk buharı içeride tutar. Basınç yükselir, yükselir… ve kabuk dayanamayıp patlar.
+  [c-cross]  Kabuğa çizdiğin çarpı, buhara bir çıkış kapısı açar. Kestane patlamaz, kabuğu da kolay soyulur.
+  [c-starch]  Bir de sürpriz: Kestane cevize değil, patatese benzer. Yağı az, nişastası çok.
+  [c-cta]  Mutfakta hangi sırrı merak ediyorsun? Yorumlara yaz, sıradaki video o olsun.
