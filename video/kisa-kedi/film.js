@@ -905,8 +905,9 @@
       // tasmadaki işaretçiden yakınlık halkaları
       const ra = progress(t, kedT - 0.1, kedT + 0.3) * (1 - progress(t, keyT + 0.8, keyT + 1.3));
       if (ra > 0.01) {
+        // çenenin hemen altında küçük künye (yakınlık işaretçisi)
         const nx = cx;
-        const ny = 1860 - 440 * 0.6;
+        const ny = 1860 + walk - 440 * 0.585;
         for (let i = 0; i < 3; i++) {
           const u = ((t * 0.9 + i / 3) % 1);
           ctx.save();
@@ -914,11 +915,24 @@
           ctx.strokeStyle = TEAL;
           ctx.lineWidth = 5;
           ctx.beginPath();
-          ctx.arc(nx, ny, 30 + u * 220, 0, TAU);
+          ctx.arc(nx, ny, 22 + u * 220, 0, TAU);
           ctx.stroke();
           ctx.restore();
         }
-        pic(ctx, 'tasma', nx, ny - 10, 120, { a: ra });
+        ctx.save();
+        ctx.globalAlpha = ra;
+        ctx.fillStyle = '#d9a441';
+        ctx.strokeStyle = INK;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(nx, ny, 11, 0, TAU);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.beginPath();
+        ctx.arc(nx - 3, ny - 4, 3.5, 0, TAU);
+        ctx.fill();
+        ctx.restore();
       }
       finish(ctx, t, { vig: 0.2 });
     });
